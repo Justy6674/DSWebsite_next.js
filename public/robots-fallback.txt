@@ -1,0 +1,137 @@
+# Downscale Weight Loss Clinic - Static Fallback Robots.txt
+# Generated as emergency fallback - February 1, 2025
+
+User-agent: *
+Allow: /
+
+# Block administrative and sensitive areas
+Disallow: /admin/
+Disallow: /blog-admin
+Disallow: /api/
+Disallow: /cart/
+Disallow: /account/
+Disallow: /customer_authentication/
+Disallow: /search/suggest
+Disallow: /private/
+Disallow: /tmp/
+
+# Block specific query parameters
+Disallow: /*?utm_*
+Disallow: /*?ref=*
+Disallow: /*?source=*
+Disallow: /*?campaign=*
+Disallow: /*?gclid=*
+Disallow: /*?fbclid=*
+
+# Block URL fragments
+Disallow: /*#*
+
+# Explicit Allow rules for critical pages
+Allow: /admin/login
+Allow: /services
+Allow: /about
+Allow: /pricing
+Allow: /blog
+Allow: /blog/*?blogcategory=*
+Allow: /faq
+Allow: /tools
+Allow: /calculator
+Allow: /how-it-works
+Allow: /medical-weight-management
+Allow: /nutrition-meal-planning
+Allow: /sleep-recovery-optimisation
+Allow: /movement-activity-programs
+Allow: /mental-health-support
+Allow: /goal-setting-maintenance
+Allow: /medicare
+Allow: /weight-loss-clinic-*
+
+# Legal pages
+Allow: /privacy
+Allow: /terms
+Allow: /complaints
+Allow: /data-deletion
+
+# Major search engines - optimized settings
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0.5
+
+# Social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 0
+
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 0
+
+# AI crawlers - OPTIMIZED for AI visibility
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
+
+User-agent: CCBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
+
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots completely
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: SerpstatBot
+Disallow: /
+
+User-agent: MauiBot
+Disallow: /
+
+# SITEMAPS - Main domain only for efficient crawling
+Sitemap: https://www.downscale.com.au/sitemap-index.xml

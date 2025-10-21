@@ -1,0 +1,117 @@
+/**
+ * Portal Theme Tokens - Healthcare focused design system
+ * These tokens are specifically for portal and admin interfaces
+ */
+
+:root {
+  /* Background Colors */
+  --ds-bg: #FAF9F7;
+  --ds-surface: #FFFFFF;
+  
+  /* Text Colors */
+  --ds-ink: #1E1E1E;
+  --ds-muted: #6B7280;
+  
+  /* Brand Colors - Brown/Cream theme */
+  --ds-brand: #b68a71;
+  --ds-brand-2: #f5deb3;
+  
+  /* Status Colors */
+  --ds-warn: #B54708;
+  --ds-danger: #B91C1C;
+  --ds-ok: #b68a71;
+  
+  /* Interactive Elements */
+  --ds-ring: rgba(182, 138, 113, 0.15);
+  --ds-radius: 16px;
+  --ds-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  
+  /* Portal-specific tokens */
+  --ds-portal-header: var(--ds-brand);
+  --ds-portal-nav: var(--ds-surface);
+  --ds-portal-accent: var(--ds-brand-2);
+  
+  /* Admin-specific tokens */
+  --ds-admin-header: #1F2937;
+  --ds-admin-nav: #374151;
+  --ds-admin-accent: #3B82F6;
+}
+
+/* Portal-specific component styles */
+.portal-layout {
+  background-color: var(--ds-bg);
+  color: var(--ds-ink);
+}
+
+.portal-header {
+  background-color: var(--ds-portal-header);
+  color: white;
+  box-shadow: var(--ds-shadow);
+}
+
+.portal-nav {
+  background-color: var(--ds-portal-nav);
+  border-radius: var(--ds-radius);
+}
+
+.portal-card {
+  background-color: var(--ds-surface);
+  border-radius: var(--ds-radius);
+  box-shadow: var(--ds-shadow);
+}
+
+/* Admin-specific component styles */
+.admin-layout {
+  background-color: var(--ds-bg);
+  color: var(--ds-ink);
+}
+
+.admin-header {
+  background-color: var(--ds-admin-header);
+  color: white;
+}
+
+.admin-nav {
+  background-color: var(--ds-admin-nav);
+  color: white;
+}
+
+.admin-card {
+  background-color: var(--ds-surface);
+  border-radius: var(--ds-radius);
+  box-shadow: var(--ds-shadow);
+}
+
+/* Status indicators */
+.status-ok {
+  color: var(--ds-ok);
+}
+
+.status-warn {
+  color: var(--ds-warn);
+}
+
+.status-danger {
+  color: var(--ds-danger);
+}
+
+/* Interactive elements */
+.ds-button {
+  border-radius: var(--ds-radius);
+  box-shadow: var(--ds-shadow);
+  transition: all 0.2s ease;
+}
+
+.ds-button:focus {
+  box-shadow: 0 0 0 3px var(--ds-ring);
+}
+
+.ds-input {
+  border-radius: calc(var(--ds-radius) / 2);
+  border: 1px solid var(--ds-muted);
+}
+
+.ds-input:focus {
+  border-color: var(--ds-brand);
+  box-shadow: 0 0 0 3px var(--ds-ring);
+}

@@ -1,0 +1,13 @@
+Crawlability Test Report
+=======================
+Date: Fri Sep 12 09:58:12 UTC 2025
+Site: https://downscale.com.au
+
+Test Results:
+- Total Tests: 19
+- Passed: 12
+- Failed: 7
+
+Recommendations:
+✗ Fix failed tests before submitting to Google
+✗ Review error messages above

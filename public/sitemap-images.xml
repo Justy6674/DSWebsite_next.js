@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.downscale.com.au/</loc>
+    <lastmod>2025-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/og-image.jpg</image:loc>
+      <image:title>Downscale Weight Loss Clinic - Medical Weight Loss Clinics Australia</image:title>
+      <image:caption>Professional medical weight management services across Australia</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/lovable-uploads/32a049cc-72de-47b5-a542-d19255f97a4e.png</image:loc>
+      <image:title>Downscale Weight Loss Clinic Logo</image:title>
+      <image:caption>Official logo for Downscale Weight Loss Clinic medical weight loss clinics</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/medical-weight-management</loc>
+    <lastmod>2025-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/medical-treatment.png</image:loc>
+      <image:title>Medical Weight Management Treatment</image:title>
+      <image:caption>Professional medical consultation for weight management</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/faq</loc>
+    <lastmod>2025-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/og-faq.jpg</image:loc>
+      <image:title>Frequently Asked Questions - Downscale Weight Loss Clinic</image:title>
+      <image:caption>Common questions about medical weight loss treatments</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/tools</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/og-tools.jpg</image:loc>
+      <image:title>Weight Loss Tools and Calculator</image:title>
+      <image:caption>BMI calculator and weight loss planning tools</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/weight-loss-clinic-sydney</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/public/hero-family-sunset.png</image:loc>
+      <image:title>Weight Loss Clinic Sydney - Medical Weight Management</image:title>
+      <image:caption>Professional telehealth weight loss services in Sydney</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/weight-loss-clinic-melbourne</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/public/hero-family-sunset.png</image:loc>
+      <image:title>Weight Loss Clinic Melbourne - Medical Weight Management</image:title>
+      <image:caption>Professional telehealth weight loss services in Melbourne</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/weight-loss-clinic-brisbane</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/public/hero-family-sunset.png</image:loc>
+      <image:title>Weight Loss Clinic Brisbane - Medical Weight Management</image:title>
+      <image:caption>Professional telehealth weight loss services in Brisbane</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/weight-loss-clinic-perth</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/public/hero-family-sunset.png</image:loc>
+      <image:title>Weight Loss Clinic Perth - Medical Weight Management</image:title>
+      <image:caption>Professional telehealth weight loss services in Perth</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.downscale.com.au/weight-loss-clinic-adelaide</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.downscale.com.au/public/hero-family-sunset.png</image:loc>
+      <image:title>Weight Loss Clinic Adelaide - Medical Weight Management</image:title>
+      <image:caption>Professional telehealth weight loss services in Adelaide</image:caption>
+    </image:image>
+  </url>
+</urlset>

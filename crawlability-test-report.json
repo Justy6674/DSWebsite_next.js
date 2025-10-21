@@ -1,0 +1,96 @@
+{
+  "timestamp": "2025-09-19T05:52:27.349Z",
+  "localTests": {
+    "robots.txt": {
+      "exists": true,
+      "size": 2337,
+      "valid": true,
+      "details": {
+        "userAgent": true,
+        "sitemap": true,
+        "australianOptimization": false
+      }
+    },
+    "sitemap.xml": {
+      "exists": true,
+      "size": 11545,
+      "valid": true,
+      "details": {
+        "validXML": true,
+        "urlCount": 62
+      }
+    },
+    "sitemap-index.xml": {
+      "exists": true,
+      "size": 603,
+      "valid": true,
+      "details": {
+        "validXML": true,
+        "urlCount": 4
+      }
+    },
+    "sitemap-locations.xml": {
+      "exists": true,
+      "size": 2568,
+      "valid": true,
+      "details": {
+        "validXML": true,
+        "urlCount": 13
+      }
+    },
+    "sitemap-images.xml": {
+      "exists": true,
+      "size": 2326,
+      "valid": true,
+      "details": {
+        "validXML": true,
+        "urlCount": 4
+      }
+    },
+    "google8f3a5b2c1d9e7f4a.html": {
+      "exists": true,
+      "size": 53,
+      "valid": true,
+      "details": {
+        "hasVerification": true
+      }
+    }
+  },
+  "remoteTests": {
+    "robots.txt": {
+      "success": false,
+      "error": "fetch failed",
+      "status": 0
+    },
+    "sitemap.xml": {
+      "success": false,
+      "error": "fetch failed",
+      "status": 0
+    },
+    "sitemap-index.xml": {
+      "success": false,
+      "error": "fetch failed",
+      "status": 0
+    },
+    "homepage": {
+      "success": false,
+      "error": "fetch failed",
+      "status": 0
+    },
+    "blog": {
+      "success": false,
+      "error": "fetch failed",
+      "status": 0
+    },
+    "about": {
+      "success": false,
+      "error": "fetch failed",
+      "status": 0
+    }
+  },
+  "overallScore": 100,
+  "recommendations": [
+    "Remote testing failed due to network connectivity - local files validated successfully",
+    "Excellent crawlability score - continue current practices"
+  ]
+}

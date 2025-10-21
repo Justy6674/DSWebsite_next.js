@@ -1,0 +1,151 @@
+{
+  "timestamp": "2025-09-12T09:46:30.414Z",
+  "summary": {
+    "overallHealth": 0,
+    "criticalHealth": 0,
+    "totalEndpoints": 8,
+    "successfulEndpoints": 0,
+    "failedEndpoints": 8,
+    "avgResponseTime": null
+  },
+  "endpoints": [
+    {
+      "url": "https://www.downscale.com.au/robots.txt",
+      "type": "robots",
+      "critical": true,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.384Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap.xml",
+      "type": "sitemap",
+      "critical": true,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.389Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap-index.xml",
+      "type": "sitemap",
+      "critical": true,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.392Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap-blog.xml",
+      "type": "sitemap",
+      "critical": false,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.396Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap-locations.xml",
+      "type": "sitemap",
+      "critical": true,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.400Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    },
+    {
+      "url": "https://www.downscale.com.au/google8f3a5b2c1d9e7f4a.html",
+      "type": "verification",
+      "critical": true,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.405Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    },
+    {
+      "url": "https://www.downscale.com.au/",
+      "type": "homepage",
+      "critical": true,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.408Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    },
+    {
+      "url": "https://www.downscale.com.au/blog",
+      "type": "blog",
+      "critical": true,
+      "status": 0,
+      "responseTime": null,
+      "timestamp": "2025-09-12T09:46:30.413Z",
+      "success": false,
+      "error": "fetch failed",
+      "valid": false
+    }
+  ],
+  "alerts": [
+    {
+      "url": "https://www.downscale.com.au/robots.txt",
+      "type": "robots",
+      "critical": true,
+      "issue": "fetch failed"
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap.xml",
+      "type": "sitemap",
+      "critical": true,
+      "issue": "fetch failed"
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap-index.xml",
+      "type": "sitemap",
+      "critical": true,
+      "issue": "fetch failed"
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap-blog.xml",
+      "type": "sitemap",
+      "critical": false,
+      "issue": "fetch failed"
+    },
+    {
+      "url": "https://www.downscale.com.au/sitemap-locations.xml",
+      "type": "sitemap",
+      "critical": true,
+      "issue": "fetch failed"
+    },
+    {
+      "url": "https://www.downscale.com.au/google8f3a5b2c1d9e7f4a.html",
+      "type": "verification",
+      "critical": true,
+      "issue": "fetch failed"
+    },
+    {
+      "url": "https://www.downscale.com.au/",
+      "type": "homepage",
+      "critical": true,
+      "issue": "fetch failed"
+    },
+    {
+      "url": "https://www.downscale.com.au/blog",
+      "type": "blog",
+      "critical": true,
+      "issue": "fetch failed"
+    }
+  ]
+}

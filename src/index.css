@@ -1,0 +1,546 @@
+/* Import portal theme tokens */
+@import './styles/theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Downscale Health Design System - Clinical Dark Theme */
+
+@layer base {
+  :root {
+    /* Main backgrounds and surfaces */
+    --background: 215 28% 19%; /* Slate #334155 */
+    --foreground: 45 68% 90%; /* Cream text */
+    
+    --card: 215 25% 25%; /* Slightly lighter slate for cards */
+    --card-foreground: 45 68% 90%;
+    
+    --popover: 215 25% 25%;
+    --popover-foreground: 45 68% 90%;
+    
+    /* Brand colors - Sandy cream theme */
+    --primary: 42 87% 75%; /* Sandy cream #f5deb3 */
+    --primary-foreground: 215 28% 19%;
+    
+    --secondary: 20 22% 58%; /* Brown #b68a71 */
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 215 15% 35%; /* Muted slate */
+    --muted-foreground: 45 25% 75%;
+    
+    /* Accent colors - Sandy cream */
+    --accent: 42 87% 75%; /* Sandy cream #f5deb3 */
+    --accent-foreground: 215 28% 19%;
+    
+    --blush: 15 48% 85%; /* Blush #eecfc7 */
+    --blush-foreground: 215 28% 19%;
+    
+    /* Status colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 45 93% 47%;
+    --warning-foreground: 215 28% 19%;
+    
+    /* UI elements */
+    --border: 215 20% 30%;
+    --input: 215 20% 30%;
+    --ring: 42 87% 75%; /* Sandy cream ring */
+    
+    /* Medical card colors */
+    --medical-urgent: 4 90% 58%; /* Red */
+    --medical-wellness: 142 69% 58%; /* Green */
+    --medical-specialty: 271 81% 56%; /* Purple */
+    --medical-general: 195 100% 50%; /* Cyan */
+    
+    /* Enhanced accessibility colors for better contrast */
+    --text-high-contrast: 45 68% 95%; /* Higher contrast cream for important text */
+    --background-overlay-dark: 215 28% 10%; /* Darker overlay for backgrounds */
+    --background-overlay-medium: 215 28% 15%; /* Medium overlay for backgrounds */
+    
+    /* Downscale Healthcare Brand Colors */
+    --downscale-cream-light: 45 52% 83%;    /* #f7f2d3 */
+    --downscale-cream: 42 55% 80%;          /* #f5deb3 */
+    --downscale-brown: 25 25% 58%;          /* #b68a71 */
+    --downscale-slate: 215 25% 27%;         /* #334155 */
+    --downscale-slate-light: 215 20% 65%;   /* #94a3b8 */
+    --downscale-gray: 215 16% 47%;          /* #64748b */
+    --downscale-green: 165 100% 22%;        /* #0B6E4F - Clinical Success */
+    --downscale-blue: 189 85% 35%;          /* #1B9AAA - Ocean Blue */
+    --downscale-urgent: 0 78% 37%;          /* #B91C1C - Emergency Red */
+    --downscale-purple: 269 78% 40%;        /* #6B21A8 - Premium Purple */
+    
+    /* Healthcare-specific semantic colors */
+    --medicare-bulk-bill: var(--downscale-green);
+    --private-billing: var(--downscale-blue);
+    --telehealth: var(--downscale-purple);
+    --in-person: var(--downscale-brown);
+    --prescription: var(--downscale-green);
+    --urgent-attention: var(--downscale-urgent);
+    
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Global heading standardization - NO TEXT SHADOWS */
+  h1, h2, h3 {
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+  h1 { font-size: clamp(2rem, 6vw, 4rem); }
+  h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  h3 { font-size: clamp(1.25rem, 3vw, 2rem); }
+}
+
+@layer utilities {
+  /* Mobile hover fix - disable hover effects on touch devices */
+  @media (hover: none) {
+    .hover\:scale-105:hover,
+    .hover\:scale-110:hover,
+    .group:hover .group-hover\:scale-105,
+    .group:hover .group-hover\:scale-110,
+    .md\:hover\:scale-105:hover,
+    .md\:hover\:scale-110:hover {
+      transform: none !important;
+    }
+    
+    /* Disable all transform-based hover effects */
+    *:hover {
+      transform: none !important;
+    }
+  }
+
+  /* Section dividers using brand brown */
+  .section-divider {
+    @apply relative before:absolute before:top-0 before:left-0 before:right-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-secondary/30 before:to-transparent;
+  }
+  
+  .section-divider-bottom {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-secondary/30 after:to-transparent;
+  }
+
+  /* Enhanced accessibility and SEO utilities */
+  .text-high-contrast {
+    color: hsl(var(--text-high-contrast));
+  }
+  
+  .bg-overlay-dark {
+    background-color: hsl(var(--background-overlay-dark));
+  }
+  
+  .bg-overlay-medium {
+    background-color: hsl(var(--background-overlay-medium));
+  }
+  
+  /* Improved gradient backgrounds for better readability */
+  .bg-gradient-readable {
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%, 
+      hsl(var(--background-overlay-medium)) 50%, 
+      hsl(var(--background)) 100%);
+  }
+  
+  /* Australian Ocean Theme Design System */
+  .bg-gradient-hero {
+    background: linear-gradient(135deg, 
+      rgba(0, 119, 190, 0.8) 0%,     /* Deep ocean blue */
+      rgba(0, 162, 216, 0.7) 35%,    /* Turquoise */
+      rgba(72, 187, 120, 0.6) 70%,   /* Reef green */
+      rgba(16, 185, 129, 0.5) 100%   /* Aqua */
+    );
+  }
+
+  .bg-gradient-australian {
+    background: linear-gradient(45deg,
+      rgba(220, 38, 127, 0.1) 0%,    /* Coral pink */
+      rgba(59, 130, 246, 0.1) 50%,   /* Ocean blue */
+      rgba(34, 197, 94, 0.1) 100%    /* Reef green */
+    );
+  }
+
+  .bg-gradient-desert-ocean {
+    background: linear-gradient(to right,
+      rgba(153, 27, 27, 0.15) 0%,    /* Red desert */
+      rgba(251, 191, 36, 0.1) 25%,   /* Golden sand */
+      rgba(59, 130, 246, 0.1) 75%,   /* Ocean blue */
+      rgba(34, 197, 94, 0.1) 100%    /* Aqua green */
+    );
+  }
+
+  /* Hero Text Styling - Australian Ocean Theme */
+  .hero-text-australian {
+    color: #ffffff;
+    text-shadow: 
+      2px 2px 4px rgba(0,0,0,0.8),
+      0 0 20px rgba(0,0,0,0.4),
+      1px 1px 0px rgba(0, 119, 190, 0.3);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .mobile-hero-heading {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
+    color: #ffffff;
+    text-shadow: 
+      2px 2px 4px rgba(0,0,0,0.9),
+      0 0 25px rgba(0,0,0,0.5),
+      1px 1px 0px rgba(0, 119, 190, 0.4);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  .section-heading-ocean {
+    color: #0077be;
+    text-shadow: 
+      1px 1px 2px rgba(0,0,0,0.1),
+      0 0 10px rgba(0, 119, 190, 0.2);
+    font-weight: 700;
+  }
+
+  /* Dynamic Section Backgrounds */
+  .section-ocean-primary {
+    background: linear-gradient(135deg,
+      rgba(0, 119, 190, 0.05) 0%,
+      rgba(34, 197, 94, 0.05) 100%
+    );
+    border-top: 3px solid rgba(0, 119, 190, 0.1);
+  }
+
+  .section-reef-secondary {
+    background: linear-gradient(45deg,
+      rgba(72, 187, 120, 0.03) 0%,
+      rgba(59, 130, 246, 0.03) 100%
+    );
+    border-top: 3px solid rgba(72, 187, 120, 0.1);
+  }
+
+  .section-coral-accent {
+    background: linear-gradient(to right,
+      rgba(220, 38, 127, 0.02) 0%,
+      rgba(251, 191, 36, 0.03) 100%
+    );
+    border-top: 3px solid rgba(220, 38, 127, 0.1);
+  }
+
+  .section-desert-warm {
+    background: linear-gradient(135deg,
+      rgba(153, 27, 27, 0.03) 0%,
+      rgba(251, 191, 36, 0.04) 100%
+    );
+    border-top: 3px solid rgba(153, 27, 27, 0.1);
+  }
+
+  /* Button Enhancements - Clinic Cream & Brown Theme */
+  .button-ocean-primary {
+    background: linear-gradient(135deg, #f5deb3 0%, #f7e7c5 100%);
+    box-shadow: 0 4px 15px rgba(245, 222, 179, 0.4);
+    border: 2px solid rgba(182, 138, 113, 0.4);
+    color: #334155;
+    font-weight: 700;
+  }
+
+  .button-ocean-primary:hover {
+    background: linear-gradient(135deg, #f7e7c5 0%, #faf0d9 100%);
+    box-shadow: 0 6px 20px rgba(245, 222, 179, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .button-reef-secondary {
+    background: linear-gradient(135deg, #b68a71 0%, #a87d64 100%);
+    box-shadow: 0 4px 15px rgba(182, 138, 113, 0.4);
+    border: 2px solid rgba(245, 222, 179, 0.3);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .button-reef-secondary:hover {
+    background: linear-gradient(135deg, #a87d64 0%, #9a7058 100%);
+    box-shadow: 0 6px 20px rgba(182, 138, 113, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .button-coral-accent {
+    background: linear-gradient(135deg, #8b6f5c 0%, #6d5647 100%);
+    box-shadow: 0 4px 15px rgba(139, 111, 92, 0.4);
+    border: 2px solid rgba(245, 222, 179, 0.3);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .button-coral-accent:hover {
+    background: linear-gradient(135deg, #6d5647 0%, #5a4739 100%);
+    box-shadow: 0 6px 20px rgba(139, 111, 92, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  /* Touch Target Definition - Enhanced for Australian accessibility standards */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] sm:min-h-[48px] sm:min-w-[48px];
+  }
+  
+  /* Mobile-first container system */
+  .mobile-container {
+    @apply px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12;
+  }
+  
+  .mobile-section {
+    @apply py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20;
+  }
+  
+  .mobile-grid {
+    @apply grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4;
+  }
+  
+  .mobile-flex {
+    @apply flex flex-col gap-3 sm:flex-row sm:gap-4 lg:gap-6;
+  }
+  
+  .mobile-card {
+    @apply bg-card border border-border rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
+  }
+  
+  .mobile-card-spacing {
+    @apply p-3 sm:p-4 md:p-6 lg:p-8;
+  }
+  
+  .mobile-button {
+    @apply min-h-[44px] sm:min-h-[48px] px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-medium touch-target rounded-lg transition-all duration-300;
+  }
+  
+  .mobile-input {
+    @apply min-h-[44px] sm:min-h-[48px] px-3 sm:px-4 text-sm sm:text-base rounded-lg border-2 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all;
+  }
+  
+  .mobile-nav-item {
+    @apply block py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base font-medium rounded-lg transition-all duration-200 active:bg-primary/10 touch-target;
+  }
+  
+  .mobile-form-field {
+    @apply touch-target text-sm sm:text-base w-full;
+  }
+
+  /* Enhanced mobile image optimisation */
+  .mobile-image {
+    @apply w-full h-auto object-cover rounded-lg;
+  }
+  
+  .mobile-image-hero {
+    @apply w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh] object-cover;
+  }
+  
+  .mobile-image-card {
+    @apply w-full h-32 sm:h-40 md:h-48 object-cover rounded-t-lg;
+  }
+  
+  .mobile-logo {
+    @apply h-6 w-6 sm:h-8 sm:w-8 object-contain;
+  }
+  
+  .mobile-avatar {
+    @apply w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full object-cover;
+  }
+
+  @keyframes gentle-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+  
+  /* Enhanced animations for mobile */
+  @keyframes mobile-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes mobile-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate-mobile-slide-up {
+    animation: mobile-slide-up 0.6s ease-out;
+  }
+  
+  .animate-mobile-fade-in {
+    animation: mobile-fade-in 0.4s ease-out;
+  }
+
+  /* Global beach heading + pill utilities - Sandy cream like beach image */
+  .heading-beach {
+    color: #f5deb3; /* Sandy cream */
+    text-shadow:
+      2px 2px 4px rgba(0,0,0,0.8),
+      0 0 24px rgba(0,0,0,0.4),
+      1px 1px 0px rgba(245, 222, 179, 0.3);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  .subheading-beach {
+    color: #f5deb3; /* Sandy cream for subheadings too */
+    text-shadow:
+      1px 1px 3px rgba(0,0,0,0.7);
+  }
+
+  .pill-beach {
+    @apply inline-block rounded-full text-sm font-medium;
+    background-color: rgba(245, 222, 179, 0.15); /* Sandy cream background */
+    color: #f5deb3; /* Sandy cream text */
+    border: 1px solid rgba(245, 222, 179, 0.3);
+    padding: 0.25rem 0.75rem;
+  }
+}
+
+/* Custom gentle animations for chatbot */
+@keyframes gentle-breathe {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+/* Hide scrollbars for horizontal scroll */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes gentle-glow {
+  0%, 100% { 
+    opacity: 0.1;
+    transform: scale(0.9);
+  }
+  50% { 
+    opacity: 0.3;
+    transform: scale(1.1);
+  }
+}
+
+/* Clean image rendering - no filters or dulling */
+picture img, img {
+  animation: none !important;
+  /* Removed global opacity transition that caused logo flickering */
+}
+
+/* Disable problematic animations but keep smooth loading transitions */
+.animate-fade-in,
+.animate-mobile-fade-in,
+.animate-mobile-slide-up,
+.animate-pulse,
+.md\:animate-fade-in,
+.md\:animate-pulse {
+  animation: none !important;
+}
+
+/* Enhanced accessibility and SEO optimizations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Force high contrast for accessibility */
+@media (prefers-contrast: high) {
+  :root {
+    --background: 215 28% 10%; /* Even darker for high contrast */
+    --foreground: 45 68% 95%; /* Brighter text for high contrast */
+    --card: 215 25% 15%; /* Darker cards for high contrast */
+  }
+}
+
+/* Ensure text remains readable in dark mode */
+.text-shadow-strong {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Override browser dark mode detection issues */
+body {
+  color-scheme: dark;
+}

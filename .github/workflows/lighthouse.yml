@@ -1,0 +1,60 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: 'Site URL to audit'
+        required: false
+        default: 'https://www.downscale.com.au'
+
+jobs:
+  lhci:
+    if: github.ref == 'refs/heads/main'
+    name: Lighthouse CI Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci || npm install
+
+      - name: Run Lighthouse CI
+        run: npm run lhci
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Lighthouse results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-results
+          path: .lighthouseci/
+          retention-days: 30
+
+      - name: Generate summary
+        if: always()
+        run: |
+          echo "## Lighthouse CI Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Lighthouse audit completed for Downscale Weight Loss Clinic website" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Key Metrics Checked:" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚡ Performance (Target: 80+)" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔍 SEO (Target: 90+)" >> $GITHUB_STEP_SUMMARY
+          echo "- ♿ Accessibility (Target: 90+)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Best Practices (Target: 85+)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "View detailed results in the uploaded artifacts." >> $GITHUB_STEP_SUMMARY

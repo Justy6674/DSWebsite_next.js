@@ -1,0 +1,47 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/blog/:slug*",
+      "destination": "https://pooebqhsshfafkhvccrl.supabase.co/functions/v1/blog-ssr?slug=:slug*"
+    },
+    {
+      "source": "/sitemap-blog.xml",
+      "destination": "https://pooebqhsshfafkhvccrl.supabase.co/functions/v1/generate-blog-sitemap"
+    },
+    {
+      "source": "/blog/rss.xml",
+      "destination": "https://pooebqhsshfafkhvccrl.supabase.co/functions/v1/blog-rss"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap-blog.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=3600, stale-while-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/blog/rss.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/rss+xml"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=3600, stale-while-revalidate"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "locked": true,
+  "protectedFiles": [
+    "src/pages/HomePage.tsx",
+    "src/App.tsx",
+    "vercel.json",
+    "vite.config.ts"
+  ],
+  "homepage": {
+    "component": "HomePage",
+    "route": "/",
+    "title": "Affordable Weight Loss Clinic | $45 Consultations | Holistic Whole-Person Care Australia"
+  },
+  "deployment": {
+    "preventAutoRevert": true,
+    "requireManualApproval": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "note": "Emergency fallback configuration for Supabase function failures",
+  "rewrites_original": "Supabase functions",
+  "rewrites_fallback": "Static files",
+  "timestamp": "2025-02-01T09:43:34.449Z"
+}

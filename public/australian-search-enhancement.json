@@ -1,0 +1,55 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Downscale Weight Loss & Weight Maintenance Clinic",
+  "alternateName": "Professional Telehealth Weight Loss Clinic",
+  "url": "https://www.downscale.com.au",
+  "logo": "https://www.downscale.com.au/og-image.jpg",
+  "description": "Affordable, holistic telehealth weight loss clinic. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Serving all Australian states and territories with kind, evidence-based treatment.",
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "Australia",
+      "sameAs": "https://en.wikipedia.org/wiki/Australia"
+    }
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": -25.2744,
+      "longitude": 133.7751
+    },
+    "geoRadius": "4000000"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    
+    "contactType": "customer service",
+    "areaServed": "AU",
+    "availableLanguage": ["English", "en-AU"]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "AU"
+  },
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "name": "Telehealth Weight Loss Consultation",
+      "description": "Professional weight loss consultation via telehealth",
+      "priceCurrency": "AUD",
+      "price": "0",
+      "availability": "https://schema.org/InStock",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Australia"
+      }
+    }
+  ],
+  "sameAs": [
+    "https://www.downscale.com.au/about",
+    "https://www.downscale.com.au/how-it-works",
+    "https://www.downscale.com.au/medicare"
+  ]
+}
