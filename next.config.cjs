@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Explicitly set distDir to .next to override any cached Vercel settings
+  distDir: '.next',
   experimental: {
     typedRoutes: true,
   },
