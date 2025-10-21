@@ -14,9 +14,7 @@ interface OptimizedImageProps {
   lazy?: boolean
 }
 
-export const OptimizedImage: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   alt,
   className = '',
@@ -25,8 +23,7 @@ export const OptimizedImage: React.FC<{
   quality = 85,
   format = 'png',
   priority = false,
-  lazy = true,
-  children
+  lazy = true
 }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(!lazy)

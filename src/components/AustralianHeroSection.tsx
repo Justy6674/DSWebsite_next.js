@@ -58,13 +58,13 @@ export function AustralianHeroSection({
     <section className="relative pt-16 pb-12 min-h-[75svh] sm:min-h-[80vh] sm:pt-24 sm:pb-20 flex items-center overflow-hidden">
       {/* Australian Background Image */}
       <picture>
-        <source 
-          srcSet={getBackgroundImage()} 
+        <source
+          srcSet={getBackgroundImage().src}
           type="image/jpeg"
           media="(min-width: 768px)"
         />
-        <img 
-          src={getBackgroundImage()}
+        <img
+          src={getBackgroundImage().src}
           alt={getAustralianAltText(imageVariant)}
           className="absolute inset-0 w-full h-full object-cover object-center transform-gpu mobile-image-hero"
           loading="eager"
