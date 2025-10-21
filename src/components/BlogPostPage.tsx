@@ -1,7 +1,7 @@
 'use client';
 
 import Head from "next/head";
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -40,6 +40,7 @@ interface BlogPost {
 export default function BlogPostPage() {
   const { slug } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -57,7 +58,7 @@ export default function BlogPostPage() {
     if (currentPath.includes('/f/') || currentPath.includes('/home/f/')) {
       const cleanSlug = slug;
       if (cleanSlug) {
-        router.push(`/blog/${cleanSlug}`, { replace: true });
+        router.replace(`/blog/${cleanSlug}`);
         return;
       }
     }
@@ -69,7 +70,8 @@ export default function BlogPostPage() {
         setLoading(true);
         
         // Clean and normalize the slug more thoroughly
-        const cleanSlug = slug
+        const slugString = Array.isArray(slug) ? slug[0] : slug;
+        const cleanSlug = slugString
           ?.split('?')[0] // Remove query parameters
           .toLowerCase() // Convert to lowercase
           .replace(/[^a-z0-9\-_]/g, '-') // Replace invalid chars with hyphens

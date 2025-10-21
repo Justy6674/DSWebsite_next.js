@@ -188,7 +188,7 @@ export default function GoalSettingMaintenance() {
           }}
         >
           <img 
-            src={goalSettingHero} 
+            src={goalSettingHero.src} 
             alt="" 
             className="hidden" 
             loading="eager"

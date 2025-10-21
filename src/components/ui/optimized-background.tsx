@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react'
+import { StaticImageData } from 'next/image'
 
 interface OptimizedBackgroundProps {
-  src: string
+  src: string | StaticImageData
   className?: string
   children?: React.ReactNode
   overlay?: string
@@ -11,9 +12,7 @@ interface OptimizedBackgroundProps {
   priority?: boolean
 }
 
-export const OptimizedBackground: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const OptimizedBackground: React.FC<OptimizedBackgroundProps> = ({
   src,
   className = '',
   children,
@@ -28,10 +27,12 @@ export const OptimizedBackground: React.FC<{
     // Check for WebP version first (created by our optimization script)
     const tryWebPFirst = async () => {
       try {
+        // Get string representation of src
+        const srcString = typeof src === 'string' ? src : src.src;
         // Check if WebP version exists
-        const webpSrc = src.replace(/\.(png|jpg|jpeg)$/i, '.webp')
+        const webpSrc = srcString.replace(/\.(png|jpg|jpeg)$/i, '.webp')
         
-        if (webpSrc !== src) {
+        if (webpSrc !== srcString) {
           // Test if WebP version exists
           const img = new Image()
           img.onload = () => {
@@ -40,18 +41,18 @@ export const OptimizedBackground: React.FC<{
           }
           img.onerror = () => {
             // Fallback to original if WebP doesn't exist
-            setOptimizedSrc(src)
+            setOptimizedSrc(srcString)
             setIsLoaded(true)
           }
           img.src = webpSrc
         } else {
           // Not an image we can optimize, use original
-          setOptimizedSrc(src)
+          setOptimizedSrc(srcString)
           setIsLoaded(true)
         }
       } catch {
         // Fallback to original on any error
-        setOptimizedSrc(src)
+        setOptimizedSrc(srcString)
         setIsLoaded(true)
       }
     }
@@ -74,7 +75,7 @@ export const OptimizedBackground: React.FC<{
     }
   }, [optimizedSrc, priority])
 
-  const bg = optimizedSrc || src
+  const bg = optimizedSrc || (typeof src === 'string' ? src : src.src)
   const backgroundStyle = bg ? {
     backgroundImage: `${overlay}, url(${bg})`,
     backgroundSize: 'cover',

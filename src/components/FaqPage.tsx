@@ -177,7 +177,7 @@ export default function FaqPage() {
             }}
           >
             <img 
-              src={faqHero} 
+              src={faqHero.src} 
               alt="" 
               className="hidden" 
               loading="eager"
