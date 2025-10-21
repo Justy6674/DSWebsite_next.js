@@ -437,14 +437,14 @@ export default function Calculator() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${calculatorHero})`,
+            backgroundImage: `url(${calculatorHero.src})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={calculatorHero} 
+            src={calculatorHero.src} 
             alt="" 
             className="hidden" 
             loading="eager"

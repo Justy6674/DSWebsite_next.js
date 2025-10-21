@@ -891,14 +891,14 @@ export default function SleepRecoveryOptimisation() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${sleepHero})`,
+            backgroundImage: `url(${sleepHero.src})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={sleepHero} 
+            src={sleepHero.src} 
             alt="" 
             className="hidden" 
             loading="eager"

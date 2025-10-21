@@ -87,7 +87,7 @@ export default function HowItWorks() {
             }}
           >
             <img 
-              src={howHero} 
+              src={howHero.src} 
               alt="" 
               className="hidden" 
               fetchPriority="high"

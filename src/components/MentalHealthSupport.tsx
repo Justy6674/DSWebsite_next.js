@@ -695,14 +695,14 @@ export default function MentalHealthSupport() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${mentalHealthHero})`,
+            backgroundImage: `url(${mentalHealthHero.src})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={mentalHealthHero} 
+            src={mentalHealthHero.src} 
             alt="" 
             className="hidden" 
             loading="eager"

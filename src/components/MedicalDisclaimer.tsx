@@ -5,7 +5,7 @@ interface MedicalDisclaimerProps {
   compact?: boolean;
 }
 
-export const MedicalDisclaimer: React.FC<{
+export const MedicalDisclaimer: React.FC<MedicalDisclaimerProps & {
   children?: React.ReactNode;
 }> = ({
   compact = false,

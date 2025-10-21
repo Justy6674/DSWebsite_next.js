@@ -52,7 +52,7 @@ export default function LocationsPage() {
         <meta name="description" content="Downscale Weight Loss Clinic serves all Australian states and territories via telehealth. Professional weight loss clinics covering metro, regional and remote areas nationwide." />
         <meta name="keywords" content="weight loss clinic Australia, telehealth weight loss, Australia-wide weight management, all states territories weight loss" />
         <link rel="canonical" href="https://www.downscale.com.au/locations" />
-        <link rel="preload" href={australianOutbackHero} as="image" type="image/jpeg" />
+        <link rel="preload" href={australianOutbackHero.src} as="image" type="image/jpeg" />
         
         <meta property="og:title" content="Weight Loss Clinic Locations Australia-wide | Downscale Weight Loss Clinic" />
         <meta property="og:description" content="Professional weight loss services available across all Australian states and territories via telehealth consultation." />

@@ -4,15 +4,14 @@ import React from 'react';
 
 interface StructuredDataProps {
   data: Record<string, any>;
+  children?: React.ReactNode;
 }
 
 /**
  * JSON-LD Structured Data Component
  * Renders structured data as JSON-LD script tag
  */
-export const StructuredData: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const StructuredData: React.FC<StructuredDataProps> = ({
   data,
   children
 }) => {
@@ -99,11 +98,10 @@ export const WebSiteSchema = () => {
 interface SpeakableSchemaProps {
   mainTopic: string;
   keyFacts: string[];
+  children?: React.ReactNode;
 }
 
-export const SpeakableSchema: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const SpeakableSchema: React.FC<SpeakableSchemaProps> = ({
   mainTopic,
   keyFacts,
   children
@@ -186,11 +184,10 @@ interface FAQSchemaProps {
     question: string;
     answer: string;
   }>;
+  children?: React.ReactNode;
 }
 
-export const FAQPageSchema: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const FAQPageSchema: React.FC<FAQSchemaProps> = ({
   faqs,
   children
 }) => {
@@ -217,11 +214,10 @@ interface ServiceSchemaProps {
   serviceName: string;
   description: string;
   serviceType?: string;
+  children?: React.ReactNode;
 }
 
-export const ServiceSchema: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const ServiceSchema: React.FC<ServiceSchemaProps> = ({
   serviceName,
   description,
   serviceType = "MedicalTherapy",
@@ -261,11 +257,10 @@ interface BreadcrumbItem {
 
 interface BreadcrumbSchemaProps {
   items: BreadcrumbItem[];
+  children?: React.ReactNode;
 }
 
-export const BreadcrumbSchema: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({
   items,
   children
 }) => {
@@ -290,11 +285,10 @@ interface LocalBusinessSchemaProps {
   city: string;
   state: string;
   postalCode?: string;
+  children?: React.ReactNode;
 }
 
-export const LocalBusinessSchema: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const LocalBusinessSchema: React.FC<LocalBusinessSchemaProps> = ({
   city,
   state,
   postalCode,
@@ -347,11 +341,10 @@ interface ArticleSchemaProps {
   category: string;
   tags: string[];
   featuredImage?: string;
+  children?: React.ReactNode;
 }
 
-export const ArticleSchema: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
   title,
   description,
   url,

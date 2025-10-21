@@ -10,9 +10,9 @@ interface ShopifyConfig {
 }
 
 const getShopifyConfig = (): ShopifyConfig => {
-  const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
-  const apiKey = process.env.SHOPIFY_API_KEY || import.meta.env.VITE_SHOPIFY_API_KEY;
-  const secret = process.env.SHOPIFY_SECRET || import.meta.env.VITE_SHOPIFY_SECRET;
+  const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
+  const apiKey = process.env.SHOPIFY_API_KEY || process.env.NEXT_PUBLIC_SHOPIFY_API_KEY;
+  const secret = process.env.SHOPIFY_SECRET || process.env.NEXT_PUBLIC_SHOPIFY_SECRET;
   
   if (!storeDomain || !apiKey || !secret) {
     throw new Error('Missing Shopify configuration');

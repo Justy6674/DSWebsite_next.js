@@ -11,8 +11,8 @@ interface EvermedConfig {
 }
 
 const getEvermedConfig = (): EvermedConfig => {
-  const baseUrl = process.env.EVERMED_BASE_URL || import.meta.env.VITE_EVERMED_BASE_URL;
-  const apiKey = process.env.EVERMED_API_KEY || import.meta.env.VITE_EVERMED_API_KEY;
+  const baseUrl = process.env.EVERMED_BASE_URL || process.env.NEXT_PUBLIC_EVERMED_BASE_URL;
+  const apiKey = process.env.EVERMED_API_KEY || process.env.NEXT_PUBLIC_EVERMED_API_KEY;
   
   if (!baseUrl || !apiKey) {
     throw new Error('Missing Evermed configuration');

@@ -26,12 +26,13 @@ export const OptimizedBackground: React.FC<OptimizedBackgroundProps> = ({
   useEffect(() => {
     // Check for WebP version first (created by our optimization script)
     const tryWebPFirst = async () => {
+      // Get string representation of src
+      const srcString = typeof src === 'string' ? src : src.src;
+
       try {
-        // Get string representation of src
-        const srcString = typeof src === 'string' ? src : src.src;
         // Check if WebP version exists
         const webpSrc = srcString.replace(/\.(png|jpg|jpeg)$/i, '.webp')
-        
+
         if (webpSrc !== srcString) {
           // Test if WebP version exists
           const img = new Image()

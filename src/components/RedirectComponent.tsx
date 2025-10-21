@@ -16,12 +16,13 @@ export const RedirectComponent = ({ to }: RedirectComponentProps) => {
     let destination = to;
     Object.entries(params).forEach(([key, value]) => {
       if (value) {
-        destination = destination.replace(`:${key}`, value);
+        const stringValue = Array.isArray(value) ? value[0] : value;
+        destination = destination.replace(`:${key}`, stringValue);
       }
     });
     
     // Use replace to avoid adding to history
-    router.push(destination, { replace: true });
+    router.replace(destination);
   }, [params, router, to]);
 
   return null; // This component doesn't render anything

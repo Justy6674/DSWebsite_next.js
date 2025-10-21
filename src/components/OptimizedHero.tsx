@@ -9,13 +9,13 @@ export function OptimizedHero() {
     <section className="relative pt-16 pb-12 min-h-[75svh] sm:min-h-[80vh] sm:pt-24 sm:pb-20 flex items-center overflow-hidden">
       {/* Australian Beach Hero Background */}
       <picture>
-        <source 
-          srcSet={australianBeachHero} 
+        <source
+          srcSet={australianBeachHero.src}
           type="image/jpeg"
           media="(min-width: 768px)"
         />
         <img 
-          src={australianBeachHero}
+          src={australianBeachHero.src}
           alt="Pristine Australian beach with crystal-clear turquoise ocean waters and white sand - weight loss clinic inspiration"
           className="absolute inset-0 w-full h-full object-cover object-center transform-gpu mobile-image-hero"
           loading="eager"

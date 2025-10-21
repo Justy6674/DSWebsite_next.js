@@ -9,8 +9,8 @@ interface HalaxyConfig {
 }
 
 const getHalaxyConfig = (): HalaxyConfig => {
-  const baseUrl = process.env.HALAXY_BASE_URL || import.meta.env.VITE_HALAXY_BASE_URL;
-  const apiKey = process.env.HALAXY_API_KEY || import.meta.env.VITE_HALAXY_API_KEY;
+  const baseUrl = process.env.HALAXY_BASE_URL || process.env.NEXT_PUBLIC_HALAXY_BASE_URL;
+  const apiKey = process.env.HALAXY_API_KEY || process.env.NEXT_PUBLIC_HALAXY_API_KEY;
   
   if (!baseUrl || !apiKey) {
     throw new Error('Missing Halaxy configuration');

@@ -137,14 +137,14 @@ export default function MovementActivityPrograms() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${movementHero})`,
+            backgroundImage: `url(${movementHero.src})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={movementHero} 
+            src={movementHero.src} 
             alt="" 
             className="hidden" 
             loading="eager"

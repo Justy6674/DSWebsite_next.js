@@ -98,14 +98,14 @@ export default function MedicalWeightManagement() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${medicalHero})`,
+            backgroundImage: `url(${medicalHero.src})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={medicalHero} 
+            src={medicalHero.src} 
             alt="" 
             className="hidden" 
             loading="eager"
