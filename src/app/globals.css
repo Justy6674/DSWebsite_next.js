@@ -67,8 +67,7 @@
 }
 
 /* === Original index.css === */
-/* Import portal theme tokens */
-@import './styles/theme.css';
+/* Portal theme tokens are included below */
 
 @tailwind base;
 @tailwind components;

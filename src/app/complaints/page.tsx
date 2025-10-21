@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Complaints from '@/components/Complaints';
+import Complaints from '@/components/ComplaintsPage';
 
 export const metadata: Metadata = {
   title: 'Complaints',

@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
-import RedirectComponent to=" from '@/components/RedirectComponent to="';
+import { RedirectComponent } from '@/components/RedirectComponent';
 
 export const metadata: Metadata = {
-  title: 'F',
-  description: 'F page - Access and manage your content',
+  title: 'Redirect',
+  description: 'Redirecting to main site',
 };
 
-export default function RedirectComponent to="Page() {
-  return <RedirectComponent to=" />;
+export default function RedirectPage() {
+  return <RedirectComponent to="/:slug" />;
 }

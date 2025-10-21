@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import MedicareBilling from '@/components/MedicareBilling';
+import MedicareBilling from '@/components/MedicareBillingPage';
 
 export const metadata: Metadata = {
   title: 'Medicare',

@@ -9,17 +9,14 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   priority?: boolean;
 }
 
-export const LazyImage: React.FC<{
-  children?: React.ReactNode;
-}> = ({
+export const LazyImage: React.FC<LazyImageProps> = ({
   src,
   alt,
   placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect width="400" height="300" fill="%23f3f4f6"/%3E%3C/svg%3E',
   className = '',
   isMobile = false,
   priority = false,
-  ...props,
-  children
+  ...props
 }) => {
   const [imageSrc, setImageSrc] = useState(placeholder);
   const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);

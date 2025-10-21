@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Calculator from '@/components/Calculator';
+import Calculator from '@/components/medical/Calculator';
 
 export const metadata: Metadata = {
   title: 'Calculator',

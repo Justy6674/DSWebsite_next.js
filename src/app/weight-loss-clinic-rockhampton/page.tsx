@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import WeightLossClinicRockhampton from '@/components/WeightLossClinicRockhampton';
+import WeightLossClinicRockhampton from '@/components/locations/WeightLossClinicRockhampton';
 
 export const metadata: Metadata = {
   title: 'Weight Loss Clinic Rockhampton',

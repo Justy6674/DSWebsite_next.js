@@ -1,5 +1,4 @@
-/* Import portal theme tokens */
-@import './styles/theme.css';
+/* Portal theme tokens included below */
 
 @tailwind base;
 @tailwind components;
