@@ -15,6 +15,10 @@ dist
 dist-ssr
 *.local
 
+# Next.js
+.next/
+out/
+
 # SEO data and reports
 seo-data/
 .lighthouseci/
