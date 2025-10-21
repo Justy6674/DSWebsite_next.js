@@ -19,6 +19,6 @@ export const EXTERNAL_URLS = {
 } as const;
 
 // Validate external URLs on startup (development only)
-if (typeof window !== 'undefined' && import.meta.env.DEV) {
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   console.log('External URLs configured:', Object.keys(EXTERNAL_URLS).length);
 }

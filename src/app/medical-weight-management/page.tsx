@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import MedicalWeightManagement from '@/components/MedicalWeightManagement';
+import MedicalWeightManagement from '@/components/MedicalWeightManagementPage';
 
 export const metadata: Metadata = {
   title: 'Medical Weight Management',
