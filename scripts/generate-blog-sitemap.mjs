@@ -91,21 +91,10 @@ async function generateBlogSitemap() {
   </url>`).join('') || ''}
 </urlset>`;
 
-    // Write sitemap to dist directory
-    const distPath = path.join(__dirname, '..', 'dist');
-    const sitemapPath = path.join(distPath, 'sitemap-blog.xml');
-
-    // Ensure dist directory exists
-    await fs.mkdir(distPath, { recursive: true });
-
-    // Write the sitemap
-    await fs.writeFile(sitemapPath, sitemap, 'utf-8');
-    console.log(`✅ Blog sitemap generated at ${sitemapPath}`);
-
-    // Also write to public directory for development
+    // Write sitemap to public directory (Next.js serves this statically)
     const publicSitemapPath = path.join(__dirname, '..', 'public', 'sitemap-blog.xml');
     await fs.writeFile(publicSitemapPath, sitemap, 'utf-8');
-    console.log(`✅ Development sitemap generated at ${publicSitemapPath}`);
+    console.log(`✅ Blog sitemap generated at ${publicSitemapPath}`);
 
     return sitemap;
   } catch (error) {

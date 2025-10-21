@@ -86,24 +86,12 @@ async function generateBlogRSS() {
   </channel>
 </rss>`;
 
-    // Write RSS feed to dist directory
-    const distPath = path.join(__dirname, '..', 'dist');
-    const distBlogPath = path.join(distPath, 'blog');
-    const rssPath = path.join(distBlogPath, 'rss.xml');
-
-    // Ensure directories exist
-    await fs.mkdir(distBlogPath, { recursive: true });
-
-    // Write the RSS feed
-    await fs.writeFile(rssPath, rss, 'utf-8');
-    console.log(`✅ RSS feed generated at ${rssPath}`);
-
-    // Also write to public directory for development
+    // Write RSS feed to public directory (Next.js serves this statically)
     const publicBlogPath = path.join(__dirname, '..', 'public', 'blog');
     await fs.mkdir(publicBlogPath, { recursive: true });
     const publicRssPath = path.join(publicBlogPath, 'rss.xml');
     await fs.writeFile(publicRssPath, rss, 'utf-8');
-    console.log(`✅ Development RSS feed generated at ${publicRssPath}`);
+    console.log(`✅ RSS feed generated at ${publicRssPath}`);
 
     return rss;
   } catch (error) {
