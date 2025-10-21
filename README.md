@@ -7,6 +7,78 @@ Why This Rebuild?
 After 8 months of struggling with SEO issues on a Vite SPA (single-page application), we're rebuilding Downscale Health as a modern Next.js platform with built-in server-side rendering and a comprehensive patient portal. This isn't just a migration - it's an evolution into a full medical SaaS platform.
  Downscale Weight Loss Clinic - Australian Telehealth Platform
 
+
+⏺ Downscale Weight Loss Clinic - UI Design System
+
+  🎨 Brand Colours
+
+  Primary Palette:
+  --dark-slate: #334155      /* Main background */
+  --deep-blue-grey: #2c3e50  /* Hero sections */
+  --muted-bronze: #8B6F47    /* Accent highlights */
+  --soft-cream: #f7f2d3      /* Primary text */
+
+  ✍️ Typography
+
+  Font Stack: 'Inter', system-ui, sans-serif
+  Sizes:
+  - Headlines: clamp(3rem, 10vw, 10rem) /* Responsive scaling */
+  - Body: 16px base, 1.5 line-height
+  - Weights: 900 (headlines), 600 (subheads), 400 (body)
+  - Rendering: optimizeQuality, antialiased
+
+  🏥 Australian Medical Branding
+
+  Correct Name: "Downscale Weight Loss Clinic" (NOT Downscale Health)
+
+  Australian Spelling (Mandatory):
+  - optimisation (not optimization)
+  - realise (not realize)
+  - centre (not center)
+  - colour (not color)
+  - specialised (not specialized)
+  - programme (not program)
+  - licence (not license)
+
+  📋 AHPRA & TGA Compliance Elements
+
+  ✅ AHPRA Registration: Prominently displayed
+  ✅ Medicare Provider: Bulk billing highlighted
+  ✅ TGA Approved Medications: Proper drug scheduling
+  ✅ Telehealth Compliance: Distance consultation protocols
+  ✅ Privacy Act: Australian Privacy Principles (APP)
+  ✅ Therapeutic Claims: Evidence-based language only
+
+  🖼️ Layout Structure
+
+  - Mobile-first responsive design
+  - Clean medical aesthetic - professional, trustworthy
+  - Telehealth-focused UI elements
+  - Evidence-based messaging throughout
+  - Medicare integration prominently featured
+
+  🇦🇺 Australian Healthcare Specific Features
+
+  1. AHPRA Registration - Front and centre
+  2. Medicare Bulk Billing - Cost transparency
+  3. TGA Medication Compliance - Proper drug classifications
+  4. State-based Services - 26+ city coverage
+  5. Telehealth Protocols - Distance consultation standards
+
+  🎯 Brand Voice & Messaging
+
+  - Professional but approachable
+  - Evidence-based medical authority
+  - Australian healthcare navigation
+  - Telehealth accessibility focus
+  - Weight loss specialisation (not general health)
+
+  The design communicates medical expertise while maintaining accessibility
+  for patients across Australia seeking specialised weight loss treatment
+  through telehealth consultations.
+
+────────────────────────────────────────────────────
+
   About Your Clinic
 
   - Medical Director: You (Justin) - Nurse Practitioner specializing in
