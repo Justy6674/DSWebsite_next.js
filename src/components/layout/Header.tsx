@@ -198,10 +198,14 @@ export function Header() {
                     <ExternalLink className="h-4 w-4 mr-3" />
                     Halaxy Portal
                   </a>
-                  <div className="text-muted-foreground block py-2 text-base font-medium border-l-4 border-transparent flex items-center">
+                  <Link
+                    href="/portal/login"
+                    className="text-foreground hover:text-primary block py-2 text-base font-medium border-l-4 border-transparent hover:border-primary hover:pl-3 transition-all flex items-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     <Settings className="h-4 w-4 mr-3" />
                     Clinical Portal
-                  </div>
+                  </Link>
                 </div>
               </div>
               
@@ -486,16 +490,18 @@ export function Header() {
                       <span className="text-xs text-muted-foreground">Appointments, payments, invoices</span>
                     </div>
                   </a>
-                  <div
+                  <Link
+                    href="/portal/login"
                     role="menuitem"
-                    className="flex items-center px-4 py-3 text-muted-foreground hover:bg-muted/80 transition-all duration-200 last:rounded-b-lg cursor-not-allowed"
+                    className="flex items-center px-4 py-3 text-foreground hover:bg-muted/80 transition-all duration-200 last:rounded-b-lg"
+                    onClick={() => setPortalsMenuOpen(false)}
                   >
                     <Settings className="h-4 w-4 mr-3" />
                     <div>
                       <span className="text-sm font-medium block">Clinical Portal</span>
                       <span className="text-xs text-muted-foreground">Patient education & tools platform</span>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               )}
             </div>

@@ -70,13 +70,25 @@ const pillars = [
 export default function PortalDashboard() {
   const { user } = useAuth();
 
-  if (!user) {
+  // Check for admin testing session
+  const [portalUser, setPortalUser] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('portal_user');
+      if (storedUser) {
+        setPortalUser(JSON.parse(storedUser));
+      }
+    }
+  }, []);
+
+  if (!user && !portalUser) {
     return (
-      <div className="min-h-screen bg-slate-700 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#334155] flex items-center justify-center p-4">
         <div className="bg-slate-800 rounded-xl p-8 max-w-md w-full border border-slate-700">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Portal Access Required</h2>
-          <p className="text-slate-300 mb-6">Please sign in to access your clinical portal dashboard.</p>
-          <Link href="/auth/login">
+          <h2 className="text-2xl font-bold text-[#f8fafc] mb-4">Portal Access Required</h2>
+          <p className="text-[#fef5e7] mb-6">Please sign in to access your clinical portal dashboard.</p>
+          <Link href="/portal/login">
             <Button className="w-full bg-[#b68a71] hover:bg-[#8B6F47] text-white">
               Sign In to Portal
             </Button>
@@ -85,6 +97,9 @@ export default function PortalDashboard() {
       </div>
     );
   }
+
+  // Use either authenticated user or portal test user
+  const currentUser = user || portalUser;
 
   return (
     <div className="min-h-screen bg-[#334155]">
@@ -102,7 +117,7 @@ export default function PortalDashboard() {
               </div>
               <div className="text-right">
                 <p className="text-sm text-[#fef5e7]">Welcome back</p>
-                <p className="font-medium text-[#f8fafc]">{user.email}</p>
+                <p className="font-medium text-[#f8fafc]">{currentUser?.email || currentUser?.name}</p>
               </div>
             </div>
           </div>
