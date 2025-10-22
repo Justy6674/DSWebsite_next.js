@@ -24,7 +24,8 @@ import {
   Edit,
   Trash2,
   Eye,
-  RefreshCw
+  RefreshCw,
+  LogOut
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -71,7 +72,7 @@ interface SystemHealth {
 }
 
 export default function UnifiedAdminDashboard() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [activeSection, setActiveSection] = useState<AdminSection>('overview');
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState<DashboardStats>({
@@ -611,6 +612,20 @@ export default function UnifiedAdminDashboard() {
               );
             })}
           </nav>
+
+          {/* Logout Button */}
+          <div className="p-4 border-t border-slate-700">
+            <button
+              onClick={signOut}
+              className="w-full flex items-center px-3 py-2.5 rounded-lg text-sm transition-all duration-200 text-red-400 hover:bg-red-900/20 hover:text-red-300"
+            >
+              <LogOut className="h-5 w-5 mr-3" />
+              <div className="text-left">
+                <div className="font-medium">Logout</div>
+                <div className="text-xs opacity-70">Sign out of admin</div>
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* Main Content */}

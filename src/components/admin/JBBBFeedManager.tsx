@@ -214,8 +214,8 @@ export default function JBBBFeedManager() {
 
   const getAuthorInfo = (author: 'JB' | 'BB') => {
     return author === 'JB'
-      ? { name: 'Dr JB', colour: 'bg-blue-100 text-blue-800', avatar: '👨‍⚕️' }
-      : { name: 'Bec', colour: 'bg-purple-100 text-purple-800', avatar: '👩‍⚕️' }
+      ? { name: 'JB', colour: 'bg-blue-100 text-blue-800', avatar: '👨‍⚕️' }
+      : { name: 'BB', colour: 'bg-purple-100 text-purple-800', avatar: '👩‍⚕️' }
   }
 
   const renderPostForm = () => (
@@ -241,7 +241,7 @@ export default function JBBBFeedManager() {
                 <SelectItem value="JB">
                   <div className="flex items-center gap-2">
                     <span>👨‍⚕️</span>
-                    Dr JB
+                    JB
                   </div>
                 </SelectItem>
                 <SelectItem value="BB">
@@ -387,7 +387,7 @@ export default function JBBBFeedManager() {
                 <SelectItem value="JB">
                   <div className="flex items-center gap-2">
                     <span>👨‍⚕️</span>
-                    Dr JB
+                    JB
                   </div>
                 </SelectItem>
                 <SelectItem value="BB">
