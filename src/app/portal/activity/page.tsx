@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { ArrowLeft, Play, Download, Book, Activity, Smartphone, ExternalLink, TrendingUp } from 'lucide-react';
+import PortalLayout from '@/components/portal/PortalLayout';
+import { Play, Download, Book, Activity, Smartphone, ExternalLink, TrendingUp } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const activityContent = [
@@ -268,30 +268,21 @@ export default function ActivityPillar() {
   };
 
   return (
-    <div className="min-h-screen bg-[#334155]">
-      {/* Header */}
-      <div className="bg-slate-800 border-b border-slate-700">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center space-x-4">
-            <Link href="/portal" className="text-[#b68a71] hover:text-[#8B6F47] transition-colors">
-              <ArrowLeft className="h-6 w-6" />
-            </Link>
-            <div>
-              <h1 className="text-4xl font-bold text-[#f8fafc] mb-2">Activity Pillar 🏃</h1>
-              <p className="text-[#fef5e7]">Life-proof movement and exercise programs requiring no gym membership</p>
-            </div>
-          </div>
+    <PortalLayout>
+      <div className="space-y-6">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-[#f8fafc] mb-2">Activity Pillar 🏃</h1>
+          <p className="text-[#fef5e7]">Life-proof movement and exercise programs requiring no gym membership</p>
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 py-8">
+        {/* Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {activityContent.map(renderContentTile)}
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-12 bg-slate-800 rounded-xl p-8 border border-slate-700">
+        <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
           <h2 className="text-2xl font-bold text-[#f8fafc] mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Button className="bg-[#b68a71] hover:bg-[#8B6F47] text-white justify-start">
@@ -313,6 +304,6 @@ export default function ActivityPillar() {
           </div>
         </div>
       </div>
-    </div>
+    </PortalLayout>
   );
 }

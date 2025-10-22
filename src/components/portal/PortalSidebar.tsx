@@ -16,7 +16,8 @@ import {
   X,
   ChevronDown,
   ChevronRight,
-  Home
+  Home,
+  Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -229,7 +230,18 @@ export default function PortalSidebar({ className = '' }: PortalSidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-700">
+      <div className="p-4 border-t border-slate-700 space-y-2">
+        <Link
+          href="/portal/admin"
+          className={`flex items-center px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+            pathname === '/portal/admin'
+              ? 'bg-[#b68a71] text-white'
+              : 'text-[#fef5e7] hover:bg-slate-700 hover:text-[#b68a71]'
+          }`}
+        >
+          <Settings className="h-4 w-4 mr-3" />
+          <span>Admin Panel</span>
+        </Link>
         <Link
           href="/"
           className="flex items-center px-3 py-2 rounded-lg text-sm text-[#fef5e7] hover:bg-slate-700 hover:text-[#b68a71] transition-all duration-200"

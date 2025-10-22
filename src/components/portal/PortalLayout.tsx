@@ -4,6 +4,7 @@ import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import PortalSidebar from './PortalSidebar';
 import { User } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
 
   // Check for admin testing session
   const [portalUser, setPortalUser] = React.useState<any>(null);
+  const [userProfile, setUserProfile] = React.useState<any>(null);
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -24,8 +26,36 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
     }
   }, []);
 
+  // Fetch user profile data from Supabase
+  React.useEffect(() => {
+    const fetchUserProfile = async () => {
+      const currentUser = user || portalUser;
+      if (currentUser?.id) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('first_name, last_name, email')
+          .eq('id', currentUser.id)
+          .single();
+
+        if (profile) {
+          setUserProfile(profile);
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [user, portalUser]);
+
   // Use either authenticated user or portal test user
   const currentUser = user || portalUser;
+
+  // Get display name from profile or fallback to email
+  const getDisplayName = () => {
+    if (userProfile?.first_name || userProfile?.last_name) {
+      return `${userProfile.first_name || ''} ${userProfile.last_name || ''}`.trim();
+    }
+    return currentUser?.name || currentUser?.email || 'User';
+  };
 
   return (
     <div className="min-h-screen bg-[#334155] flex">
@@ -47,7 +77,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
               </div>
               <div className="text-right">
                 <p className="text-sm text-[#fef5e7]">Welcome back</p>
-                <p className="font-medium text-[#f8fafc]">{currentUser?.email || currentUser?.name}</p>
+                <p className="font-medium text-[#f8fafc]">{getDisplayName()}</p>
               </div>
             </div>
           </div>
