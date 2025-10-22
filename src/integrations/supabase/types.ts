@@ -143,7 +143,7 @@ export interface Database {
       portal_content: {
         Row: {
           id: string
-          pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop'
+          pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop'
           content_type: 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
           title: string
           description: string | null
@@ -158,7 +158,7 @@ export interface Database {
         }
         Insert: {
           id?: string
-          pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop'
+          pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop'
           content_type: 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
           title: string
           description?: string | null
@@ -173,7 +173,7 @@ export interface Database {
         }
         Update: {
           id?: string
-          pillar?: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop'
+          pillar?: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop'
           content_type?: 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
           title?: string
           description?: string | null
