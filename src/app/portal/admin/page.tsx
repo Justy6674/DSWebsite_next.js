@@ -1,13 +1,8 @@
 'use client';
 
 import React from 'react';
-import PortalLayout from '@/components/portal/PortalLayout';
-import AdminResourceManager from '@/components/admin/AdminResourceManager';
+import UnifiedAdminDashboard from '@/components/admin/UnifiedAdminDashboard';
 
 export default function AdminPortalPage() {
-  return (
-    <PortalLayout>
-      <AdminResourceManager />
-    </PortalLayout>
-  );
+  return <UnifiedAdminDashboard />;
 }

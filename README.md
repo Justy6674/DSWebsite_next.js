@@ -818,4 +818,134 @@ progress_tracking (
 
 ---
 
-Created: October 21, 2025 Last Updated: October 22, 2025 Version: 2.0.0
+## 🏥 DYNAMIC PORTAL SYSTEM (V3.0) - LIVE CONTENT MANAGEMENT
+
+### **Complete Portal Transformation**
+The static educational portal has been transformed into a **dynamic, admin-managed content system** with intelligent search and personal connection features.
+
+### **🎯 NEW PORTAL CAPABILITIES**
+
+#### **6 Content Types (Admin Managed)**
+```
+✅ VIDEOS - YouTube/Vimeo + direct uploads
+✅ EXTERNAL DOCUMENTS - Research papers, PDFs
+✅ DOWNSCALE DOCUMENTS - Clinic PDFs + tools (PDF exportable)
+✅ LINKS - Resources, podcasts, social posts
+✅ TOOLS - Calculators, assessments (PDF exportable)
+✅ PROGRAMS/GUIDES - Multi-week content + guides
+```
+
+#### **🔍 Global Search System**
+- **Single search bar** in portal header
+- **Full-text search** across ALL content + JB&BB Feed
+- **Smart matching**: typos, synonyms (GLP-1=Ozempic)
+- **No per-section searches** - one search finds everything
+- **Results grouped** by content type
+
+#### **📱 JB&BB FEED - Internal Member Blog**
+```
+┌─ JB&BB FEED ────────────────────────────────────┐
+│ 📅 Last updated: 2 hours ago                   │
+│                                                 │
+│ 🆕 "Plateau Week Reality Check" - JB           │
+│ 🆕 "Family Meal Prep Sunday" - BB              │
+│ 🆕 "Why Scale Weight Fluctuates" - JB          │
+│                                                 │
+│ 🔔 Get notified of new posts: [ON] [OFF]       │
+└─────────────────────────────────────────────────┘
+```
+
+- **Member-only access** (separate from public blog)
+- **Relaxed advertising rules** for medical content
+- **Personal insights** from JB and Bec
+- **Patient opt-in notifications** (in-portal only, NO emails)
+
+#### **🥗 Dynamic Pillar Sections**
+All 5 pillars now populated from admin uploads:
+```
+┌─ NUTRITION PILLAR ──────────────────────────────┐
+│ 📅 Last content added: Oct 19, 2024            │
+│                                                 │
+│ 📺 VIDEOS (3 new) 📄 DOCUMENTS (2 new)        │
+│ 🔗 LINKS (2 new)  🛠️ TOOLS (1 new)            │
+│ 📚 PROGRAMS (1 new)                            │
+└─────────────────────────────────────────────────┘
+```
+
+#### **⚙️ Live Admin Content Management**
+```
+JB'S ADMIN WORKFLOW:
+1. Choose Type: [Video][External Doc][Downscale Doc][Link][Tool][Program]
+2. Choose Pillar: [Nutrition][Activity][Mental Health][Sleep][Shop]
+3. Upload/Enter Details
+4. PUBLISH → Goes live + updates section timestamp
+```
+
+#### **🛠️ Existing Tools Integration**
+All current health assessment tools integrated with:
+- **PDF export capability** for patient records
+- **Professional formatting** with Downscale branding
+- **Integration with search system**
+- **Admin management interface**
+
+Tools include:
+- Binge Eating Assessment
+- Obstructive Sleep Apnoea Screening
+- ADHD Assessment
+- Mental Health Questionnaires
+- BMI & Weight Loss Calculators
+
+#### **🔔 Privacy-First Notifications**
+- **Default**: NO communications
+- **Opt-in only**: Patient controls all notifications
+- **In-portal pop-ups**: NO emails (Australian privacy compliance)
+- **Badge system**: "NEW" indicators for content
+- **Last visit tracking**: "New since your last visit"
+
+### **📊 Technical Implementation**
+
+#### **Database Schema**
+```sql
+-- Dynamic content (replaces hardcoded portal content)
+portal_content (pillar, content_type, title, description, search_vector)
+
+-- Internal member blog
+jb_bb_feed (title, content, author, search_vector)
+
+-- Patient preferences
+patient_notifications (jb_bb_feed_alerts, content_alerts_by_pillar)
+
+-- Analytics
+content_analytics (user_id, content_id, action)
+search_analytics (user_id, search_query, results_count)
+```
+
+#### **Search Technology**
+- **PostgreSQL tsvector** for full-text search
+- **Synonym dictionary** for medical terms
+- **Relevance ranking** with usage analytics
+- **Real-time indexing** of new content
+
+### **🎯 Portal System Benefits**
+
+**For JB (Admin):**
+- ✅ Upload once → appears in pillar + search + analytics
+- ✅ JB&BB Feed for personal patient connection
+- ✅ Real-time content management
+- ✅ Patient engagement tracking
+- ✅ No email compliance issues
+
+**For Patients:**
+- ✅ Natural search: "protein breakfast" finds everything relevant
+- ✅ Personal connection through JB&BB Feed
+- ✅ Control over all notifications
+- ✅ Fresh content always available
+- ✅ Professional PDF exports of all assessments
+
+### **📋 SEE PORTAL_SYSTEM_PRD.md FOR COMPLETE SPECIFICATIONS**
+
+---
+
+Created: October 21, 2025
+Last Updated: October 22, 2025
+Version: 3.0.0 - Live Portal System
