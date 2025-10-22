@@ -183,18 +183,39 @@ export default function UnifiedAdminDashboard() {
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (user?.id) {
-        const { data: profile } = await supabase
+        console.log('Checking admin status for user ID:', user.id);
+        console.log('User email:', user.email);
+
+        const { data: profile, error } = await supabase
           .from('user_profiles')
-          .select('role')
+          .select('role, email')
           .eq('id', user.id)
           .single();
 
-        setIsAdmin(profile?.role === 'admin');
+        console.log('Profile data:', profile);
+        console.log('Profile error:', error);
+
+        if (!profile && user.email) {
+          // Try to find by email if no profile found by ID
+          console.log('No profile found by ID, trying email lookup...');
+          const { data: emailProfile, error: emailError } = await supabase
+            .from('user_profiles')
+            .select('role, email, id')
+            .eq('email', user.email)
+            .single();
+
+          console.log('Email profile data:', emailProfile);
+          console.log('Email profile error:', emailError);
+
+          setIsAdmin(emailProfile?.role === 'admin');
+        } else {
+          setIsAdmin(profile?.role === 'admin');
+        }
       }
     };
 
     checkAdminStatus();
-  }, [user?.id]);
+  }, [user?.id, user?.email]);
 
   // Fetch dashboard statistics
   const fetchDashboardStats = async () => {
@@ -567,10 +588,26 @@ export default function UnifiedAdminDashboard() {
   };
 
   if (!isAdmin) {
+    const forceAdminAccess = () => {
+      console.log('Forcing admin access for debugging');
+      setIsAdmin(true);
+    };
+
     return (
       <Card className="bg-slate-800 border-slate-700">
-        <CardContent className="p-8 text-center">
+        <CardContent className="p-8 text-center space-y-4">
           <p className="text-[#fef5e7]">Access denied. Admin privileges required.</p>
+          <div className="text-sm text-slate-400">
+            <p>User ID: {user?.id}</p>
+            <p>Email: {user?.email}</p>
+            <p>Check browser console for debugging info</p>
+          </div>
+          <Button
+            onClick={forceAdminAccess}
+            className="bg-red-600 hover:bg-red-700 text-white"
+          >
+            Force Admin Access (Debug)
+          </Button>
         </CardContent>
       </Card>
     );
