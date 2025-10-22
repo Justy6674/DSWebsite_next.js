@@ -35,20 +35,33 @@ export function useSubscription() {
 
   const fetchSubscription = async () => {
     try {
-      if (!user) {
+      if (!user?.email) {
         setLoading(false);
         return;
       }
 
-      const { data, error } = await supabase
-        .from('subscriptions')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('status', 'active')
-        .maybeSingle();
+      // Get subscription data from user_profiles.metadata
+      const { data: profile, error } = await supabase
+        .from('user_profiles')
+        .select('metadata')
+        .eq('email', user.email)
+        .single();
 
       if (error) throw error;
-      setSubscription(data as Subscription);
+
+      const subscriptionData = profile?.metadata?.subscription;
+      if (subscriptionData) {
+        setSubscription(subscriptionData);
+      } else {
+        // Default to freemium if no subscription data exists
+        setSubscription({
+          id: 'default',
+          tier: 'freemium',
+          status: 'active',
+          current_period_end: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), // 1 year from now
+          source: 'shopify'
+        });
+      }
     } catch (error) {
       console.error('Error fetching subscription:', error);
       toast({

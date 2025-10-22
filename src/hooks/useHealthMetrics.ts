@@ -20,8 +20,8 @@ interface HealthMetricsResult {
   height_cm: number;
   weight_kg: number;
   waist_cm?: number;
-  activity_level: string;
-  goal: string;
+  activity_level: 'sedentary' | 'light' | 'moderate' | 'very' | 'extra';
+  goal: 'lose-safe' | 'lose-preserve' | 'lose-build' | 'build';
   bmr: number;
   tdee: number;
   goal_calories: number;

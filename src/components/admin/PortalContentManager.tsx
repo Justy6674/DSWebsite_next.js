@@ -16,13 +16,51 @@ import { Plus, FileText, Video, Link, Settings, BookOpen, ExternalLink, Upload, 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
 type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop'
 
+interface VideoContent {
+  url: string
+  platform?: string
+  duration?: number
+}
+
+interface ExternalDocContent {
+  url: string
+  file_type?: string
+  author?: string
+}
+
+interface DownscaleDocContent {
+  file_url: string
+  file_type?: string
+  version?: string
+}
+
+interface LinkContent {
+  url: string
+  link_type?: string
+}
+
+interface ToolContent {
+  tool_url: string
+  tool_type?: string
+  instructions?: string
+}
+
+interface ProgramGuideContent {
+  duration_weeks: number
+  total_steps: number
+  difficulty?: string
+  overview?: string
+}
+
+type ContentData = VideoContent | ExternalDocContent | DownscaleDocContent | LinkContent | ToolContent | ProgramGuideContent
+
 interface PortalContent {
   id: string
   pillar: Pillar
   content_type: ContentType
   title: string
   description: string
-  content_data: any
+  content_data: ContentData
   tags: string[]
   is_published: boolean
   created_by: string
@@ -82,7 +120,10 @@ export default function PortalContentManager() {
         .order('created_at', { ascending: false })
 
       if (error) throw error
-      setContent(data || [])
+      setContent((data || []).map(item => ({
+        ...item,
+        content_data: (item.content_data as unknown) as ContentData
+      })))
     } catch (error) {
       console.error('Error loading content:', error)
       toast({
@@ -351,7 +392,7 @@ export default function PortalContentManager() {
             <Label htmlFor="video_url">Video URL</Label>
             <Input
               id="video_url"
-              value={formData.content_data.url || ''}
+              value={(formData.content_data as VideoContent).url || ''}
               onChange={(e) => setFormData({
                 ...formData,
                 content_data: { ...formData.content_data, url: e.target.value }
@@ -366,7 +407,7 @@ export default function PortalContentManager() {
             <Label htmlFor="url">URL</Label>
             <Input
               id="url"
-              value={formData.content_data.url || ''}
+              value={(formData.content_data as ExternalDocContent | LinkContent).url || ''}
               onChange={(e) => setFormData({
                 ...formData,
                 content_data: { ...formData.content_data, url: e.target.value }
@@ -381,7 +422,7 @@ export default function PortalContentManager() {
             <Label htmlFor="file_url">File URL</Label>
             <Input
               id="file_url"
-              value={formData.content_data.file_url || ''}
+              value={(formData.content_data as DownscaleDocContent).file_url || ''}
               onChange={(e) => setFormData({
                 ...formData,
                 content_data: { ...formData.content_data, file_url: e.target.value }
@@ -396,7 +437,7 @@ export default function PortalContentManager() {
             <Label htmlFor="tool_url">Tool URL</Label>
             <Input
               id="tool_url"
-              value={formData.content_data.tool_url || ''}
+              value={(formData.content_data as ToolContent).tool_url || ''}
               onChange={(e) => setFormData({
                 ...formData,
                 content_data: { ...formData.content_data, tool_url: e.target.value }
@@ -412,7 +453,7 @@ export default function PortalContentManager() {
               <Label htmlFor="duration_weeks">Duration (weeks)</Label>
               <Input
                 id="duration_weeks"
-                value={formData.content_data.duration_weeks || ''}
+                value={(formData.content_data as ProgramGuideContent).duration_weeks || ''}
                 onChange={(e) => setFormData({
                   ...formData,
                   content_data: { ...formData.content_data, duration_weeks: e.target.value }
@@ -424,7 +465,7 @@ export default function PortalContentManager() {
               <Label htmlFor="total_steps">Total Steps</Label>
               <Input
                 id="total_steps"
-                value={formData.content_data.total_steps || ''}
+                value={(formData.content_data as ProgramGuideContent).total_steps || ''}
                 onChange={(e) => setFormData({
                   ...formData,
                   content_data: { ...formData.content_data, total_steps: e.target.value }

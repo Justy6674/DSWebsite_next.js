@@ -46,14 +46,13 @@ interface ClinicalData {
 export default function HealthMetricsDashboard() {
   const { user } = useAuth();
   const {
-    healthMetrics: supabaseHealthMetrics,
-    loadingHealthMetrics,
-    calculateAndSaveMetrics,
-    updateHealthMetrics
+    metrics,
+    loading,
+    saveMetrics
   } = useHealthMetrics();
   const {
     trackingData,
-    loadingTracking,
+    loading: trackingLoading,
     saveTrackingData
   } = useDailyTracking();
 
@@ -253,9 +252,9 @@ export default function HealthMetricsDashboard() {
       const today = new Date().toISOString().split('T')[0];
       await saveTrackingData({
         tracking_date: today,
-        weight: healthMetrics.currentWeight,
-        waist_circumference: healthMetrics.currentWaist,
-        notes: 'Updated via dashboard'
+        weight_kg: healthMetrics.currentWeight,
+        waist_cm: healthMetrics.currentWaist,
+        daily_notes: 'Updated via dashboard'
       });
 
       setIsEditing(false);

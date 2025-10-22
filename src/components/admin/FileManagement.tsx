@@ -35,7 +35,7 @@ interface FileItem {
   folder: string;
   created_at: string;
   uploaded_by: string;
-  metadata: Record<string, any>;
+  metadata: any;
 }
 
 const FILE_TYPES = {

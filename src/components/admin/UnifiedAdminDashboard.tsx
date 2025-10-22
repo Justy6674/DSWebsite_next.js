@@ -212,12 +212,12 @@ export default function UnifiedAdminDashboard() {
 
       // Fetch portal resources
       const { count: resourceCount } = await supabase
-        .from('portal_resources')
+        .from('portal_content')
         .select('*', { count: 'exact' });
 
       // Fetch active portal users (users with recent activity)
       const { count: activeUsers } = await supabase
-        .from('portal_activities')
+        .from('content_analytics')
         .select('*', { count: 'exact' })
         .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
 
@@ -250,7 +250,7 @@ export default function UnifiedAdminDashboard() {
       const supabaseStatus = supabaseError ? 'error' : 'healthy';
 
       // Test portal functionality (check if tables exist)
-      const { error: portalError } = await supabase.from('portal_resources').select('id').limit(1);
+      const { error: portalError } = await supabase.from('portal_content').select('id').limit(1);
       const portalStatus = portalError ? 'error' : 'healthy';
 
       // Test blog functionality

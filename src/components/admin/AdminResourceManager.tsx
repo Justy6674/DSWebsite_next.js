@@ -22,17 +22,20 @@ import { useAuth } from '@/contexts/AuthContext';
 
 interface PortalResource {
   id?: string;
-  category: string;
-  type: string;
+  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop';
+  content_type: 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide';
   title: string;
-  description: string;
-  content_url?: string;
-  metadata: Record<string, any>;
-  is_active: boolean;
-  sort_order: number;
+  description: string | null;
+  content_data?: any;
+  tags?: string[];
+  is_published: boolean;
+  created_by?: string | null;
+  created_at?: string;
+  updated_at?: string;
+  view_count?: number;
 }
 
-const CATEGORIES = [
+const PILLARS = [
   { value: 'nutrition', label: 'Nutrition' },
   { value: 'activity', label: 'Activity & Exercise' },
   { value: 'mental-health', label: 'Mental Health' },
@@ -40,14 +43,13 @@ const CATEGORIES = [
   { value: 'shop', label: 'Shop & Products' }
 ];
 
-const RESOURCE_TYPES = [
-  { value: 'pdf', label: 'PDF Document' },
+const CONTENT_TYPES = [
   { value: 'video', label: 'Video Content' },
-  { value: 'tool', label: 'Interactive Tool' },
+  { value: 'external_doc', label: 'External Document' },
+  { value: 'downscale_doc', label: 'Downscale Document' },
   { value: 'link', label: 'External Link' },
-  { value: 'guide', label: 'Step-by-step Guide' },
-  { value: 'audio', label: 'Audio Content' },
-  { value: 'calculator', label: 'Calculator Tool' }
+  { value: 'tool', label: 'Interactive Tool' },
+  { value: 'program_guide', label: 'Program Guide' }
 ];
 
 export default function AdminResourceManager() {
@@ -58,19 +60,18 @@ export default function AdminResourceManager() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingResource, setEditingResource] = useState<PortalResource | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('');
-  const [filterType, setFilterType] = useState('');
+  const [filterPillar, setFilterPillar] = useState('');
+  const [filterContentType, setFilterContentType] = useState('');
 
   // Form state
   const [formData, setFormData] = useState<PortalResource>({
-    category: '',
-    type: '',
+    pillar: 'nutrition',
+    content_type: 'video',
     title: '',
     description: '',
-    content_url: '',
-    metadata: {},
-    is_active: true,
-    sort_order: 0
+    content_data: {},
+    tags: [],
+    is_published: true
   });
 
   // Check if user is admin
@@ -99,10 +100,10 @@ export default function AdminResourceManager() {
 
     try {
       const { data, error: fetchError } = await supabase
-        .from('portal_resources')
+        .from('portal_content')
         .select('*')
-        .order('category', { ascending: true })
-        .order('sort_order', { ascending: true });
+        .order('pillar', { ascending: true })
+        .order('created_at', { ascending: false });
 
       if (fetchError) throw fetchError;
 
@@ -123,7 +124,7 @@ export default function AdminResourceManager() {
       if (editingResource?.id) {
         // Update existing resource
         const { error: updateError } = await supabase
-          .from('portal_resources')
+          .from('portal_content')
           .update(formData)
           .eq('id', editingResource.id);
 
@@ -131,7 +132,7 @@ export default function AdminResourceManager() {
       } else {
         // Create new resource
         const { error: insertError } = await supabase
-          .from('portal_resources')
+          .from('portal_content')
           .insert(formData);
 
         if (insertError) throw insertError;
@@ -156,7 +157,7 @@ export default function AdminResourceManager() {
 
     try {
       const { error: deleteError } = await supabase
-        .from('portal_resources')
+        .from('portal_content')
         .delete()
         .eq('id', resourceId);
 
@@ -177,8 +178,8 @@ export default function AdminResourceManager() {
 
     try {
       const { error: updateError } = await supabase
-        .from('portal_resources')
-        .update({ is_active: !currentStatus })
+        .from('portal_content')
+        .update({ is_published: !currentStatus })
         .eq('id', resourceId);
 
       if (updateError) throw updateError;
@@ -194,14 +195,13 @@ export default function AdminResourceManager() {
   // Reset form
   const resetForm = () => {
     setFormData({
-      category: '',
-      type: '',
+      pillar: 'nutrition',
+      content_type: 'video',
       title: '',
       description: '',
-      content_url: '',
-      metadata: {},
-      is_active: true,
-      sort_order: 0
+      content_data: {},
+      tags: [],
+      is_published: true
     });
     setEditingResource(null);
     setShowAddForm(false);
@@ -218,12 +218,12 @@ export default function AdminResourceManager() {
   const filteredResources = resources.filter(resource => {
     const matchesSearch = !searchTerm ||
       resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      resource.description.toLowerCase().includes(searchTerm.toLowerCase());
+      (resource.description && resource.description.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    const matchesCategory = !filterCategory || resource.category === filterCategory;
-    const matchesType = !filterType || resource.type === filterType;
+    const matchesPillar = !filterPillar || resource.pillar === filterPillar;
+    const matchesContentType = !filterContentType || resource.content_type === filterContentType;
 
-    return matchesSearch && matchesCategory && matchesType;
+    return matchesSearch && matchesPillar && matchesContentType;
   });
 
   // Load resources on mount
@@ -290,29 +290,29 @@ export default function AdminResourceManager() {
               </div>
             </div>
             <div>
-              <Label htmlFor="filter-category" className="text-[#fef5e7]">Category</Label>
+              <Label htmlFor="filter-pillar" className="text-[#fef5e7]">Pillar</Label>
               <select
-                id="filter-category"
-                value={filterCategory}
-                onChange={(e) => setFilterCategory(e.target.value)}
+                id="filter-pillar"
+                value={filterPillar}
+                onChange={(e) => setFilterPillar(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-md px-3 py-2"
               >
-                <option value="">All Categories</option>
-                {CATEGORIES.map(cat => (
-                  <option key={cat.value} value={cat.value}>{cat.label}</option>
+                <option value="">All Pillars</option>
+                {PILLARS.map(pillar => (
+                  <option key={pillar.value} value={pillar.value}>{pillar.label}</option>
                 ))}
               </select>
             </div>
             <div>
-              <Label htmlFor="filter-type" className="text-[#fef5e7]">Type</Label>
+              <Label htmlFor="filter-content-type" className="text-[#fef5e7]">Content Type</Label>
               <select
-                id="filter-type"
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}
+                id="filter-content-type"
+                value={filterContentType}
+                onChange={(e) => setFilterContentType(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-md px-3 py-2"
               >
                 <option value="">All Types</option>
-                {RESOURCE_TYPES.map(type => (
+                {CONTENT_TYPES.map(type => (
                   <option key={type.value} value={type.value}>{type.label}</option>
                 ))}
               </select>
@@ -342,31 +342,29 @@ export default function AdminResourceManager() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="category" className="text-[#fef5e7]">Category</Label>
+                <Label htmlFor="pillar" className="text-[#fef5e7]">Pillar</Label>
                 <select
-                  id="category"
-                  value={formData.category}
-                  onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                  id="pillar"
+                  value={formData.pillar}
+                  onChange={(e) => setFormData(prev => ({ ...prev, pillar: e.target.value as any }))}
                   className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-md px-3 py-2"
                   required
                 >
-                  <option value="">Select Category</option>
-                  {CATEGORIES.map(cat => (
-                    <option key={cat.value} value={cat.value}>{cat.label}</option>
+                  {PILLARS.map(pillar => (
+                    <option key={pillar.value} value={pillar.value}>{pillar.label}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <Label htmlFor="type" className="text-[#fef5e7]">Type</Label>
+                <Label htmlFor="content-type" className="text-[#fef5e7]">Content Type</Label>
                 <select
-                  id="type"
-                  value={formData.type}
-                  onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
+                  id="content-type"
+                  value={formData.content_type}
+                  onChange={(e) => setFormData(prev => ({ ...prev, content_type: e.target.value as any }))}
                   className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-md px-3 py-2"
                   required
                 >
-                  <option value="">Select Type</option>
-                  {RESOURCE_TYPES.map(type => (
+                  {CONTENT_TYPES.map(type => (
                     <option key={type.value} value={type.value}>{type.label}</option>
                   ))}
                 </select>
@@ -388,53 +386,42 @@ export default function AdminResourceManager() {
               <Label htmlFor="description" className="text-[#fef5e7]">Description</Label>
               <Textarea
                 id="description"
-                value={formData.description}
+                value={formData.description || ''}
                 onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                 className="bg-slate-900 border-slate-700 text-[#f8fafc]"
                 rows={3}
-                required
               />
             </div>
 
             <div>
-              <Label htmlFor="content_url" className="text-[#fef5e7]">Content URL (optional)</Label>
+              <Label htmlFor="tags" className="text-[#fef5e7]">Tags (comma-separated)</Label>
               <Input
-                id="content_url"
-                type="url"
-                value={formData.content_url || ''}
-                onChange={(e) => setFormData(prev => ({ ...prev, content_url: e.target.value }))}
+                id="tags"
+                value={formData.tags?.join(', ') || ''}
+                onChange={(e) => setFormData(prev => ({
+                  ...prev,
+                  tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
+                }))}
                 className="bg-slate-900 border-slate-700 text-[#f8fafc]"
-                placeholder="https://..."
+                placeholder="weight loss, nutrition, meal planning"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="sort_order" className="text-[#fef5e7]">Sort Order</Label>
-                <Input
-                  id="sort_order"
-                  type="number"
-                  value={formData.sort_order}
-                  onChange={(e) => setFormData(prev => ({ ...prev, sort_order: parseInt(e.target.value) || 0 }))}
-                  className="bg-slate-900 border-slate-700 text-[#f8fafc]"
-                />
-              </div>
-              <div className="flex items-center space-x-2 pt-6">
-                <input
-                  id="is_active"
-                  type="checkbox"
-                  checked={formData.is_active}
-                  onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.checked }))}
-                  className="rounded"
-                />
-                <Label htmlFor="is_active" className="text-[#fef5e7]">Active</Label>
-              </div>
+            <div className="flex items-center space-x-2">
+              <input
+                id="is_published"
+                type="checkbox"
+                checked={formData.is_published}
+                onChange={(e) => setFormData(prev => ({ ...prev, is_published: e.target.checked }))}
+                className="rounded"
+              />
+              <Label htmlFor="is_published" className="text-[#fef5e7]">Published</Label>
             </div>
 
             <div className="flex space-x-2">
               <Button
                 onClick={saveResource}
-                disabled={loading || !formData.title || !formData.category || !formData.type}
+                disabled={loading || !formData.title || !formData.pillar || !formData.content_type}
                 className="bg-[#b68a71] hover:bg-[#8B6F47] text-white"
               >
                 <Save className="h-4 w-4 mr-2" />
@@ -477,7 +464,7 @@ export default function AdminResourceManager() {
               <div
                 key={resource.id}
                 className={`bg-slate-900 rounded-lg p-4 border ${
-                  resource.is_active ? 'border-slate-700' : 'border-slate-600 opacity-60'
+                  resource.is_published ? 'border-slate-700' : 'border-slate-600 opacity-60'
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -485,22 +472,25 @@ export default function AdminResourceManager() {
                     <div className="flex items-center space-x-2 mb-2">
                       <h3 className="font-medium text-[#f8fafc]">{resource.title}</h3>
                       <span className="text-xs bg-slate-700 text-[#fef5e7] px-2 py-1 rounded">
-                        {resource.category}
+                        {resource.pillar}
                       </span>
                       <span className="text-xs bg-slate-700 text-[#fef5e7] px-2 py-1 rounded">
-                        {resource.type}
+                        {resource.content_type}
                       </span>
-                      {!resource.is_active && (
+                      {!resource.is_published && (
                         <span className="text-xs bg-red-700 text-white px-2 py-1 rounded">
-                          Inactive
+                          Unpublished
                         </span>
                       )}
                     </div>
                     <p className="text-sm text-[#fef5e7] mb-2">{resource.description}</p>
-                    {resource.content_url && (
-                      <div className="flex items-center space-x-1 text-xs text-[#b68a71]">
-                        <ExternalLink className="h-3 w-3" />
-                        <span>{resource.content_url}</span>
+                    {resource.tags && resource.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {resource.tags.map((tag, index) => (
+                          <span key={index} className="text-xs bg-[#b68a71] text-white px-2 py-1 rounded">
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -514,14 +504,14 @@ export default function AdminResourceManager() {
                       <Edit className="h-4 w-4" />
                     </Button>
                     <Button
-                      onClick={() => toggleResourceStatus(resource.id!, resource.is_active)}
+                      onClick={() => toggleResourceStatus(resource.id!, resource.is_published)}
                       size="sm"
                       variant="outline"
                       className={`border-slate-600 hover:bg-slate-700 ${
-                        resource.is_active ? 'text-yellow-400' : 'text-green-400'
+                        resource.is_published ? 'text-yellow-400' : 'text-green-400'
                       }`}
                     >
-                      {resource.is_active ? 'Deactivate' : 'Activate'}
+                      {resource.is_published ? 'Unpublish' : 'Publish'}
                     </Button>
                     <Button
                       onClick={() => deleteResource(resource.id!)}

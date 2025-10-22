@@ -32,8 +32,8 @@ interface User {
   email: string;
   first_name?: string;
   last_name?: string;
-  role: 'admin' | 'user' | 'practitioner';
-  subscription_tier: 'free' | 'basic' | 'premium';
+  role: 'admin' | 'patient' | 'practitioner';
+  subscription_tier: string | null;
   created_at: string;
   last_sign_in_at?: string;
   is_active: boolean;
