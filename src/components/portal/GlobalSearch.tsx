@@ -5,8 +5,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { createClient } from '@/integrations/supabase/client'
-import { Search, FileText, Video, Link, Tool, BookOpen, ExternalLink, Calendar, TrendingUp, Heart, User, X } from 'lucide-react'
+import { supabase } from '@/integrations/supabase/client'
+import { Search, FileText, Video, Link, Settings, BookOpen, ExternalLink, Calendar, TrendingUp, Heart, User, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 interface SearchResult {
@@ -30,7 +30,7 @@ const CONTENT_TYPE_ICONS = {
   external_doc: ExternalLink,
   downscale_doc: FileText,
   link: Link,
-  tool: Tool,
+  tool: Settings,
   program_guide: BookOpen,
   jb_bb_feed: Heart
 }
@@ -51,7 +51,6 @@ export default function GlobalSearch() {
   const [recentSearches, setRecentSearches] = useState<string[]>([])
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([])
 
-  const supabase = createClient()
   const router = useRouter()
 
   // Load recent searches from localStorage

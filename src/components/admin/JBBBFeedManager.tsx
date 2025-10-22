@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/hooks/use-toast'
-import { createClient } from '@/integrations/supabase/client'
+import { supabase } from '@/integrations/supabase/client'
 import { Plus, Heart, MessageCircle, Calendar, TrendingUp, Edit, Trash2, Eye, EyeOff, Image, Send, User } from 'lucide-react'
 
 interface JBBBFeedPost {
@@ -46,7 +46,6 @@ export default function JBBBFeedManager() {
 
   const [newMediaUrl, setNewMediaUrl] = useState('')
 
-  const supabase = createClient()
 
   useEffect(() => {
     loadPosts()

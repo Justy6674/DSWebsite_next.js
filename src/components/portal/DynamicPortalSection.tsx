@@ -4,13 +4,13 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { createClient } from '@/integrations/supabase/client'
+import { supabase } from '@/integrations/supabase/client'
 import {
   Video,
   FileText,
   ExternalLink,
   Link as LinkIcon,
-  Tool,
+  Settings,
   BookOpen,
   Download,
   Play,
@@ -70,7 +70,7 @@ const CONTENT_TYPE_CONFIG = {
     description: 'Useful external resources'
   },
   tool: {
-    icon: Tool,
+    icon: Settings,
     label: 'Tools',
     colour: 'bg-orange-100 text-orange-800',
     description: 'Interactive tools and assessments'
@@ -98,7 +98,6 @@ export default function DynamicPortalSection({
   const searchParams = useSearchParams()
   const highlightId = searchParams.get('highlight')
 
-  const supabase = createClient()
 
   useEffect(() => {
     loadContent()

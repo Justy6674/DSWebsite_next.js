@@ -10,8 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useToast } from '@/hooks/use-toast'
-import { createClient } from '@/integrations/supabase/client'
-import { Plus, FileText, Video, Link, Tool, BookOpen, ExternalLink, Upload, Search, Eye, Edit, Trash2, Calendar, TrendingUp } from 'lucide-react'
+import { supabase } from '@/integrations/supabase/client'
+import { Plus, FileText, Video, Link, Settings, BookOpen, ExternalLink, Upload, Search, Eye, Edit, Trash2, Calendar, TrendingUp } from 'lucide-react'
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
 type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop'
@@ -44,7 +44,7 @@ const CONTENT_TYPES: { value: ContentType; label: string; icon: any; description
   { value: 'external_doc', label: 'External Document', icon: ExternalLink, description: 'Research papers, external PDFs' },
   { value: 'downscale_doc', label: 'Downscale Document', icon: FileText, description: 'Clinic-created PDFs, tools, assessments' },
   { value: 'link', label: 'Link', icon: Link, description: 'External resources, podcasts, social posts' },
-  { value: 'tool', label: 'Tool', icon: Tool, description: 'Calculators, assessments, trackers' },
+  { value: 'tool', label: 'Tool', icon: Settings, description: 'Calculators, assessments, trackers' },
   { value: 'program_guide', label: 'Program/Guide', icon: BookOpen, description: 'Multi-week content, step-by-step guides' }
 ]
 
@@ -69,7 +69,6 @@ export default function PortalContentManager() {
     is_published: false
   })
 
-  const supabase = createClient()
 
   useEffect(() => {
     loadContent()
