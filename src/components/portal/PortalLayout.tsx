@@ -3,7 +3,7 @@
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import PortalSidebar from './PortalSidebar';
-import { User, Settings } from 'lucide-react';
+import { User, Settings, Home } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import Link from 'next/link';
 
@@ -73,6 +73,16 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             </div>
 
             <div className="flex items-center space-x-4 ml-auto">
+              {/* Website Link */}
+              <Link
+                href="/"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
+                title="Back to Website"
+              >
+                <Home className="h-4 w-4" />
+                Website
+              </Link>
+
               {/* Admin Access Link - Only show for admin email */}
               {(user?.email === 'downscale@icloud.com') && (
                 <Link

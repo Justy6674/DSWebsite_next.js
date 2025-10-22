@@ -27,7 +27,8 @@ import {
   RefreshCw,
   LogOut,
   ArrowLeft,
-  Users
+  Users,
+  Home
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -637,7 +638,17 @@ export default function UnifiedAdminDashboard() {
       <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
         <Card className="bg-slate-800 border-slate-700 w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-[#f8fafc] text-center">Admin Login</CardTitle>
+            <div className="flex items-center justify-between mb-2">
+              <CardTitle className="text-[#f8fafc]">Admin Login</CardTitle>
+              <Link
+                href="/"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
+                title="Back to Website"
+              >
+                <Home className="h-4 w-4" />
+                Website
+              </Link>
+            </div>
             <p className="text-[#fef5e7] text-center text-sm">Sign in to access the admin dashboard</p>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -667,14 +678,24 @@ export default function UnifiedAdminDashboard() {
           <div className="p-6 border-b border-slate-700">
             <div className="flex items-center justify-between mb-2">
               <h1 className="text-xl font-bold text-[#f8fafc]">Admin Dashboard</h1>
-              <Link
-                href="/portal"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
-                title="Go to Members Portal"
-              >
-                <Users className="h-4 w-4" />
-                Portal
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
+                  title="Back to Website"
+                >
+                  <Home className="h-4 w-4" />
+                  Website
+                </Link>
+                <Link
+                  href="/portal"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
+                  title="Go to Members Portal"
+                >
+                  <Users className="h-4 w-4" />
+                  Portal
+                </Link>
+              </div>
             </div>
             <p className="text-sm text-[#fef5e7]">Comprehensive Management System</p>
           </div>
