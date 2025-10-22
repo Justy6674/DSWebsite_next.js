@@ -39,6 +39,67 @@ import UserManagement from './UserManagement';
 import PortalContentManager from './PortalContentManager';
 import JBBBFeedManager from './JBBBFeedManager';
 
+// Simple login form component
+function AdminLoginForm() {
+  const { signIn } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    const { error } = await signIn(email, password);
+
+    if (error) {
+      setError(error.message);
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <form onSubmit={handleLogin} className="space-y-4">
+      <div>
+        <Label htmlFor="email" className="text-[#f8fafc]">Email</Label>
+        <Input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="bg-slate-700 border-slate-600 text-[#f8fafc]"
+          placeholder="downscale@icloud.com"
+          required
+        />
+      </div>
+      <div>
+        <Label htmlFor="password" className="text-[#f8fafc]">Password</Label>
+        <Input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="bg-slate-700 border-slate-600 text-[#f8fafc]"
+          required
+        />
+      </div>
+      {error && (
+        <p className="text-red-400 text-sm">{error}</p>
+      )}
+      <Button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-[#b68a71] hover:bg-[#8B6F47] text-white"
+      >
+        {loading ? 'Signing in...' : 'Sign In'}
+      </Button>
+    </form>
+  );
+}
+
 type AdminSection =
   | 'overview'
   | 'portal-content'
@@ -567,7 +628,24 @@ export default function UnifiedAdminDashboard() {
     }
   };
 
-  // Default to admin access for site owner
+  // If no user at all, show login form
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+        <Card className="bg-slate-800 border-slate-700 w-full max-w-md">
+          <CardHeader>
+            <CardTitle className="text-[#f8fafc] text-center">Admin Login</CardTitle>
+            <p className="text-[#fef5e7] text-center text-sm">Sign in to access the admin dashboard</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <AdminLoginForm />
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // If user logged in but not admin
   if (!isAdmin && user?.email !== 'downscale@icloud.com') {
     return (
       <Card className="bg-slate-800 border-slate-700">
