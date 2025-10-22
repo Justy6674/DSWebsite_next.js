@@ -286,15 +286,13 @@ export default function FileManagement() {
             className="hidden"
             id="file-upload"
           />
-          <label htmlFor="file-upload">
-            <Button
-              as="span"
-              className="bg-[#b68a71] hover:bg-[#8B6F47] text-white"
-              disabled={uploading}
+          <label htmlFor="file-upload" className="cursor-pointer">
+            <span
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-[#b68a71] hover:bg-[#8B6F47] text-white h-10 py-2 px-4"
             >
               <Upload className="h-4 w-4 mr-2" />
               {uploading ? 'Uploading...' : 'Upload Files'}
-            </Button>
+            </span>
           </label>
         </div>
       </div>
