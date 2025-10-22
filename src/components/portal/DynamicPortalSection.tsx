@@ -37,7 +37,7 @@ interface PortalContent {
 }
 
 interface DynamicPortalSectionProps {
-  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop'
+  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop'
   title: string
   description: string
   colour: string
@@ -353,10 +353,6 @@ export default function DynamicPortalSection({
         )}
       </div>
 
-      {/* Global Search */}
-      <div className="max-w-md mx-auto">
-        <GlobalSearch />
-      </div>
 
       {content.length === 0 ? (
         <div className="text-center py-12">

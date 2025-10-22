@@ -14,7 +14,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { Plus, FileText, Video, Link, Settings, BookOpen, ExternalLink, Upload, Search, Eye, Edit, Trash2, Calendar, TrendingUp } from 'lucide-react'
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
-type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'shop'
+type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop'
 
 interface VideoContent {
   url: string
@@ -74,6 +74,7 @@ const PILLARS: { value: Pillar; label: string; colour: string }[] = [
   { value: 'activity', label: '💪 Activity', colour: 'bg-blue-100 text-blue-800' },
   { value: 'mental-health', label: '🧠 Mental Health', colour: 'bg-purple-100 text-purple-800' },
   { value: 'sleep-recovery', label: '😴 Sleep & Recovery', colour: 'bg-indigo-100 text-indigo-800' },
+  { value: 'water', label: '💧 Hydration', colour: 'bg-cyan-100 text-cyan-800' },
   { value: 'shop', label: '🛒 Shop', colour: 'bg-orange-100 text-orange-800' }
 ]
 

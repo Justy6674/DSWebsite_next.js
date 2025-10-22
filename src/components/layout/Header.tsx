@@ -310,10 +310,10 @@ export function Header() {
               </div>
             </Link>
             {/* Discrete admin access - tiny cogwheel */}
-            <Link 
-              href="/blog-admin" 
+            <Link
+              href="/portal/admin"
               className="absolute -top-1 -right-1 text-primary/50 hover:text-primary/80 transition-colors"
-              title=""
+              title="Admin Dashboard"
             >
               <Settings className="h-3 w-3" />
             </Link>

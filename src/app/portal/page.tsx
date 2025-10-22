@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import PortalLayout from '@/components/portal/PortalLayout';
 import HealthMetricsDashboard from '@/components/portal/HealthMetricsDashboard';
 import AdminDebug from '@/components/debug/AdminDebug';
+import GlobalSearch from '@/components/portal/GlobalSearch';
 
 export default function PortalDashboard() {
   const { user } = useAuth();
@@ -41,8 +42,16 @@ export default function PortalDashboard() {
 
   return (
     <PortalLayout>
-      <AdminDebug />
-      <HealthMetricsDashboard />
+      <div className="space-y-8">
+        <AdminDebug />
+
+        {/* Central Search Engine */}
+        <div className="max-w-md mx-auto">
+          <GlobalSearch />
+        </div>
+
+        <HealthMetricsDashboard />
+      </div>
     </PortalLayout>
   );
 }
