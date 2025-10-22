@@ -40,10 +40,12 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [clinicalMenuOpen, setClinicalMenuOpen] = useState(false);
   const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
+  const [portalsMenuOpen, setPortalsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { user, signOut } = useAuth();
   const clinicalRef = useRef<HTMLDivElement | null>(null)
   const toolsRef = useRef<HTMLDivElement | null>(null)
+  const portalsRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,12 +89,16 @@ export function Header() {
       if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) {
         setToolsMenuOpen(false)
       }
+      if (portalsRef.current && !portalsRef.current.contains(e.target as Node)) {
+        setPortalsMenuOpen(false)
+      }
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMobileMenuOpen(false)
         setClinicalMenuOpen(false)
         setToolsMenuOpen(false)
+        setPortalsMenuOpen(false)
       }
     }
     document.addEventListener('click', onDocClick)
@@ -178,15 +184,26 @@ export function Header() {
                 Locations
               </Link>
               
-              <a
-                href="https://www.halaxy.com/a/login"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-primary block py-3 text-lg font-medium border-l-4 border-transparent hover:border-primary hover:pl-3 transition-all w-full text-left"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Portal
-              </a>
+              {/* Portals Section */}
+              <div className="pt-4 border-t border-border">
+                <div className="text-muted-foreground text-sm font-medium uppercase tracking-wider mb-3">Portals</div>
+                <div className="space-y-2">
+                  <a
+                    href="https://www.halaxy.com/a/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground hover:text-primary block py-2 text-base font-medium border-l-4 border-transparent hover:border-primary hover:pl-3 transition-all flex items-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <ExternalLink className="h-4 w-4 mr-3" />
+                    Halaxy Portal
+                  </a>
+                  <div className="text-muted-foreground block py-2 text-base font-medium border-l-4 border-transparent flex items-center">
+                    <Settings className="h-4 w-4 mr-3" />
+                    Clinical Portal
+                  </div>
+                </div>
+              </div>
               
               {/* Clinical Services */}
               <div className="pt-4 border-t border-border">
@@ -433,16 +450,55 @@ export function Header() {
             </a>
           </nav>
 
-          {/* Desktop CTA Button / User Menu */}
+          {/* Desktop Portals Dropdown */}
           <div className="hidden md:flex items-center space-x-4">
-            <a 
-              href="https://www.halaxy.com/a/login"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-primary font-medium text-sm"
+            <div
+              className="relative"
+              ref={portalsRef}
             >
-              Portal
-            </a>
+              <button
+                className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+                onClick={() => setPortalsMenuOpen((v) => !v)}
+                aria-haspopup="menu"
+                aria-expanded={portalsMenuOpen}
+                aria-controls="portals-menu"
+              >
+                Portals
+                <ChevronDown className="ml-1 h-3 w-3" />
+              </button>
+              {portalsMenuOpen && (
+                <div
+                  id="portals-menu"
+                  role="menu"
+                  className="absolute top-full right-0 mt-2 w-64 bg-card border border-border rounded-lg shadow-2xl z-[100] pointer-events-auto"
+                >
+                  <a
+                    href="https://www.halaxy.com/a/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                    className="flex items-center px-4 py-3 text-foreground hover:text-primary hover:bg-muted/80 transition-all duration-200 first:rounded-t-lg border-b border-border/50"
+                    onClick={() => setPortalsMenuOpen(false)}
+                  >
+                    <ExternalLink className="h-4 w-4 mr-3" />
+                    <div>
+                      <span className="text-sm font-medium block">Halaxy Portal</span>
+                      <span className="text-xs text-muted-foreground">Appointments, payments, invoices</span>
+                    </div>
+                  </a>
+                  <div
+                    role="menuitem"
+                    className="flex items-center px-4 py-3 text-muted-foreground hover:bg-muted/80 transition-all duration-200 last:rounded-b-lg cursor-not-allowed"
+                  >
+                    <Settings className="h-4 w-4 mr-3" />
+                    <div>
+                      <span className="text-sm font-medium block">Clinical Portal</span>
+                      <span className="text-xs text-muted-foreground">Patient education & tools platform</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button - Enhanced touch target */}

@@ -6,7 +6,7 @@ export const EXTERNAL_URLS = {
   HALAXY_BOOKING: 'https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131',
   
   // Calculator and tools
-  CALCULATOR: 'https://www.downscale.com.au/calculator',
+  CALCULATOR: '/calculator',
   
   // Information pages
   FAQ: 'https://www.downscale.com.au/frequent-questions',
