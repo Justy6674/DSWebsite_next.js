@@ -141,7 +141,7 @@ export default function UserManagement() {
   }, [users, searchTerm, roleFilter, statusFilter]);
 
   // Update user role
-  const updateUserRole = async (userId: string, newRole: string) => {
+  const updateUserRole = async (userId: string, newRole: 'admin' | 'patient' | 'practitioner') => {
     try {
       const { error } = await supabase
         .from('user_profiles')
@@ -488,10 +488,10 @@ export default function UserManagement() {
                       </Button>
                       <select
                         value={user.role}
-                        onChange={(e) => updateUserRole(user.id, e.target.value)}
+                        onChange={(e) => updateUserRole(user.id, e.target.value as 'admin' | 'patient' | 'practitioner')}
                         className="bg-slate-700 border border-slate-600 text-[#f8fafc] rounded px-2 py-1 text-sm"
                       >
-                        <option value="user">User</option>
+                        <option value="patient">Patient</option>
                         <option value="practitioner">Practitioner</option>
                         <option value="admin">Admin</option>
                       </select>
