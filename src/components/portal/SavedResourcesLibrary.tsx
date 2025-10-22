@@ -46,61 +46,7 @@ const resourceTypes = {
   note: { icon: StickyNote, label: 'Personal Notes', color: 'text-orange-400' }
 };
 
-const sampleResources: SavedResource[] = [
-  {
-    id: '1',
-    title: 'Ozempic Injection Guide',
-    type: 'pdf',
-    category: 'Medication',
-    url: '/docs/ozempic-guide.pdf',
-    tags: ['injection', 'tutorial', 'ozempic'],
-    savedDate: '2024-10-20',
-    lastViewed: '2024-10-22',
-    isFavorite: true
-  },
-  {
-    id: '2',
-    title: 'Week 1 Progress Photo',
-    type: 'photo',
-    category: 'Progress',
-    url: '/photos/week1-front.jpg',
-    tags: ['progress', 'week1', 'front-view'],
-    savedDate: '2024-10-15',
-    isFavorite: false
-  },
-  {
-    id: '3',
-    title: 'High Protein Breakfast Recipes',
-    type: 'meal-plan',
-    category: 'Nutrition',
-    content: 'Collection of 20 high-protein breakfast options for weight loss',
-    tags: ['breakfast', 'protein', 'weight-loss'],
-    savedDate: '2024-10-18',
-    lastViewed: '2024-10-21',
-    isFavorite: true
-  },
-  {
-    id: '4',
-    title: 'Home Workout: 15-Minute HIIT',
-    type: 'video',
-    category: 'Activity',
-    url: 'https://youtube.com/watch?v=example',
-    tags: ['hiit', 'home-workout', 'beginner'],
-    savedDate: '2024-10-17',
-    isFavorite: false
-  },
-  {
-    id: '5',
-    title: 'Side Effect Management Notes',
-    type: 'note',
-    category: 'Medication',
-    content: 'Personal notes on managing nausea: ginger tea helps, avoid fatty foods in morning...',
-    tags: ['side-effects', 'nausea', 'personal'],
-    savedDate: '2024-10-19',
-    lastViewed: '2024-10-22',
-    isFavorite: true
-  }
-];
+// NO SAMPLE DATA - User will add their own resources
 
 export default function SavedResourcesLibrary() {
   const { user } = useAuth();
@@ -125,17 +71,14 @@ export default function SavedResourcesLibrary() {
 
   const currentUser = user || portalUser;
 
-  // Load saved resources
+  // Load saved resources - NO FAKE DATA
   useEffect(() => {
     if (currentUser?.email) {
       const savedResources = localStorage.getItem(`saved_resources_${currentUser.email}`);
       if (savedResources) {
         setResources(JSON.parse(savedResources));
-      } else {
-        // Use sample data for demo
-        setResources(sampleResources);
-        localStorage.setItem(`saved_resources_${currentUser.email}`, JSON.stringify(sampleResources));
       }
+      // Start with empty resources - user adds their own
     }
   }, [currentUser]);
 

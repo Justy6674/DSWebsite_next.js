@@ -354,7 +354,7 @@ export default function HealthMetricsDashboard() {
                     ...prev,
                     currentMedication: e.target.value
                   }))}
-                  placeholder="e.g., Ozempic, Saxenda"
+                  placeholder="e.g., Mounjaro, Wegovy"
                   className="bg-slate-900 border-slate-700 text-[#f8fafc]"
                 />
               </div>
