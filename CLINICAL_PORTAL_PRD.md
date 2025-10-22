@@ -439,6 +439,116 @@ Draft → Review → Publish → Analytics → Update
 
 ---
 
-**Document Status:** ✅ Ready for Development
+## 🆕 **ENHANCED PORTAL TRANSFORMATION (V2.0)**
+
+### **📊 PERSONALIZED HEALTH DASHBOARD**
+
+#### **Core Dashboard Features**
+- **Real Health Metrics Header:** Current weight, waist measurement, % loss since starting
+- **Personal Resource Library:** Save PDFs, videos, meal plans, assessments with progress tracking
+- **Halaxy Portal Integration:** Permanent quick-access link to appointment/billing software
+- **Health Progress Cards:** Starting vs current metrics, medication tracking, next appointments
+
+#### **💧 SMART WATER REMINDER SYSTEM**
+
+**Push Notification Features:**
+- Customizable intervals (30min - 4hrs) with daily goals (1.5L - 4L)
+- Smart timing avoiding sleep hours with progress visualization
+- Web Push API integration with Service Worker for offline notifications
+
+**Notification Tone Personalities:**
+```javascript
+toneStyles = {
+  encouraging: "💪 You're crushing it! Time for hydration!",
+  funny: "🐫 Even camels drink water... just saying",
+  kind: "💙 Gentle reminder to care for yourself",
+  crass: "🔥 Oi! Drink some bloody water!",
+  clinical: "⚕️ Hydration checkpoint: Optimize cellular function"
+}
+```
+
+#### **🧭 ENHANCED NAVIGATION ARCHITECTURE**
+
+**Always-Present Sidebar:**
+```
+📊 My Dashboard
+├── Health Metrics Summary
+├── Saved Resources (PDFs, videos, tools)
+├── Water Reminder Settings
+├── Progress Charts
+└── 🔗 Halaxy Portal (appointments/billing)
+
+💊 Medication Management
+├── Device Tutorial Videos
+├── Product Information Library
+├── Side Effect Tracker
+└── Research Articles
+
+🥗 Nutrition Hub
+├── Personalized Meal Plans
+├── Recipe Collection (saved favorites)
+├── Macro Calculator & History
+└── Restaurant/Travel Guides
+
+🏃 Activity Tracker
+├── Workout Programs (saved routines)
+├── Exercise Video Library
+├── Progress & Wearable Sync
+└── Movement Reminders
+
+🧠 Mental Wellness
+├── Stress Management Tools
+├── CBT Worksheets (saved/completed)
+├── Identity Development
+└── Mindfulness Resources
+
+😴 Sleep Optimization
+├── Sleep Hygiene Protocols
+├── Recovery Tracking
+├── Parent-Specific Strategies
+└── Sleep Environment Setup
+
+🛒 Product Hub
+├── Pharmacy Orders
+├── Supplement Recommendations
+├── Device Reviews & Purchases
+└── Affiliate Partner Stores
+```
+
+#### **🗄️ EXPANDED DATABASE SCHEMA**
+```sql
+-- Enhanced health tracking
+user_health_metrics (user_id, weight, waist, body_fat, recorded_date)
+user_medications (user_id, medication, dosage, time_taken, start_date)
+user_baselines (user_id, starting_metrics, goal_metrics, start_date)
+
+-- Personal resource library
+user_saved_resources (user_id, resource_type, resource_id, saved_date, progress)
+user_preferences (user_id, water_reminder_settings, notification_style, dashboard_layout)
+
+-- Water reminder system
+water_reminders (user_id, daily_goal, interval_minutes, tone_style, active_hours)
+water_intake_log (user_id, amount_ml, recorded_time, reminder_triggered)
+
+-- Engagement tracking
+user_activities (user_id, activity_type, completed_date, notes)
+progress_milestones (user_id, milestone_type, achieved_date, celebration_sent)
+```
+
+#### **📱 PROGRESSIVE WEB APP FEATURES**
+- PWA capabilities with offline access to saved resources
+- Push notification permissions with custom sound/vibration patterns
+- Quick-action floating buttons and swipe gestures
+- Respect user's Do Not Disturb settings with engagement analytics
+
+#### **🎯 ENGAGEMENT & RETENTION FEATURES**
+- Achievement badges for consistency and progress streaks
+- Weekly progress reports with personalized coaching prompts
+- Social sharing of milestones (optional) with celebration notifications
+- Personal resource library with progress tracking on all saved content
+
+---
+
+**Document Status:** ✅ Enhanced V2.0 - Ready for Implementation
 **Next Review:** Weekly progress updates
-**Success Criteria:** Patient engagement + subscription revenue targets met**
+**Success Criteria:** Patient engagement + subscription revenue + health outcome tracking targets met**

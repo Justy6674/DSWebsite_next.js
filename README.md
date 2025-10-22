@@ -514,4 +514,308 @@ Open http://localhost:3000
 
 Project Owner: Justin Black Technical Lead: Claude AI (via spec-kit) Content Lead: Bec Project Status: Planning Phase Launch Target: 4 weeks from start ⸻ This document represents the complete blueprint for transforming Downscale Health from a struggling Vite SPA into a revenue-generating Next.js medical SaaS platform with integrated patient portal.
 
-Created: October 21, 2025 Last Updated: October 21, 2025 Version: 1.0.0
+## 🚀 ENHANCED V2.0 TRANSFORMATION
+
+### Personalized Health Dashboard Revolution
+
+**Transform from Education Portal → Personal Health Command Centre**
+
+The Clinical Portal is evolving from a generic education platform to a personalized health tracking dashboard that serves as each patient's central command centre for their weight loss journey.
+
+### 🎯 Core Dashboard Features
+
+#### Real Health Metrics (Top Banner)
+- **Current Weight**: Real-time tracking with trend indicators
+- **Waist Measurement**: Progress tracking with starting baseline
+- **Percentage Loss**: Automatic calculation since program start
+- **Current Dose**: Medication tracking with titration schedule
+- **Days on Program**: Journey progress counter
+
+#### Smart Water Reminder System 💧
+**Push Notification Platform with Personality**
+
+```javascript
+// Notification Tone Personalities
+const toneStyles = {
+  encouraging: "💪 You're crushing it! Time for hydration!",
+  funny: "🐫 Even camels drink water... just saying",
+  kind: "💙 Gentle reminder to care for yourself with some water",
+  crass: "🔥 Oi! Drink some bloody water!",
+  clinical: "⚕️ Hydration checkpoint: Optimize cellular function",
+  australian: "🇦🇺 Fair dinkum mate, time for a drink!",
+  motivational: "🏆 Champions hydrate - that's you!",
+  gentle: "🌸 Your body deserves this care"
+};
+
+// Smart Scheduling
+const reminderSchedule = {
+  wakeUpReminder: "30 minutes after wake time",
+  mealReminders: "Before each meal",
+  workoutReminder: "Before and after exercise",
+  medicationReminder: "With medication doses",
+  customTimes: "User-defined intervals (1-4 hours)",
+  sleepWarning: "Stop 2 hours before bed"
+};
+```
+
+### 🗂️ Enhanced Navigation Architecture
+
+#### Always-Present Sidebar Navigation
+- **Desktop**: Persistent left sidebar with pillar icons
+- **Mobile**: Hamburger menu with same structure
+- **Dashboard**: Central hub always accessible from any pillar
+
+#### Six Pillar Sub-Navigation Structure
+```
+📊 Dashboard (Always visible)
+├── Personal Metrics Dashboard
+├── Saved Resources Library
+├── Water Reminder Settings
+└── Halaxy Portal Link (Permanent)
+
+💊 Medication
+├── Device Videos (injection tutorials)
+├── Product Information (PDF library)
+├── Research Articles (clinical studies)
+├── Side Effect Management
+└── Dose Tracking Integration
+
+🥗 Nutrition
+├── Meal Planning Tools
+├── Recipe Library (Australian focus)
+├── Macro Calculators
+├── Real-World Eating Guides
+└── Saved Meal Plans
+
+🏃 Activity
+├── Home Workout Programs
+├── Exercise Video Library
+├── Movement Alternatives
+├── Progress Tracking
+└── Equipment-Free Options
+
+🧠 Mental Health
+├── Stress Management Tools
+├── Emotional Eating Strategies
+├── CBT Resources
+├── Identity Change Frameworks
+└── Mindfulness Library
+
+😴 Sleep + Recovery
+├── Sleep Hygiene Guides
+├── Relaxation Resources
+├── Recovery Strategies
+├── Parent-Specific Tips
+└── Sleep Tracking Integration
+
+🛒 Shop
+├── Compounding Pharmacy
+├── Supplements
+├── Devices & Equipment
+├── Educational Products
+└── Affiliate Recommendations
+```
+
+### 📚 Personal Resource Library
+**Save & Organize Everything Important**
+
+#### Saved Content Types
+- **PDFs**: Download and save any educational materials
+- **Videos**: Bookmark exercise routines, injection tutorials
+- **Meal Plans**: Save customized nutrition plans
+- **Recipes**: Personal recipe collection
+- **Articles**: Research papers and educational content
+- **Progress Photos**: Before/during/after image tracking
+- **Notes**: Personal observations and insights
+
+#### Organization Features
+- **Categories**: Auto-categorize by pillar
+- **Tags**: Custom tags for easy searching
+- **Favorites**: Quick access to most-used resources
+- **Recently Viewed**: Track recently accessed content
+- **Sharing**: Share resources with healthcare provider
+
+### 🎛️ Integrated Tools & Calculators
+
+#### Body Metrics Calculator Integration
+- **Connected Storage**: All calculations save to user profile
+- **Historical Tracking**: View progress over time
+- **Goal Setting**: Set and track SMART goals
+- **Milestone Alerts**: Celebrate achievements
+- **Data Export**: Share with healthcare providers
+
+#### Halaxy Portal Integration (Permanent Feature)
+- **Always Visible**: Prominent button in dashboard sidebar
+- **Quick Access**: One-click to appointments and billing
+- **Status Integration**: Show upcoming appointments
+- **Billing Reminders**: Payment due notifications
+- **Provider Messages**: Secure communication portal
+
+### 📱 Progressive Web App (PWA) Features
+
+#### Push Notification System
+```javascript
+// Notification Categories
+const notificationTypes = {
+  waterReminders: {
+    frequency: "User-defined intervals",
+    customization: "Tone personality selection",
+    scheduling: "Smart timing based on lifestyle"
+  },
+  medicationReminders: {
+    frequency: "Based on prescription schedule",
+    customization: "Dose tracking integration",
+    escalation: "Missed dose follow-ups"
+  },
+  appointmentReminders: {
+    frequency: "24h and 1h before appointments",
+    integration: "Halaxy calendar sync",
+    actions: "Reschedule or confirm options"
+  },
+  progressCelebrations: {
+    frequency: "Milestone achievements",
+    customization: "Achievement level settings",
+    motivation: "Encouraging messages"
+  }
+};
+```
+
+#### Offline Capabilities
+- **Content Caching**: Access saved resources offline
+- **Progress Tracking**: Record metrics without internet
+- **Sync When Online**: Auto-sync when connection restored
+- **Offline Notifications**: Local reminder system
+
+### 🗄️ Enhanced Database Schema
+
+#### User Health Profiles
+```sql
+-- Enhanced profiles table with health metrics
+profiles (
+  id, email, subscription_tier,
+  health_metrics JSONB: {
+    starting_weight: number,
+    current_weight: number,
+    target_weight: number,
+    starting_waist: number,
+    current_waist: number,
+    target_waist: number,
+    program_start_date: date,
+    current_medication: string,
+    current_dose: string,
+    dose_history: array
+  },
+  dashboard_preferences JSONB: {
+    water_reminder_enabled: boolean,
+    water_reminder_frequency: string,
+    notification_tone_style: string,
+    preferred_units: "metric|imperial",
+    dashboard_layout: object
+  },
+  saved_resources JSONB: {
+    pdfs: array,
+    videos: array,
+    meal_plans: array,
+    recipes: array,
+    articles: array,
+    notes: array
+  }
+)
+
+-- Water tracking table
+water_tracking (
+  id,
+  user_id,
+  target_daily_intake,
+  actual_intake,
+  reminder_times: array,
+  date,
+  created_at
+)
+
+-- Progress tracking table
+progress_tracking (
+  id,
+  user_id,
+  metric_type: "weight|waist|photos|measurements",
+  value,
+  notes,
+  recorded_date,
+  created_at
+)
+```
+
+### 🎨 Enhanced UI/UX Design
+
+#### Dashboard Layout
+- **Clean Metrics Cards**: Current stats prominently displayed
+- **Progress Visualizations**: Charts and trend lines
+- **Quick Actions**: One-tap access to common tasks
+- **Recent Activity**: Last viewed resources and progress entries
+- **Motivational Elements**: Progress celebrations and encouragement
+
+#### Mobile-First Design
+- **Thumb-Friendly**: All interactions within thumb reach
+- **Swipe Navigation**: Gesture-based pillar switching
+- **Quick Entry**: Fast metric logging with number pads
+- **Voice Notes**: Audio recording for progress thoughts
+
+### 🔧 Technical Implementation Stack
+
+#### Frontend Enhancements
+- **Real-time Updates**: WebSocket connections for live data
+- **Offline Storage**: IndexedDB for local data caching
+- **Push Notifications**: Service Worker implementation
+- **Responsive Charts**: Chart.js integration for progress tracking
+- **Camera Integration**: Progress photo capture and storage
+
+#### Backend Services
+- **Notification Service**: Push notification delivery system
+- **Data Sync**: Real-time synchronization across devices
+- **File Storage**: Secure document and image storage
+- **Analytics**: User engagement and feature usage tracking
+- **Integration APIs**: Halaxy portal connection and health device APIs
+
+### 🎯 Success Metrics V2.0
+
+#### Engagement Metrics
+- **Daily Active Users**: Target 70%+ of enrolled patients
+- **Feature Adoption**: 80%+ use water reminders, 60%+ save resources
+- **Session Duration**: Average 5+ minutes per session
+- **Return Rate**: 85%+ weekly return rate
+
+#### Health Outcome Metrics
+- **Progress Tracking**: 90%+ patients log weekly metrics
+- **Goal Achievement**: 60%+ reach milestone targets
+- **Medication Adherence**: 95%+ dose compliance
+- **Satisfaction Score**: 4.8+ star average rating
+
+### 🚀 Implementation Phases
+
+#### Phase 1: Core Dashboard (Week 1)
+- Real health metrics display
+- Enhanced navigation structure
+- Basic resource saving functionality
+- Halaxy portal integration
+
+#### Phase 2: Smart Features (Week 2)
+- Water reminder system with push notifications
+- Notification tone personality options
+- Body metrics calculator integration
+- Progress tracking and visualization
+
+#### Phase 3: Advanced Features (Week 3)
+- Progressive Web App capabilities
+- Offline functionality
+- Advanced resource organization
+- Enhanced user preferences
+
+#### Phase 4: Polish & Launch (Week 4)
+- User testing and feedback integration
+- Performance optimization
+- Security audit and compliance check
+- Production deployment
+
+---
+
+Created: October 21, 2025 Last Updated: October 22, 2025 Version: 2.0.0
