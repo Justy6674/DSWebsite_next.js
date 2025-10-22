@@ -25,11 +25,11 @@ export default function PortalLogin() {
 
     try {
       // Admin bypass for testing - you can remove this in production
-      if (email === 'admin@downscale.com.au' && password === 'portal2024') {
+      if (email === 'downscale@icloud.com' && password === 'IloveBB0307$$') {
         // Create a mock user session for testing
         localStorage.setItem('portal_user', JSON.stringify({
-          email: 'admin@downscale.com.au',
-          name: 'Portal Admin',
+          email: 'downscale@icloud.com',
+          name: 'Justin Black',
           role: 'admin'
         }));
         router.push('/portal');
@@ -83,7 +83,7 @@ export default function PortalLogin() {
                 The Clinical Portal is currently in beta testing. Full patient access will be available soon.
               </p>
               <div className="text-xs text-[#b68a71] bg-slate-800 rounded px-3 py-2 border border-slate-700">
-                <strong>Admin Testing:</strong> admin@downscale.com.au / portal2024
+                <strong>Admin Testing:</strong> downscale@icloud.com
               </div>
             </div>
           </div>
