@@ -567,7 +567,7 @@ export default function UnifiedAdminDashboard() {
   };
 
   // Default to admin access for site owner
-  if (!isAdmin && user?.email !== 'jb@downscale.com.au') {
+  if (!isAdmin && user?.email !== 'downscale@icloud.com') {
     return (
       <Card className="bg-slate-800 border-slate-700">
         <CardContent className="p-8 text-center">
