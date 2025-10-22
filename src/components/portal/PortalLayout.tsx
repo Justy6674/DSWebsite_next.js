@@ -3,8 +3,9 @@
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import PortalSidebar from './PortalSidebar';
-import { User } from 'lucide-react';
+import { User, Settings } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import Link from 'next/link';
 
 interface PortalLayoutProps {
   children: React.ReactNode;
@@ -72,6 +73,18 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
             </div>
 
             <div className="flex items-center space-x-4 ml-auto">
+              {/* Admin Access Link - Only show for admin email */}
+              {(user?.email === 'downscale@icloud.com') && (
+                <Link
+                  href="/portal/admin"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
+                  title="Admin Dashboard"
+                >
+                  <Settings className="h-4 w-4" />
+                  Admin
+                </Link>
+              )}
+
               <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
                 <User className="h-6 w-6 text-[#b68a71]" />
               </div>

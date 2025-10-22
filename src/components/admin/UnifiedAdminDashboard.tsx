@@ -25,10 +25,13 @@ import {
   Trash2,
   Eye,
   RefreshCw,
-  LogOut
+  LogOut,
+  ArrowLeft,
+  Users
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import Link from 'next/link';
 
 // Import existing components
 import AdminResourceManager from './AdminResourceManager';
@@ -662,7 +665,17 @@ export default function UnifiedAdminDashboard() {
         {/* Sidebar */}
         <div className="w-80 bg-slate-800 border-r border-slate-700 min-h-screen">
           <div className="p-6 border-b border-slate-700">
-            <h1 className="text-xl font-bold text-[#f8fafc]">Admin Dashboard</h1>
+            <div className="flex items-center justify-between mb-2">
+              <h1 className="text-xl font-bold text-[#f8fafc]">Admin Dashboard</h1>
+              <Link
+                href="/portal"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
+                title="Go to Members Portal"
+              >
+                <Users className="h-4 w-4" />
+                Portal
+              </Link>
+            </div>
             <p className="text-sm text-[#fef5e7]">Comprehensive Management System</p>
           </div>
 
