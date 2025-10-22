@@ -27,7 +27,6 @@ import {
   RefreshCw,
   LogOut,
   ArrowLeft,
-  Users,
   Home
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
