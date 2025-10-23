@@ -59,6 +59,9 @@ interface PortalCategoryAssignment {
   description: string;
   content_data: PortalContentData;
   tags: string[];
+  subsection?: string;
+  customSubsection?: string;
+  displayOrder?: string;
 }
 
 const FILE_TYPES = {
@@ -540,9 +543,30 @@ export default function FileManagement() {
       return;
     }
 
+    if (!portalAssignment.subsection || (portalAssignment.subsection === 'custom' && !portalAssignment.customSubsection?.trim())) {
+      toast.error('Please select or create a sub-section');
+      return;
+    }
+
     setAssigningToPortal(true);
 
     try {
+      // Determine final subsection name
+      const finalSubsection = portalAssignment.subsection === 'custom'
+        ? portalAssignment.customSubsection?.trim()
+        : portalAssignment.subsection;
+
+      // Enhanced content data with subsection and display order
+      const enhancedContentData = {
+        ...portalAssignment.content_data,
+        subsection: finalSubsection,
+        displayOrder: portalAssignment.displayOrder || 'normal',
+        originalFileName: selectedFileForPortal.name,
+        fileType: selectedFileForPortal.type,
+        fileSize: selectedFileForPortal.size,
+        uploadedAt: selectedFileForPortal.created_at
+      };
+
       const { data, error } = await supabase
         .from('portal_content')
         .insert([
@@ -551,7 +575,7 @@ export default function FileManagement() {
             content_type: portalAssignment.content_type,
             title: portalAssignment.title.trim(),
             description: portalAssignment.description.trim() || null,
-            content_data: portalAssignment.content_data,
+            content_data: enhancedContentData,
             tags: portalAssignment.tags,
             is_published: true,
             created_by: user.id
@@ -562,7 +586,7 @@ export default function FileManagement() {
 
       if (error) throw error;
 
-      toast.success(`File successfully added to ${PORTAL_PILLARS[portalAssignment.pillar].name} portal section`);
+      toast.success(`File successfully added to ${PORTAL_PILLARS[portalAssignment.pillar].name} → ${finalSubsection}`);
       closePortalModal();
     } catch (error) {
       console.error('Portal assignment error:', error);
@@ -716,17 +740,17 @@ export default function FileManagement() {
               <p className="text-[#fef5e7]">No files found</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredFiles.map((file) => {
                 const FileIcon = getFileIcon(file.type);
 
                 return (
                   <div
                     key={file.id}
-                    className="bg-slate-900 rounded-lg p-4 border border-slate-700 hover:border-slate-600 transition-colors"
+                    className="bg-slate-900 rounded-xl p-6 border border-slate-700 hover:border-[#b68a71]/50 transition-all duration-300 hover:shadow-xl hover:shadow-[#b68a71]/10"
                   >
                     {/* File Preview */}
-                    <div className="aspect-square bg-slate-700 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+                    <div className="aspect-video bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-slate-700">
                       {file.type === 'image' && file.thumbnail_url ? (
                         <img
                           src={file.thumbnail_url}
@@ -734,64 +758,74 @@ export default function FileManagement() {
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <FileIcon className="h-8 w-8 text-slate-400" />
+                        <FileIcon className="h-12 w-12 text-slate-400" />
                       )}
                     </div>
 
                     {/* File Info */}
-                    <div className="space-y-2">
-                      <h3 className="font-medium text-[#f8fafc] text-sm truncate" title={file.name}>
-                        {file.name}
-                      </h3>
-                      <div className="flex items-center justify-between text-xs text-[#fef5e7]">
-                        <span>{formatFileSize(file.size)}</span>
-                        <span className="bg-slate-700 px-2 py-1 rounded">{file.type}</span>
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="font-bold text-[#f8fafc] text-base leading-tight mb-2" title={file.name}>
+                          {file.name.length > 35 ? `${file.name.substring(0, 35)}...` : file.name}
+                        </h3>
+                        <div className="flex items-center gap-3 text-sm text-[#fef5e7]">
+                          <span className="bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+                            {formatFileSize(file.size)}
+                          </span>
+                          <span className="bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+                            {file.type}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-400 mt-2">
+                          Uploaded: {new Date(file.created_at).toLocaleDateString('en-AU')}
+                        </p>
                       </div>
-                      <p className="text-xs text-slate-400">
-                        {new Date(file.created_at).toLocaleDateString('en-AU')}
-                      </p>
-                    </div>
 
-                    {/* File Actions */}
-                    <div className="flex justify-between mt-3 pt-3 border-t border-slate-700">
-                      <div className="flex space-x-1">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 p-1"
-                          onClick={() => window.open(file.url, '_blank')}
-                          title="View file"
-                        >
-                          <Eye className="h-3 w-3" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 p-1"
-                          onClick={() => copyFileUrl(file.url)}
-                          title="Copy URL"
-                        >
-                          <Copy className="h-3 w-3" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="border-[#b68a71] text-[#b68a71] hover:bg-[#b68a71]/20 p-1"
-                          onClick={() => openPortalModal(file)}
-                          title="Add to Portal"
-                        >
-                          <BookOpen className="h-3 w-3" />
-                        </Button>
+                      {/* File Actions */}
+                      <div className="flex items-center justify-between pt-4 border-t border-slate-700">
+                        <div className="flex space-x-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 px-3 py-2"
+                            onClick={() => window.open(file.url, '_blank')}
+                            title="View file"
+                          >
+                            <Eye className="h-4 w-4 mr-1" />
+                            View
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 px-3 py-2"
+                            onClick={() => copyFileUrl(file.url)}
+                            title="Copy URL"
+                          >
+                            <Copy className="h-4 w-4 mr-1" />
+                            Copy
+                          </Button>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button
+                            size="sm"
+                            className="bg-[#b68a71] hover:bg-[#8B6F47] text-white px-4 py-2"
+                            onClick={() => openPortalModal(file)}
+                            title="Add to Portal"
+                          >
+                            <BookOpen className="h-4 w-4 mr-2" />
+                            Add to Portal
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-red-600 text-red-400 hover:bg-red-900/20 px-3 py-2"
+                            onClick={() => deleteFile(file.id, file.url)}
+                            title="Delete file"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="border-red-600 text-red-400 hover:bg-red-900/20 p-1"
-                        onClick={() => deleteFile(file.id, file.url)}
-                        title="Delete file"
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
                     </div>
                   </div>
                 );
@@ -803,173 +837,283 @@ export default function FileManagement() {
 
       {/* Portal Assignment Modal */}
       {showPortalModal && selectedFileForPortal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              {/* Modal Header */}
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-[#f8fafc]">Add to Portal</h2>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={closePortalModal}
-                  className="text-[#fef5e7] hover:bg-slate-700"
-                >
-                  <X className="h-5 w-5" />
-                </Button>
+        <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-800 rounded-xl w-full h-full max-w-7xl max-h-[95vh] overflow-hidden flex flex-col">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-8 border-b border-slate-700">
+              <div>
+                <h2 className="text-3xl font-bold text-[#f8fafc] mb-2">Add to Portal</h2>
+                <p className="text-[#fef5e7]">Configure where and how this content will appear in the patient portal</p>
               </div>
+              <Button
+                variant="ghost"
+                size="lg"
+                onClick={closePortalModal}
+                className="text-[#fef5e7] hover:bg-slate-700"
+              >
+                <X className="h-6 w-6" />
+              </Button>
+            </div>
 
-              {/* File Preview */}
-              <div className="bg-slate-900 rounded-lg p-4 mb-6">
-                <div className="flex items-center space-x-3">
-                  {selectedFileForPortal.type === 'image' && selectedFileForPortal.thumbnail_url ? (
-                    <img
-                      src={selectedFileForPortal.thumbnail_url}
-                      alt={selectedFileForPortal.name}
-                      className="w-12 h-12 object-cover rounded"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 bg-slate-700 rounded flex items-center justify-center">
-                      {(() => {
+            {/* Modal Content */}
+            <div className="flex flex-1 overflow-hidden">
+              {/* Left Panel - File Preview */}
+              <div className="w-1/3 p-8 border-r border-slate-700 bg-slate-900">
+                <h3 className="text-xl font-bold text-[#f8fafc] mb-6">File Preview</h3>
+
+                {/* Large File Preview */}
+                <div className="bg-slate-800 rounded-xl p-6 mb-6">
+                  <div className="aspect-square bg-slate-700 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                    {selectedFileForPortal.type === 'image' && selectedFileForPortal.thumbnail_url ? (
+                      <img
+                        src={selectedFileForPortal.thumbnail_url}
+                        alt={selectedFileForPortal.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      (() => {
                         const FileIcon = getFileIcon(selectedFileForPortal.type);
-                        return <FileIcon className="h-6 w-6 text-slate-400" />;
-                      })()}
-                    </div>
-                  )}
-                  <div>
-                    <h3 className="font-medium text-[#f8fafc]">{selectedFileForPortal.name}</h3>
-                    <p className="text-sm text-[#fef5e7]">
-                      {formatFileSize(selectedFileForPortal.size)} • {selectedFileForPortal.type}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Portal Assignment Form */}
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Pillar Selection */}
-                  <div>
-                    <Label className="text-[#fef5e7] mb-2 block">Portal Section</Label>
-                    <select
-                      value={portalAssignment.pillar}
-                      onChange={(e) => setPortalAssignment(prev => ({
-                        ...prev,
-                        pillar: e.target.value as any
-                      }))}
-                      className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-md px-3 py-2"
-                    >
-                      {Object.entries(PORTAL_PILLARS).map(([key, pillar]) => (
-                        <option key={key} value={key}>
-                          {pillar.name}
-                        </option>
-                      ))}
-                    </select>
+                        return <FileIcon className="h-20 w-20 text-slate-400" />;
+                      })()
+                    )}
                   </div>
 
-                  {/* Content Type Selection */}
-                  <div>
-                    <Label className="text-[#fef5e7] mb-2 block">Content Type</Label>
-                    <select
-                      value={portalAssignment.content_type}
-                      onChange={(e) => setPortalAssignment(prev => ({
-                        ...prev,
-                        content_type: e.target.value as any
-                      }))}
-                      className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-md px-3 py-2"
-                    >
-                      {Object.entries(CONTENT_TYPES).map(([key, label]) => (
-                        <option key={key} value={key}>
-                          {label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* Sub-section Info */}
-                <div className="bg-slate-900 rounded-lg p-4">
-                  <h4 className="font-medium text-[#f8fafc] mb-2">
-                    Will appear in: {PORTAL_PILLARS[portalAssignment.pillar].name}
-                  </h4>
-                  <p className="text-sm text-[#fef5e7] mb-3">Available sub-sections:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {PORTAL_PILLARS[portalAssignment.pillar].subsections.map((subsection) => (
-                      <span
-                        key={subsection}
-                        className="bg-slate-700 text-[#fef5e7] px-2 py-1 rounded text-xs"
-                      >
-                        {subsection}
+                  <div className="space-y-3">
+                    <h4 className="font-bold text-[#f8fafc] text-lg leading-tight">
+                      {selectedFileForPortal.name}
+                    </h4>
+                    <div className="flex items-center justify-between text-sm text-[#fef5e7]">
+                      <span className="bg-slate-700 px-3 py-1 rounded-full">
+                        {formatFileSize(selectedFileForPortal.size)}
                       </span>
-                    ))}
+                      <span className="bg-slate-700 px-3 py-1 rounded-full">
+                        {selectedFileForPortal.type}
+                      </span>
+                    </div>
+                    <div className="text-xs text-slate-400">
+                      Uploaded: {new Date(selectedFileForPortal.created_at).toLocaleDateString('en-AU')}
+                    </div>
                   </div>
                 </div>
 
-                {/* Title */}
-                <div>
-                  <Label htmlFor="portal-title" className="text-[#fef5e7] mb-2 block">
-                    Title *
-                  </Label>
-                  <Input
-                    id="portal-title"
-                    value={portalAssignment.title}
-                    onChange={(e) => setPortalAssignment(prev => ({
-                      ...prev,
-                      title: e.target.value
-                    }))}
-                    placeholder="Enter a title for this content..."
-                    className="bg-slate-900 border-slate-700 text-[#f8fafc]"
-                  />
-                </div>
-
-                {/* Description */}
-                <div>
-                  <Label htmlFor="portal-description" className="text-[#fef5e7] mb-2 block">
-                    Description
-                  </Label>
-                  <textarea
-                    id="portal-description"
-                    value={portalAssignment.description}
-                    onChange={(e) => setPortalAssignment(prev => ({
-                      ...prev,
-                      description: e.target.value
-                    }))}
-                    placeholder="Enter a description for this content..."
-                    rows={3}
-                    className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-md px-3 py-2 resize-none"
-                  />
-                </div>
-
-                {/* Tags */}
-                <div>
-                  <Label className="text-[#fef5e7] mb-2 block">Tags (comma-separated)</Label>
-                  <Input
-                    value={portalAssignment.tags.join(', ')}
-                    onChange={(e) => setPortalAssignment(prev => ({
-                      ...prev,
-                      tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
-                    }))}
-                    placeholder="obesity, weight loss, research, glp-1..."
-                    className="bg-slate-900 border-slate-700 text-[#f8fafc]"
-                  />
+                {/* Placement Preview */}
+                <div className="bg-slate-800 rounded-xl p-6">
+                  <h4 className="font-bold text-[#f8fafc] mb-4">Will appear in:</h4>
+                  <div className="space-y-3">
+                    <div className="text-[#b68a71] text-lg font-semibold">
+                      {PORTAL_PILLARS[portalAssignment.pillar].name}
+                    </div>
+                    {portalAssignment.subsection && (
+                      <div className="text-[#fef5e7] text-base">
+                        → {portalAssignment.subsection}
+                      </div>
+                    )}
+                    <div className="text-sm text-slate-400">
+                      Content Type: {CONTENT_TYPES[portalAssignment.content_type]}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Modal Actions */}
-              <div className="flex justify-end space-x-3 mt-6 pt-6 border-t border-slate-700">
+              {/* Right Panel - Assignment Controls */}
+              <div className="flex-1 p-8 overflow-y-auto">
+                <div className="max-w-3xl space-y-8">
+
+                  {/* Placement Configuration */}
+                  <div>
+                    <h3 className="text-xl font-bold text-[#f8fafc] mb-6">Placement Configuration</h3>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Pillar Selection */}
+                      <div>
+                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
+                          Portal Section *
+                        </Label>
+                        <select
+                          value={portalAssignment.pillar}
+                          onChange={(e) => setPortalAssignment(prev => ({
+                            ...prev,
+                            pillar: e.target.value as any,
+                            subsection: '' // Reset subsection when pillar changes
+                          }))}
+                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
+                        >
+                          {Object.entries(PORTAL_PILLARS).map(([key, pillar]) => (
+                            <option key={key} value={key}>
+                              {pillar.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Sub-section Selection */}
+                      <div>
+                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
+                          Sub-section *
+                        </Label>
+                        <select
+                          value={portalAssignment.subsection || ''}
+                          onChange={(e) => setPortalAssignment(prev => ({
+                            ...prev,
+                            subsection: e.target.value
+                          }))}
+                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
+                        >
+                          <option value="">Select a sub-section...</option>
+                          {PORTAL_PILLARS[portalAssignment.pillar].subsections.map((subsection) => (
+                            <option key={subsection} value={subsection}>
+                              {subsection}
+                            </option>
+                          ))}
+                          <option value="custom">+ Create New Sub-section</option>
+                        </select>
+                      </div>
+
+                      {/* Custom Sub-section Input */}
+                      {portalAssignment.subsection === 'custom' && (
+                        <div className="lg:col-span-2">
+                          <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
+                            New Sub-section Name *
+                          </Label>
+                          <Input
+                            value={portalAssignment.customSubsection || ''}
+                            onChange={(e) => setPortalAssignment(prev => ({
+                              ...prev,
+                              customSubsection: e.target.value
+                            }))}
+                            placeholder="Enter new sub-section name..."
+                            className="bg-slate-900 border-slate-700 text-[#f8fafc] text-base py-3"
+                          />
+                        </div>
+                      )}
+
+                      {/* Content Type Selection */}
+                      <div>
+                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
+                          Content Type *
+                        </Label>
+                        <select
+                          value={portalAssignment.content_type}
+                          onChange={(e) => setPortalAssignment(prev => ({
+                            ...prev,
+                            content_type: e.target.value as any
+                          }))}
+                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
+                        >
+                          {Object.entries(CONTENT_TYPES).map(([key, label]) => (
+                            <option key={key} value={key}>
+                              {label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Display Priority */}
+                      <div>
+                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
+                          Display Priority
+                        </Label>
+                        <select
+                          value={portalAssignment.displayOrder || 'normal'}
+                          onChange={(e) => setPortalAssignment(prev => ({
+                            ...prev,
+                            displayOrder: e.target.value
+                          }))}
+                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
+                        >
+                          <option value="top">Top of section (high priority)</option>
+                          <option value="normal">Normal placement</option>
+                          <option value="bottom">Bottom of section (low priority)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content Details */}
+                  <div>
+                    <h3 className="text-xl font-bold text-[#f8fafc] mb-6">Content Details</h3>
+
+                    <div className="space-y-6">
+                      {/* Title */}
+                      <div>
+                        <Label htmlFor="portal-title" className="text-[#fef5e7] mb-3 block text-base font-medium">
+                          Title *
+                        </Label>
+                        <Input
+                          id="portal-title"
+                          value={portalAssignment.title}
+                          onChange={(e) => setPortalAssignment(prev => ({
+                            ...prev,
+                            title: e.target.value
+                          }))}
+                          placeholder="Enter a clear, descriptive title..."
+                          className="bg-slate-900 border-slate-700 text-[#f8fafc] text-base py-3"
+                        />
+                      </div>
+
+                      {/* Description */}
+                      <div>
+                        <Label htmlFor="portal-description" className="text-[#fef5e7] mb-3 block text-base font-medium">
+                          Description
+                        </Label>
+                        <textarea
+                          id="portal-description"
+                          value={portalAssignment.description}
+                          onChange={(e) => setPortalAssignment(prev => ({
+                            ...prev,
+                            description: e.target.value
+                          }))}
+                          placeholder="Provide a detailed description of this content and its purpose..."
+                          rows={4}
+                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 resize-none text-base"
+                        />
+                      </div>
+
+                      {/* Tags */}
+                      <div>
+                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
+                          Search Tags
+                        </Label>
+                        <Input
+                          value={portalAssignment.tags.join(', ')}
+                          onChange={(e) => setPortalAssignment(prev => ({
+                            ...prev,
+                            tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
+                          }))}
+                          placeholder="obesity, weight loss, research, glp-1, medication..."
+                          className="bg-slate-900 border-slate-700 text-[#f8fafc] text-base py-3"
+                        />
+                        <p className="text-sm text-slate-400 mt-2">
+                          Separate tags with commas. These help patients find this content when searching.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex justify-between items-center p-8 border-t border-slate-700 bg-slate-900">
+              <div className="text-sm text-slate-400">
+                Changes will be visible to patients immediately after saving
+              </div>
+              <div className="flex space-x-4">
                 <Button
                   variant="outline"
                   onClick={closePortalModal}
-                  className="border-slate-600 text-[#fef5e7] hover:bg-slate-700"
+                  className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 px-8 py-3"
+                  size="lg"
                 >
                   Cancel
                 </Button>
                 <Button
                   onClick={assignToPortal}
-                  disabled={assigningToPortal || !portalAssignment.title.trim()}
-                  className="bg-[#b68a71] hover:bg-[#8B6F47] text-white"
+                  disabled={assigningToPortal || !portalAssignment.title.trim() || (!portalAssignment.subsection || portalAssignment.subsection === 'custom' && !portalAssignment.customSubsection?.trim())}
+                  className="bg-[#b68a71] hover:bg-[#8B6F47] text-white px-8 py-3"
+                  size="lg"
                 >
-                  {assigningToPortal ? 'Adding...' : 'Add to Portal'}
+                  {assigningToPortal ? 'Adding to Portal...' : 'Add to Portal'}
                 </Button>
               </div>
             </div>
