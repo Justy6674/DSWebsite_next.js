@@ -218,10 +218,15 @@ export default function FileManagement() {
   }, [files, currentFolder, fileTypeFilter, searchTerm]);
 
   // Delete file
-  const deleteFile = async (fileId: string, filePath: string) => {
+  const deleteFile = async (fileId: string, fileUrl: string) => {
     if (!confirm('Are you sure you want to delete this file?')) return;
 
     try {
+      // Extract file path from URL
+      const urlParts = fileUrl.split('/');
+      const bucketIndex = urlParts.findIndex(part => part === 'portal-files');
+      const filePath = urlParts.slice(bucketIndex + 1).join('/');
+
       // Delete from storage
       await supabase.storage
         .from('portal-files')
@@ -448,7 +453,7 @@ export default function FileManagement() {
                         size="sm"
                         variant="outline"
                         className="border-red-600 text-red-400 hover:bg-red-900/20 p-1"
-                        onClick={() => deleteFile(file.id, file.url.split('/').pop() || '')}
+                        onClick={() => deleteFile(file.id, file.url)}
                       >
                         <Trash2 className="h-3 w-3" />
                       </Button>
