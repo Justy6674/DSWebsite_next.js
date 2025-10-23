@@ -57,12 +57,12 @@ export function AustralianHeroSection({
       {/* Australian Background Image */}
       <picture>
         <source
-          srcSet={getBackgroundImage().src}
+          srcSet={getBackgroundImage()}
           type="image/jpeg"
           media="(min-width: 768px)"
         />
         <img
-          src={getBackgroundImage().src}
+          src={getBackgroundImage()}
           alt={getAustralianAltText(imageVariant)}
           className="absolute inset-0 w-full h-full object-cover object-center transform-gpu mobile-image-hero"
           loading="eager"

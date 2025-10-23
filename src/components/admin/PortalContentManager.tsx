@@ -75,7 +75,7 @@ const PILLARS: { value: Pillar; label: string; colour: string }[] = [
   { value: 'mental-health', label: '🧠 Mental Health', colour: 'bg-purple-100 text-purple-800' },
   { value: 'sleep-recovery', label: '😴 Sleep & Recovery', colour: 'bg-indigo-100 text-indigo-800' },
   { value: 'water', label: '💧 Hydration', colour: 'bg-cyan-100 text-cyan-800' },
-  { value: 'shop', label: '🛒 Shop', colour: 'bg-orange-100 text-orange-800' }
+  { value: 'shop', label: '🛒 Shop (→ downscale.shop)', colour: 'bg-orange-100 text-orange-800' }
 ]
 
 const CONTENT_TYPES: { value: ContentType; label: string; icon: any; description: string }[] = [
