@@ -189,7 +189,13 @@ export default function FileManagement() {
         } else {
           // For files >6MB, use resumable upload
           console.log('File >6MB - using resumable upload');
-          toast.info(`Large file detected (${(file.size / 1024 / 1024).toFixed(1)}MB) - using resumable upload`);
+          toast(`Large file detected (${(file.size / 1024 / 1024).toFixed(1)}MB) - using resumable upload`, {
+            icon: 'ℹ️',
+            style: {
+              background: '#1e40af',
+              color: '#fef5e7'
+            }
+          });
 
           try {
             finalPath = await uploadLargeFile(file, folder);
