@@ -86,7 +86,10 @@ export default function FileManagement() {
           .from('portal-files')
           .upload(filePath, file);
 
-        if (uploadError) throw uploadError;
+        if (uploadError) {
+          console.error('Storage upload error:', uploadError);
+          throw uploadError;
+        }
 
         // Get public URL
         const { data: urlData } = supabase.storage
@@ -122,7 +125,10 @@ export default function FileManagement() {
           .select()
           .single();
 
-        if (dbError) throw dbError;
+        if (dbError) {
+          console.error('Database insert error:', dbError);
+          throw dbError;
+        }
 
         return dbData;
       } catch (error) {
@@ -134,8 +140,14 @@ export default function FileManagement() {
     const results = await Promise.all(uploadPromises);
     const successfulUploads = results.filter(Boolean);
 
+    console.log(`Upload results: ${successfulUploads.length}/${fileList.length} files uploaded successfully`);
+
     if (successfulUploads.length > 0) {
       await fetchFiles();
+    }
+
+    if (successfulUploads.length < fileList.length) {
+      console.warn(`${fileList.length - successfulUploads.length} files failed to upload`);
     }
 
     setUploading(false);
