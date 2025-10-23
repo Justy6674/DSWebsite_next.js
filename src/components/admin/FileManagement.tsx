@@ -89,13 +89,37 @@ export default function FileManagement() {
         const fileName = `${timestamp}_${baseName}.${fileExtension}`;
         const filePath = `${folder}/${fileName}`;
 
-        // Upload to Supabase Storage
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('portal-files')
-          .upload(filePath, file);
+        // Check file size and use appropriate upload method
+        const maxStandardSize = 6 * 1024 * 1024; // 6MB limit for standard uploads
+        console.log(`File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+
+        let uploadData, uploadError;
+
+        if (file.size <= maxStandardSize) {
+          // Standard upload for files ≤6MB
+          console.log('Using standard upload (≤6MB)');
+          const result = await supabase.storage
+            .from('portal-files')
+            .upload(filePath, file, {
+              contentType: file.type || 'application/octet-stream',
+              cacheControl: '3600',
+              upsert: false
+            });
+          uploadData = result.data;
+          uploadError = result.error;
+        } else {
+          // For files >6MB, we need resumable upload
+          console.log('File >6MB - resumable upload required');
+          throw new Error(`File size ${(file.size / 1024 / 1024).toFixed(2)}MB exceeds 6MB limit. Resumable upload not yet implemented.`);
+        }
 
         if (uploadError) {
-          console.error('Storage upload error:', uploadError);
+          console.error('Storage upload error details:', {
+            message: uploadError.message,
+            error: uploadError.error,
+            statusCode: uploadError.statusCode,
+            details: uploadError
+          });
           throw uploadError;
         }
 
