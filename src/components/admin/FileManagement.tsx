@@ -468,7 +468,7 @@ export default function FileManagement() {
       if (filteredFiles.length === 0 && allFiles && allFiles.length > 0) {
         console.warn('⚠️ No files found for current user, but files exist in database');
         console.log('🔑 Current user ID:', user?.id);
-        console.log('📋 User IDs in database:', [...new Set(allFiles.map(f => f.uploaded_by))]);
+        console.log('📋 User IDs in database:', Array.from(new Set(allFiles.map(f => f.uploaded_by))));
       }
 
     } catch (error) {
