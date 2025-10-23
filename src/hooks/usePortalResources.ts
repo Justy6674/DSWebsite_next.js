@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export interface PortalResource {
   id: string;
-  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop';
+  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication';
   content_type: 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide';
   title: string;
   description: string | null;

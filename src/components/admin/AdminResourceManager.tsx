@@ -22,7 +22,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 interface PortalResource {
   id?: string;
-  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop';
+  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication';
   content_type: 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide';
   title: string;
   description: string | null;
@@ -40,6 +40,7 @@ const PILLARS = [
   { value: 'activity', label: 'Activity & Exercise' },
   { value: 'mental-health', label: 'Mental Health' },
   { value: 'sleep-recovery', label: 'Sleep & Recovery' },
+  { value: 'medication', label: 'Medication' },
   { value: 'shop', label: 'Shop & Products' }
 ];
 

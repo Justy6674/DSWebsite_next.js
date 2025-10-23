@@ -49,6 +49,7 @@ interface PortalContentData {
   external_url?: string;
   duration?: string;
   author?: string;
+  [key: string]: any;
 }
 
 interface PortalCategoryAssignment {

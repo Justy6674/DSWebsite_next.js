@@ -14,7 +14,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { Plus, FileText, Video, Link, Settings, BookOpen, ExternalLink, Upload, Search, Eye, Edit, Trash2, Calendar, TrendingUp } from 'lucide-react'
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
-type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop'
+type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication'
 
 interface VideoContent {
   url: string
