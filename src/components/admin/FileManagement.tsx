@@ -68,9 +68,16 @@ export default function FileManagement() {
   const [fileTypeFilter, setFileTypeFilter] = useState('all');
   const [dragActive, setDragActive] = useState(false);
 
-  // File upload handling
+  // File upload handling with admin authentication
   const handleFileUpload = async (fileList: FileList, folder: string = 'other') => {
     if (!fileList.length) return;
+
+    // SECURITY: Must have authenticated user for healthcare system
+    if (!user?.id) {
+      console.error('SECURITY: File upload attempted without authenticated user');
+      alert('Authentication required for file uploads');
+      return;
+    }
 
     setUploading(true);
     const uploadPromises = Array.from(fileList).map(async (file) => {
@@ -111,7 +118,7 @@ export default function FileManagement() {
           url: urlData.publicUrl,
           thumbnail_url: thumbnailUrl,
           folder: folder,
-          uploaded_by: user?.id || null, // Use null instead of 'unknown' for proper RLS
+          uploaded_by: user?.id || null, // Safe null handling for RLS
           metadata: {
             original_name: file.name,
             mime_type: file.type,
