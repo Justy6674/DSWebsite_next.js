@@ -178,6 +178,7 @@ export default function FileManagement() {
     tags: []
   });
   const [assigningToPortal, setAssigningToPortal] = useState(false);
+  const [showAllFiles, setShowAllFiles] = useState(false); // Debug toggle
 
   // Resumable upload function using TUS protocol
   const uploadLargeFile = async (file: File, folder: string): Promise<string> => {
@@ -338,7 +339,7 @@ export default function FileManagement() {
           thumbnailUrl = urlData.publicUrl;
         }
 
-        // Save file metadata to database
+        // Save file metadata to database with enhanced logging
         const fileMetadata = {
           name: file.name,
           type: getFileType(file.name),
@@ -354,6 +355,13 @@ export default function FileManagement() {
           }
         };
 
+        console.log('💾 Saving file metadata to database:', {
+          fileName: file.name,
+          uploadedBy: user?.id,
+          userEmail: user?.email,
+          metadata: fileMetadata
+        });
+
         const { data: dbData, error: dbError } = await supabase
           .from('file_storage')
           .insert([fileMetadata])
@@ -361,10 +369,12 @@ export default function FileManagement() {
           .single();
 
         if (dbError) {
-          console.error('Database insert error:', dbError);
+          console.error('❌ Database insert error:', dbError);
+          console.error('📝 Failed metadata:', fileMetadata);
           throw dbError;
         }
 
+        console.log('✅ File successfully saved to database:', dbData);
         return dbData;
       } catch (error) {
         console.error('Upload error for file:', file.name, error);
@@ -424,20 +434,46 @@ export default function FileManagement() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  // Fetch files from database
+  // Fetch files from database with enhanced debugging
   const fetchFiles = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      console.log('🔍 Fetching files for user:', user?.id, user?.email);
+
+      // First, try to fetch all files to see what's in the database
+      const { data: allFiles, error: allError } = await supabase
         .from('file_storage')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      console.log('📁 All files in database:', allFiles?.length || 0, allFiles);
 
-      setFiles(data || []);
+      if (allError) {
+        console.error('❌ Error fetching all files:', allError);
+        throw allError;
+      }
+
+      // Show all files if toggle is on, otherwise filter by user
+      let filteredFiles = allFiles || [];
+      if (!showAllFiles && user?.id) {
+        filteredFiles = allFiles?.filter(file => file.uploaded_by === user.id) || [];
+        console.log('👤 Files filtered for current user:', filteredFiles?.length || 0, filteredFiles);
+      } else if (showAllFiles) {
+        console.log('🌐 Showing all files (debug mode)', filteredFiles?.length || 0);
+      }
+
+      setFiles(filteredFiles);
+
+      // Additional debugging for empty results
+      if (filteredFiles.length === 0 && allFiles && allFiles.length > 0) {
+        console.warn('⚠️ No files found for current user, but files exist in database');
+        console.log('🔑 Current user ID:', user?.id);
+        console.log('📋 User IDs in database:', [...new Set(allFiles.map(f => f.uploaded_by))]);
+      }
+
     } catch (error) {
-      console.error('Error fetching files:', error);
+      console.error('💥 Error fetching files:', error);
+      toast.error(`Failed to load files: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -617,10 +653,17 @@ export default function FileManagement() {
     }
   }, [currentFolder]);
 
-  // Load files on component mount
+  // Load files on component mount and when showAllFiles changes
   useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [showAllFiles]); // Refetch when toggle changes
+
+  // Also refetch when user changes
+  useEffect(() => {
+    if (user?.id) {
+      fetchFiles();
+    }
+  }, [user?.id]);
 
   return (
     <div className="space-y-6">
@@ -631,6 +674,26 @@ export default function FileManagement() {
           <p className="text-[#fef5e7]">Upload, organize, and manage portal assets</p>
         </div>
         <div className="flex space-x-2">
+          <Button
+            onClick={() => setShowAllFiles(!showAllFiles)}
+            variant={showAllFiles ? "default" : "outline"}
+            className={showAllFiles
+              ? "bg-[#b68a71] hover:bg-[#8B6F47] text-white"
+              : "border-slate-600 text-[#fef5e7] hover:bg-slate-700"
+            }
+          >
+            <Eye className="h-4 w-4 mr-2" />
+            {showAllFiles ? 'Show My Files' : 'Show All Files'}
+          </Button>
+          <Button
+            onClick={fetchFiles}
+            variant="outline"
+            disabled={loading}
+            className="border-slate-600 text-[#fef5e7] hover:bg-slate-700"
+          >
+            <Search className="h-4 w-4 mr-2" />
+            {loading ? 'Refreshing...' : 'Refresh Files'}
+          </Button>
           <input
             type="file"
             multiple
