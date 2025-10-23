@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { OptimizedBackground } from '@/components/ui/optimized-background';
-import goalSettingHero from '@/assets/goal-setting-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 export default function GoalSettingMaintenance() {
@@ -181,14 +181,14 @@ export default function GoalSettingMaintenance() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${goalSettingHero})`,
+            backgroundImage: "url(/goal-setting-hero.jpg)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={goalSettingHero.src} 
+            src="/goal-setting-hero.jpg" 
             alt="" 
             className="hidden" 
             loading="eager"

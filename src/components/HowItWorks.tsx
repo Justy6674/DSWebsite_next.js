@@ -1,7 +1,7 @@
 'use client';
 
 import Head from "next/head";
-import howHero from '@/assets/how-it-works-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -80,14 +80,14 @@ export default function HowItWorks() {
           <div 
             className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
             style={{
-              backgroundImage: `url(${howHero})`,
+              backgroundImage: "url(/how-it-works-hero.jpg)",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}
           >
             <img 
-              src={howHero.src} 
+              src="/how-it-works-hero.jpg" 
               alt="" 
               className="hidden" 
               fetchPriority="high"

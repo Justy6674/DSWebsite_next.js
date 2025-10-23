@@ -18,7 +18,7 @@ import {
   Stethoscope,
   ArrowRight
 } from 'lucide-react';
-import australianBeachHero from '@/assets/australian-beach-hero.jpg';
+// Image served from /public/ for instant CDN loading
 
 export default function ConditionsPage() {
   const detailedConditions = [
@@ -141,7 +141,7 @@ export default function ConditionsPage() {
       </Head>
       {/* Hero Section */}
       <OptimizedBackground
-        src={australianBeachHero}
+        src="/australian-beach-hero.jpg"
         className="relative pt-24 pb-20 min-h-[50vh] flex items-center overflow-hidden"
         priority={true}
         overlay="linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.7))"

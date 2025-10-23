@@ -1,8 +1,6 @@
 import React from 'react';
 import { OptimizedImage } from '@/components/ui/optimized-image';
-import australianBeachHero from '@/assets/australian-beach-hero.jpg';
-import australianCoastalDesert from '@/assets/australian-coastal-desert.jpg';
-import greatBarrierReefHero from '@/assets/great-barrier-reef-hero.jpg';
+// Hero images served from /public/ for instant CDN loading
 
 interface AustralianHeroSectionProps {
   title: string;
@@ -35,11 +33,11 @@ export function AustralianHeroSection({
   const getBackgroundImage = () => {
     switch (imageVariant) {
       case 'desert':
-        return australianCoastalDesert;
+        return '/australian-coastal-desert.jpg';
       case 'reef':
-        return greatBarrierReefHero;
+        return '/great-barrier-reef-hero.jpg';
       default:
-        return australianBeachHero;
+        return '/australian-beach-hero.jpg';
     }
   };
 

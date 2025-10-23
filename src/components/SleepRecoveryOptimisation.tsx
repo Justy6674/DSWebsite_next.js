@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { supabase } from '@/integrations/supabase/client';
 import { OptimizedBackground } from '@/components/ui/optimized-background';
-import sleepHero from '@/assets/sleep-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 // Utility functions for saving assessment results
@@ -891,14 +891,14 @@ export default function SleepRecoveryOptimisation() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${sleepHero.src})`,
+            backgroundImage: "url(/sleep-hero.jpg)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={sleepHero.src} 
+            src="/sleep-hero.jpg" 
             alt="" 
             className="hidden" 
             loading="eager"

@@ -7,9 +7,7 @@ import { HighlightBox } from "@/components/ui/highlight-box";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { OptimizedBackground } from "@/components/ui/optimized-background";
 import { ConditionsWeTreat } from "@/components/ConditionsWeTreat";
-import oceanWavesBg from '@/assets/ocean-waves-bg.jpg';
-// Hero image now served from /public/ for instant CDN loading
-import australianOutbackHero from '@/assets/australian-outback-hero.jpg';
+// Hero images now served from /public/ for instant CDN loading
 import { WeightLossQuiz } from '@/components/WeightLossQuiz';
 
 
@@ -283,7 +281,7 @@ export default function HomePage() {
 
       {/* Call to Action */}
       <OptimizedBackground
-        src={australianOutbackHero}
+        src="/australian-outback-hero.jpg"
         className="py-20 relative overflow-hidden section-divider section-divider-bottom"
         overlay="linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2))"
       >

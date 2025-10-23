@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { OptimizedBackground } from '@/components/ui/optimized-background';
-import movementHero from '@/assets/movement-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 export default function MovementActivityPrograms() {
@@ -137,14 +137,14 @@ export default function MovementActivityPrograms() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${movementHero.src})`,
+            backgroundImage: "url(/movement-hero.jpg)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={movementHero.src} 
+            src="/movement-hero.jpg" 
             alt="" 
             className="hidden" 
             loading="eager"

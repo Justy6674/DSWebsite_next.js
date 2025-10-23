@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import australianBeachHero from '@/assets/australian-beach-hero.jpg';
+// Image served from /public/ for instant CDN loading
 
 export function OptimizedHero() {
   return (
@@ -10,12 +10,12 @@ export function OptimizedHero() {
       {/* Australian Beach Hero Background */}
       <picture>
         <source
-          srcSet={australianBeachHero.src}
+          srcSet="/australian-beach-hero.jpg"
           type="image/jpeg"
           media="(min-width: 768px)"
         />
         <img 
-          src={australianBeachHero.src}
+          src="/australian-beach-hero.jpg"
           alt="Pristine Australian beach with crystal-clear turquoise ocean waters and white sand - weight loss clinic inspiration"
           className="absolute inset-0 w-full h-full object-cover object-center transform-gpu mobile-image-hero"
           loading="eager"

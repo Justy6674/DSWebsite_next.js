@@ -291,7 +291,7 @@ export function Header() {
         scrolled ? 'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border shadow-lg' : 'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border shadow-lg'
       }`}>
         {/* Main Header */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-2 sm:px-4 lg:px-6 xl:px-8 py-4 flex justify-between items-center gap-2 lg:gap-4">
           <div className="cursor-pointer flex-shrink-0 flex items-center space-x-3 relative h-12">
             <Link href="/" className="flex items-center space-x-3">
               <div className="p-1 rounded-lg bg-primary/10">
@@ -320,16 +320,16 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 flex-1 justify-center">
-            <Link 
-              href="/" 
-              className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          <nav className="hidden md:flex items-center space-x-2 lg:space-x-4 xl:space-x-6 flex-1 justify-center overflow-hidden">
+            <Link
+              href="/"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               Home
             </Link>
-            <Link 
-              href="/about" 
-              className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            <Link
+              href="/about"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               About
             </Link>
@@ -339,8 +339,8 @@ export function Header() {
               className="relative"
               ref={clinicalRef}
             >
-              <button 
-                className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+              <button
+                className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setClinicalMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={clinicalMenuOpen}
@@ -374,27 +374,27 @@ export function Header() {
               )}
             </div>
 
-            <Link 
-              href="/pricing" 
-              className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            <Link
+              href="/pricing"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               Pricing
             </Link>
-            <Link 
-              href="/blog" 
-              className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            <Link
+              href="/blog"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               Blog
             </Link>
-            <Link 
-              href="/faq" 
-              className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            <Link
+              href="/faq"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               FAQ
             </Link>
-            <Link 
-              href="/locations" 
-              className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            <Link
+              href="/locations"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
               Locations
             </Link>
@@ -404,8 +404,8 @@ export function Header() {
               className="relative"
               ref={toolsRef}
             >
-              <button 
-                className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+              <button
+                className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setToolsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={toolsMenuOpen}
@@ -443,13 +443,14 @@ export function Header() {
             </div>
 
             {/* Shop Link */}
-            <a 
-              href="https://www.downscale.shop" 
-              target="_blank" 
+            <a
+              href="https://www.downscale.shop"
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
             >
-              DOWNLOADABLE RESOURCES
+              <span className="hidden xl:inline">DOWNLOADABLE RESOURCES</span>
+              <span className="xl:hidden">DOWNLOADS</span>
               <ExternalLink className="ml-1 h-3 w-3" />
             </a>
           </nav>
@@ -461,7 +462,7 @@ export function Header() {
               ref={portalsRef}
             >
               <button
-                className="text-foreground hover:text-primary font-medium text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center"
+                className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setPortalsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={portalsMenuOpen}

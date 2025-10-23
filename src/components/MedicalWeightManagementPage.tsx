@@ -3,7 +3,7 @@
 import Head from "next/head";
 import { Layout } from '@/components/layout/Layout';
 import { Button } from "@/components/ui/button";
-import medicalHero from '@/assets/medical-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 export default function MedicalWeightManagement() {
@@ -98,14 +98,14 @@ export default function MedicalWeightManagement() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${medicalHero.src})`,
+            backgroundImage: "url(/medical-hero.jpg)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={medicalHero.src} 
+            src="/medical-hero.jpg" 
             alt="" 
             className="hidden" 
             loading="eager"

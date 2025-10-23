@@ -106,18 +106,12 @@ function AdminLoginForm() {
 type AdminSection =
   | 'overview'
   | 'portal-content'
-  | 'jb-bb-feed'
-  | 'portal-resources'
   | 'blog-management'
-  | 'user-management'
   | 'file-management'
   | 'analytics'
   | 'ai-tools'
-  | 'health-records'
-  | 'email-campaigns'
-  | 'seo-management'
-  | 'backup-tools'
-  | 'system-settings';
+  | 'admin-management'
+  | 'backup-tools';
 
 interface DashboardStats {
   totalUsers: number;
@@ -154,7 +148,7 @@ export default function UnifiedAdminDashboard() {
     lastBackup: new Date().toISOString()
   });
 
-  // Admin sections configuration
+  // Admin sections configuration - Streamlined for essential functions only
   const adminSections = [
     {
       id: 'overview' as AdminSection,
@@ -163,46 +157,22 @@ export default function UnifiedAdminDashboard() {
       description: 'System overview and quick stats'
     },
     {
-      id: 'portal-content' as AdminSection,
-      name: 'Portal Content Manager',
-      icon: Database,
-      description: 'Dynamic content for all portal sections'
-    },
-    {
-      id: 'jb-bb-feed' as AdminSection,
-      name: 'JB&BB Feed',
-      icon: Globe,
-      description: 'Internal member blog and updates'
-    },
-    {
-      id: 'portal-resources' as AdminSection,
-      name: 'Portal Resources',
-      icon: Search,
-      description: 'Legacy resource management'
-    },
-    {
       id: 'blog-management' as AdminSection,
       name: 'Blog Management',
       icon: FileText,
       description: 'Create and manage blog posts'
     },
     {
-      id: 'user-management' as AdminSection,
-      name: 'User Management',
-      icon: Users,
-      description: 'Manage portal users and permissions'
+      id: 'portal-content' as AdminSection,
+      name: 'Portal Content Manager',
+      icon: Database,
+      description: 'Dynamic content for all portal sections'
     },
     {
       id: 'file-management' as AdminSection,
       name: 'File Management',
       icon: Upload,
-      description: 'Upload and manage documents/images'
-    },
-    {
-      id: 'health-records' as AdminSection,
-      name: 'Health Records',
-      icon: Shield,
-      description: 'Manage patient health data (HIPAA compliant)'
+      description: 'Upload and manage website images/documents'
     },
     {
       id: 'ai-tools' as AdminSection,
@@ -211,34 +181,22 @@ export default function UnifiedAdminDashboard() {
       description: 'AI-powered content generation and assistance'
     },
     {
+      id: 'admin-management' as AdminSection,
+      name: 'Admin Management',
+      icon: Users,
+      description: 'Add and manage admin users'
+    },
+    {
       id: 'analytics' as AdminSection,
       name: 'Analytics & Reports',
       icon: BarChart3,
-      description: 'User engagement and portal analytics'
-    },
-    {
-      id: 'email-campaigns' as AdminSection,
-      name: 'Email Campaigns',
-      icon: Mail,
-      description: 'Patient communication and newsletters'
-    },
-    {
-      id: 'seo-management' as AdminSection,
-      name: 'SEO Management',
-      icon: Globe,
-      description: 'Meta tags, sitemaps, and search optimization'
+      description: 'Website analytics and performance'
     },
     {
       id: 'backup-tools' as AdminSection,
       name: 'Backup & Export',
       icon: Download,
       description: 'Data backup and export tools'
-    },
-    {
-      id: 'system-settings' as AdminSection,
-      name: 'System Settings',
-      icon: Settings,
-      description: 'System configuration and maintenance'
     }
   ];
 
@@ -448,11 +406,11 @@ export default function UnifiedAdminDashboard() {
               Create New Blog Post
             </Button>
             <Button
-              onClick={() => setActiveSection('portal-resources')}
+              onClick={() => setActiveSection('file-management')}
               className="bg-[#b68a71] hover:bg-[#8B6F47] text-white justify-start"
             >
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add Portal Resource
+              Upload Files
             </Button>
             <Button
               onClick={fetchDashboardStats}
@@ -508,12 +466,6 @@ export default function UnifiedAdminDashboard() {
       case 'portal-content':
         return <PortalContentManager />;
 
-      case 'jb-bb-feed':
-        return <JBBBFeedManager />;
-
-      case 'portal-resources':
-        return <AdminResourceManager />;
-
       case 'blog-management':
         return (
           <div className="bg-slate-900 min-h-screen">
@@ -521,108 +473,89 @@ export default function UnifiedAdminDashboard() {
           </div>
         );
 
-      case 'user-management':
-        return <UserManagement />;
-
       case 'file-management':
         return <FileManagement />;
-
-      case 'health-records':
-        return renderPlaceholderSection(
-          'Health Records Management',
-          'Secure patient health data management (HIPAA compliant)',
-          [
-            'Patient health metric tracking',
-            'Secure document storage',
-            'Appointment scheduling integration',
-            'Medical history management',
-            'Prescription tracking',
-            'Provider notes and observations',
-            'Health goal setting and monitoring',
-            'Compliance audit trails'
-          ]
-        );
 
       case 'ai-tools':
         return <AIContentGenerator />;
 
+      case 'admin-management':
+        return (
+          <div className="space-y-6">
+            <Card className="bg-slate-800 border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-[#f8fafc]">Admin User Management</CardTitle>
+                <p className="text-[#fef5e7]">Add and manage admin users for the dashboard</p>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="bg-slate-900 rounded-lg p-6 border border-slate-700">
+                  <h3 className="text-lg font-medium text-[#b68a71] mb-4">Current Admin Users</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between p-3 bg-slate-800 rounded">
+                      <span className="text-[#fef5e7]">downscale@icloud.com</span>
+                      <span className="text-green-400 text-sm">Owner</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-slate-800 rounded">
+                      <span className="text-[#fef5e7]">bec@downscale.health</span>
+                      <span className="text-[#b68a71] text-sm">Admin</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-slate-800 rounded">
+                      <span className="text-[#fef5e7]">rebecca@downscale.health</span>
+                      <span className="text-[#b68a71] text-sm">Admin</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-slate-800 rounded">
+                      <span className="text-[#fef5e7]">b.burstow83@gmail.com</span>
+                      <span className="text-[#b68a71] text-sm">Admin</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+                  <h4 className="text-blue-400 font-medium mb-2">📝 How to Add New Admin Users:</h4>
+                  <ol className="text-[#fef5e7] text-sm space-y-1 list-decimal list-inside">
+                    <li>Have the new admin create an account on the website first</li>
+                    <li>Ask them to sign up with their email address</li>
+                    <li>Add their email to the admin emails list in the code</li>
+                    <li>Update their user profile role to 'admin' in the database</li>
+                  </ol>
+                  <p className="text-blue-400 text-sm mt-3">
+                    Currently configured admin emails: downscale@icloud.com, bec@downscale.health, rebecca@downscale.health, b.burstow83@gmail.com
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        );
+
       case 'analytics':
         return renderPlaceholderSection(
-          'Analytics & Reporting Dashboard',
-          'Comprehensive analytics for portal and blog performance',
+          'Website Analytics & Reports',
+          'Website performance and blog analytics',
           [
+            'Website traffic analytics',
+            'Blog post performance',
             'User engagement metrics',
-            'Portal usage analytics',
-            'Blog traffic and performance',
-            'Health outcome tracking',
-            'Patient progress reports',
             'SEO performance monitoring',
-            'Conversion rate analytics',
-            'Custom report generation'
-          ]
-        );
-
-      case 'email-campaigns':
-        return renderPlaceholderSection(
-          'Email Campaign Management',
-          'Patient communication and automated email sequences',
-          [
-            'Newsletter creation and distribution',
-            'Automated welcome sequences',
-            'Appointment reminders',
-            'Health tip emails',
-            'Patient re-engagement campaigns',
-            'Email template library',
-            'A/B testing for email campaigns',
-            'Email analytics and tracking'
-          ]
-        );
-
-      case 'seo-management':
-        return renderPlaceholderSection(
-          'SEO Management Tools',
-          'Search engine optimization and content management',
-          [
-            'Meta tag management',
-            'Sitemap generation and submission',
-            'Keyword tracking and optimization',
-            'Content SEO analysis',
-            'Local SEO for clinic locations',
-            'Schema markup management',
-            'Page speed optimization',
-            'Search console integration'
+            'Conversion rate tracking',
+            'Google Analytics integration',
+            'Page speed insights',
+            'Search console data'
           ]
         );
 
       case 'backup-tools':
         return renderPlaceholderSection(
           'Backup & Data Export',
-          'Data backup, export, and disaster recovery tools',
+          'Website data backup and export tools',
           [
-            'Automated daily backups',
-            'Manual backup creation',
-            'Data export to CSV/JSON',
-            'Patient data portability',
-            'Disaster recovery procedures',
-            'Backup verification and testing',
-            'Historical data archiving',
-            'GDPR compliance tools'
-          ]
-        );
-
-      case 'system-settings':
-        return renderPlaceholderSection(
-          'System Configuration',
-          'Advanced system settings and maintenance tools',
-          [
-            'Environment configuration',
-            'API key management',
-            'Database maintenance tools',
-            'Performance monitoring',
-            'Security settings',
-            'Integration management',
-            'Error log monitoring',
-            'System health checks'
+            'Blog posts backup',
+            'Image and file backup',
+            'Database export',
+            'Content migration tools',
+            'Site clone/restore',
+            'Automated backup scheduling',
+            'Export to multiple formats',
+            'Recovery procedures'
           ]
         );
 
@@ -659,7 +592,8 @@ export default function UnifiedAdminDashboard() {
   }
 
   // If user logged in but not admin
-  if (!isAdmin && user?.email !== 'downscale@icloud.com') {
+  const adminEmails = ['downscale@icloud.com', 'bec@downscale.health', 'rebecca@downscale.health', 'b.burstow83@gmail.com'];
+  if (!isAdmin && !adminEmails.includes(user?.email || '')) {
     return (
       <Card className="bg-slate-800 border-slate-700">
         <CardContent className="p-8 text-center">

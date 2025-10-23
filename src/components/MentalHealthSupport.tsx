@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { OptimizedBackground } from '@/components/ui/optimized-background';
-import mentalHealthHero from '@/assets/mental-health-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 // Utility functions for saving assessment results
@@ -695,14 +695,14 @@ export default function MentalHealthSupport() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${mentalHealthHero.src})`,
+            backgroundImage: "url(/mental-health-hero.jpg)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={mentalHealthHero.src} 
+            src="/mental-health-hero.jpg" 
             alt="" 
             className="hidden" 
             loading="eager"

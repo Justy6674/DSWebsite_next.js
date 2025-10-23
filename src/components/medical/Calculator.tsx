@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import { useState } from 'react';
-import calculatorHero from '@/assets/calculator-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { Layout } from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -437,14 +437,14 @@ export default function Calculator() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${calculatorHero.src})`,
+            backgroundImage: "url(/calculator-hero.jpg)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={calculatorHero.src} 
+            src="/calculator-hero.jpg" 
             alt="" 
             className="hidden" 
             loading="eager"

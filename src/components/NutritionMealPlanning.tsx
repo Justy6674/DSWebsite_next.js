@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { OptimizedBackground } from '@/components/ui/optimized-background';
-import foodHero from '@/assets/food-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 export default function NutritionMealPlanning() {
@@ -94,14 +94,14 @@ export default function NutritionMealPlanning() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `url(${foodHero.src})`,
+            backgroundImage: "url(/food-hero.jpg)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
           <img 
-            src={foodHero.src} 
+            src="/food-hero.jpg" 
             alt="" 
             className="hidden" 
             loading="eager"

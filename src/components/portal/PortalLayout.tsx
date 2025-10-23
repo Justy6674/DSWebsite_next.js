@@ -83,8 +83,8 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                 Website
               </Link>
 
-              {/* Admin Access Link - Only show for admin email */}
-              {(user?.email === 'downscale@icloud.com') && (
+              {/* Admin Access Link - Only show for admin emails */}
+              {(['downscale@icloud.com', 'bec@downscale.health', 'rebecca@downscale.health', 'b.burstow83@gmail.com'].includes(user?.email || '')) && (
                 <Link
                   href="/portal/admin"
                   className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"

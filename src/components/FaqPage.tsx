@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Link from 'next/link';
-import faqHero from '@/assets/faq-hero.jpg';
+// Image served from /public/ for instant CDN loading
 import { useEffect } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { OptimizedBackground } from '@/components/ui/optimized-background';
@@ -170,14 +170,14 @@ export default function FaqPage() {
           <div 
             className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
             style={{
-              backgroundImage: `url(${faqHero})`,
+              backgroundImage: "url(/faq-hero.jpg)",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}
           >
             <img 
-              src={faqHero.src} 
+              src="/faq-hero.jpg" 
               alt="" 
               className="hidden" 
               loading="eager"
