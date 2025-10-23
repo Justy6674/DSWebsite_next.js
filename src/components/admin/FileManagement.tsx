@@ -111,7 +111,7 @@ export default function FileManagement() {
           url: urlData.publicUrl,
           thumbnail_url: thumbnailUrl,
           folder: folder,
-          uploaded_by: user?.id || 'unknown',
+          uploaded_by: user?.id || null, // Use null instead of 'unknown' for proper RLS
           metadata: {
             original_name: file.name,
             mime_type: file.type,

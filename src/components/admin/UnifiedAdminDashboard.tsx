@@ -148,6 +148,8 @@ export default function UnifiedAdminDashboard() {
     lastBackup: new Date().toISOString()
   });
 
+  // Authentication state - no bypass logic needed
+
   // Admin sections configuration - Streamlined for essential functions only
   const adminSections = [
     {
