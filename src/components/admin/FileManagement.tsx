@@ -24,6 +24,8 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import * as tus from 'tus-js-client';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface FileItem {
   id: string;
@@ -68,14 +70,84 @@ export default function FileManagement() {
   const [fileTypeFilter, setFileTypeFilter] = useState('all');
   const [dragActive, setDragActive] = useState(false);
 
+  // Resumable upload function using TUS protocol
+  const uploadLargeFile = async (file: File, folder: string): Promise<string> => {
+    return new Promise(async (resolve, reject) => {
+      // Get user session for authentication
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !session) {
+        reject(new Error('Authentication required for large file uploads'));
+        return;
+      }
+
+      // Generate unique filename
+      const timestamp = Date.now();
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+      const baseName = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, '_');
+      const fileName = `${timestamp}_${baseName}.${fileExtension}`;
+      const objectName = `${folder}/${fileName}`;
+
+      // Get project ID from Supabase URL
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const projectId = supabaseUrl?.split('//')[1].split('.')[0];
+
+      if (!projectId) {
+        reject(new Error('Could not determine Supabase project ID'));
+        return;
+      }
+
+      const upload = new tus.Upload(file, {
+        endpoint: `https://${projectId}.supabase.co/storage/v1/upload/resumable`,
+        retryDelays: [0, 3000, 5000, 10000, 20000],
+        headers: {
+          authorization: `Bearer ${session.access_token}`,
+          'x-upsert': 'true'
+        },
+        uploadDataDuringCreation: true,
+        removeFingerprintOnSuccess: true,
+        metadata: {
+          bucketName: 'portal-files',
+          objectName: objectName,
+          contentType: file.type || 'application/octet-stream',
+          cacheControl: '3600'
+        },
+        chunkSize: 6 * 1024 * 1024, // 6MB chunks as required by Supabase
+        onError: function (error) {
+          console.error('TUS upload failed:', error);
+          toast.error(`Upload failed: ${error.message}`);
+          reject(error);
+        },
+        onProgress: function (bytesUploaded, bytesTotal) {
+          const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(1);
+          toast.loading(`Uploading ${file.name}: ${percentage}%`, {
+            id: `upload-${file.name}`,
+            duration: Infinity
+          });
+        },
+        onSuccess: function () {
+          console.log('TUS upload completed for:', file.name);
+          toast.success(`Upload completed: ${file.name}`, { id: `upload-${file.name}` });
+          resolve(objectName);
+        }
+      });
+
+      // Check for previous uploads and resume if available
+      upload.findPreviousUploads().then(function (previousUploads) {
+        if (previousUploads.length) {
+          upload.resumeFromPreviousUpload(previousUploads[0]);
+        }
+        upload.start();
+      });
+    });
+  };
+
   // File upload handling with admin authentication
   const handleFileUpload = async (fileList: FileList, folder: string = 'other') => {
     if (!fileList.length) return;
 
     // SECURITY: Must have authenticated user for healthcare system
     if (!user?.id) {
-      console.error('SECURITY: File upload attempted without authenticated user');
-      alert('Authentication required for file uploads');
+      toast.error('Authentication required for file uploads');
       return;
     }
 
@@ -94,10 +166,13 @@ export default function FileManagement() {
         console.log(`File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
 
         let uploadData, uploadError;
+        let finalPath = filePath;
 
         if (file.size <= maxStandardSize) {
           // Standard upload for files ≤6MB
           console.log('Using standard upload (≤6MB)');
+          toast.loading(`Uploading ${file.name}...`, { id: `upload-${file.name}` });
+
           const result = await supabase.storage
             .from('portal-files')
             .upload(filePath, file, {
@@ -107,10 +182,22 @@ export default function FileManagement() {
             });
           uploadData = result.data;
           uploadError = result.error;
+
+          if (!uploadError) {
+            toast.success(`Upload completed: ${file.name}`, { id: `upload-${file.name}` });
+          }
         } else {
-          // For files >6MB, we need resumable upload
-          console.log('File >6MB - resumable upload required');
-          throw new Error(`File size ${(file.size / 1024 / 1024).toFixed(2)}MB exceeds 6MB limit. Resumable upload not yet implemented.`);
+          // For files >6MB, use resumable upload
+          console.log('File >6MB - using resumable upload');
+          toast.info(`Large file detected (${(file.size / 1024 / 1024).toFixed(1)}MB) - using resumable upload`);
+
+          try {
+            finalPath = await uploadLargeFile(file, folder);
+            uploadData = { path: finalPath };
+            uploadError = null;
+          } catch (tusError) {
+            uploadError = tusError;
+          }
         }
 
         if (uploadError) {
@@ -120,13 +207,14 @@ export default function FileManagement() {
             statusCode: uploadError.statusCode,
             details: uploadError
           });
+          toast.error(`Upload failed: ${uploadError.message}`);
           throw uploadError;
         }
 
-        // Get public URL
+        // Get public URL using the final path (which may be different for large files)
         const { data: urlData } = supabase.storage
           .from('portal-files')
-          .getPublicUrl(filePath);
+          .getPublicUrl(finalPath);
 
         // Generate thumbnail for images
         let thumbnailUrl;
@@ -165,6 +253,7 @@ export default function FileManagement() {
         return dbData;
       } catch (error) {
         console.error('Upload error for file:', file.name, error);
+        toast.error(`Upload failed: ${file.name} - ${error.message}`);
         return null;
       }
     });
@@ -176,10 +265,12 @@ export default function FileManagement() {
 
     if (successfulUploads.length > 0) {
       await fetchFiles();
+      toast.success(`Successfully uploaded ${successfulUploads.length} file(s)`);
     }
 
     if (successfulUploads.length < fileList.length) {
-      console.warn(`${fileList.length - successfulUploads.length} files failed to upload`);
+      const failedCount = fileList.length - successfulUploads.length;
+      toast.error(`${failedCount} file(s) failed to upload`);
     }
 
     setUploading(false);
@@ -509,6 +600,16 @@ export default function FileManagement() {
           )}
         </CardContent>
       </Card>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: '#1e293b',
+            color: '#fef5e7',
+            border: '1px solid #475569'
+          }
+        }}
+      />
     </div>
   );
 }
