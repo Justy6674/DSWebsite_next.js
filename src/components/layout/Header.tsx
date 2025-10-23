@@ -341,7 +341,13 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => setClinicalMenuOpen((v) => !v)}
+                onClick={() => {
+                  console.log('🔽 Clinical dropdown clicked, current state:', clinicalMenuOpen);
+                  setClinicalMenuOpen((v) => {
+                    console.log('🔄 Setting clinical menu to:', !v);
+                    return !v;
+                  });
+                }}
                 aria-haspopup="menu"
                 aria-expanded={clinicalMenuOpen}
                 aria-controls="clinical-menu"
@@ -350,10 +356,15 @@ export function Header() {
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
               {clinicalMenuOpen && (
-                <div 
+                <div
                   id="clinical-menu"
                   role="menu"
                   className="absolute top-full left-0 mt-2 w-64 bg-card border border-border rounded-lg shadow-2xl z-[100] pointer-events-auto"
+                  style={{
+                    backgroundColor: '#1e293b',
+                    border: '2px solid #b68a71',
+                    boxShadow: '0 10px 40px rgba(182, 138, 113, 0.3)'
+                  }}
                 >
                   {clinicalServices.map((service) => {
                     const Icon = service.icon;
