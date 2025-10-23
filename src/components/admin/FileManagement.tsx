@@ -82,10 +82,11 @@ export default function FileManagement() {
     setUploading(true);
     const uploadPromises = Array.from(fileList).map(async (file) => {
       try {
-        // Generate unique filename
+        // Generate unique filename with better sanitization
         const timestamp = Date.now();
-        const fileExtension = file.name.split('.').pop();
-        const fileName = `${timestamp}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        const baseName = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, '_');
+        const fileName = `${timestamp}_${baseName}.${fileExtension}`;
         const filePath = `${folder}/${fileName}`;
 
         // Upload to Supabase Storage
