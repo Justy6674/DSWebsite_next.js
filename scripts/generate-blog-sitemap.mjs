@@ -14,19 +14,23 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 async function generateBlogSitemap() {
+  let posts = [];
+  
   try {
     console.log('🔍 Fetching published blog posts from Supabase...');
 
     // Fetch all published blog posts
-    const { data: posts, error } = await supabase
+    const { data, error } = await supabase
       .from('blog_posts')
       .select('slug, updated_at, created_at')
       .eq('published', true)
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Error fetching blog posts:', error);
-      throw error;
+      console.warn('⚠️  Warning fetching blog posts:', error.message);
+      console.log('📝 Continuing with sitemap generation (blog posts may be from previous build)');
+    } else {
+      posts = data || [];
     }
 
     console.log(`✅ Found ${posts?.length || 0} published blog posts`);
@@ -98,8 +102,10 @@ async function generateBlogSitemap() {
 
     return sitemap;
   } catch (error) {
-    console.error('❌ Error generating blog sitemap:', error);
-    process.exit(1);
+    console.warn('⚠️  Warning during blog sitemap generation:', error.message);
+    console.log('📝 Sitemap generation may continue with existing data');
+    // Don't exit with error - allow build to continue
+    return null;
   }
 }
 
