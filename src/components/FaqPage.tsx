@@ -19,7 +19,7 @@ export default function FaqPage() {
       <Head>
         <title>Telehealth Weight Loss Clinic FAQ | Professional Online Weight Management</title>
         <meta name="description" content="Frequently asked questions about Downscale's affordable holistic weight loss services: $45 consultations, whole-person care approach, appointment booking, and kind clinical support across Australia." />
-        <meta name="keywords" content="weight loss FAQ Australia, Medicare bulk billing questions, telehealth weight loss FAQ, Downscale questions, weight management FAQ, nurse practitioner FAQ Australia" />
+        <meta name="keywords" content="weight loss FAQ Australia, Medicare questions, telehealth weight loss FAQ, Downscale questions, weight management FAQ, nurse practitioner FAQ Australia" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Downscale Weight Loss Clinic Australia" />
         <meta name="language" content="en-AU" />
@@ -29,7 +29,7 @@ export default function FaqPage() {
         
         {/* Open Graph / Social Media */}
         <meta property="og:title" content="Weight Loss FAQ | Medicare Rebates & Telehealth | Downscale Australia" />
-        <meta property="og:description" content="Frequently asked questions about Downscale's telehealth weight loss services: Medicare bulk billing eligibility, consultation process, appointment booking, and clinical support options across Australia." />
+        <meta property="og:description" content="Frequently asked questions about Downscale's telehealth weight loss services: $45 consultations, consultation process, appointment booking, and clinical support options across Australia." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.downscale.com.au/faq" />
         <meta property="og:image" content="https://www.downscale.com.au/public/og-faq.jpg" />
@@ -71,7 +71,7 @@ export default function FaqPage() {
                   "name": "Can I use Medicare for my consultations?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes, initial consultations are bulk billed for eligible Medicare card holders. This means there is no out-of-pocket cost for your first appointment if you meet the clinical criteria. Follow-up appointments typically have a gap fee."
+                    "text": "All consultations are $45 maximum out-of-pocket. If you're Medicare-eligible, you'll pay the full consultation fee upfront and receive your Medicare rebate back within 1-2 days. If you're not eligible, you pay $45 directly."
                   }
                 },
                 {
@@ -111,7 +111,7 @@ export default function FaqPage() {
                    "name": "Do you treat children?",
                    "acceptedAnswer": {
                      "@type": "Answer",
-                     "text": "Yes, we do treat children, and if they are needing medication support we may consider this from the age of 12 years old with increased telehealth support. We also bulk bill children up to 18 years of age."
+                     "text": "Yes, we do treat children, and if they are needing medication support we may consider this from the age of 12 years old with increased telehealth support. All consultations for children are $45 maximum out-of-pocket."
                    }
                  },
                  {
@@ -119,15 +119,15 @@ export default function FaqPage() {
                    "name": "What is the best online weight loss clinic in Australia?",
                    "acceptedAnswer": {
                      "@type": "Answer",
-                     "text": "Downscale Weight Loss & Weight Maintenance Clinic is a professional telehealth weight loss clinic, offering evidence-based medical weight management through telehealth consultations. Our clinic provides personalised care from experienced Nurse Practitioner Justin Black, with Medicare bulk billing available for initial consultations. We specialise in sustainable weight loss solutions and long-term weight maintenance support."
+                     "text": "Downscale Weight Loss & Weight Maintenance Clinic is a professional telehealth weight loss clinic, offering evidence-based medical weight management through telehealth consultations. Our clinic provides personalised care from experienced Nurse Practitioner Justin Black, with affordable $45 consultations. We specialise in sustainable weight loss solutions and long-term weight maintenance support."
                    }
                  },
                  {
                    "@type": "Question",
-                   "name": "Does Downscale bulk bill weight loss consultations?",
+                   "name": "How much do Downscale weight loss consultations cost?",
                    "acceptedAnswer": {
                      "@type": "Answer",
-                     "text": "Yes, Downscale bulk bills initial weight loss consultations for eligible Medicare patients, meaning there's no out-of-pocket cost for your first appointment. Our clinic is Medicare-registered and we provide comprehensive telehealth weight management services with affordable follow-up consultations."
+                     "text": "All consultations are $45 maximum out-of-pocket. Our clinic is Medicare-registered and we provide comprehensive telehealth weight management services with affordable follow-up consultations."
                    }
                  },
                  {
@@ -158,7 +158,7 @@ export default function FaqPage() {
           <ul className="key-facts">
             <li>Available Australia-wide via telehealth</li>
             <li>No GP referral required</li>
-            <li>Medicare bulk billing for initial consultations</li>
+            <li>Affordable $45 consultations</li>
             <li>Phone and video consultations available</li>
             <li>Children treated from age 12 with medication support</li>
             <li>Electronic prescriptions sent to your pharmacy</li>
@@ -270,42 +270,6 @@ export default function FaqPage() {
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="item-no-bulk-billing" className="border-b border-border pb-4">
-                    <AccordionTrigger className="text-foreground text-xl font-medium hover:text-primary">
-                      Why don't you bulk-bill weight loss consultations anymore?
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground pt-2">
-                      <p className="mb-2">
-                        From November 1st, 2025, new Medicare rules restrict bulk-billing telehealth for weight loss consultations.
-                      </p>
-                      <p className="mb-2">
-                        Instead of passing the full cost to patients or turning away non-eligible patients, we've chosen to keep all consultations at <strong>ONLY $45 maximum out-of-pocket</strong> — whether you're Medicare-eligible or not.
-                      </p>
-                      <p>
-                        For eligible patients, you'll get your rebate back instantly. For non-eligible patients, we're absorbing the rebate difference ourselves. We prioritise accessibility over profit.
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
-
-                  <AccordionItem value="item-bulk-billing-cases" className="border-b border-border pb-4">
-                    <AccordionTrigger className="text-foreground text-xl font-medium hover:text-primary">
-                      Do you ever bulk-bill?
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground pt-2">
-                      <p className="mb-4">
-                        While we don't bulk-bill weight loss consultations under the new Medicare telehealth rules (effective November 1st, 2025), we may bulk-bill certain other consultations at the practitioner's discretion, including:
-                      </p>
-                      <ul className="space-y-2">
-                        <li>• Side effects consultations for patients on weight loss medication</li>
-                        <li>• Children's consultations (where Medicare-eligible)</li>
-                        <li>• Some existing Dakabin GP patients for non-weight-related GOPP appointments</li>
-                        <li>• Other clinical scenarios where bulk-billing is appropriate and you're Medicare-eligible</li>
-                      </ul>
-                      <p className="mt-4">
-                        Your eligibility for bulk-billing will be assessed during booking and confirmed during the consultation. Our standard weight loss consultation pricing remains <strong>$45 maximum out-of-pocket</strong> for all patients.
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
                   
                   <AccordionItem value="item-3" className="border-b border-border pb-4">
                     <AccordionTrigger className="text-foreground text-xl font-medium hover:text-primary">
@@ -382,16 +346,16 @@ export default function FaqPage() {
                         What is the best online weight loss clinic in Australia?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground pt-2">
-                        Downscale Weight Loss & Weight Maintenance Clinic is a professional telehealth weight loss clinic, offering evidence-based medical weight management through telehealth consultations. Our clinic provides personalised care from experienced Nurse Practitioner Justin Black, with Medicare bulk billing available for initial consultations. We specialise in sustainable weight loss solutions and long-term weight maintenance support.
+                        Downscale Weight Loss & Weight Maintenance Clinic is a professional telehealth weight loss clinic, offering evidence-based medical weight management through telehealth consultations. Our clinic provides personalised care from experienced Nurse Practitioner Justin Black, with affordable $45 consultations. We specialise in sustainable weight loss solutions and long-term weight maintenance support.
                       </AccordionContent>
                     </AccordionItem>
 
                     <AccordionItem value="item-11" className="border-b border-border pb-4">
                       <AccordionTrigger className="text-foreground text-xl font-medium hover:text-primary">
-                        Does Downscale bulk bill weight loss consultations?
+                        How much do Downscale weight loss consultations cost?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground pt-2">
-                        Yes, Downscale bulk bills initial weight loss consultations for eligible Medicare patients, meaning there's no out-of-pocket cost for your first appointment. Our clinic is Medicare-registered and we provide comprehensive telehealth weight management services with affordable follow-up consultations.
+                        All consultations are $45 maximum out-of-pocket. Our clinic is Medicare-registered and we provide comprehensive telehealth weight management services with affordable follow-up consultations.
                       </AccordionContent>
                     </AccordionItem>
 

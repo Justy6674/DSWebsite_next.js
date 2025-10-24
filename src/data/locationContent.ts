@@ -1,6 +1,6 @@
 export const locationContent = {
   sydney: {
-    heroTitle: "Sydney's Professional Medicare Bulk Billed Weight Loss Clinic",
+    heroTitle: "Sydney's Professional Weight Loss Clinic",
     heroDescription: "Serving Sydney CBD, North Shore, Eastern Suburbs, and Western Sydney with expert telehealth weight management",
     localInfo: "Sydney residents face unique challenges with busy lifestyles and long commutes. Our telehealth service eliminates travel time to Circular Quay or Parramatta, providing convenient access from Bondi to Blacktown.",
     testimonial: {
