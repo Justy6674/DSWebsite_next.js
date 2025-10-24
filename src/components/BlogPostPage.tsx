@@ -1,6 +1,6 @@
 'use client';
 
-import Head from "next/head";
+// Note: Head component removed - App Router uses metadata exports instead
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -47,12 +47,14 @@ export default function BlogPostPage() {
 
   // Handle canonical URL for query parameters without removing them from browser URL
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const currentPath = window.location.pathname;
     const queryParams = searchParams.toString();
-    
+
     // For blogcategory parameters, we keep the URL but ensure canonical is clean
     // This prevents the URL from being seen as a soft 404 while maintaining SEO
-    
+
     // Legacy URL patterns should be handled by App.tsx redirects,
     // but add extra protection here
     if (currentPath.includes('/f/') || currentPath.includes('/home/f/')) {
@@ -62,7 +64,7 @@ export default function BlogPostPage() {
         return;
       }
     }
-  }, [slug, router]);
+  }, [slug, router, searchParams]);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -149,93 +151,6 @@ export default function BlogPostPage() {
 
   return (
     <Layout>
-      {!loading && !post && (
-        <Head>
-          <title>Blog Post Not Found | Downscale Weight Loss Clinic</title>
-          <meta name="description" content="The requested blog post could not be found. Visit our blog to explore other articles about weight management and health." />
-          <meta name="robots" content="noindex, nofollow" />
-          <link rel="canonical" href="https://www.downscale.com.au/blog" />
-        </Head>
-      )}
-      {post && (
-        <Head>
-          <title>{post.title} | Downscale Weight Loss Clinic</title>
-          <meta name="description" content={post.meta_description || post.excerpt} />
-          <meta property="og:title" content={post.title} />
-          <meta property="og:description" content={post.meta_description || post.excerpt} />
-          <meta property="og:type" content="article" />
-          <meta property="og:url" content={`https://www.downscale.com.au/blog/${post.slug}`} />
-          <link rel="canonical" href={`https://www.downscale.com.au/blog/${post.slug}`} />
-          {post.featured_image && <meta property="og:image" content={post.featured_image} />}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={post.title} />
-          <meta name="twitter:description" content={post.meta_description || post.excerpt} />
-          {post.featured_image && <meta name="twitter:image" content={post.featured_image} />}
-          <meta name="article:published_time" content={post.created_at} />
-          <meta name="article:modified_time" content={post.updated_at} />
-          <meta name="author" content={post.author} />
-          <meta name="keywords" content={post.tags.join(', ')} />
-          <meta name="article:author" content={post.author} />
-          <meta name="article:section" content={post.category} />
-          {post.tags.map(tag => (
-            <meta key={tag} name="article:tag" content={tag} />
-          ))}
-          <meta httpEquiv="last-modified" content={new Date(post.updated_at).toUTCString()} />
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Article",
-              "headline": post.title,
-              "description": post.meta_description || post.excerpt,
-              "url": `https://www.downscale.com.au/blog/${post.slug}`,
-              "datePublished": post.created_at,
-              "dateModified": post.updated_at,
-              "author": {
-                "@type": "Person",
-                "name": post.author || "Downscale Weight Loss Clinic",
-                "url": "https://www.downscale.com.au/about",
-                "jobTitle": "Nurse Practitioner",
-                "sameAs": [
-                  "https://www.downscale.com.au/justin-black-nurse-practitioner"
-                ]
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "Downscale Weight Loss Clinic",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://www.downscale.com.au/og-image.jpg"
-                },
-                "url": "https://www.downscale.com.au"
-              },
-              "image": post.featured_image || "https://www.downscale.com.au/og-image.jpg",
-              "articleSection": post.category,
-              "keywords": post.tags ? post.tags.join(", ") : "",
-              "reviewedBy": {
-                "@type": "Person",
-                "name": "Justin Black",
-                "jobTitle": "Nurse Practitioner",
-                "affiliation": {
-                  "@type": "Organization",
-                  "name": "Downscale Weight Loss Clinic"
-                }
-              },
-              "citation": [
-                {
-                  "@type": "WebPage",
-                  "name": "Australian Government Department of Health",
-                  "url": "https://www.health.gov.au"
-                },
-                {
-                  "@type": "WebPage", 
-                  "name": "Royal Australian College of General Practitioners",
-                  "url": "https://www.racgp.org.au"
-                }
-              ]
-            })}
-          </script>
-        </Head>
-      )}
       <div className="min-h-screen bg-background text-foreground">
         {loading ? (
           <div className="min-h-screen flex items-center justify-center pt-16">
