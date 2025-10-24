@@ -363,12 +363,7 @@ export function Header() {
                 <div
                   id="clinical-menu"
                   role="menu"
-                  className="absolute top-full left-0 mt-2 w-64 bg-card border border-border rounded-lg shadow-2xl z-[100] pointer-events-auto"
-                  style={{
-                    backgroundColor: '#1e293b',
-                    border: '2px solid #b68a71',
-                    boxShadow: '0 10px 40px rgba(182, 138, 113, 0.3)'
-                  }}
+                  className="absolute top-full left-0 mt-2 w-64 bg-card border-2 border-[#b68a71] rounded-lg shadow-2xl z-[100] pointer-events-auto"
                 >
                   {clinicalServices.map((service) => {
                     const Icon = service.icon;
