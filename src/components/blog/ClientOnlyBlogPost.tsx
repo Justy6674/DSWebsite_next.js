@@ -7,7 +7,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { MarkdownRenderer } from '@/components/blog/MarkdownRenderer';
-import { OptimizedImage } from '@/components/ui/optimized-image';
 
 interface BlogPost {
   id: string;
@@ -128,15 +127,11 @@ export function ClientOnlyBlogPost() {
         {post.featured_image && (
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <OptimizedImage
+              <img
                 src={post.featured_image}
                 alt={post.title}
                 className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
-                quality={90}
-                format="webp"
-                lazy={false}
-                width={800}
-                height={400}
+                loading="lazy"
               />
             </div>
           </div>
