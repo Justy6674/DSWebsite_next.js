@@ -96,63 +96,73 @@ export function ClientOnlyBlogPost() {
   return (
     <Layout>
       <div className="min-h-screen bg-background text-foreground">
-        {/* Simple Header */}
-        <div className="bg-primary text-primary-foreground py-16">
-          <div className="container mx-auto px-4">
-            <Button
-              onClick={() => router.push('/blog')}
-              variant="ghost"
-              className="mb-8 text-primary-foreground hover:bg-primary-foreground/20"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Blog
-            </Button>
-
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              {post.title}
-            </h1>
-
-            <p className="text-xl opacity-90 mb-4">
-              {post.excerpt}
-            </p>
-
-            <div className="text-sm opacity-75">
-              By {post.author} • {new Date(post.created_at).toLocaleDateString('en-AU')}
-              {post.reading_time && ` • ${post.reading_time} min read`}
-            </div>
-          </div>
+        {/* Back to Blog Button */}
+        <div className="container mx-auto px-4 pt-4">
+          <Button
+            onClick={() => router.push('/blog')}
+            variant="ghost"
+            className="mb-4"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Blog
+          </Button>
         </div>
 
-        {/* Featured Image */}
-        {post.featured_image && (
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <img
-                src={post.featured_image}
-                alt={post.title}
-                className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Content Section */}
-        <div className="container mx-auto px-4 py-12">
+        {/* Article Content */}
+        <article className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
-            {/* Properly rendered markdown content */}
-            <MarkdownRenderer content={post.content} />
 
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-border">
-              {post.tags.map((tag, index) => (
-                <span key={index} className="px-3 py-1 bg-muted rounded-full text-sm">
-                  {tag}
-                </span>
-              ))}
+            {/* Article Header */}
+            <header className="mb-8">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+                {post.title}
+              </h1>
+
+              <p className="text-xl text-muted-foreground mb-6">
+                {post.excerpt}
+              </p>
+
+              <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                <span>By {post.author}</span>
+                <span>•</span>
+                <span>{new Date(post.created_at).toLocaleDateString('en-AU')}</span>
+                {post.reading_time && (
+                  <>
+                    <span>•</span>
+                    <span>{post.reading_time} min read</span>
+                  </>
+                )}
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {post.tags.map((tag, index) => (
+                  <span key={index} className="px-3 py-1 bg-muted rounded-full text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </header>
+
+            {/* Featured Image */}
+            {post.featured_image && (
+              <div className="mb-8">
+                <img
+                  src={post.featured_image}
+                  alt={post.title}
+                  className="w-full h-64 md:h-96 object-cover rounded-lg"
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            {/* Article Content */}
+            <div className="prose prose-lg max-w-none">
+              <MarkdownRenderer content={post.content} />
             </div>
+
           </div>
-        </div>
+        </article>
       </div>
     </Layout>
   );
