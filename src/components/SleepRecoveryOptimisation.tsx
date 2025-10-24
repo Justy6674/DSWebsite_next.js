@@ -11,8 +11,10 @@ import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 // Utility functions for saving assessment results
 const downloadSleepResults = (assessmentType: string, score: number, maxScore: number, result: any, answers: any) => {
-  const currentDate = new Date().toLocaleDateString('en-AU');
-  const currentTime = new Date().toLocaleTimeString('en-AU');
+  // Use ISO format to prevent hydration issues
+  const now = new Date();
+  const currentDate = now.toISOString().split('T')[0];
+  const currentTime = now.toISOString().split('T')[1].split('.')[0];
   
   let content = `
 DOWNSCALE WEIGHT LOSS CLINIC - SLEEP ASSESSMENT RESULTS

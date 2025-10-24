@@ -30,9 +30,14 @@ export function ClientOnlyBlogPost() {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -125,7 +130,7 @@ export function ClientOnlyBlogPost() {
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
                 <span>By {post.author}</span>
                 <span>•</span>
-                <span>{new Date(post.created_at).toLocaleDateString('en-AU')}</span>
+                <span>{isClient ? new Date(post.created_at).toLocaleDateString('en-AU') : 'Loading...'}</span>
                 {post.reading_time && (
                   <>
                     <span>•</span>
