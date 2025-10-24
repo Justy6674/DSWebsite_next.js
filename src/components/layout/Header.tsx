@@ -36,7 +36,8 @@ export function Header() {
     { name: 'All Tools', icon: '🔧', href: '/tools' },
     { name: 'Body Metrics Calculator', icon: Calculator, href: '/calculator' }
   ];
-  const [mounted, setMounted] = useState(false);
+  // Next.js recommended pattern for hydration-safe client state
+  const [isClient, setIsClient] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [clinicalMenuOpen, setClinicalMenuOpen] = useState(false);
@@ -48,9 +49,9 @@ export function Header() {
   const toolsRef = useRef<HTMLDivElement | null>(null)
   const portalsRef = useRef<HTMLDivElement | null>(null)
 
-  // Prevent hydration mismatch and force state sync
+  // Next.js recommended hydration-safe pattern
   useEffect(() => {
-    setMounted(true);
+    setIsClient(true);
     // Force reset dropdown states after mounting to fix production state sync
     setClinicalMenuOpen(false);
     setToolsMenuOpen(false);
@@ -92,7 +93,7 @@ export function Header() {
 
   // Close dropdowns on outside click and on Escape key (client-side only)
   useEffect(() => {
-    if (!mounted || typeof window === 'undefined') return;
+    if (!isClient || typeof window === 'undefined') return;
 
     const onDocClick = (e: MouseEvent) => {
       if (clinicalRef.current && !clinicalRef.current.contains(e.target as Node)) {
@@ -121,7 +122,7 @@ export function Header() {
       document.removeEventListener('click', onDocClick)
       document.removeEventListener('keydown', onKey)
     }
-  }, [mounted]);
+  }, [isClient]);
 
   const handleBookingRedirect = () => {
     window.open(EXTERNAL_LINKS.BOOKING_INITIAL, "_blank", "noopener,noreferrer");
@@ -357,13 +358,13 @@ export function Header() {
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setClinicalMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={clinicalMenuOpen}
+                aria-expanded={isClient ? clinicalMenuOpen : false}
                 aria-controls="clinical-menu"
               >
                 Clinical
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {mounted && clinicalMenuOpen && (
+              {isClient && clinicalMenuOpen && (
                 <div
                   id="clinical-menu"
                   role="menu"
@@ -422,13 +423,13 @@ export function Header() {
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setToolsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={toolsMenuOpen}
+                aria-expanded={isClient ? toolsMenuOpen : false}
                 aria-controls="tools-menu"
               >
                 Tools
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {mounted && toolsMenuOpen && (
+              {isClient && toolsMenuOpen && (
                 <div
                   id="tools-menu"
                   role="menu"
@@ -479,13 +480,13 @@ export function Header() {
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setPortalsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={portalsMenuOpen}
+                aria-expanded={isClient ? portalsMenuOpen : false}
                 aria-controls="portals-menu"
               >
                 Portals
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {mounted && portalsMenuOpen && (
+              {isClient && portalsMenuOpen && (
                 <div
                   id="portals-menu"
                   role="menu"
