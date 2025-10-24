@@ -16,6 +16,7 @@ node_modules
 # Next.js
 .next/
 out/
+tsconfig.tsbuildinfo
 
 # SEO data and reports
 seo-data/
