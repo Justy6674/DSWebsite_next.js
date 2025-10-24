@@ -17,9 +17,9 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkBreaks from 'remark-breaks';
-// Dynamic import for MarkdownRenderer to ensure client-side only rendering
-const MarkdownRenderer = dynamic(
-  () => import('@/components/blog/MarkdownRenderer').then(mod => ({ default: mod.MarkdownRenderer })),
+// Use simple renderer to test if the issue is with markdown processing
+const SimpleMarkdownRenderer = dynamic(
+  () => import('@/components/blog/SimpleMarkdownRenderer').then(mod => ({ default: mod.SimpleMarkdownRenderer })),
   {
     ssr: false,
     loading: () => <div className="animate-pulse bg-muted h-48 rounded"></div>
@@ -148,7 +148,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             {/* Content Section */}
             <div className="container mx-auto px-4 py-12">
               <div className="max-w-4xl mx-auto">
-                <MarkdownRenderer content={post.content} />
+                <SimpleMarkdownRenderer content={post.content} />
                 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-border">
