@@ -6,6 +6,8 @@ import { Layout } from "@/components/layout/Layout";
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { MarkdownRenderer } from '@/components/blog/MarkdownRenderer';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 interface BlogPost {
   id: string;
@@ -122,15 +124,29 @@ export function ClientOnlyBlogPost() {
           </div>
         </div>
 
+        {/* Featured Image */}
+        {post.featured_image && (
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <OptimizedImage
+                src={post.featured_image}
+                alt={post.title}
+                className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
+                quality={90}
+                format="webp"
+                lazy={false}
+                width={800}
+                height={400}
+              />
+            </div>
+          </div>
+        )}
+
         {/* Content Section */}
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto">
-            {/* Simple content display without complex markdown processing */}
-            <div className="prose prose-lg max-w-none text-foreground">
-              <div className="whitespace-pre-wrap text-foreground leading-relaxed">
-                {post.content}
-              </div>
-            </div>
+            {/* Properly rendered markdown content */}
+            <MarkdownRenderer content={post.content} />
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-border">
