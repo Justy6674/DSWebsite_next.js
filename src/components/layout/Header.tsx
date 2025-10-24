@@ -351,7 +351,7 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => mounted && setClinicalMenuOpen((v) => !v)}
+                onClick={() => setClinicalMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={mounted ? clinicalMenuOpen : false}
                 aria-controls="clinical-menu"
@@ -421,7 +421,7 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => mounted && setToolsMenuOpen((v) => !v)}
+                onClick={() => setToolsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={mounted ? toolsMenuOpen : false}
                 aria-controls="tools-menu"
@@ -478,7 +478,7 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => mounted && setPortalsMenuOpen((v) => !v)}
+                onClick={() => setPortalsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={mounted ? portalsMenuOpen : false}
                 aria-controls="portals-menu"
