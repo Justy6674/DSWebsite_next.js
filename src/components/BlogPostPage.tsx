@@ -116,7 +116,7 @@ export default function BlogPostPage() {
             robotsMeta.setAttribute('content', 'noindex, nofollow');
             
             // Set document title for 404
-            document.title = 'Blog Post Not Found | Downscale Health';
+            document.title = 'Blog Post Not Found | Downscale Weight Loss Clinic';
           }
           return;
         }

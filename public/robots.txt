@@ -143,5 +143,9 @@ User-agent: MauiBot
 Disallow: /
 
 # SITEMAPS - Main domain only for efficient crawling
+Sitemap: https://www.downscale.com.au/sitemap-index.xml
+Sitemap: https://www.downscale.com.au/sitemap.xml
 Sitemap: https://www.downscale.com.au/sitemap-blog.xml
+Sitemap: https://www.downscale.com.au/sitemap-locations.xml
+Sitemap: https://www.downscale.com.au/sitemap-images.xml
 Sitemap: https://www.downscale.com.au/blog/rss.xml

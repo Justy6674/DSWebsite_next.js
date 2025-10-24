@@ -65,7 +65,7 @@ export const getMetaTags = (path: string) => {
       canonical: `${baseDomain}/weight-loss-clinic-adelaide`
     },
     '/blog': {
-      title: `Weight Loss Clinic Blog & Research | Downscale Health`,
+      title: `Weight Loss Clinic Blog & Research | Downscale Weight Loss Clinic`,
       description: "Evidence-based articles and clinical insights from our professional weight loss clinic. Expert medical advice on weight management, nutrition, and health.",
       keywords: "weight loss clinic blog, weight loss research, clinical insights, weight management, nutrition, health blog australia",
       canonical: `${baseDomain}/blog`
@@ -82,7 +82,7 @@ export const getStructuredData = (path: string) => {
   const baseOrganization = {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
-    "name": "Downscale Health - Weight Loss Clinic Australia",
+    "name": "Downscale Weight Loss Clinic - Australia",
     "alternateName": ["Downscale Weight Loss Clinic", "Professional Weight Loss Clinic"],
     "url": baseDomain,
     
@@ -104,7 +104,7 @@ export const getStructuredData = (path: string) => {
     return {
       ...baseOrganization,
       "@type": ["MedicalClinic", "LocalBusiness"],
-      "name": `Downscale Health - Weight Loss Clinic ${cityCapitalized}`,
+      "name": `Downscale Weight Loss Clinic - ${cityCapitalized}`,
       "address": {
         "@type": "PostalAddress",
         "addressLocality": cityCapitalized,
@@ -127,10 +127,10 @@ export const getWeightLossClinicFAQ = () => ({
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What weight loss clinic services does Downscale Health provide?",
+      "name": "What weight loss clinic services does Downscale Weight Loss Clinic provide?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Downscale Health is a professional weight loss & weight maintenance clinic, offering evidence-based telehealth consultations with experienced Nurse Practitioner Justin Black. We provide Medicare bulk billed initial consultations across all Australian states."
+        "text": "Downscale Weight Loss Clinic is a professional weight loss & weight maintenance clinic, offering evidence-based telehealth consultations with experienced Nurse Practitioner Justin Black. We provide Medicare bulk billed initial consultations across all Australian states."
       }
     },
     {
@@ -146,7 +146,7 @@ export const getWeightLossClinicFAQ = () => ({
       "name": "Can I access a weight loss clinic online in Australia?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, Downscale Health operates as a professional telehealth weight loss & weight maintenance clinic. You can access our services via telehealth from anywhere in Australia."
+        "text": "Yes, Downscale Weight Loss Clinic operates as a professional telehealth weight loss & weight maintenance clinic. You can access our services via telehealth from anywhere in Australia."
       }
     }
   ]
