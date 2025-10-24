@@ -41,11 +41,17 @@ export function Header() {
   const [clinicalMenuOpen, setClinicalMenuOpen] = useState(false);
   const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
   const [portalsMenuOpen, setPortalsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
   const { user, signOut } = useAuth();
   const clinicalRef = useRef<HTMLDivElement | null>(null)
   const toolsRef = useRef<HTMLDivElement | null>(null)
   const portalsRef = useRef<HTMLDivElement | null>(null)
+
+  // Hydration fix
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,8 +86,10 @@ export function Header() {
     }
   }, [mobileMenuOpen]);
 
-  // Close dropdowns on outside click and on Escape key
+  // Close dropdowns on outside click and on Escape key (client-side only)
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const onDocClick = (e: MouseEvent) => {
       if (clinicalRef.current && !clinicalRef.current.contains(e.target as Node)) {
         setClinicalMenuOpen(false)
@@ -101,9 +109,15 @@ export function Header() {
         setPortalsMenuOpen(false)
       }
     }
-    document.addEventListener('click', onDocClick)
-    document.addEventListener('keydown', onKey)
+
+    // Add slight delay to prevent hydration issues
+    const timer = setTimeout(() => {
+      document.addEventListener('click', onDocClick)
+      document.addEventListener('keydown', onKey)
+    }, 100);
+
     return () => {
+      clearTimeout(timer);
       document.removeEventListener('click', onDocClick)
       document.removeEventListener('keydown', onKey)
     }
@@ -355,7 +369,7 @@ export function Header() {
                 Clinical
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {clinicalMenuOpen && (
+              {isClient && clinicalMenuOpen && (
                 <div
                   id="clinical-menu"
                   role="menu"
@@ -425,8 +439,8 @@ export function Header() {
                 Tools
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {toolsMenuOpen && (
-                <div 
+              {isClient && toolsMenuOpen && (
+                <div
                   id="tools-menu"
                   role="menu"
                   className="absolute top-full left-0 mt-2 w-56 bg-card border border-border rounded-lg shadow-2xl z-[100] pointer-events-auto"
@@ -482,7 +496,7 @@ export function Header() {
                 Portals
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {portalsMenuOpen && (
+              {isClient && portalsMenuOpen && (
                 <div
                   id="portals-menu"
                   role="menu"
@@ -530,6 +544,27 @@ export function Header() {
           </button>
         </div>
       </header>
+
+      {/* Hidden SEO-Crawlable Navigation for Bots */}
+      <nav className="sr-only" aria-label="Site navigation for search engines">
+        <h2>Clinical Services</h2>
+        <ul>
+          {clinicalServices.map((service) => (
+            <li key={service.href}>
+              <Link href={service.href}>{service.name}</Link>
+            </li>
+          ))}
+        </ul>
+
+        <h2>Tools</h2>
+        <ul>
+          {toolsMenu.map((tool) => (
+            <li key={tool.href}>
+              <Link href={tool.href}>{tool.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </>
   );
 }
