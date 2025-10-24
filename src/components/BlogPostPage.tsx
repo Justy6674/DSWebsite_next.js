@@ -3,6 +3,7 @@
 // Note: Head component removed - App Router uses metadata exports instead
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,7 +17,14 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkBreaks from 'remark-breaks';
-import { MarkdownRenderer } from '@/components/blog/MarkdownRenderer';
+// Dynamic import for MarkdownRenderer to ensure client-side only rendering
+const MarkdownRenderer = dynamic(
+  () => import('@/components/blog/MarkdownRenderer').then(mod => ({ default: mod.MarkdownRenderer })),
+  {
+    ssr: false,
+    loading: () => <div className="animate-pulse bg-muted h-48 rounded"></div>
+  }
+);
 
 
 interface BlogPost {
