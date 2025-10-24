@@ -45,7 +45,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Handle legacy URL redirects
+  // Handle legacy URL redirects and ensure proper hydration
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
