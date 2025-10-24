@@ -142,6 +142,7 @@ export default function BlogPostPage() {
   }, [slug, toast]);
 
   const formatDate = (dateString: string) => {
+    // Format dates in Australian locale
     return new Date(dateString).toLocaleDateString('en-AU', {
       year: 'numeric',
       month: 'long',
