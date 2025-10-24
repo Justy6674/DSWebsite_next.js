@@ -37,109 +37,30 @@ interface BlogPost {
   featured_image?: string;
 }
 
-export default function BlogPostPage() {
-  const { slug } = useParams();
+interface BlogPostPageProps {
+  post: BlogPost;
+}
+
+export default function BlogPostPage({ post }: BlogPostPageProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
 
-  // Handle canonical URL for query parameters without removing them from browser URL
+  // Handle legacy URL redirects
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const currentPath = window.location.pathname;
-    const queryParams = searchParams.toString();
 
-    // For blogcategory parameters, we keep the URL but ensure canonical is clean
-    // This prevents the URL from being seen as a soft 404 while maintaining SEO
-
-    // Legacy URL patterns should be handled by App.tsx redirects,
+    // Legacy URL patterns should be handled by redirects,
     // but add extra protection here
     if (currentPath.includes('/f/') || currentPath.includes('/home/f/')) {
-      const cleanSlug = slug;
+      const cleanSlug = post.slug;
       if (cleanSlug) {
         router.replace(`/blog/${cleanSlug}`);
         return;
       }
     }
-  }, [slug, router, searchParams]);
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setLoading(true);
-        
-        // Clean and normalize the slug more thoroughly
-        const slugString = Array.isArray(slug) ? slug[0] : slug;
-        const cleanSlug = slugString
-          ?.split('?')[0] // Remove query parameters
-          .toLowerCase() // Convert to lowercase
-          .replace(/[^a-z0-9\-_]/g, '-') // Replace invalid chars with hyphens
-          .replace(/-+/g, '-') // Collapse multiple hyphens
-          .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-        
-        if (!cleanSlug) {
-          setPost(null);
-          setLoading(false);
-          return;
-        }
-        
-        const { data, error } = await supabase
-          .from('blog_posts')
-          .select('*')
-          .eq('slug', cleanSlug)
-          .eq('published', true)
-          .maybeSingle();
-        
-        if (error) {
-          console.error('Error fetching post:', error);
-          toast({
-            title: "Error",
-            description: "Failed to fetch blog post",
-            variant: "destructive",
-          });
-          return;
-        }
-        
-        if (!data) {
-          console.log(`Blog post not found for slug: ${cleanSlug}`);
-          setPost(null);
-          // Ensure 404 status is set for search engines
-          if (typeof window !== 'undefined') {
-            // Add meta tag for robots if it doesn't exist
-            let robotsMeta = document.querySelector('meta[name="robots"]');
-            if (!robotsMeta) {
-              robotsMeta = document.createElement('meta');
-              robotsMeta.setAttribute('name', 'robots');
-              document.head.appendChild(robotsMeta);
-            }
-            robotsMeta.setAttribute('content', 'noindex, nofollow');
-            
-            // Set document title for 404
-            document.title = 'Blog Post Not Found | Downscale Weight Loss Clinic';
-          }
-          return;
-        }
-        
-        setPost(data);
-      } catch (error) {
-        console.error('Error:', error);
-        toast({
-          title: "Error", 
-          description: "Something went wrong",
-          variant: "destructive",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (slug) {
-      fetchPost();
-    }
-  }, [slug, toast]);
+  }, [post.slug, router, searchParams]);
 
   const formatDate = (dateString: string) => {
     // Format dates in Australian locale
@@ -153,14 +74,7 @@ export default function BlogPostPage() {
   return (
     <Layout>
       <div className="min-h-screen bg-background text-foreground">
-        {loading ? (
-          <div className="min-h-screen flex items-center justify-center pt-16">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-              <p className="text-muted-foreground">Loading post...</p>
-            </div>
-          </div>
-        ) : post ? (
+        {post ? (
           <>
             {/* Hero Section with Background Image */}
             <div 

@@ -72,6 +72,42 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 }
 
-export default function BlogPostPagePage({ params }: BlogPostPageProps) {
-  return <BlogPostPage />;
+export default async function BlogPostPagePage({ params }: BlogPostPageProps) {
+  const { slug } = params;
+
+  try {
+    const { data: post } = await supabaseServer
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .eq('published', true)
+      .maybeSingle();
+
+    if (!post) {
+      return (
+        <div className="min-h-screen flex items-center justify-center pt-16">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Blog Post Not Found</h1>
+            <p className="text-muted-foreground mb-6">
+              Sorry, we couldn't find the blog post you were looking for.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return <BlogPostPage post={post} />;
+  } catch (error) {
+    console.error('Error fetching blog post:', error);
+    return (
+      <div className="min-h-screen flex items-center justify-center pt-16">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Error Loading Post</h1>
+          <p className="text-muted-foreground mb-6">
+            Something went wrong while loading the blog post.
+          </p>
+        </div>
+      </div>
+    );
+  }
 }
