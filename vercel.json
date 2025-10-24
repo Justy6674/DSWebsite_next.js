@@ -2,10 +2,6 @@
   "framework": "nextjs",
   "rewrites": [
     {
-      "source": "/blog/:slug*",
-      "destination": "https://pooebqhsshfafkhvccrl.supabase.co/functions/v1/blog-ssr?slug=:slug*"
-    },
-    {
       "source": "/sitemap-blog.xml",
       "destination": "https://pooebqhsshfafkhvccrl.supabase.co/functions/v1/generate-blog-sitemap"
     },
