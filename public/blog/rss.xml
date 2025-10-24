@@ -9,7 +9,11 @@
     <description>Expert insights on weight loss, nutrition, and health from Downscale Weight Loss Clinic. Your trusted partner in sustainable weight management.</description>
     <language>en-AU</language>
     <copyright>Copyright 2025 Downscale Weight Loss Clinic</copyright>
+<<<<<<< HEAD
     <lastBuildDate>Fri, 24 Oct 2025 05:24:52 GMT</lastBuildDate>
+=======
+    <lastBuildDate>Fri, 24 Oct 2025 06:53:15 GMT</lastBuildDate>
+>>>>>>> b6921ad (fix: Remove isClient hydration hack causing React errors #425 & #422)
     <atom:link href="https://www.downscale.com.au/blog/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://www.downscale.com.au/logo.png</url>

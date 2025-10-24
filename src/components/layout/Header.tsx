@@ -41,17 +41,11 @@ export function Header() {
   const [clinicalMenuOpen, setClinicalMenuOpen] = useState(false);
   const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
   const [portalsMenuOpen, setPortalsMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
   const { user, signOut } = useAuth();
   const clinicalRef = useRef<HTMLDivElement | null>(null)
   const toolsRef = useRef<HTMLDivElement | null>(null)
   const portalsRef = useRef<HTMLDivElement | null>(null)
-
-  // Hydration fix
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -369,7 +363,7 @@ export function Header() {
                 Clinical
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {isClient && clinicalMenuOpen && (
+              {clinicalMenuOpen && (
                 <div
                   id="clinical-menu"
                   role="menu"
@@ -439,7 +433,7 @@ export function Header() {
                 Tools
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {isClient && toolsMenuOpen && (
+              {toolsMenuOpen && (
                 <div
                   id="tools-menu"
                   role="menu"
@@ -496,7 +490,7 @@ export function Header() {
                 Portals
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {isClient && portalsMenuOpen && (
+              {portalsMenuOpen && (
                 <div
                   id="portals-menu"
                   role="menu"
