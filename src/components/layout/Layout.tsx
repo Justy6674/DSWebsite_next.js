@@ -1,5 +1,10 @@
-import { Header } from "./Header";
+import dynamic from 'next/dynamic';
 import { Footer } from "./Footer";
+
+// Dynamic import with SSR disabled - Stack Overflow forum solution for dropdown hydration errors
+const Header = dynamic(() => import('./Header').then(mod => ({ default: mod.Header })), {
+  ssr: false
+});
 
 interface LayoutProps {
   children: React.ReactNode;
