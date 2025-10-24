@@ -127,11 +127,6 @@ export function Header() {
     window.open(EXTERNAL_LINKS.BOOKING_INITIAL, "_blank", "noopener,noreferrer");
   };
 
-  // Prevent hydration if not mounted to avoid React errors #425/#422
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <>
       {/* Mobile Menu Backdrop */}
@@ -362,7 +357,7 @@ export function Header() {
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setClinicalMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={mounted ? clinicalMenuOpen : false}
+                aria-expanded={clinicalMenuOpen}
                 aria-controls="clinical-menu"
               >
                 Clinical
@@ -427,7 +422,7 @@ export function Header() {
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setToolsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={mounted ? toolsMenuOpen : false}
+                aria-expanded={toolsMenuOpen}
                 aria-controls="tools-menu"
               >
                 Tools
@@ -484,7 +479,7 @@ export function Header() {
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
                 onClick={() => setPortalsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={mounted ? portalsMenuOpen : false}
+                aria-expanded={portalsMenuOpen}
                 aria-controls="portals-menu"
               >
                 Portals
