@@ -36,6 +36,7 @@ const toolsMenu = [
 ];
 
 export function Header() {
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [clinicalMenuOpen, setClinicalMenuOpen] = useState(false);
@@ -46,6 +47,11 @@ export function Header() {
   const clinicalRef = useRef<HTMLDivElement | null>(null)
   const toolsRef = useRef<HTMLDivElement | null>(null)
   const portalsRef = useRef<HTMLDivElement | null>(null)
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +88,7 @@ export function Header() {
 
   // Close dropdowns on outside click and on Escape key (client-side only)
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (!mounted || typeof window === 'undefined') return;
 
     const onDocClick = (e: MouseEvent) => {
       if (clinicalRef.current && !clinicalRef.current.contains(e.target as Node)) {
@@ -111,7 +117,7 @@ export function Header() {
       document.removeEventListener('click', onDocClick)
       document.removeEventListener('keydown', onKey)
     }
-  }, []);
+  }, [mounted]);
 
   const handleBookingRedirect = () => {
     window.open(EXTERNAL_LINKS.BOOKING_INITIAL, "_blank", "noopener,noreferrer");
@@ -345,15 +351,15 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => setClinicalMenuOpen((v) => !v)}
+                onClick={() => mounted && setClinicalMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={clinicalMenuOpen}
+                aria-expanded={mounted ? clinicalMenuOpen : false}
                 aria-controls="clinical-menu"
               >
                 Clinical
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {clinicalMenuOpen && (
+              {mounted && clinicalMenuOpen && (
                 <div
                   id="clinical-menu"
                   role="menu"
@@ -415,15 +421,15 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => setToolsMenuOpen((v) => !v)}
+                onClick={() => mounted && setToolsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={toolsMenuOpen}
+                aria-expanded={mounted ? toolsMenuOpen : false}
                 aria-controls="tools-menu"
               >
                 Tools
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {toolsMenuOpen && (
+              {mounted && toolsMenuOpen && (
                 <div
                   id="tools-menu"
                   role="menu"
@@ -472,15 +478,15 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => setPortalsMenuOpen((v) => !v)}
+                onClick={() => mounted && setPortalsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
-                aria-expanded={portalsMenuOpen}
+                aria-expanded={mounted ? portalsMenuOpen : false}
                 aria-controls="portals-menu"
               >
                 Portals
                 <ChevronDown className="ml-1 h-3 w-3" />
               </button>
-              {portalsMenuOpen && (
+              {mounted && portalsMenuOpen && (
                 <div
                   id="portals-menu"
                   role="menu"
