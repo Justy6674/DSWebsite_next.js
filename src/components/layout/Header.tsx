@@ -104,14 +104,10 @@ export function Header() {
       }
     }
 
-    // Add slight delay to prevent hydration issues
-    const timer = setTimeout(() => {
-      document.addEventListener('click', onDocClick)
-      document.addEventListener('keydown', onKey)
-    }, 100);
+    document.addEventListener('click', onDocClick)
+    document.addEventListener('keydown', onKey)
 
     return () => {
-      clearTimeout(timer);
       document.removeEventListener('click', onDocClick)
       document.removeEventListener('keydown', onKey)
     }
@@ -349,13 +345,7 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => {
-                  console.log('🔽 Clinical dropdown clicked, current state:', clinicalMenuOpen);
-                  setClinicalMenuOpen((v) => {
-                    console.log('🔄 Setting clinical menu to:', !v);
-                    return !v;
-                  });
-                }}
+                onClick={() => setClinicalMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={clinicalMenuOpen}
                 aria-controls="clinical-menu"
