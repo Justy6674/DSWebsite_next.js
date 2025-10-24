@@ -42,6 +42,43 @@ const nextConfig = {
       },
     ];
   },
+  // TEMPORARILY DISABLE CSP TO TEST IF IT'S BLOCKING REACT
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/(.*)',
+  //       headers: [
+  //         {
+  //           key: 'Content-Security-Policy',
+  //           value: `
+  //             default-src 'self';
+  //             script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live;
+  //             style-src 'self' 'unsafe-inline';
+  //             img-src 'self' blob: data: https:;
+  //             font-src 'self' data:;
+  //             object-src 'none';
+  //             base-uri 'self';
+  //             form-action 'self';
+  //             frame-ancestors 'none';
+  //             upgrade-insecure-requests;
+  //           `.replace(/\s{2,}/g, ' ').trim()
+  //         },
+  //         {
+  //           key: 'X-Content-Type-Options',
+  //           value: 'nosniff'
+  //         },
+  //         {
+  //           key: 'X-Frame-Options',
+  //           value: 'DENY'
+  //         },
+  //         {
+  //           key: 'Referrer-Policy',
+  //           value: 'strict-origin-when-cross-origin'
+  //         }
+  //       ],
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;

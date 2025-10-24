@@ -21,21 +21,21 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-const clinicalServices = [
-  { name: 'Medical Weight Management', icon: Stethoscope, href: '/medical-weight-management' },
-  { name: 'Nutrition & Meal Planning', icon: Leaf, href: '/nutrition-meal-planning' },
-  { name: 'Movement & Activity', icon: Dumbbell, href: '/movement-activity-programs' },
-  { name: 'Mental Health Support', icon: Brain, href: '/mental-health-support' },
-  { name: 'Sleep & Recovery', icon: Moon, href: '/sleep-recovery-optimisation' },
-  { name: 'Goal Setting & Maintenance', icon: Target, href: '/goal-setting-maintenance' }
-];
-
-const toolsMenu = [
-  { name: 'All Tools', icon: '🔧', href: '/tools' },
-  { name: 'Body Metrics Calculator', icon: Calculator, href: '/calculator' }
-];
-
 export function Header() {
+  // Move arrays inside component to prevent tree-shaking in production builds
+  const clinicalServices = [
+    { name: 'Medical Weight Management', icon: Stethoscope, href: '/medical-weight-management' },
+    { name: 'Nutrition & Meal Planning', icon: Leaf, href: '/nutrition-meal-planning' },
+    { name: 'Movement & Activity', icon: Dumbbell, href: '/movement-activity-programs' },
+    { name: 'Mental Health Support', icon: Brain, href: '/mental-health-support' },
+    { name: 'Sleep & Recovery', icon: Moon, href: '/sleep-recovery-optimisation' },
+    { name: 'Goal Setting & Maintenance', icon: Target, href: '/goal-setting-maintenance' }
+  ];
+
+  const toolsMenu = [
+    { name: 'All Tools', icon: '🔧', href: '/tools' },
+    { name: 'Body Metrics Calculator', icon: Calculator, href: '/calculator' }
+  ];
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -48,9 +48,13 @@ export function Header() {
   const toolsRef = useRef<HTMLDivElement | null>(null)
   const portalsRef = useRef<HTMLDivElement | null>(null)
 
-  // Prevent hydration mismatch
+  // Prevent hydration mismatch and force state sync
   useEffect(() => {
     setMounted(true);
+    // Force reset dropdown states after mounting to fix production state sync
+    setClinicalMenuOpen(false);
+    setToolsMenuOpen(false);
+    setPortalsMenuOpen(false);
   }, []);
 
   useEffect(() => {
@@ -351,7 +355,7 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => mounted && setClinicalMenuOpen((v) => !v)}
+                onClick={() => setClinicalMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={mounted ? clinicalMenuOpen : false}
                 aria-controls="clinical-menu"
@@ -416,7 +420,7 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => mounted && setToolsMenuOpen((v) => !v)}
+                onClick={() => setToolsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={mounted ? toolsMenuOpen : false}
                 aria-controls="tools-menu"
@@ -473,7 +477,7 @@ export function Header() {
             >
               <button
                 className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => mounted && setPortalsMenuOpen((v) => !v)}
+                onClick={() => setPortalsMenuOpen((v) => !v)}
                 aria-haspopup="menu"
                 aria-expanded={mounted ? portalsMenuOpen : false}
                 aria-controls="portals-menu"
