@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import BlogPostPage from '@/components/BlogPostPage';
-import { supabase } from '@/integrations/supabase/client';
+import { supabaseServer } from '@/integrations/supabase/server';
 
 interface BlogPostPageProps {
   params: {
@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const { slug } = params;
   
   try {
-    const { data: post } = await supabase
+    const { data: post } = await supabaseServer
       .from('blog_posts')
       .select('*')
       .eq('slug', slug)
