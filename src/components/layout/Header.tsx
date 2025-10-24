@@ -21,21 +21,21 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-const clinicalServices = [
-  { name: 'Medical Weight Management', icon: Stethoscope, href: '/medical-weight-management' },
-  { name: 'Nutrition & Meal Planning', icon: Leaf, href: '/nutrition-meal-planning' },
-  { name: 'Movement & Activity', icon: Dumbbell, href: '/movement-activity-programs' },
-  { name: 'Mental Health Support', icon: Brain, href: '/mental-health-support' },
-  { name: 'Sleep & Recovery', icon: Moon, href: '/sleep-recovery-optimisation' },
-  { name: 'Goal Setting & Maintenance', icon: Target, href: '/goal-setting-maintenance' }
-];
-
-const toolsMenu = [
-  { name: 'All Tools', icon: '🔧', href: '/tools' },
-  { name: 'Body Metrics Calculator', icon: Calculator, href: '/calculator' }
-];
-
 export function Header() {
+  // Move arrays inside component to prevent tree-shaking in production builds
+  const clinicalServices = [
+    { name: 'Medical Weight Management', icon: Stethoscope, href: '/medical-weight-management' },
+    { name: 'Nutrition & Meal Planning', icon: Leaf, href: '/nutrition-meal-planning' },
+    { name: 'Movement & Activity', icon: Dumbbell, href: '/movement-activity-programs' },
+    { name: 'Mental Health Support', icon: Brain, href: '/mental-health-support' },
+    { name: 'Sleep & Recovery', icon: Moon, href: '/sleep-recovery-optimisation' },
+    { name: 'Goal Setting & Maintenance', icon: Target, href: '/goal-setting-maintenance' }
+  ];
+
+  const toolsMenu = [
+    { name: 'All Tools', icon: '🔧', href: '/tools' },
+    { name: 'Body Metrics Calculator', icon: Calculator, href: '/calculator' }
+  ];
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
