@@ -48,9 +48,13 @@ export function Header() {
   const toolsRef = useRef<HTMLDivElement | null>(null)
   const portalsRef = useRef<HTMLDivElement | null>(null)
 
-  // Prevent hydration mismatch
+  // Prevent hydration mismatch and force state sync
   useEffect(() => {
     setMounted(true);
+    // Force reset dropdown states after mounting to fix production state sync
+    setClinicalMenuOpen(false);
+    setToolsMenuOpen(false);
+    setPortalsMenuOpen(false);
   }, []);
 
   useEffect(() => {
