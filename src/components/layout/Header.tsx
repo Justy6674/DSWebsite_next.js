@@ -127,6 +127,11 @@ export function Header() {
     window.open(EXTERNAL_LINKS.BOOKING_INITIAL, "_blank", "noopener,noreferrer");
   };
 
+  // Prevent hydration if not mounted to avoid React errors #425/#422
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <>
       {/* Mobile Menu Backdrop */}
