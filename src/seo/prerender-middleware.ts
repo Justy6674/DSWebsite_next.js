@@ -30,37 +30,37 @@ export const getMetaTags = (path: string) => {
   const metaConfigs: Record<string, any> = {
     '/': {
       title: `${baseTitle} | Professional Telehealth Weight Loss & Weight Maintenance`,
-      description: "Professional telehealth weight loss & weight maintenance clinic. Consultations with Justin Black, Nurse Practitioner. Medicare bulk billed initial consultations across Australia.",
+      description: "Professional telehealth weight loss & weight maintenance clinic. Consultations with Justin Black, Nurse Practitioner. Affordable $45 consultations across Australia.",
       keywords: "telehealth weight loss clinic Australia, weight maintenance clinic, weight loss clinic Australia, online weight loss clinic Australia, telehealth weight loss Australia, Medicare weight loss clinic",
       canonical: baseDomain
     },
     '/weight-loss-clinic-sydney': {
       title: `Weight Loss Clinic Sydney | Telehealth Medicare Consultations`,
-      description: "Sydney weight loss clinic offering telehealth consultations. Expert Nurse Practitioner-led weight management. Medicare bulk-billed initial appointments for Sydney residents.",
+      description: "Sydney weight loss clinic offering telehealth consultations. Expert Nurse Practitioner-led weight management. Affordable $45 appointments for Sydney residents.",
       keywords: "weight loss clinic sydney, sydney weight loss clinic, telehealth weight loss clinic sydney, telehealth weight loss sydney, weight loss clinic sydney",
       canonical: `${baseDomain}/weight-loss-clinic-sydney`
     },
     '/weight-loss-clinic-melbourne': {
       title: `Weight Loss Clinic Melbourne | Virtual Medicare Consultations`,
-      description: "Melbourne weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Medicare bulk-billed appointments for Melbourne residents.",
+      description: "Melbourne weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Affordable $45 appointments for Melbourne residents.",
       keywords: "weight loss clinic melbourne, melbourne weight loss clinic, virtual weight loss clinic melbourne, telehealth weight loss melbourne",
       canonical: `${baseDomain}/weight-loss-clinic-melbourne`
     },
     '/weight-loss-clinic-brisbane': {
       title: `Weight Loss Clinic Brisbane | Virtual Medicare Consultations`,
-      description: "Brisbane weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Medicare bulk-billed appointments for Brisbane residents.",
+      description: "Brisbane weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Affordable $45 appointments for Brisbane residents.",
       keywords: "weight loss clinic brisbane, brisbane weight loss clinic, virtual weight loss clinic brisbane, telehealth weight loss brisbane",
       canonical: `${baseDomain}/weight-loss-clinic-brisbane`
     },
     '/weight-loss-clinic-perth': {
       title: `Weight Loss Clinic Perth | Online Virtual Medicare Consultations`,
-      description: "Perth's professional weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Medicare bulk-billed appointments across Perth WA.",
+      description: "Perth's professional weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Affordable $45 appointments across Perth WA.",
       keywords: "weight loss clinic perth, perth weight loss clinic, virtual weight loss clinic perth, telehealth weight loss perth",
       canonical: `${baseDomain}/weight-loss-clinic-perth`
     },
     '/weight-loss-clinic-adelaide': {
       title: `Weight Loss Clinic Adelaide | Online Virtual Medicare Consultations`,
-      description: "Adelaide's professional weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Medicare bulk-billed appointments across Adelaide SA.",
+      description: "Adelaide's professional weight loss clinic offering virtual telehealth consultations. Expert Nurse Practitioner-led weight management. Affordable $45 appointments across Adelaide SA.",
       keywords: "weight loss clinic adelaide, adelaide weight loss clinic, virtual weight loss clinic adelaide, telehealth weight loss adelaide",
       canonical: `${baseDomain}/weight-loss-clinic-adelaide`
     },
@@ -87,7 +87,7 @@ export const getStructuredData = (path: string) => {
     "url": baseDomain,
     
     "email": "office@downscale.com.au",
-    "description": "Professional weight loss & weight maintenance clinic providing Medicare bulk billed initial consultations. Expert Nurse Practitioner-led weight management via telehealth across Australia.",
+    "description": "Professional weight loss & weight maintenance clinic providing affordable $45 consultations. Expert Nurse Practitioner-led weight management via telehealth across Australia.",
     "medicalSpecialty": ["Weight Loss", "Weight Management", "Obesity Treatment", "Telehealth Medicine"],
     "priceRange": "$0-$80",
     "paymentAccepted": ["Medicare", "Credit Card", "Debit Card"],
@@ -130,7 +130,7 @@ export const getWeightLossClinicFAQ = () => ({
       "name": "What weight loss clinic services does Downscale Weight Loss Clinic provide?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Downscale Weight Loss Clinic is a professional weight loss & weight maintenance clinic, offering evidence-based telehealth consultations with experienced Nurse Practitioner Justin Black. We provide Medicare bulk billed initial consultations across all Australian states."
+        "text": "Downscale Weight Loss Clinic is a professional weight loss & weight maintenance clinic, offering evidence-based telehealth consultations with experienced Nurse Practitioner Justin Black. We provide affordable $45 consultations across all Australian states."
       }
     },
     {
@@ -138,7 +138,7 @@ export const getWeightLossClinicFAQ = () => ({
       "name": "How much does a weight loss clinic cost in Australia?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our initial weight loss clinic consultations are Medicare bulk billed, meaning initial appointments cost $0 to eligible patients. Follow-up consultations start from $80."
+        "text": "All our weight loss clinic consultations are $45 maximum out-of-pocket for all patients. Affordable pricing for everyone."
       }
     },
     {
