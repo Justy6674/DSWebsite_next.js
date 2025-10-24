@@ -77,13 +77,16 @@ export default function ToolsPage() {
               <p className="text-muted-foreground mb-4">
                 Looking for professional consultation?
               </p>
-              <Link
-                href="/start-project"
+              <a
+                href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
               >
+                <img src="https://cdn.halaxy.com/h/images/logo.png" alt="Halaxy" className="h-5 w-5 mr-2" />
                 Book a Consultation
                 <ExternalLink className="ml-2 h-4 w-4" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
