@@ -22,7 +22,16 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export function Header() {
-  // Move arrays inside component to prevent tree-shaking in production builds
+  // Next.js recommended pattern for hydration-safe client state
+  const [isClient, setIsClient] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [portalsMenuOpen, setPortalsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const { user, signOut } = useAuth();
+  const portalsRef = useRef<HTMLDivElement | null>(null)
+
+  // Clinical services for mobile menu
   const clinicalServices = [
     { name: 'Medical Weight Management', icon: Stethoscope, href: '/medical-weight-management' },
     { name: 'Nutrition & Meal Planning', icon: Leaf, href: '/nutrition-meal-planning' },
@@ -36,25 +45,11 @@ export function Header() {
     { name: 'All Tools', icon: '🔧', href: '/tools' },
     { name: 'Body Metrics Calculator', icon: Calculator, href: '/calculator' }
   ];
-  // Next.js recommended pattern for hydration-safe client state
-  const [isClient, setIsClient] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [clinicalMenuOpen, setClinicalMenuOpen] = useState(false);
-  const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
-  const [portalsMenuOpen, setPortalsMenuOpen] = useState(false);
-  const pathname = usePathname();
-  const { user, signOut } = useAuth();
-  const clinicalRef = useRef<HTMLDivElement | null>(null)
-  const toolsRef = useRef<HTMLDivElement | null>(null)
-  const portalsRef = useRef<HTMLDivElement | null>(null)
 
   // Next.js recommended hydration-safe pattern
   useEffect(() => {
     setIsClient(true);
     // Force reset dropdown states after mounting to fix production state sync
-    setClinicalMenuOpen(false);
-    setToolsMenuOpen(false);
     setPortalsMenuOpen(false);
   }, []);
 
@@ -96,12 +91,6 @@ export function Header() {
     if (!isClient || typeof window === 'undefined') return;
 
     const onDocClick = (e: MouseEvent) => {
-      if (clinicalRef.current && !clinicalRef.current.contains(e.target as Node)) {
-        setClinicalMenuOpen(false)
-      }
-      if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) {
-        setToolsMenuOpen(false)
-      }
       if (portalsRef.current && !portalsRef.current.contains(e.target as Node)) {
         setPortalsMenuOpen(false)
       }
@@ -109,8 +98,6 @@ export function Header() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMobileMenuOpen(false)
-        setClinicalMenuOpen(false)
-        setToolsMenuOpen(false)
         setPortalsMenuOpen(false)
       }
     }
@@ -349,45 +336,13 @@ export function Header() {
               About
             </Link>
             
-            {/* Clinical Dropdown */}
-            <div 
-              className="relative"
-              ref={clinicalRef}
+            {/* Clinical - Simple Link */}
+            <Link
+              href="/clinical-services"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
-              <button
-                className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => setClinicalMenuOpen((v) => !v)}
-                aria-haspopup="menu"
-                aria-expanded={isClient ? clinicalMenuOpen : false}
-                aria-controls="clinical-menu"
-              >
-                Clinical
-                <ChevronDown className="ml-1 h-3 w-3" />
-              </button>
-              {isClient && clinicalMenuOpen && (
-                <div
-                  id="clinical-menu"
-                  role="menu"
-                  className="absolute top-full left-0 mt-2 w-64 bg-card border-2 border-[#b68a71] rounded-lg shadow-2xl z-[100] pointer-events-auto"
-                >
-                  {clinicalServices.map((service) => {
-                    const Icon = service.icon;
-                    return (
-                      <Link
-                        key={service.href}
-                        href={service.href}
-                        role="menuitem"
-                        className="flex items-center px-4 py-3 text-foreground hover:text-primary hover:bg-muted/80 transition-all duration-200 first:rounded-t-lg last:rounded-b-lg border-b border-border/50 last:border-b-0"
-                        onClick={() => setClinicalMenuOpen(false)}
-                      >
-                        <Icon className="h-4 w-4 mr-3" />
-                        <span className="text-sm font-medium">{service.name}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+              Clinical
+            </Link>
 
             <Link
               href="/pricing"
@@ -414,48 +369,13 @@ export function Header() {
               Locations
             </Link>
             
-            {/* Tools Dropdown */}
-            <div 
-              className="relative"
-              ref={toolsRef}
+            {/* Tools - Simple Link */}
+            <Link
+              href="/tools"
+              className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full whitespace-nowrap"
             >
-              <button
-                className="text-foreground hover:text-primary font-medium text-xs lg:text-sm tracking-wider uppercase relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full flex items-center whitespace-nowrap"
-                onClick={() => setToolsMenuOpen((v) => !v)}
-                aria-haspopup="menu"
-                aria-expanded={isClient ? toolsMenuOpen : false}
-                aria-controls="tools-menu"
-              >
-                Tools
-                <ChevronDown className="ml-1 h-3 w-3" />
-              </button>
-              {isClient && toolsMenuOpen && (
-                <div
-                  id="tools-menu"
-                  role="menu"
-                  className="absolute top-full left-0 mt-2 w-56 bg-card border border-border rounded-lg shadow-2xl z-[100] pointer-events-auto"
-                >
-                  {toolsMenu.map((tool) => {
-                    const Icon = tool.icon;
-                    return (
-                      <Link
-                        key={tool.href}
-                        href={tool.href}
-                        className="flex items-center px-4 py-3 text-foreground hover:text-primary hover:bg-muted/80 transition-all duration-200 first:rounded-t-lg last:rounded-b-lg border-b border-border/50 last:border-b-0"
-                        onClick={() => setToolsMenuOpen(false)}
-                      >
-                        {typeof Icon === 'string' ? (
-                          <span className="mr-3 text-base">{Icon}</span>
-                        ) : (
-                          <Icon className="h-4 w-4 mr-3" />
-                        )}
-                        <span className="text-sm font-medium">{tool.name}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+              Tools
+            </Link>
 
             {/* Shop Link */}
             <a

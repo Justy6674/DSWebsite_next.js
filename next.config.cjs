@@ -2,6 +2,9 @@
 const nextConfig = {
   // Explicitly set distDir to .next to override any cached Vercel settings
   distDir: '.next',
+  // NUCLEAR OPTION: Disable SSR entirely to eliminate ALL hydration errors
+  output: 'export',
+  trailingSlash: true,
   experimental: {
     typedRoutes: true,
   },
