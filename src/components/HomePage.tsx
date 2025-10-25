@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Head from 'next/head';
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { HighlightBox } from "@/components/ui/highlight-box";
@@ -17,55 +16,6 @@ export default function HomePage() {
 
   return (
     <Layout>
-      {/* Structured Data for SEO */}
-      <Head>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "MedicalBusiness",
-            "name": "Downscale Weight Loss Clinic",
-            "url": "https://www.downscale.com.au/",
-            "logo": "https://www.downscale.com.au/og-image.jpg",
-            "description": "Professional telehealth weight loss clinic providing $45 maximum out-of-pocket consultations with Nurse Practitioner Justin Black across Australia.",
-            "email": "office@downscale.com.au",
-            "address": {
-              "@type": "PostalAddress",
-              "addressCountry": "AU",
-              "addressRegion": "QLD",
-              "addressLocality": "Brisbane",
-              "postalCode": "4000"
-            },
-            "areaServed": {
-              "@type": "Country",
-              "name": "Australia"
-            },
-            "medicalSpecialty": ["Weight Management", "General Practice", "Telehealth"],
-            "priceRange": "$0-$80",
-            "paymentAccepted": ["Medicare", "Credit Card", "Debit Card"],
-            "openingHours": "Mo,Tu,We,Th,Fr 09:00-17:00",
-            "sameAs": [
-              "https://www.facebook.com/445168355337624",
-              "https://www.instagram.com/downscale_weightloss"
-            ]
-          })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Downscale Weight Loss Clinic",
-            "url": "https://www.downscale.com.au/",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://www.downscale.com.au/?q={search_term_string}"
-              },
-              "query-input": "required name=search_term_string"
-            }
-          })}
-        </script>
-      </Head>
       {/* AI Speakable Content */}
       <div className="ai-speakable sr-only">
         <h2>What is Downscale Weight Loss Clinic?</h2>
