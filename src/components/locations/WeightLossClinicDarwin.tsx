@@ -23,7 +23,7 @@ export default function WeightLossClinicDarwin() {
       <Head>
         <title>Weight Loss Clinic Darwin | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Darwin. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic darwin, bulk billed weight loss darwin, medicare weight loss doctor darwin, online weight loss consultation darwin, weight loss clinic near me darwin, affordable weight loss clinic darwin, telehealth weight loss darwin, prescription weight loss darwin, nurse practitioner darwin northern territory" />
+        <meta name="keywords" content="weight loss clinic darwin, affordable consultationed weight loss darwin, medicare weight loss doctor darwin, online weight loss consultation darwin, weight loss clinic near me darwin, affordable weight loss clinic darwin, telehealth weight loss darwin, prescription weight loss darwin, nurse practitioner darwin northern territory" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-darwin" />
         
         <meta property="og:title" content="Weight Loss Clinic Darwin | $45 Affordable Holistic Care | Book Online" />
@@ -243,10 +243,10 @@ export default function WeightLossClinicDarwin() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

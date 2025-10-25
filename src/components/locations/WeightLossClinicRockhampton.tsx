@@ -77,7 +77,7 @@ export default function WeightLossClinicRockhampton() {
               {
                 "@type": "MedicalProcedure",
                 "name": "Weight Loss Clinic Consultation Rockhampton",
-                "description": "Medicare bulk-billed weight management consultations via telehealth for Rockhampton residents"
+                "description": "Medicare affordable consultationed weight management consultations via telehealth for Rockhampton residents"
               }
             ],
             "priceRange": "$0-$80",
@@ -257,10 +257,10 @@ export default function WeightLossClinicRockhampton() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

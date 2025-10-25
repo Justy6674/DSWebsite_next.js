@@ -213,7 +213,7 @@ export default function WeightLossClinicCairns() {
                       <div className="flex items-start gap-3">
                         <Award className="h-5 w-5 text-orange-600 mt-1" />
                         <div>
-                          <h4 className="font-semibold">Medicare Bulk Billing</h4>
+                          <h4 className="font-semibold">Medicare affordable consultationing</h4>
                           <p className="text-sm text-muted-foreground">No out-of-pocket costs for initial consultations</p>
                         </div>
                       </div>
@@ -265,7 +265,7 @@ export default function WeightLossClinicCairns() {
                 Book Your Consultation Now
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                ✓ Medicare bulk billed initial consultation ✓ Same-day bookings available ✓ Secure telehealth platform
+                ✓ Medicare affordable consultationed initial consultation ✓ Same-day bookings available ✓ Secure telehealth platform
               </p>
             </div>
           </section>

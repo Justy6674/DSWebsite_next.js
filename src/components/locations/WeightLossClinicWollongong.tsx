@@ -24,7 +24,7 @@ export default function WeightLossClinicWollongong() {
       <Head>
         <title>Weight Loss Clinic Wollongong | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Wollongong. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - kind, evidence-based programs. Not a massive clinic. Book online today." />
-        <meta name="keywords" content="weight loss clinic wollongong, bulk billed weight loss wollongong, medicare weight loss doctor wollongong, online weight loss consultation wollongong, weight loss clinic near me wollongong, affordable weight loss clinic wollongong, telehealth weight loss wollongong, prescription weight loss wollongong, nurse practitioner wollongong nsw" />
+        <meta name="keywords" content="weight loss clinic wollongong, affordable consultationed weight loss wollongong, medicare weight loss doctor wollongong, online weight loss consultation wollongong, weight loss clinic near me wollongong, affordable weight loss clinic wollongong, telehealth weight loss wollongong, prescription weight loss wollongong, nurse practitioner wollongong nsw" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-wollongong" />
         
         <meta property="og:title" content="Weight Loss Clinic Wollongong | $45 Affordable Holistic Care | Book Online" />
@@ -37,7 +37,7 @@ export default function WeightLossClinicWollongong() {
             "@context": "https://schema.org",
             "@type": "MedicalClinic",
             "name": "Downscale Weight Loss Clinic - Wollongong Weight Loss Clinic",
-            "description": "Medicare bulk-billed weight loss clinic serving Wollongong with telehealth consultations",
+            "description": "Medicare affordable consultationed weight loss clinic serving Wollongong with telehealth consultations",
             "url": "https://www.downscale.com.au/weight-loss-clinic-wollongong",
             
             "address": {
@@ -63,7 +63,7 @@ export default function WeightLossClinicWollongong() {
             "availableService": {
               "@type": "MedicalProcedure",
               "name": "Telehealth Weight Loss Consultation",
-              "description": "Medicare bulk-billed weight management consultations via telehealth"
+              "description": "Medicare affordable consultationed weight management consultations via telehealth"
             },
             "sameAs": [
               "https://www.facebook.com/445168355337624",
@@ -85,7 +85,7 @@ export default function WeightLossClinicWollongong() {
                   </h1>
                 </div>
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  Professional telehealth weight loss support for Illawarra region residents. Medicare bulk-billed consultations 
+                  Professional telehealth weight loss support for Illawarra region residents. Medicare affordable consultationed consultations 
                   with experienced healthcare professionals. No Sydney traffic - consult from home.
                 </p>
               </div>
@@ -248,10 +248,10 @@ export default function WeightLossClinicWollongong() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

@@ -23,7 +23,7 @@ export default function WeightLossClinicSunshineCoast() {
       <Head>
         <title>Weight Loss Clinic Sunshine Coast | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Sunshine Coast. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - kind, evidence-based programs. Not a massive clinic. Book online today." />
-        <meta name="keywords" content="weight loss clinic sunshine coast, bulk billed weight loss sunshine coast, medicare weight loss doctor sunshine coast, online weight loss consultation sunshine coast, weight loss clinic near me sunshine coast, affordable weight loss clinic sunshine coast, telehealth weight loss sunshine coast, prescription weight loss sunshine coast, nurse practitioner sunshine coast queensland" />
+        <meta name="keywords" content="weight loss clinic sunshine coast, affordable consultationed weight loss sunshine coast, medicare weight loss doctor sunshine coast, online weight loss consultation sunshine coast, weight loss clinic near me sunshine coast, affordable weight loss clinic sunshine coast, telehealth weight loss sunshine coast, prescription weight loss sunshine coast, nurse practitioner sunshine coast queensland" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-sunshine-coast" />
         
         <meta property="og:title" content="Weight Loss Clinic Sunshine Coast | $45 Affordable Holistic Care | Book Online" />
@@ -36,7 +36,7 @@ export default function WeightLossClinicSunshineCoast() {
             "@context": "https://schema.org",
             "@type": "MedicalClinic",
             "name": "Downscale Weight Loss Clinic - Sunshine Coast Weight Loss Clinic",
-            "description": "Medicare bulk-billed weight loss clinic serving Sunshine Coast with telehealth consultations",
+            "description": "Medicare affordable consultationed weight loss clinic serving Sunshine Coast with telehealth consultations",
             "url": "https://www.downscale.com.au/weight-loss-clinic-sunshine-coast",
             
             "address": {
@@ -62,7 +62,7 @@ export default function WeightLossClinicSunshineCoast() {
             "availableService": {
               "@type": "MedicalProcedure",
               "name": "Telehealth Weight Loss Consultation",
-              "description": "Medicare bulk-billed weight management consultations via telehealth"
+              "description": "Medicare affordable consultationed weight management consultations via telehealth"
             },
             "sameAs": [
               "https://www.facebook.com/445168355337624",
@@ -84,7 +84,7 @@ export default function WeightLossClinicSunshineCoast() {
                   </h1>
                 </div>
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  Professional telehealth weight loss support for Sunshine Coast residents. Medicare bulk-billed consultations 
+                  Professional telehealth weight loss support for Sunshine Coast residents. Medicare affordable consultationed consultations 
                   with experienced healthcare professionals. No Brisbane traffic - consult from home.
                 </p>
               </div>
@@ -243,10 +243,10 @@ export default function WeightLossClinicSunshineCoast() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

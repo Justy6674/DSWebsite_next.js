@@ -24,7 +24,7 @@ export default function WeightLossClinicGoldCoast() {
       <Head>
         <title>Weight Loss Clinic Gold Coast | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Gold Coast. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic gold coast, weight loss clinic near me gold coast, weight loss clinic surfers paradise, weight loss clinic burleigh heads, weight loss clinic southport, bulk billed weight loss gold coast, medicare weight loss doctor gold coast, online weight loss consultation gold coast, telehealth weight loss gold coast" />
+        <meta name="keywords" content="weight loss clinic gold coast, weight loss clinic near me gold coast, weight loss clinic surfers paradise, weight loss clinic burleigh heads, weight loss clinic southport, affordable consultationed weight loss gold coast, medicare weight loss doctor gold coast, online weight loss consultation gold coast, telehealth weight loss gold coast" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-gold-coast" />
         
         <meta property="og:title" content="Weight Loss Clinic Gold Coast | $45 Affordable Holistic Care | Book Online" />
@@ -256,10 +256,10 @@ export default function WeightLossClinicGoldCoast() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

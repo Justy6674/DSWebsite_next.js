@@ -24,7 +24,7 @@ export default function WeightLossClinicAdelaide() {
       <Head>
         <title>Weight Loss Clinic Adelaide | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Adelaide. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic adelaide, weight loss clinic near me adelaide, weight loss clinic glenelg, weight loss clinic north adelaide, weight loss clinic adelaide hills, bulk billed weight loss adelaide, medicare weight loss doctor adelaide, online weight loss consultation adelaide, telehealth weight loss adelaide" />
+        <meta name="keywords" content="weight loss clinic adelaide, weight loss clinic near me adelaide, weight loss clinic glenelg, weight loss clinic north adelaide, weight loss clinic adelaide hills, affordable consultationed weight loss adelaide, medicare weight loss doctor adelaide, online weight loss consultation adelaide, telehealth weight loss adelaide" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-adelaide" />
         
         <meta property="og:title" content="Weight Loss Clinic Adelaide | $45 Affordable Holistic Care | Book Online" />
@@ -251,10 +251,10 @@ export default function WeightLossClinicAdelaide() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

@@ -81,7 +81,7 @@ export default function WeightLossClinicBendigo() {
               {
                 "@type": "MedicalProcedure",
                 "name": "Weight Loss Clinic Consultation Bendigo",
-                "description": "Medicare bulk-billed weight management consultations via telehealth for Bendigo residents"
+                "description": "Medicare affordable consultationed weight management consultations via telehealth for Bendigo residents"
               }
             ],
             "priceRange": "$0-$80",
@@ -261,10 +261,10 @@ export default function WeightLossClinicBendigo() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

@@ -24,7 +24,7 @@ export default function WeightLossClinicPerth() {
       <Head>
         <title>Weight Loss Clinic Perth | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Perth. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic perth, weight loss clinic near me perth, weight loss clinic joondalup, weight loss clinic fremantle, weight loss clinic subiaco, bulk billed weight loss perth, medicare weight loss doctor perth, online weight loss consultation perth, telehealth weight loss perth" />
+        <meta name="keywords" content="weight loss clinic perth, weight loss clinic near me perth, weight loss clinic joondalup, weight loss clinic fremantle, weight loss clinic subiaco, affordable consultationed weight loss perth, medicare weight loss doctor perth, online weight loss consultation perth, telehealth weight loss perth" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-perth" />
         
         <meta property="og:title" content="Weight Loss Clinic Perth | $45 Affordable Holistic Care | Book Online" />
@@ -256,10 +256,10 @@ export default function WeightLossClinicPerth() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

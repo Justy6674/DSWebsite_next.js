@@ -24,7 +24,7 @@ export default function WeightLossClinicHobart() {
       <Head>
         <title>Weight Loss Clinic Hobart | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Hobart. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic hobart, bulk billed weight loss hobart, medicare weight loss doctor hobart, online weight loss consultation hobart, weight loss clinic near me hobart, affordable weight loss clinic hobart, telehealth weight loss hobart, prescription weight loss hobart, nurse practitioner hobart tasmania" />
+        <meta name="keywords" content="weight loss clinic hobart, affordable consultationed weight loss hobart, medicare weight loss doctor hobart, online weight loss consultation hobart, weight loss clinic near me hobart, affordable weight loss clinic hobart, telehealth weight loss hobart, prescription weight loss hobart, nurse practitioner hobart tasmania" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-hobart" />
         
         <meta property="og:title" content="Weight Loss Clinic Hobart | $45 Affordable Holistic Care | Book Online" />
@@ -248,10 +248,10 @@ export default function WeightLossClinicHobart() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

@@ -24,7 +24,7 @@ export default function WeightLossClinicMelbourne() {
       <Head>
         <title>Weight Loss Clinic Melbourne | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Melbourne. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic melbourne, weight loss clinic near me melbourne, weight loss clinic fitzroy, weight loss clinic st kilda, weight loss clinic richmond, weight loss clinic south yarra, weight loss clinic carlton, bulk billed weight loss melbourne, medicare weight loss doctor melbourne, online weight loss consultation melbourne, telehealth weight loss melbourne" />
+        <meta name="keywords" content="weight loss clinic melbourne, weight loss clinic near me melbourne, weight loss clinic fitzroy, weight loss clinic st kilda, weight loss clinic richmond, weight loss clinic south yarra, weight loss clinic carlton, affordable consultationed weight loss melbourne, medicare weight loss doctor melbourne, online weight loss consultation melbourne, telehealth weight loss melbourne" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-melbourne" />
         
         <meta property="og:title" content="Weight Loss Clinic Melbourne | $45 Affordable Holistic Care | Book Online" />
@@ -256,10 +256,10 @@ export default function WeightLossClinicMelbourne() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

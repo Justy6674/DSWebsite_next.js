@@ -24,7 +24,7 @@ export default function WeightLossClinicBrisbane() {
       <Head>
         <title>Weight Loss Clinic Brisbane | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Brisbane. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic brisbane, weight loss clinic near me brisbane, weight loss clinic fortitude valley, weight loss clinic south bank, weight loss clinic new farm, weight loss clinic west end, bulk billed weight loss brisbane, medicare weight loss doctor brisbane, online weight loss consultation brisbane, telehealth weight loss brisbane" />
+        <meta name="keywords" content="weight loss clinic brisbane, weight loss clinic near me brisbane, weight loss clinic fortitude valley, weight loss clinic south bank, weight loss clinic new farm, weight loss clinic west end, affordable consultationed weight loss brisbane, medicare weight loss doctor brisbane, online weight loss consultation brisbane, telehealth weight loss brisbane" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-brisbane" />
         
         <meta property="og:title" content="Weight Loss Clinic Brisbane | $45 Affordable Holistic Care | Book Online" />
@@ -256,10 +256,10 @@ export default function WeightLossClinicBrisbane() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

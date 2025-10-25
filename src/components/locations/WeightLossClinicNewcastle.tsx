@@ -24,7 +24,7 @@ export default function WeightLossClinicNewcastle() {
       <Head>
         <title>Weight Loss Clinic Newcastle | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Newcastle. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic newcastle, bulk billed weight loss newcastle, medicare weight loss doctor newcastle, online weight loss consultation newcastle, weight loss clinic near me newcastle, affordable weight loss clinic newcastle, telehealth weight loss newcastle, prescription weight loss newcastle, nurse practitioner newcastle" />
+        <meta name="keywords" content="weight loss clinic newcastle, affordable consultationed weight loss newcastle, medicare weight loss doctor newcastle, online weight loss consultation newcastle, weight loss clinic near me newcastle, affordable weight loss clinic newcastle, telehealth weight loss newcastle, prescription weight loss newcastle, nurse practitioner newcastle" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-newcastle" />
         
         <meta property="og:title" content="Weight Loss Clinic Newcastle | $45 Affordable Holistic Care | Book Online" />
@@ -248,10 +248,10 @@ export default function WeightLossClinicNewcastle() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

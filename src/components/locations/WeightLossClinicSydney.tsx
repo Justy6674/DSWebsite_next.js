@@ -24,7 +24,7 @@ export default function WeightLossClinicSydney() {
       <Head>
         <title>Weight Loss Clinic Sydney | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Sydney. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic sydney, weight loss clinic near me sydney, weight loss clinic bondi, weight loss clinic parramatta, weight loss clinic north shore, weight loss clinic eastern suburbs, bulk billed weight loss sydney, medicare weight loss doctor sydney, online weight loss consultation sydney, telehealth weight loss sydney" />
+        <meta name="keywords" content="weight loss clinic sydney, weight loss clinic near me sydney, weight loss clinic bondi, weight loss clinic parramatta, weight loss clinic north shore, weight loss clinic eastern suburbs, affordable consultationed weight loss sydney, medicare weight loss doctor sydney, online weight loss consultation sydney, telehealth weight loss sydney" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-sydney" />
         
         <meta property="og:title" content="Weight Loss Clinic Sydney | $45 Affordable Holistic Care | Book Online" />
@@ -100,7 +100,7 @@ export default function WeightLossClinicSydney() {
               {
                 "@type": "MedicalProcedure",
                 "name": "Weight Loss Clinic Consultation Sydney",
-                "description": "Medicare bulk-billed weight management consultations via telehealth for Sydney residents"
+                "description": "Medicare affordable consultationed weight management consultations via telehealth for Sydney residents"
               },
               {
                 "@type": "MedicalProcedure",
@@ -315,10 +315,10 @@ export default function WeightLossClinicSydney() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

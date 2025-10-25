@@ -24,7 +24,7 @@ export default function WeightLossClinicGeelong() {
       <Head>
         <title>Weight Loss Clinic Geelong | $45 Affordable Holistic Telehealth | Downscale</title>
         <meta name="description" content="Affordable holistic weight loss clinic serving Geelong. $45 consultations with Justin Black, Nurse Practitioner. Whole-person care approach - not a massive clinic. Kind, evidence-based programs. Book online today." />
-        <meta name="keywords" content="weight loss clinic geelong, bulk billed weight loss geelong, medicare weight loss doctor geelong, online weight loss consultation geelong, weight loss clinic near me geelong, affordable weight loss clinic geelong, telehealth weight loss geelong, prescription weight loss geelong, nurse practitioner geelong victoria" />
+        <meta name="keywords" content="weight loss clinic geelong, affordable consultationed weight loss geelong, medicare weight loss doctor geelong, online weight loss consultation geelong, weight loss clinic near me geelong, affordable weight loss clinic geelong, telehealth weight loss geelong, prescription weight loss geelong, nurse practitioner geelong victoria" />
         <link rel="canonical" href="https://www.downscale.com.au/weight-loss-clinic-geelong" />
         
         <meta property="og:title" content="Weight Loss Clinic Geelong | $45 Affordable Holistic Care | Book Online" />
@@ -248,10 +248,10 @@ export default function WeightLossClinicGeelong() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>

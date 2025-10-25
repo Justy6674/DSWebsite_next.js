@@ -85,7 +85,7 @@ export default function WeightLossClinicAlburyWodonga() {
               {
                 "@type": "MedicalProcedure",
                 "name": "Weight Loss Clinic Consultation Albury Wodonga",
-                "description": "Medicare bulk-billed weight management consultations via telehealth for Albury Wodonga residents"
+                "description": "Medicare affordable consultationed weight management consultations via telehealth for Albury Wodonga residents"
               }
             ],
             "priceRange": "$0-$80",
@@ -265,10 +265,10 @@ export default function WeightLossClinicAlburyWodonga() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Bulk Billed Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Medicare rebates available • Same-day appointments • 100% online
+                Affordable pricing • Same-day appointments • 100% online
               </p>
             </div>
           </section>
