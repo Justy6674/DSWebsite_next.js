@@ -4,6 +4,9 @@ import PricingPage from '@/components/PricingPage';
 export const metadata: Metadata = {
   title: 'Pricing',
   description: 'Pricing page - Access and manage your content',
+  alternates: {
+    canonical: 'https://www.downscale.com.au/pricing',
+  },
 };
 
 export default function PricingPagePage() {

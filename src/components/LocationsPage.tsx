@@ -274,7 +274,7 @@ export default function LocationsPage() {
                   <Users className="h-6 w-6 text-secondary" />
                 </div>
                 <h4 className="font-semibold mb-2">Children's Health</h4>
-                <p className="text-sm text-muted-foreground">Pediatric consultations, growth concerns, behavioral health, school health issues</p>
+                <p className="text-sm text-muted-foreground">Pediatric consultations, growth concerns, behavioural health, school health issues</p>
               </div>
               <div className="text-center">
                 <div className="bg-secondary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">

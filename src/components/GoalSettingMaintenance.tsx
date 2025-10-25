@@ -53,7 +53,7 @@ export default function GoalSettingMaintenance() {
       stage: "Cue Design",
       description: "Create environmental triggers for healthy behaviours",
       duration: "Week 1-2",
-      strategies: ["Stack habits with existing routines", "Use visual reminders", "Optimize your environment", "Time-based triggers"],
+      strategies: ["Stack habits with existing routines", "Use visual reminders", "Optimise your environment", "Time-based triggers"],
       example: "Put workout clothes by your bed for morning exercise"
     },
     {
@@ -72,7 +72,7 @@ export default function GoalSettingMaintenance() {
     },
     {
       stage: "Automaticity",
-      description: "Behaviors become automatic and effortless",
+      description: "Behaviours become automatic and effortless",
       duration: "Week 12+",
       strategies: ["Monitor and adjust", "Environmental maintenance", "Identity integration", "Continuous refinement"],
       example: "Exercise feels wrong to skip, like not brushing teeth"

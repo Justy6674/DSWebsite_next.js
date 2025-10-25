@@ -1,6 +1,15 @@
+import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import Link from "next/link";
 import { Calculator, ExternalLink } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
+  description: 'Interactive tools to support your weight loss journey including BMI calculator, health assessments, progress tracking, and meal planning tools.',
+  alternates: {
+    canonical: 'https://www.downscale.com.au/tools',
+  },
+};
 
 const tools = [
   {
