@@ -102,7 +102,7 @@ export default function NutritionMealPlanning() {
         >
           <img 
             src="/food-hero.jpg" 
-            alt="" 
+            alt="Evidence-based nutrition and meal planning for sustainable weight management" 
             className="hidden" 
             loading="eager"
           />

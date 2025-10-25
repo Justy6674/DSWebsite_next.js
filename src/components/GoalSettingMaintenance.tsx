@@ -189,7 +189,7 @@ export default function GoalSettingMaintenance() {
         >
           <img 
             src="/goal-setting-hero.jpg" 
-            alt="" 
+            alt="Goal setting and maintenance strategies for long-term weight management success" 
             className="hidden" 
             loading="eager"
           />

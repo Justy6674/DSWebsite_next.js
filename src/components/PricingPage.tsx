@@ -88,7 +88,7 @@ export default function PricingPage() {
       >
         <img 
           src="/pricing-hero-mobile.webp" 
-          alt="" 
+          alt="Affordable pricing for professional weight loss consultations - transparent cost structure" 
           className="hidden" 
           loading="eager"
         />

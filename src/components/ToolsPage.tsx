@@ -162,7 +162,7 @@ export default function ToolsPage() {
         >
           <img 
             src="/lovable-uploads/6fe1a9b0-3661-49d7-83d7-246ec1d97f80.png" 
-            alt="" 
+            alt="Health and wellness tools for weight management tracking and planning" 
             className="hidden" 
             loading="eager"
           />

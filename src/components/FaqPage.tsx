@@ -178,7 +178,7 @@ export default function FaqPage() {
           >
             <img 
               src="/faq-hero.jpg" 
-              alt="" 
+              alt="Frequently asked questions about weight loss clinic services and consultations" 
               className="hidden" 
               loading="eager"
             />

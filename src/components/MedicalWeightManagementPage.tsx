@@ -106,7 +106,7 @@ export default function MedicalWeightManagement() {
         >
           <img 
             src="/medical-hero.jpg" 
-            alt="" 
+            alt="Medical weight management professional consultation - evidence-based clinical assessment" 
             className="hidden" 
             loading="eager"
           />
