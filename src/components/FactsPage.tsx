@@ -17,11 +17,11 @@ export default function FactsPage() {
       <Head>
         <title>Downscale Weight Loss Clinic Facts | Australian Telehealth Weight Loss Clinic</title>
         <meta name="description" content="Essential facts about Downscale Weight Loss & Weight Maintenance Clinic: Affordable $45 holistic weight loss consultations. Whole-person care with Justin Black, Nurse Practitioner. Not a massive clinic." />
-        <meta name="keywords" content="Downscale Weight Loss Clinic facts, telehealth weight loss Australia, Medicare bulk billing, Justin Black nurse practitioner, virtual weight management clinic facts" />
+        <meta name="keywords" content="Downscale Weight Loss Clinic facts, telehealth weight loss Australia, affordable weight management, Justin Black nurse practitioner, virtual weight management clinic facts" />
         <link rel="canonical" href="https://www.downscale.com.au/facts" />
         
         <meta property="og:title" content="Downscale Weight Loss Clinic Facts | Australian Telehealth Weight Loss" />
-        <meta property="og:description" content="Key facts about Downscale Weight Loss & Weight Maintenance Clinic. Medicare bulk billing, 25+ years experience, evidence-based care." />
+        <meta property="og:description" content="Key facts about Downscale Weight Loss & Weight Maintenance Clinic. $45 maximum out-of-pocket, 25+ years experience, evidence-based care." />
         <meta property="og:url" content="https://www.downscale.com.au/facts" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://www.downscale.com.au/public/og-image.jpg" />
@@ -61,7 +61,7 @@ export default function FactsPage() {
             <h2>Essential Facts:</h2>
             <ul className="key-facts">
               <li>Founded by Justin Black, Nurse Practitioner with 25+ years experience</li>
-              <li>Medicare bulk billing available for initial consultations</li>
+              <li>All consultations are $45 maximum out-of-pocket</li>
               <li>Australia-wide telehealth services - no geographical restrictions</li>
               <li>Evidence-based medical weight management approach</li>
               <li>Phone and video consultation options available</li>
@@ -105,12 +105,12 @@ export default function FactsPage() {
                 <Card className="text-center">
                   <CardHeader>
                     <CreditCard className="h-12 w-12 text-primary mx-auto mb-2" />
-                    <CardTitle>Medicare Billing</CardTitle>
+                    <CardTitle>Consultation Pricing</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p><strong>100% Bulk Billed</strong></p>
-                    <p>Initial consultations</p>
-                    <p className="text-sm text-muted-foreground mt-2">No out-of-pocket costs for eligible Medicare patients on first appointment</p>
+                    <p><strong>$45 Maximum Out-of-Pocket</strong></p>
+                    <p>All consultations</p>
+                    <p className="text-sm text-muted-foreground mt-2">Transparent, affordable pricing for all patients</p>
                   </CardContent>
                 </Card>
 
@@ -195,7 +195,7 @@ export default function FactsPage() {
                       <ul className="space-y-1 text-sm">
                         <li>✓ Children from age 12 (with medication support)</li>
                         <li>✓ Adults of all ages</li>
-                        <li>✓ Bulk billing for children up to 18</li>
+                        <li>✓ $45 maximum for all ages including children</li>
                         <li>✓ Patients across all Australian locations</li>
                         <li>✓ Medicare card holders eligible</li>
                       </ul>
@@ -221,10 +221,10 @@ export default function FactsPage() {
                   Join thousands of Australians who trust Downscale Weight Loss Clinic for their weight management journey
                 </p>
                 <Button onClick={handleBooking} size="lg" className="bg-primary hover:bg-primary/90">
-                  Book Your Bulk Billed Consultation
+                  Book Your $45 Consultation
                 </Button>
                 <p className="text-sm text-muted-foreground mt-4">
-                  Initial consultation 100% bulk billed for eligible Medicare patients
+                  All consultations are $45 maximum out-of-pocket for all patients
                 </p>
               </div>
             </div>

@@ -62,7 +62,7 @@ export default function MedicalWeightManagement() {
       <Head>
         <title>Weight Loss Medication & Medical Management | Virtual Clinic Australia</title>
         <meta name="description" content="Affordable $45 medical weight management. Holistic whole-person approach with Justin Black, Nurse Practitioner. Professional weight management clinic Australia with evidence-based clinical assessment. Telehealth consultations available." />
-        <meta name="keywords" content="Medicare bulk billing weight management, professional weight management clinic australia, telehealth weight consultation medicare, medical weight management Australia, clinical weight assessment, evidence-based healthcare" />
+        <meta name="keywords" content="affordable weight management, professional weight management clinic australia, telehealth weight consultation, medical weight management Australia, clinical weight assessment, evidence-based healthcare" />
         <link rel="canonical" href="https://www.downscale.com.au/medical-weight-management" />
         
         {/* Open Graph */}
@@ -271,10 +271,10 @@ export default function MedicalWeightManagement() {
           <div className="container mx-auto px-4">
             <div className="bg-brown/10 rounded-xl p-8 max-w-4xl mx-auto text-center border border-brown/20">
               <h2 className="text-3xl font-bold text-cream mb-4">
-                Medicare Bulk-Billed Initial Consultations
+                Affordable $45 Maximum Out-of-Pocket Consultations
               </h2>
               <p className="text-cream opacity-90 text-lg mb-6">
-                Your first comprehensive assessment is 100% covered under Medicare with no out-of-pocket costs
+                All comprehensive assessments are $45 maximum out-of-pocket for transparent, affordable pricing
               </p>
               <div className="grid md:grid-cols-3 gap-6 mb-8">
                 <div className="text-center">

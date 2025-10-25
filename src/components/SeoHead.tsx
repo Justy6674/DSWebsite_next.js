@@ -163,7 +163,7 @@ export const validateSEOContent = (title: string, description: string) => {
   }
   
   // Check for Australian English specific terms
-  const australianTerms = ['telehealth', 'medicare', 'bulk bill', 'practitioner', 'australia'];
+  const australianTerms = ['telehealth', 'medicare', 'affordable consultation', 'practitioner', 'australia'];
   const hasAustralianContext = australianTerms.some(term => 
     title.toLowerCase().includes(term) || description.toLowerCase().includes(term)
   );

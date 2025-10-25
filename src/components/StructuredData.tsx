@@ -37,7 +37,7 @@ export const OrganizationSchema = () => {
     "url": "https://www.downscale.com.au/",
     "logo": "https://www.downscale.com.au/og-image.jpg",
     "image": "https://www.downscale.com.au/og-image.jpg",
-    "description": "Medicare bulk billed weight loss clinic led by experienced Nurse Practitioner. Evidence-based medical weight management via telehealth across Australia.",
+    "description": "Affordable $45 maximum out-of-pocket weight loss clinic led by experienced Nurse Practitioner. Evidence-based medical weight management via telehealth across Australia.",
     "email": "office@downscale.com.au",
     "address": {
       "@type": "PostalAddress",
@@ -74,7 +74,7 @@ export const WebSiteSchema = () => {
     "@type": "WebSite",
     "name": "Downscale Weight Loss Clinic",
     "url": "https://www.downscale.com.au/",
-    "description": "Professional telehealth weight loss clinic offering Medicare bulk billed consultations with experienced healthcare professionals.",
+    "description": "Professional telehealth weight loss clinic offering $45 maximum out-of-pocket consultations with experienced healthcare professionals.",
     "publisher": {
       "@type": "MedicalBusiness",
       "name": "Downscale Weight Loss Clinic"
@@ -140,7 +140,7 @@ export const MedicalClinicSchema = () => {
     "@type": "MedicalClinic",
     "name": "Downscale Weight Loss Clinic",
     "url": "https://www.downscale.com.au/",
-    "description": "Specialised weight management clinic providing telehealth services across Australia with Medicare bulk billing available.",
+    "description": "Specialised weight management clinic providing telehealth services across Australia with $45 maximum out-of-pocket pricing.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Brisbane",
@@ -299,7 +299,7 @@ export const LocalBusinessSchema: React.FC<LocalBusinessSchemaProps> = ({
     "@type": "MedicalBusiness",
     "name": `Downscale Weight Loss Clinic - ${city}`,
     "url": `https://www.downscale.com.au/weight-loss-clinic-${city.toLowerCase().replace(/\s+/g, '-')}`,
-    "description": `Telehealth weight loss clinic serving ${city}, ${state}. Medicare bulk billed consultations available.`,
+    "description": `Telehealth weight loss clinic serving ${city}, ${state}. $45 maximum out-of-pocket consultations available.`,
     "address": {
       "@type": "PostalAddress",
       "addressLocality": city,

@@ -130,15 +130,15 @@ export default function TermsAndConditions() {
                         </div>
 
                         <div>
-                          <h3 className="text-lg font-semibold text-cream mb-3">Bulk-Billing (Case-by-Case):</h3>
+                          <h3 className="text-lg font-semibold text-cream mb-3">Transparent $45 Pricing:</h3>
                           <ul className="space-y-3 text-cream/90">
                             <li className="flex items-start">
                               <div className="w-2 h-2 bg-brown rounded-full mr-3 mt-2"></div>
-                              Certain consultations may be bulk-billed at the practitioner's discretion, including side effects discussions, children's consultations, and some existing Dakabin GP patients for non-weight-related appointments
+                              All consultations are $45 maximum out-of-pocket for transparent, accessible healthcare for all Australians
                             </li>
                             <li className="flex items-start">
                               <div className="w-2 h-2 bg-brown rounded-full mr-3 mt-2"></div>
-                              Bulk-billing eligibility is assessed during booking and confirmed during consultation
+                              No complex eligibility requirements - simple, straightforward pricing for everyone
                             </li>
                             <li className="flex items-start">
                               <div className="w-2 h-2 bg-brown rounded-full mr-3 mt-2"></div>

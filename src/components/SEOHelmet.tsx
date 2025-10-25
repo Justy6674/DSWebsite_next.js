@@ -81,7 +81,7 @@ export const SEOHelmet: React.FC<SEOHelmetProps> = ({
       ogDesc.setAttribute('property', 'og:description');
       document.head.appendChild(ogDesc);
     }
-    ogDesc.setAttribute('content', description || "Book weight loss consultation with Nurse Practitioner Justin Black. Medicare bulk billed telehealth appointments. Call, book online, get treatment plan, lose weight safely across Australia.");
+    ogDesc.setAttribute('content', description || "Book weight loss consultation with Nurse Practitioner Justin Black. $45 maximum out-of-pocket telehealth appointments. Call, book online, get treatment plan, lose weight safely across Australia.");
     
     // Ensure favicon is set properly for all pages
     const ensureFavicon = () => {

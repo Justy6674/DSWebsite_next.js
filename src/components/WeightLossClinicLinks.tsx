@@ -225,7 +225,7 @@ export const WeightLossClinicLinks: React.FC<WeightLossClinicLinksProps> = ({
                 </div>
                 <div className="flex items-center gap-3 justify-center sm:justify-start">
                   <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-800" />
-                  <span className="font-medium">Medicare Bulk Billed 1st Appt</span>
+                  <span className="font-medium">$45 Maximum Out-of-Pocket</span>
                 </div>
                 <div className="flex items-center gap-3 justify-center sm:justify-start">
                   <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-gray-800" />

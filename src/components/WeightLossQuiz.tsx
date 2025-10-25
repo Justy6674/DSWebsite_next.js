@@ -337,7 +337,7 @@ const WeightLossQuiz: React.FC<{
                 href={EXTERNAL_URLS.BOOK_ONLINE}
                 className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-6 py-3 rounded-lg hover:bg-secondary/90 transition-colors"
               >
-                Book Your Bulk-Billed Consultation <ChevronRight className="w-4 h-4" />
+                Book Your $45 Consultation <ChevronRight className="w-4 h-4" />
               </a>
             </div>
           ) : (

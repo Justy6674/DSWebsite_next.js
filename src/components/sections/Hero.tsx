@@ -57,7 +57,7 @@ export function Hero() {
           </Button>
           
           <p className="text-sm sm:text-base text-muted-foreground">
-            Medicare bulk-billed initial consultation available
+            $45 maximum out-of-pocket consultation available
           </p>
         </div>
       </div>

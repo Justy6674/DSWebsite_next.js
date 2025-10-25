@@ -80,10 +80,10 @@ export function OptimizedHero() {
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-56 min-h-[64px] sm:min-h-[80px] button-ocean-primary inline-flex flex-col items-center justify-center text-white text-base sm:text-lg font-bold px-4 py-3 sm:px-5 sm:py-4 rounded-xl shadow-lg md:transition-all md:duration-300 md:transform md:hover:scale-105 md:hover:shadow-xl touch-target"
-              aria-label="Book initial weight loss appointment - 30 minute bulk-billed consultation"
+              aria-label="Book initial weight loss appointment - 30 minute $45 consultation"
             >
               <span className="text-center leading-tight mb-1">Initial First Appointment</span>
-              <span className="text-xs sm:text-sm font-normal text-center opacity-95">Weight Loss 30 Min • Bulk-Billed</span>
+              <span className="text-xs sm:text-sm font-normal text-center opacity-95">Weight Loss 30 Min • $45</span>
             </a>
             
             <a 

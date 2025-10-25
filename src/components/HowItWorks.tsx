@@ -18,7 +18,7 @@ export default function HowItWorks() {
     {
       icon: <Calendar className="h-8 w-8 text-primary" />,
       title: "1. Book Your Consultation",
-      description: "Choose a convenient time for your telehealth appointment. Initial consultations are 100% bulk billed with Medicare.",
+      description: "Choose a convenient time for your telehealth appointment. Initial consultations are $45 maximum out-of-pocket.",
       details: [
         "Book online 24/7",
         "Same-day appointments available",
@@ -66,11 +66,11 @@ export default function HowItWorks() {
       <Head>
         <title>How It Works - Telehealth Weight Loss Process | Downscale Weight Loss Clinic</title>
         <meta name="description" content="Learn how our affordable holistic telehealth weight loss consultations work. Simple 4-step process: Book $45 consultation, health assessment, video consultation, ongoing whole-person support." />
-        <meta name="keywords" content="how telehealth works, online weight loss consultation process, bulk billed telehealth, weight loss clinic process, medicare telehealth consultations" />
+        <meta name="keywords" content="how telehealth works, online weight loss consultation process, affordable telehealth, weight loss clinic process, medicare telehealth consultations" />
         <link rel="canonical" href="https://www.downscale.com.au/how-it-works" />
         
         <meta property="og:title" content="How Our Telehealth Weight Loss Process Works" />
-        <meta property="og:description" content="Simple 4-step process to start your weight loss journey. Book online, complete assessment, video consultation, ongoing support. Medicare bulk billed." />
+        <meta property="og:description" content="Simple 4-step process to start your weight loss journey. Book online, complete assessment, video consultation, ongoing support. $45 maximum out-of-pocket." />
         <meta property="og:url" content="https://www.downscale.com.au/how-it-works" />
         <meta property="og:type" content="website" />
       </Head>
@@ -223,21 +223,21 @@ export default function HowItWorks() {
             <div className="container mx-auto max-w-4xl text-center">
               <CreditCard className="h-12 w-12 text-primary mx-auto mb-4" />
               <h2 className="text-3xl font-bold mb-6">
-                Medicare Bulk Billing Available
+                Affordable $45 Consultations
               </h2>
               <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Your initial consultation is 100% bulk billed with a valid Medicare card. 
-                No out-of-pocket expenses for your first appointment.
+                All consultations are $45 maximum out-of-pocket for all patients.
+                Transparent, affordable pricing for everyone.
               </p>
               <Button 
                 onClick={handleBooking}
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                Book Your Free Initial Consultation
+                Book Your $45 Consultation
               </Button>
               <p className="text-sm text-muted-foreground mt-4">
-                Follow-up consultations may have a small gap payment
+                All consultations are $45 maximum out-of-pocket
               </p>
             </div>
           </section>
@@ -267,7 +267,7 @@ export default function HowItWorks() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      No referral needed. As a Nurse Practitioner, Justin can see you directly and bulk bill your consultation.
+                      No referral needed. As a Nurse Practitioner, Justin can see you directly for your $45 consultation.
                     </p>
                   </CardContent>
                 </Card>

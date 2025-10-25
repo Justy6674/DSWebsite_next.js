@@ -143,7 +143,7 @@
     --downscale-purple: 269 78% 40%;        /* #6B21A8 - Premium Purple */
     
     /* Healthcare-specific semantic colors */
-    --medicare-bulk-bill: var(--downscale-green);
+    --transparent-pricing: var(--downscale-green);
     --private-billing: var(--downscale-blue);
     --telehealth: var(--downscale-purple);
     --in-person: var(--downscale-brown);

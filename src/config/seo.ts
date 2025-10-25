@@ -24,7 +24,7 @@ export const SEO_CONFIG = {
     '/faq': {
       title: 'Frequently Asked Questions - Weight Loss Clinic FAQ',
       description: 'Common questions about our weight loss services, Medicare billing, telehealth consultations, and treatment options answered.',
-      keywords: 'weight loss FAQ, Medicare bulk billing questions, telehealth FAQ'
+      keywords: 'weight loss FAQ, $45 consultation questions, telehealth FAQ'
     },
     '/how-it-works': {
       title: 'How Telehealth Weight Loss Works - 4 Simple Steps',

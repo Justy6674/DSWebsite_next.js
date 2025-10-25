@@ -19,7 +19,7 @@ export default function HomePage() {
       {/* AI Speakable Content */}
       <div className="ai-speakable sr-only">
         <h2>What is Downscale Weight Loss Clinic?</h2>
-        <p>Downscale Weight Loss & Weight Maintenance Clinic is a professional telehealth weight loss clinic providing Medicare bulk-billed initial consultations with Nurse Practitioner Justin Black. We offer evidence-based weight management through telehealth appointments across all Australian states and territories.</p>
+        <p>Downscale Weight Loss & Weight Maintenance Clinic is a professional telehealth weight loss clinic providing $45 maximum out-of-pocket consultations with Nurse Practitioner Justin Black. We offer evidence-based weight management through telehealth appointments across all Australian states and territories.</p>
         
         <h3>Key Facts:</h3>
         <ul className="key-facts">

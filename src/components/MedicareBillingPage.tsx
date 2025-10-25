@@ -6,8 +6,8 @@ export default function MedicareBilling() {
   return (
     <>
       <Head>
-        <title>Medicare & Billing Policy — Accessible Care for All Australians | Downscale</title>
-        <meta name="description" content="Understanding our transparent $45 pricing and mixed-billing model. Medicare-eligible patients receive instant rebate processing. Non-eligible patients: we absorb the difference." />
+        <title>Transparent $45 Pricing Policy — Accessible Care for All Australians | Downscale</title>
+        <meta name="description" content="Understanding our transparent $45 maximum out-of-pocket pricing model. Simple, affordable healthcare for all Australians with clear pricing structure." />
         <meta name="keywords" content="Medicare billing Downscale, mixed billing telehealth, Medicare rebates weight loss, transparent pricing Australia, telehealth Medicare policy" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.downscale.com.au/medicare" />
@@ -36,10 +36,10 @@ export default function MedicareBilling() {
                   </div>
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  Medicare & Billing Policy — Accessible Care for All Australians
+                  Transparent $45 Pricing Policy — Accessible Care for All Australians
                 </h1>
                 <p className="text-xl text-cream/80 mb-8">
-                  Understanding our transparent $45 pricing and mixed-billing model
+                  Understanding our transparent $45 maximum out-of-pocket pricing model
                 </p>
                 <div className="text-sm text-cream/60">
                   Last updated: January 13, 2025
@@ -157,46 +157,24 @@ export default function MedicareBilling() {
                   </div>
                 </div>
 
-                {/* Section 3: When Bulk-Billing May Apply */}
+                {/* Section 3: Medicare Compliance & November 1st Changes */}
                 <div className="bg-slate-800 rounded-xl p-8 border border-slate-700">
                   <div className="flex items-start mb-6">
                     <Info className="h-8 w-8 text-brown mr-4 flex-shrink-0 mt-1" />
                     <div>
-                      <h2 className="text-2xl font-bold text-cream mb-4">When Bulk-Billing May Apply</h2>
+                      <h2 className="text-2xl font-bold text-cream mb-4">Medicare Changes & Our Response</h2>
                       <p className="text-cream/90 mb-4">
-                        While our standard weight loss consultation pricing is $45 maximum out-of-pocket, we may bulk-bill certain consultations at the practitioner's discretion, including:
+                        Following Medicare telehealth changes effective November 1st, 2025, we've implemented a transparent $45 maximum out-of-pocket pricing model for all weight loss consultations.
                       </p>
-                      <ul className="space-y-2 text-cream/90">
-                        <li className="flex items-start">
-                          <div className="w-2 h-2 bg-brown rounded-full mr-3 mt-2"></div>
-                          Side effects consultations (medication reviews, adverse reactions for patients on weight loss medication)
-                        </li>
-                        <li className="flex items-start">
-                          <div className="w-2 h-2 bg-brown rounded-full mr-3 mt-2"></div>
-                          Children's consultations (where Medicare telehealth rules apply)
-                        </li>
-                        <li className="flex items-start">
-                          <div className="w-2 h-2 bg-brown rounded-full mr-3 mt-2"></div>
-                          Existing Dakabin GP patients for non-weight-related GOPP appointments
-                        </li>
-                        <li className="flex items-start">
-                          <div className="w-2 h-2 bg-brown rounded-full mr-3 mt-2"></div>
-                          Other clinical scenarios where bulk-billing is appropriate and you're Medicare-eligible
-                        </li>
-                      </ul>
 
-                      <div className="bg-success/10 border border-success/20 rounded-lg p-4 mt-4">
+                      <div className="bg-blue/10 border border-blue/20 rounded-lg p-4 mt-4">
                         <p className="text-sm text-cream/90">
-                          <strong>Bulk-billing means you pay $0 out-of-pocket</strong> — we charge Medicare directly and you receive no invoice.
+                          <strong>Our Commitment:</strong> All consultations are $45 maximum out-of-pocket for transparent, accessible healthcare regardless of Medicare eligibility status.
                         </p>
                       </div>
 
                       <p className="text-cream/70 text-sm mt-4 italic">
-                        Your eligibility for bulk-billing is assessed during booking based on the nature of your consultation, your Medicare eligibility, and clinical appropriateness as determined by your practitioner.
-                      </p>
-
-                      <p className="text-cream/70 text-sm mt-2 italic">
-                        <strong>Important:</strong> We do not publicly advertise bulk-billing for weight loss consultations due to the November 1st Medicare telehealth changes. Our standard pricing model ensures accessibility for all Australians at $45 maximum out-of-pocket.
+                        This pricing model ensures compliance with current Medicare regulations while maintaining accessible care for all Australians.
                       </p>
                     </div>
                   </div>
