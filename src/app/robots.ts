@@ -19,6 +19,7 @@ export default function robots(): MetadataRoute.Robots {
           '/search/suggest',
           '/private/',
           '/tmp/',
+          '/test-upload/',
           '/*?utm_*',
           '/*?ref=*',
           '/*?source=*',

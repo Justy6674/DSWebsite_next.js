@@ -1,6 +1,15 @@
+import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import Link from "next/link";
 import { Stethoscope, Leaf, Dumbbell, Brain, Moon, Target } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: 'Clinical Services | Downscale Weight Loss Clinic',
+  description: 'Comprehensive weight management services tailored to your individual needs. Evidence-based medical approaches, nutrition, exercise, mental health support, and sleep optimisation.',
+  alternates: {
+    canonical: 'https://www.downscale.com.au/clinical-services',
+  },
+};
 
 const clinicalServices = [
   { name: 'Medical Weight Management', icon: Stethoscope, href: '/medical-weight-management', description: 'Evidence-based medical approaches to sustainable weight loss' },

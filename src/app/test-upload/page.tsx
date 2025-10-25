@@ -3,6 +3,9 @@
 import React from 'react';
 import FileManagement from '@/components/admin/FileManagement';
 
+// Note: This is a test page and should not be indexed by search engines
+// It's blocked via robots.ts
+
 export default function TestUploadPage() {
   return (
     <div className="min-h-screen bg-slate-900 p-4">
