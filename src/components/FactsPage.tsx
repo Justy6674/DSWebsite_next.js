@@ -203,7 +203,7 @@ export default function FactsPage() {
                     <div>
                       <h3 className="font-semibold mb-2">Technology & Access</h3>
                       <ul className="space-y-1 text-sm">
-                        <li>✓ Telehealth platform optimized</li>
+                        <li>✓ Telehealth platform optimised</li>
                         <li>✓ Mobile and desktop compatible</li>
                         <li>✓ Secure patient communication</li>
                         <li>✓ Digital prescription delivery</li>

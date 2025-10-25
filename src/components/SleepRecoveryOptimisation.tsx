@@ -947,7 +947,7 @@ export default function SleepRecoveryOptimisation() {
               </h2>
               <div className="w-16 h-1 bg-brown mx-auto mb-6"></div>
               <p className="text-cream opacity-90 text-lg max-w-3xl mx-auto">
-                Poor sleep directly impacts weight management through hormonal, metabolic, and behavioral pathways
+                Poor sleep directly impacts weight management through hormonal, metabolic, and behavioural pathways
               </p>
             </div>
 

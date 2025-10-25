@@ -774,7 +774,7 @@ export default function MentalHealthSupport() {
                   <i className="fas fa-users text-brown text-5xl mb-4"></i>
                   <h3 className="text-xl font-bold text-cream mb-3">Social Factors</h3>
                   <p className="text-cream opacity-80 text-sm">
-                    Relationships, environment, and social dynamics influence eating behaviors
+                    Relationships, environment, and social dynamics influence eating behaviours
                   </p>
                 </div>
               </div>

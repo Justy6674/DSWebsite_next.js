@@ -32,7 +32,7 @@ export default function ConditionsPage() {
     },
     {
       name: 'Weight Maintenance',
-      description: 'Specialised support for maintaining achieved weight loss through ongoing lifestyle coaching, metabolic monitoring, and behavioral strategies.',
+      description: 'Specialised support for maintaining achieved weight loss through ongoing lifestyle coaching, metabolic monitoring, and behavioural strategies.',
       symptoms: ['Previous weight loss success', 'Fear of weight regain', 'Difficulty maintaining new habits'],
       benefits: ['Sustained weight loss results', 'Improved metabolic health', 'Enhanced quality of life', 'Reduced yo-yo dieting'],
       icon: Target,

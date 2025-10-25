@@ -53,7 +53,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
     },
     {
       name: 'ADHD',
-      description: 'Managing weight challenges associated with ADHD medications and behaviors',
+      description: 'Managing weight challenges associated with ADHD medications and behaviours',
       benefits: 'Better focus, improved medication effectiveness, enhanced self-esteem',
       icon: Brain,
       accent: 'hsl(25, 95%, 53%)',
