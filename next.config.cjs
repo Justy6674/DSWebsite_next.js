@@ -2,8 +2,8 @@
 const nextConfig = {
   // Explicitly set distDir to .next to override any cached Vercel settings
   distDir: '.next',
-  // NUCLEAR OPTION: Disable SSR entirely to eliminate ALL hydration errors
-  output: 'export',
+  // Enable SSR for proper blog crawlability on Vercel
+  // Removed 'output: export' to enable server-side rendering for blog posts from Supabase
   trailingSlash: true,
   experimental: {
     typedRoutes: true,
