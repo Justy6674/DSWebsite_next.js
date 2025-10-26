@@ -85,6 +85,46 @@ export default function ConditionsPage() {
       benefits: ['Lower blood pressure readings', 'Reduced cardiovascular risk', 'Potential medication reduction', 'Better heart health'],
       icon: Heart,
       color: 'hsl(173, 80%, 40%)'
+    },
+    {
+      name: 'Type 2 Diabetes & Pre-diabetes',
+      description: 'Evidence-based weight management to improve glucose control, insulin sensitivity, and reduce diabetes complications.',
+      symptoms: ['Elevated blood glucose', 'Frequent urination', 'Increased thirst', 'Fatigue', 'Slow wound healing'],
+      benefits: ['Improved blood sugar control', 'Reduced HbA1c levels', 'Decreased medication requirements', 'Prevention of complications'],
+      icon: Target,
+      color: 'hsl(14, 91%, 54%)'
+    },
+    {
+      name: 'Metabolic Syndrome',
+      description: 'Comprehensive treatment addressing the cluster of conditions including high blood pressure, high blood sugar, excess abdominal fat, and abnormal cholesterol levels.',
+      symptoms: ['Central obesity', 'High triglycerides', 'Low HDL cholesterol', 'High blood pressure', 'Insulin resistance'],
+      benefits: ['Reduced cardiovascular risk', 'Improved insulin sensitivity', 'Better lipid profiles', 'Weight redistribution'],
+      icon: Activity,
+      color: 'hsl(262, 83%, 58%)'
+    },
+    {
+      name: 'Depression & Anxiety',
+      description: 'Holistic approach recognising the bidirectional relationship between mental health and weight, incorporating psychological support with medical management.',
+      symptoms: ['Persistent sadness', 'Anxiety', 'Emotional eating', 'Loss of motivation', 'Social withdrawal'],
+      benefits: ['Improved mood stability', 'Better self-esteem', 'Reduced emotional eating', 'Enhanced quality of life'],
+      icon: Brain,
+      color: 'hsl(195, 100%, 50%)'
+    },
+    {
+      name: 'Fatty Liver Disease (NAFLD)',
+      description: 'Targeted weight loss to reduce liver fat, improve liver function, and prevent progression to more serious liver conditions.',
+      symptoms: ['Elevated liver enzymes', 'Right upper abdominal discomfort', 'Fatigue', 'Often asymptomatic'],
+      benefits: ['Reduced liver fat', 'Improved liver function tests', 'Decreased inflammation', 'Prevention of cirrhosis'],
+      icon: Heart,
+      color: 'hsl(45, 93%, 47%)'
+    },
+    {
+      name: 'Osteoarthritis & Joint Health',
+      description: 'Weight reduction to decrease joint loading, reduce inflammation, and improve mobility in weight-bearing joints.',
+      symptoms: ['Joint pain and stiffness', 'Reduced mobility', 'Morning stiffness', 'Difficulty with daily activities'],
+      benefits: ['Reduced joint pain', 'Improved mobility', 'Better quality of life', 'Delayed joint replacement needs'],
+      icon: Zap,
+      color: 'hsl(120, 100%, 25%)'
     }
   ];
 
@@ -140,116 +180,117 @@ export default function ConditionsPage() {
         </script>
       </Head>
       {/* Hero Section */}
-      <OptimizedBackground
-        src="/australian-beach-hero.jpg"
-        className="relative pt-24 pb-20 min-h-[50vh] flex items-center overflow-hidden"
-        priority={true}
-        overlay="linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.7))"
+      <div
+        className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage: "url(/conditions-hero.jpg)",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
+        <img
+          src="/conditions-hero.jpg"
+          alt="Medical conditions treatment - evidence-based weight management for comprehensive health"
+          className="hidden"
+          loading="eager"
+        />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="heading-beach font-bold mb-6 leading-tight">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+              style={{ color: '#f7f2d3', textShadow: '3px 3px 6px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8)' }}
+            >
               Medical Conditions We Treat
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-8 drop-shadow-lg max-w-3xl mx-auto font-light leading-relaxed" style={{
-              textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)'
-            }}>
+            <div className="w-20 h-1 bg-cream/80 mx-auto mb-6"></div>
+            <p
+              className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
+              style={{ color: '#f7f2d3', textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)' }}
+            >
               Weight loss is powerful medicine. Our evidence-based approach treats multiple health conditions through sustainable weight management.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mobile-button bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center gap-2"
+            <a
+              href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Button
+                onClick={() => window.open('https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491', '_blank')}
+                className="bg-secondary hover:bg-secondary/90 text-white font-medium text-sm shadow-md"
+                size="sm"
               >
                 Book Initial Consultation
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
+              </Button>
+            </a>
           </div>
         </div>
-      </OptimizedBackground>
+      </div>
       <div className="container mx-auto px-4 py-2">
         <PageNavigation />
       </div>
-      <div className="min-h-screen bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900">
+      <main className="min-h-screen bg-slate-900">
         
         {/* Conditions Overview */}
-        <section className="mobile-section">
+        <section className="py-16 bg-slate-800">
           <div className="container mx-auto px-4">
             <ConditionsWeTreat />
           </div>
         </section>
 
         {/* Detailed Conditions */}
-        <section className="mobile-section bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        <section className="py-16 bg-slate-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="heading-beach font-bold mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-cream mb-4">
                 Detailed Treatment Approaches
               </h2>
-              <p className="mobile-text text-foreground/80 max-w-3xl mx-auto">
+              <div className="w-16 h-1 bg-brown mx-auto mb-6"></div>
+              <p className="text-cream opacity-90 text-lg max-w-3xl mx-auto">
                 Each condition requires a tailored approach. Here's how we address specific health challenges through medical weight management.
               </p>
             </div>
 
-            <div className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {detailedConditions.map((condition, index) => (
-                <div key={index} className="mobile-card bg-card/50 backdrop-blur-sm">
-                  <div className="mobile-card-spacing">
-                    <div className="flex items-start gap-4 mb-6">
-                      <div 
-                        className="p-4 rounded-xl flex-shrink-0"
-                        style={{ backgroundColor: condition.color + '20' }}
-                      >
-                        <condition.icon 
-                          className="h-6 w-6" 
-                          style={{ color: condition.color }}
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <h3 
-                          className="mobile-subheading font-bold mb-3"
-                          style={{ color: condition.color }}
-                        >
-                          {condition.name}
-                        </h3>
-                        <p className="mobile-text text-foreground/90 leading-relaxed">
-                          {condition.description}
-                        </p>
-                      </div>
+                <div key={index} className="bg-slate-800 rounded-xl p-8 hover:bg-slate-750 transition-colors border border-slate-700">
+                  <div className="flex items-start mb-6">
+                    <div className="text-4xl mr-4">
+                      <condition.icon className="h-8 w-8 text-brown" />
                     </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-cream mb-2">
+                        {condition.name}
+                      </h3>
+                      <p className="text-cream opacity-80 mb-4">
+                        {condition.description}
+                      </p>
+                    </div>
+                  </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-3">Common Symptoms/Signs:</h4>
-                        <ul className="space-y-2">
-                          {condition.symptoms.map((symptom, idx) => (
-                            <li key={idx} className="text-sm text-foreground/80 flex items-start gap-2">
-                              <span 
-                                className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
-                                style={{ backgroundColor: condition.color }}
-                              />
-                              {symptom}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-3">Treatment Benefits:</h4>
-                        <ul className="space-y-2">
-                          {condition.benefits.map((benefit, idx) => (
-                            <li key={idx} className="text-sm text-foreground/80 flex items-start gap-2">
-                              <span 
-                                className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
-                                style={{ backgroundColor: condition.color }}
-                              />
-                              {benefit}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  <div className="grid grid-cols-1 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-cream mb-3">Common Symptoms/Signs:</h4>
+                      <ul className="space-y-3">
+                        {condition.symptoms.map((symptom, idx) => (
+                          <li key={idx} className="flex items-start text-cream opacity-70">
+                            <i className="fas fa-check text-brown mr-3 mt-1"></i>
+                            {symptom}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-cream mb-3">Treatment Benefits:</h4>
+                      <ul className="space-y-3">
+                        {condition.benefits.map((benefit, idx) => (
+                          <li key={idx} className="flex items-start text-cream opacity-70">
+                            <i className="fas fa-heart text-brown mr-3 mt-1"></i>
+                            {benefit}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -259,40 +300,49 @@ export default function ConditionsPage() {
         </section>
 
         {/* Call to Action */}
-        <section className="mobile-section">
+        <section className="py-16 bg-slate-900">
           <div className="container mx-auto px-4">
-            <div className="mobile-card bg-gradient-to-r from-primary/90 to-accent/90 text-center">
-              <div className="mobile-card-spacing">
-                <h2 className="mobile-heading font-bold mb-4 text-gray-900">
-                  Ready to Address Your Health Condition?
-                </h2>
-                <p className="mobile-text mb-8 text-gray-900 max-w-2xl mx-auto">
-                  Our evidence-based weight management approach can help improve your health condition. 
-                  Book a consultation to discuss your personalized treatment plan.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a 
-                    href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mobile-button bg-secondary text-secondary-foreground hover:bg-secondary/90 inline-flex items-center justify-center gap-2"
-                  >
-                    Book Initial Consultation
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <Button asChild variant="outline" className="mobile-button border-gray-800 text-gray-800 hover:bg-gray-800/10">
-                    <a href="/about">
-                      Learn About Our Approach
-                      <Stethoscope className="h-4 w-4 ml-2" />
-                    </a>
-                  </Button>
+            <div className="bg-brown/10 rounded-xl p-8 max-w-4xl mx-auto text-center border border-brown/20">
+              <h2 className="text-3xl font-bold text-cream mb-4">
+                Ready to Address Your Health Condition?
+              </h2>
+              <p className="text-cream opacity-90 text-lg mb-6">
+                Our evidence-based weight management approach can help improve your health condition.
+                Book a consultation to discuss your personalized treatment plan.
+              </p>
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="text-center">
+                  <i className="fas fa-user-md text-brown text-3xl mb-2"></i>
+                  <div className="font-semibold text-cream">Qualified Nurse Practitioner</div>
+                </div>
+                <div className="text-center">
+                  <i className="fas fa-laptop-medical text-brown text-3xl mb-2"></i>
+                  <div className="font-semibold text-cream">Telehealth Convenience</div>
+                </div>
+                <div className="text-center">
+                  <i className="fas fa-heart text-brown text-3xl mb-2"></i>
+                  <div className="font-semibold text-cream">Comprehensive Care</div>
                 </div>
               </div>
+              <a
+                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <Button
+                  onClick={() => window.open('https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491', '_blank')}
+                  className="bg-secondary hover:bg-secondary/90 text-white font-medium text-sm shadow-md"
+                  size="sm"
+                >
+                  Start Your Health Assessment
+                </Button>
+              </a>
             </div>
           </div>
         </section>
 
-      </div>
+      </main>
     </Layout>
   );
 }
