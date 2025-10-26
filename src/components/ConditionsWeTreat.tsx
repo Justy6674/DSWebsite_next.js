@@ -25,7 +25,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Reduced diabetes risk, improved cardiovascular health, enhanced mobility',
       icon: Scale,
       accent: 'hsl(221, 83%, 53%)',
-      bg: 'hsl(221, 83%, 97%)'
+      bg: '#1e293b'
     },
     {
       name: 'Weight Maintenance',
@@ -33,7 +33,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Sustained weight loss, improved metabolic health, lifestyle maintenance',
       icon: Target,
       accent: 'hsl(142, 76%, 36%)',
-      bg: 'hsl(142, 76%, 97%)'
+      bg: '#1e293b'
     },
     {
       name: 'PCOS',
@@ -41,7 +41,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Improved fertility, regulated periods, reduced insulin resistance',
       icon: Heart,
       accent: 'hsl(346, 87%, 43%)',
-      bg: 'hsl(346, 87%, 97%)'
+      bg: '#1e293b'
     },
     {
       name: 'Perimenopause & Menopause',
@@ -49,7 +49,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Reduced hot flashes, better bone health, improved mood stability',
       icon: Activity,
       accent: 'hsl(271, 91%, 65%)',
-      bg: 'hsl(271, 91%, 97%)'
+      bg: '#1e293b'
     },
     {
       name: 'ADHD',
@@ -57,7 +57,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Better focus, improved medication effectiveness, enhanced self-esteem',
       icon: Brain,
       accent: 'hsl(25, 95%, 53%)',
-      bg: 'hsl(25, 95%, 97%)'
+      bg: '#1e293b'
     },
     {
       name: 'Sleep Apnoea',
@@ -65,7 +65,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Better sleep quality, reduced snoring, improved daytime energy',
       icon: Moon,
       accent: 'hsl(198, 93%, 60%)',
-      bg: 'hsl(198, 93%, 97%)'
+      bg: '#1e293b'
     },
     {
       name: 'Chronic Pain',
@@ -73,7 +73,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Reduced pain levels, improved mobility, better quality of life',
       icon: Zap,
       accent: 'hsl(14, 100%, 57%)',
-      bg: 'hsl(14, 100%, 97%)'
+      bg: '#1e293b'
     },
     {
       name: 'Hypertension',
@@ -81,7 +81,39 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       benefits: 'Lower blood pressure, reduced medication needs, heart protection',
       icon: Heart,
       accent: 'hsl(173, 80%, 40%)',
-      bg: 'hsl(173, 80%, 97%)'
+      bg: '#1e293b'
+    },
+    {
+      name: 'Type 2 Diabetes',
+      description: 'Evidence-based weight management to improve glucose control and insulin sensitivity',
+      benefits: 'Improved blood sugar control, reduced HbA1c levels, decreased medication requirements',
+      icon: Target,
+      accent: 'hsl(14, 91%, 54%)',
+      bg: '#1e293b'
+    },
+    {
+      name: 'Metabolic Syndrome',
+      description: 'Comprehensive treatment addressing high blood pressure, high blood sugar, and excess abdominal fat',
+      benefits: 'Reduced cardiovascular risk, improved insulin sensitivity, better lipid profiles',
+      icon: Activity,
+      accent: 'hsl(262, 83%, 58%)',
+      bg: '#1e293b'
+    },
+    {
+      name: 'Depression & Anxiety',
+      description: 'Holistic approach recognising the bidirectional relationship between mental health and weight',
+      benefits: 'Improved mood stability, better self-esteem, reduced emotional eating',
+      icon: Brain,
+      accent: 'hsl(195, 100%, 50%)',
+      bg: '#1e293b'
+    },
+    {
+      name: 'Fatty Liver Disease',
+      description: 'Targeted weight loss to reduce liver fat and improve liver function',
+      benefits: 'Reduced liver fat, improved liver function tests, decreased inflammation',
+      icon: Heart,
+      accent: 'hsl(45, 93%, 47%)',
+      bg: '#1e293b'
     }
   ];
 
@@ -124,14 +156,14 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
                 className="group flex items-center gap-3 mobile-button rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg border-2"
                 style={{
                   backgroundColor: condition.bg,
-                  borderColor: condition.accent + '40'
+                  borderColor: condition.accent
                 }}
               >
                 <condition.icon 
                   className="h-5 w-5 transition-transform group-hover:scale-110" 
                   style={{ color: condition.accent }} 
                 />
-                <span className="mobile-small-text font-bold text-gray-900 dark:text-white">
+                <span className="mobile-small-text font-bold text-white">
                   {condition.name}
                 </span>
               </div>
@@ -174,7 +206,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
               className="group relative overflow-hidden rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 mobile-card"
               style={{
                 backgroundColor: condition.bg,
-                borderColor: condition.accent + '60'
+                borderColor: condition.accent
               }}
             >
               <div className="mobile-card-spacing">
@@ -188,14 +220,11 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
                       style={{ color: condition.accent }} 
                     />
                   </div>
-                  <h3 
-                    className="mobile-subheading font-bold transition-colors"
-                    style={{ color: condition.accent }}
-                  >
+                  <h3 className="mobile-subheading font-bold text-white transition-colors">
                     {condition.name}
                   </h3>
                 </div>
-                <p className="mobile-small-text text-gray-800 dark:text-gray-200 mb-3 leading-relaxed">
+                <p className="mobile-small-text text-gray-200 mb-3 leading-relaxed">
                   {condition.description}
                 </p>
                 <div className="pill-beach text-xs">

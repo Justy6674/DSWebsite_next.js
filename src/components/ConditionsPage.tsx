@@ -184,7 +184,7 @@ export default function ConditionsPage() {
         src="/australian-beach-hero.jpg"
         className="relative pt-24 pb-20 min-h-[50vh] flex items-center overflow-hidden"
         priority={true}
-        overlay="linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.7))"
+        overlay="linear-gradient(rgba(15, 23, 42, 0.3), rgba(30, 41, 59, 0.4))"
       >
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
