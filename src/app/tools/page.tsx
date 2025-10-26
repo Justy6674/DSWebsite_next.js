@@ -92,7 +92,7 @@ export default function ToolsPage() {
       </div>
 
       {/* Content Section */}
-      <div className="min-h-screen bg-slate-800 text-foreground py-16">
+      <div className="bg-slate-800 text-foreground py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Breadcrumbs */}
