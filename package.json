@@ -24,6 +24,10 @@
     "crawl:health": "node ./scripts/supabase-health-check.mjs",
     "crawl:test": "node ./scripts/comprehensive-crawlability-test.mjs",
     "crawl:emergency": "./scripts/emergency-crawlability-fix.sh",
+    "perf:audit": "node ./scripts/comprehensive-performance-audit.mjs",
+    "perf:optimize": "node ./scripts/optimize-page-metadata.mjs",
+    "perf:images": "node ./scripts/convert-images-to-webp.mjs",
+    "perf:canonical": "node ./scripts/add-canonical-urls.mjs",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -110,6 +114,7 @@
     "lighthouse": "^11.7.1",
     "lovable-tagger": "^1.1.7",
     "postcss": "^8.4.47",
+    "sharp": "^0.34.4",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.1"

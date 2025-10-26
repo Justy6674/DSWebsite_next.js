@@ -437,14 +437,15 @@ export default function Calculator() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: "url(/calculator-hero.jpg)",
+            backgroundImage: "url(/calculator-hero.webp)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
+          <link rel="preload" as="image" href="/calculator-hero.webp" type="image/webp" />
           <img 
-            src="/calculator-hero.jpg" 
+            src="/calculator-hero.webp" 
             alt="" 
             className="hidden" 
             loading="eager"

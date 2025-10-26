@@ -171,14 +171,15 @@ export default function FaqPage() {
           <div 
             className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
             style={{
-              backgroundImage: "url(/faq-hero.jpg)",
+              backgroundImage: "url(/faq-hero.webp)",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}
           >
+            <link rel="preload" as="image" href="/faq-hero.webp" type="image/webp" />
             <img 
-              src="/faq-hero.jpg" 
+              src="/faq-hero.webp" 
               alt="Frequently asked questions about weight loss clinic services and consultations" 
               className="hidden" 
               loading="eager"

@@ -183,14 +183,15 @@ export default function ConditionsPage() {
       <div
         className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: "url(/teddybear4conditionspage.png)",
+          backgroundImage: "url(/teddybear4conditionspage.webp)",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
       >
+        <link rel="preload" as="image" href="/teddybear4conditionspage.webp" type="image/webp" />
         <img
-          src="/teddybear4conditionspage.png"
+          src="/teddybear4conditionspage.webp"
           alt="Medical conditions we treat - gentle care for families with teddy bear representing comfort and healing"
           className="hidden"
           loading="eager"
