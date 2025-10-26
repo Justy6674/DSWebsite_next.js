@@ -26,7 +26,8 @@ export const EXTERNAL_LINKS = {
   BOOKING_WIDGET: 'https://www.halaxy.com/book/widget/nurse-practitioner/mr-justin-black/1488401/1198131',
   BOOKING_LOCATION: 'https://www.halaxy.com/book/downscale/location/1198131',
   INSTAGRAM: 'https://www.instagram.com/downscale_weightloss',
-  FACEBOOK: 'https://www.facebook.com/445168355337624'
+  FACEBOOK: 'https://www.facebook.com/445168355337624',
+  EMAIL: 'office@downscale.com.au'
 };
 
 // Navigation
