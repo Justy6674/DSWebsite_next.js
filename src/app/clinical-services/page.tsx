@@ -6,6 +6,26 @@ import { Stethoscope, Leaf, Dumbbell, Brain, Moon, Target } from "lucide-react";
 export const metadata: Metadata = {
   title: 'Clinical Services | Downscale Weight Loss Clinic',
   description: 'Comprehensive weight management services tailored to your individual needs. Evidence-based medical approaches, nutrition, exercise, mental health support, and sleep optimisation.',
+  openGraph: {
+    title: 'Clinical Services | Downscale Weight Loss Clinic',
+    description: 'Comprehensive weight management services tailored to your individual needs. Evidence-based medical approaches, nutrition, exercise, mental health support, and sleep optimisation.',
+    url: 'https://www.downscale.com.au/clinical-services',
+    type: 'website',
+    images: [
+      {
+        url: 'https://www.downscale.com.au/og-services.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Clinical Services | Downscale Weight Loss Clinic',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Clinical Services | Downscale Weight Loss Clinic',
+    description: 'Comprehensive weight management services tailored to your individual needs. Evidence-based medical approaches, nutrition, exercise, mental health support, and sleep optimisation.',
+    images: ['https://www.downscale.com.au/og-services.jpg'],
+  },
   alternates: {
     canonical: 'https://www.downscale.com.au/clinical-services',
   },

@@ -6,6 +6,26 @@ import { Calculator, ExternalLink } from "lucide-react";
 export const metadata: Metadata = {
   title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
   description: 'Interactive tools to support your weight loss journey including BMI calculator, health assessments, progress tracking, and meal planning tools.',
+  openGraph: {
+    title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
+    description: 'Interactive tools to support your weight loss journey including BMI calculator, health assessments, progress tracking, and meal planning tools.',
+    url: 'https://www.downscale.com.au/tools',
+    type: 'website',
+    images: [
+      {
+        url: 'https://www.downscale.com.au/og-services.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
+    description: 'Interactive tools to support your weight loss journey including BMI calculator, health assessments, progress tracking, and meal planning tools.',
+    images: ['https://www.downscale.com.au/og-services.jpg'],
+  },
   alternates: {
     canonical: 'https://www.downscale.com.au/tools',
   },

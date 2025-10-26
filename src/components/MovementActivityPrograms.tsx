@@ -137,14 +137,15 @@ export default function MovementActivityPrograms() {
         <div 
           className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: "url(/movement-hero.jpg)",
+            backgroundImage: "url(/movement-hero.webp)",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
           }}
         >
+          <link rel="preload" as="image" href="/movement-hero.webp" type="image/webp" />
           <img 
-            src="/movement-hero.jpg" 
+            src="/movement-hero.webp" 
             alt="" 
             className="hidden" 
             loading="eager"

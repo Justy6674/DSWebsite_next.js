@@ -78,14 +78,15 @@ export default function FactsPage() {
           <div
             className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
             style={{
-              backgroundImage: "url(/medical-hero.jpg)",
+              backgroundImage: "url(/medical-hero.webp)",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}
           >
+            <link rel="preload" as="image" href="/medical-hero.webp" type="image/webp" />
             <img
-              src="/medical-hero.jpg"
+              src="/medical-hero.webp"
               alt="Downscale Weight Loss Clinic facts - professional healthcare information"
               className="hidden"
               loading="eager"
