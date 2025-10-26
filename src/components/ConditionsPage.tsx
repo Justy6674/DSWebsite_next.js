@@ -183,15 +183,15 @@ export default function ConditionsPage() {
       <div
         className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: "url(/medical-hero.jpg)",
+          backgroundImage: "url(/conditions-hero.jpg)",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
       >
         <img
-          src="/medical-hero.jpg"
-          alt="Medical conditions treatment - comprehensive weight management and general practice care for families"
+          src="/conditions-hero.jpg"
+          alt="Medical conditions we treat - gentle care for families with teddy bear representing comfort and healing"
           className="hidden"
           loading="eager"
         />
