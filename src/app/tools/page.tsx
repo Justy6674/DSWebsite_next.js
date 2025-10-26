@@ -89,14 +89,19 @@ export default function ToolsPage() {
             Interactive tools to support your weight loss journey
           </p>
         </div>
+
+        {/* Breadcrumbs overlaid on hero */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+          <div className="container mx-auto">
+            <PageNavigation />
+          </div>
+        </div>
       </div>
 
       {/* Content Section */}
       <div className="bg-slate-800 text-foreground py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Breadcrumbs */}
-            <PageNavigation />
 
             <div className="grid md:grid-cols-2 gap-6">
               {tools.map((tool) => {
