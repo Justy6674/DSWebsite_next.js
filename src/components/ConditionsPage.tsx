@@ -236,65 +236,6 @@ export default function ConditionsPage() {
           </div>
         </section>
 
-        {/* Detailed Conditions */}
-        <section className="py-16 bg-slate-900">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Detailed Treatment Approaches
-              </h2>
-              <div className="w-16 h-1 bg-brown mx-auto mb-6"></div>
-              <p className="text-gray-200 text-lg max-w-3xl mx-auto">
-                Each condition requires a tailored approach. Here's how we address specific health challenges through medical weight management.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-              {detailedConditions.map((condition, index) => (
-                <div key={index} className="bg-slate-800 rounded-xl p-8 hover:bg-slate-750 transition-colors border border-slate-700">
-                  <div className="flex items-start mb-6">
-                    <div className="text-4xl mr-4">
-                      <condition.icon className="h-8 w-8 text-brown" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white mb-2">
-                        {condition.name}
-                      </h3>
-                      <p className="text-gray-200 mb-4">
-                        {condition.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-6">
-                    <div>
-                      <h4 className="font-semibold text-white mb-3">Common Symptoms/Signs:</h4>
-                      <ul className="space-y-3">
-                        {condition.symptoms.map((symptom, idx) => (
-                          <li key={idx} className="flex items-start text-gray-200">
-                            <i className="fas fa-check text-brown mr-3 mt-1"></i>
-                            {symptom}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-white mb-3">Treatment Benefits:</h4>
-                      <ul className="space-y-3">
-                        {condition.benefits.map((benefit, idx) => (
-                          <li key={idx} className="flex items-start text-gray-200">
-                            <i className="fas fa-heart text-brown mr-3 mt-1"></i>
-                            {benefit}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Call to Action */}
         <section className="py-16 bg-slate-900">
