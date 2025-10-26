@@ -220,7 +220,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
               <span className="px-3 py-1 bg-slate-900 rounded-full text-sm text-cream">Women's Health</span>
             </div>
             <Link
-              href="/conditions"
+              href="/clinical-services"
               className="text-primary hover:text-primary/80 font-medium text-sm transition-colors inline-flex items-center gap-2"
             >
               View all conditions we treat
@@ -315,7 +315,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <Link
-                href="/conditions"
+                href="/clinical-services"
                 className="mobile-button bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors inline-flex items-center justify-center gap-2"
               >
                 View Full Conditions Page
