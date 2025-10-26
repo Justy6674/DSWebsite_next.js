@@ -38,30 +38,6 @@ const tools = [
     icon: Calculator,
     href: '/calculator',
     description: 'Calculate BMI, ideal weight, and other health metrics'
-  },
-  {
-    name: 'BED Assessment',
-    icon: Users,
-    href: '/tools/bed',
-    description: 'Binge Eating Disorder screening questionnaire for clinical evaluation'
-  },
-  {
-    name: 'ADHD Assessment',
-    icon: Users,
-    href: '/tools/adhd',
-    description: 'ADHD screening tool to assess attention and hyperactivity symptoms'
-  },
-  {
-    name: 'STOP-BANG Assessment',
-    icon: Clock,
-    href: '/tools/stop-bang',
-    description: 'Sleep apnoea screening questionnaire for obstructive sleep apnoea risk'
-  },
-  {
-    name: 'Epworth Sleepiness Scale',
-    icon: Clock,
-    href: '/tools/epworth',
-    description: 'Measure daytime sleepiness and sleep disorder risk assessment'
   }
 ];
 
@@ -96,12 +72,11 @@ export default function ToolsPage() {
           </p>
         </div>
 
-        {/* Breadcrumbs overlaid on hero */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-          <div className="container mx-auto">
-            <PageNavigation />
-          </div>
-        </div>
+      </div>
+
+      {/* Breadcrumbs - Standard positioning */}
+      <div className="container mx-auto px-4 py-2">
+        <PageNavigation />
       </div>
 
       {/* Content Section */}
