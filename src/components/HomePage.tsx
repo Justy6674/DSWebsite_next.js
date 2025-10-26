@@ -188,7 +188,7 @@ export default function HomePage() {
               <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
             </a>
 
-            <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <a href="/movement-activity-programs" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Activity & Muscle Building services">
               <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Activity & Muscle Building</h3>
               <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Exercise programs and muscle building strategies tailored to your fitness level and goals.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
@@ -196,8 +196,8 @@ export default function HomePage() {
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Strength training guidance</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Progressive fitness coaching</li>
               </ul>
-              <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Coming soon →</div>
-            </div>
+              <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
+            </a>
 
             <a href="/mental-health-support" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Mental Health Support services">
               <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Mental Health Support</h3>
@@ -210,7 +210,7 @@ export default function HomePage() {
               <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
             </a>
 
-            <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <a href="/sleep-recovery-optimisation" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Sleep Optimisation services">
               <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Sleep Optimisation</h3>
               <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Comprehensive sleep analysis and improvement strategies for better rest and recovery.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
@@ -218,10 +218,10 @@ export default function HomePage() {
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Sleep hygiene coaching</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Recovery optimisation</li>
               </ul>
-              <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Coming soon →</div>
-            </div>
+              <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
+            </a>
 
-            <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 group cursor-pointer">
+            <a href="/about" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about General Practice services">
               <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">General Practice</h3>
               <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Comprehensive healthcare with expertise in general practice, emergency medicine, and paediatrics.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
@@ -229,8 +229,8 @@ export default function HomePage() {
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Emergency medicine expertise</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Paediatric care</li>
               </ul>
-              <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Coming soon →</div>
-            </div>
+              <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
+            </a>
 
           </div>
         </div>
