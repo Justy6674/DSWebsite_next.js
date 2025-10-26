@@ -249,28 +249,41 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full space-y-2">
-          {weightRelatedConditions.map((condition, index) => (
-            <AccordionItem key={index} value={`weight-${index}`} className="border-b border-border/50 pb-2">
-              <AccordionTrigger className="text-foreground text-lg font-medium hover:text-primary py-2">
-                {condition.name}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pt-2">
-                {condition.description}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-          {generalHealthConditions.map((condition, index) => (
-            <AccordionItem key={`general-${index}`} value={`general-${index}`} className="border-b border-border/50 pb-2">
-              <AccordionTrigger className="text-foreground text-lg font-medium hover:text-primary py-2">
-                {condition.name}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pt-2">
-                {condition.description}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <div className="space-y-8">
+          {/* Weight-Related Section */}
+          <div>
+            <h3 className="text-2xl font-bold text-cream mb-4">Weight-Related & Metabolic Conditions</h3>
+            <Accordion type="single" collapsible className="w-full space-y-2">
+              {weightRelatedConditions.map((condition, index) => (
+                <AccordionItem key={index} value={`weight-${index}`} className="border-b border-border/50 pb-2">
+                  <AccordionTrigger className="text-foreground text-lg font-medium hover:text-primary py-2">
+                    {condition.name}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pt-2">
+                    {condition.description}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+
+          {/* General Health Section */}
+          <div>
+            <h3 className="text-2xl font-bold text-cream mb-4">General Practice & Family Health</h3>
+            <Accordion type="single" collapsible className="w-full space-y-2">
+              {generalHealthConditions.map((condition, index) => (
+                <AccordionItem key={`general-${index}`} value={`general-${index}`} className="border-b border-border/50 pb-2">
+                  <AccordionTrigger className="text-foreground text-lg font-medium hover:text-primary py-2">
+                    {condition.name}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pt-2">
+                    {condition.description}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
 
         <div className="mt-8 sm:mt-12 mobile-card-spacing bg-slate-900 rounded-2xl text-center border border-brown/20">
           <div className="max-w-4xl mx-auto">
