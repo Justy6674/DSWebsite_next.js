@@ -865,12 +865,12 @@ export default function SleepRecoveryOptimisation() {
         <title>Sleep & Recovery Optimisation | Sleep for Weight Loss | Downscale Weight Loss Clinic</title>
         <meta name="description" content="Professional sleep optimisation for weight management. Circadian rhythm support, sleep hygiene protocols, and recovery strategies that enhance metabolism and fat loss." />
         <meta name="keywords" content="sleep weight loss Australia, circadian rhythm optimisation, sleep hygiene telehealth, recovery protocols, hormone optimisation, sleep disorders" />
-        <link rel="canonical" href="https://www.downscale.health/sleep-recovery-optimisation" />
+        <link rel="canonical" href="https://www.downscale.com.au/sleep-recovery-optimisation" />
         
         <meta property="og:title" content="Sleep & Recovery Optimisation | Sleep for Weight Loss" />
         <meta property="og:description" content="Professional sleep optimisation strategies to enhance weight loss through better rest and recovery." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.downscale.health/sleep-recovery-optimisation" />
+        <meta property="og:url" content="https://www.downscale.com.au/sleep-recovery-optimisation" />
         
         <script type="application/ld+json">
           {`

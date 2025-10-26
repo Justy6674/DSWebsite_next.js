@@ -11,7 +11,7 @@ export default function TermsAndConditions() {
         <title>Terms and Conditions | Downscale Australia</title>
         <meta name="description" content="Read our terms and conditions for using Downscale's telehealth weight loss services. Find information about our consultation terms, cancellation policy, and Medicare billing. Last updated September 30, 2024." />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://downscale.health/terms" />
+        <link rel="canonical" href="https://www.downscale.com.au/terms" />
         
         {/* Enhanced SEO metadata */}
         <meta name="keywords" content="Downscale terms and conditions, telehealth terms, weight loss clinic terms, Australian healthcare terms, clinical service agreement, Medicare billing terms" />
@@ -22,8 +22,8 @@ export default function TermsAndConditions() {
         <meta property="og:title" content="Terms and Conditions | Downscale Australia" />
         <meta property="og:description" content="Read our terms and conditions for using Downscale's telehealth weight loss services. Find information about our consultation terms, cancellation policy, and Medicare billing." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131/terms" />
-        <meta property="og:image" content="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131/og-image.jpg" />
+        <meta property="og:url" content="https://www.downscale.com.au/terms" />
+        <meta property="og:image" content="https://www.downscale.com.au/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="en_AU" />
