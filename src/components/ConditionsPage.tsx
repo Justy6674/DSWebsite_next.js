@@ -180,21 +180,34 @@ export default function ConditionsPage() {
         </script>
       </Head>
       {/* Hero Section */}
-      <OptimizedBackground
-        src="/australian-beach-hero.jpg"
-        className="relative pt-24 pb-20 min-h-[50vh] flex items-center overflow-hidden"
-        priority={true}
-        overlay="linear-gradient(rgba(15, 23, 42, 0.3), rgba(30, 41, 59, 0.4))"
+      <div
+        className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage: "url(/medical-hero.jpg)",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
+        <img
+          src="/medical-hero.jpg"
+          alt="Medical conditions treatment - comprehensive weight management and general practice care for families"
+          className="hidden"
+          loading="eager"
+        />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+              style={{ color: '#f7f2d3', textShadow: '3px 3px 6px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8)' }}
+            >
               Medical Conditions We Treat
             </h1>
-            <div className="w-20 h-1 bg-white/80 mx-auto mb-6"></div>
-            <p className="text-xl md:text-2xl text-white mb-8 drop-shadow-lg max-w-3xl mx-auto font-light leading-relaxed" style={{
-              textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)'
-            }}>
+            <div className="w-20 h-1 bg-cream/80 mx-auto mb-6"></div>
+            <p
+              className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
+              style={{ color: '#f7f2d3', textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)' }}
+            >
               Weight loss is powerful medicine. Our evidence-based approach treats multiple health conditions through sustainable weight management.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -210,7 +223,7 @@ export default function ConditionsPage() {
             </div>
           </div>
         </div>
-      </OptimizedBackground>
+      </div>
       <div className="container mx-auto px-4 py-2">
         <PageNavigation />
       </div>
