@@ -252,7 +252,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
         <Accordion type="single" collapsible className="w-full space-y-4">
           <AccordionItem value="weight-related" className="border-b border-border pb-4">
             <AccordionTrigger className="text-foreground text-xl font-medium hover:text-primary">
-              Weight-Related & Metabolic Conditions (20 Conditions)
+              Weight-Related & Metabolic Conditions
             </AccordionTrigger>
             <AccordionContent className="text-muted-foreground pt-4">
               <Accordion type="single" collapsible className="w-full space-y-2">
@@ -272,7 +272,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
 
           <AccordionItem value="general-health" className="border-b border-border pb-4">
             <AccordionTrigger className="text-foreground text-xl font-medium hover:text-primary">
-              General Practice & Family Health (20 Conditions)
+              General Practice & Family Health
             </AccordionTrigger>
             <AccordionContent className="text-muted-foreground pt-4">
               <Accordion type="single" collapsible className="w-full space-y-2">
