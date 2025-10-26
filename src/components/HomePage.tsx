@@ -9,6 +9,7 @@ import { OptimizedBackground } from "@/components/ui/optimized-background";
 import { ConditionsWeTreat } from "@/components/ConditionsWeTreat";
 // Hero images now served from /public/ for instant CDN loading
 import { WeightLossQuiz } from '@/components/WeightLossQuiz';
+import { BodyMetricsShowcase } from '@/components/ui/body-metrics-showcase';
 
 
 
@@ -140,6 +141,9 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* Body Metrics Calculator Showcase */}
+      <BodyMetricsShowcase />
 
       {/* Services Content */}
       <section className="mobile-section relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden section-divider">
