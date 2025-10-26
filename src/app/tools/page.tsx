@@ -40,11 +40,28 @@ const tools = [
     description: 'Calculate BMI, ideal weight, and other health metrics'
   },
   {
-    name: 'Comprehensive Patient Portal',
+    name: 'BED Assessment',
     icon: Users,
-    href: '#coming-soon',
-    description: 'More comprehensive tools are available for our patients such as Binge Eating, ADHD assessments, Obstructive Sleep Apnoea, mental health and more',
-    isComingSoon: true
+    href: '/tools/bed',
+    description: 'Binge Eating Disorder screening questionnaire for clinical evaluation'
+  },
+  {
+    name: 'ADHD Assessment',
+    icon: Users,
+    href: '/tools/adhd',
+    description: 'ADHD screening tool to assess attention and hyperactivity symptoms'
+  },
+  {
+    name: 'STOP-BANG Assessment',
+    icon: Clock,
+    href: '/tools/stop-bang',
+    description: 'Sleep apnoea screening questionnaire for obstructive sleep apnoea risk'
+  },
+  {
+    name: 'Epworth Sleepiness Scale',
+    icon: Clock,
+    href: '/tools/epworth',
+    description: 'Measure daytime sleepiness and sleep disorder risk assessment'
   }
 ];
 
@@ -92,37 +109,9 @@ export default function ToolsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
 
-            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {tools.map((tool) => {
                 const Icon = tool.icon;
-
-                if (tool.isComingSoon) {
-                  return (
-                    <div
-                      key={tool.href}
-                      className="bg-slate-900 border border-slate-700 rounded-lg p-6 relative"
-                    >
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-primary/20 text-primary px-2 py-1 rounded text-xs font-medium">
-                          Coming Soon
-                        </span>
-                      </div>
-                      <div className="flex items-center mb-4">
-                        <Icon className="h-8 w-8 text-primary mr-3" />
-                        <h3 className="text-lg font-semibold text-cream">
-                          {tool.name}
-                        </h3>
-                      </div>
-                      <p className="text-cream opacity-90 text-sm mb-4">
-                        {tool.description}
-                      </p>
-                      <div className="flex items-center text-cream/60 text-sm">
-                        <Clock className="mr-2 h-4 w-4" />
-                        Available for Registered Patients
-                      </div>
-                    </div>
-                  );
-                }
 
                 return (
                   <Link
