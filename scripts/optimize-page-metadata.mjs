@@ -64,14 +64,50 @@ function optimizePageMetadata(pageInfo) {
     return { modified: false, reason: 'Already optimized' };
   }
   
-  // Extract existing metadata
-  const metadataMatch = content.match(/export const metadata: Metadata = \{([^}]+(?:\{[^}]+\}[^}]+)*)\};/s);
-  if (!metadataMatch) {
+  // Extract existing metadata - Using simpler non-backtracking approach
+  // Find the start of metadata export
+  const startMatch = content.indexOf('export const metadata: Metadata = {');
+  if (startMatch === -1) {
     return { modified: false, reason: 'No metadata found' };
   }
   
-  let metadataContent = metadataMatch[1];
-  const existingMetadata = metadataMatch[0];
+  // Find the matching closing brace - simple brace counting
+  let braceCount = 0;
+  let inString = false;
+  let stringChar = '';
+  let endIndex = -1;
+  
+  for (let i = startMatch + 'export const metadata: Metadata = '.length; i < content.length; i++) {
+    const char = content[i];
+    
+    // Handle strings to avoid counting braces in strings
+    if ((char === '"' || char === "'" || char === '`') && content[i-1] !== '\\') {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (char === stringChar) {
+        inString = false;
+      }
+    }
+    
+    if (!inString) {
+      if (char === '{') braceCount++;
+      if (char === '}') braceCount--;
+      
+      if (braceCount === 0 && char === '}') {
+        endIndex = i;
+        break;
+      }
+    }
+  }
+  
+  if (endIndex === -1) {
+    return { modified: false, reason: 'Could not find metadata end' };
+  }
+  
+  const metadataMatch = content.substring(startMatch, endIndex + 2); // +2 for };\n
+  const existingMetadata = metadataMatch;
+  const metadataContent = content.substring(startMatch + 'export const metadata: Metadata = {'.length, endIndex);
   
   // Extract title and description
   const titleMatch = metadataContent.match(/title:\s*['"]([^'"]+)['"]/);

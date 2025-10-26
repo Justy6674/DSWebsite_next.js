@@ -104,7 +104,7 @@ Current optimization status:
 - **Optimized Pages**: 49% (33/68)
 - **WebP Images**: 63
 - **Size Reduction**: 90.1% (28.27 MB saved)
-- **Missing WebP**: 1
+- **Missing WebP**: 1 (ocean-waves.jpg - conversion failed due to unsupported format)
 
 Target goals:
 - **Optimized Pages**: 85%+

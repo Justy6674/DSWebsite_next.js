@@ -255,7 +255,7 @@ Score: 85-90/100 - "EXCELLENT"
 - These require code-level changes for dynamic meta generation
 
 ### Minor Optimizations:
-- 1 image still needs WebP (ocean-waves.jpg failed conversion)
+- 1 image still needs WebP (ocean-waves.jpg failed conversion - Sharp library reported "unsupported image format", likely corrupted or has unusual encoding. Recommend using online converter or re-exporting from original source)
 - 3 pages need preload hints added
 - 2 lovable-uploads images (user-generated content)
 
