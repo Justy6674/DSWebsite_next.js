@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-services.jpg',
+        url: 'https://www.downscale.com.au/og-services.webp',
         width: 1200,
         height: 630,
         alt: 'Downscale Weight Loss Clinic Albury Wodonga - Professional telehealth weight management',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Weight Loss Clinic Albury Wodonga | Professional Telehealth Medicare',
     description: 'Professional telehealth weight loss clinic serving Albury Wodonga, NSW/VIC. Consultations from $45 with instant Medicare rebate processing.',
-    images: ['https://www.downscale.com.au/og-services.jpg'],
+    images: ['https://www.downscale.com.au/og-services.webp'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/weight-loss-clinic-albury-wodonga',
