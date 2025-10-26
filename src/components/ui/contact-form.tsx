@@ -68,11 +68,12 @@ export const ContactForm: React.FC<ContactFormProps> = ({
         throw new Error(errorData.error || 'Failed to send email');
       }
 
-      toast.success('Email sent successfully! We\'ll get back to you soon.', {
-        duration: 5000,
+      toast.success('✅ Message sent successfully! We\'ll respond within 1 business day.', {
+        duration: 8000,
         style: {
           background: '#475569',
           color: '#f7f2d3',
+          border: '1px solid #b68a71',
         },
       });
 
@@ -80,13 +81,27 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       setIsOpen(false);
     } catch (error) {
       console.error('Contact form error:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to send email. Please try again.', {
-        duration: 5000,
-        style: {
-          background: '#dc2626',
-          color: '#ffffff',
-        },
-      });
+      const errorMessage = error instanceof Error ? error.message : 'Failed to send email. Please try again.';
+
+      // Show helpful error message
+      if (errorMessage.includes('not configured')) {
+        toast.error('📧 Contact form temporarily unavailable. Please email us directly at office@downscale.com.au and we\'ll respond within 1 business day.', {
+          duration: 10000,
+          style: {
+            background: '#dc2626',
+            color: '#ffffff',
+            maxWidth: '500px',
+          },
+        });
+      } else {
+        toast.error(`❌ ${errorMessage}`, {
+          duration: 8000,
+          style: {
+            background: '#dc2626',
+            color: '#ffffff',
+          },
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }

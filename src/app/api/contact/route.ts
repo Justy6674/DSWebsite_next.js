@@ -25,9 +25,16 @@ export async function POST(request: NextRequest) {
 
     // Check if Resend API key is available
     if (!process.env.RESEND_API_KEY) {
+      console.log('Contact form submission received but RESEND_API_KEY not configured:', {
+        name,
+        email,
+        subject: subject || `Website Contact: ${name}`,
+        timestamp: new Date().toISOString()
+      });
+
       return NextResponse.json(
-        { error: 'Email service is not configured. Please contact us directly at office@downscale.com.au' },
-        { status: 500 }
+        { error: 'Email service is not configured. Please contact us directly at office@downscale.com.au and we\'ll respond within 1 business day.' },
+        { status: 503 }
       );
     }
 
@@ -75,8 +82,16 @@ export async function POST(request: NextRequest) {
       replyTo: email,
     });
 
+    console.log('Contact form email sent successfully:', {
+      id: emailData.data?.id,
+      to: 'office@downscale.com.au',
+      from: email,
+      subject: subject || `Website Contact: ${name}`,
+      timestamp: new Date().toISOString()
+    });
+
     return NextResponse.json(
-      { message: 'Email sent successfully', id: emailData.data?.id },
+      { message: 'Email sent successfully! We\'ll respond within 1 business day.', id: emailData.data?.id },
       { status: 200 }
     );
   } catch (error) {
