@@ -18,7 +18,7 @@ export default function MedicareBilling() {
             "@type": "MedicalBusiness",
             "name": "Downscale Weight Loss Clinic Medicare Billing Policy",
             "description": "Medicare billing information for telehealth weight loss services",
-            "url": "https://downscale.com.au/medicare",
+            "url": "https://www.downscale.com.au/medicare",
             "paymentAccepted": ["Medicare", "Credit Card"],
             "priceRange": "$45-$96.25"
           })}
