@@ -38,61 +38,34 @@ export const BodyMetricsShowcase: React.FC = () => {
                 {/* Hover Glow Effect */}
                 <div className="absolute inset-0 rounded-2xl bg-brown/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                {/* Content */}
-                <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
-                  {/* Left: Features */}
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-3 mb-6">
-                      <Calculator className="h-8 w-8 text-brown" />
-                      <h3 className="text-2xl font-bold text-cream">Body Metrics Calculator</h3>
-                    </div>
+                {/* Content - Single Column Layout */}
+                <div className="relative z-10 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-8">
+                    <Calculator className="h-10 w-10 text-brown" />
+                    <h3 className="text-3xl font-bold text-cream">Comprehensive Body Metrics Calculator</h3>
+                  </div>
 
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <Target className="h-5 w-5 text-brown" />
-                        <span className="text-cream">BMI & Body Composition Analysis</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <TrendingUp className="h-5 w-5 text-brown" />
-                        <span className="text-cream">Personalised Weight Goals</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Zap className="h-5 w-5 text-brown" />
-                        <span className="text-cream">AI-Powered Health Insights</span>
-                      </div>
+                  <div className="grid md:grid-cols-3 gap-6 mb-8">
+                    <div className="flex flex-col items-center gap-3 p-6 bg-slate-900 rounded-xl border border-slate-700">
+                      <Target className="h-8 w-8 text-brown" />
+                      <span className="text-cream font-medium">Complete Body Analysis</span>
+                      <span className="text-cream/70 text-sm">Beyond BMI - full composition metrics</span>
                     </div>
-
-                    <div className="flex items-center gap-2 text-brown font-semibold group-hover:gap-4 transition-all duration-300">
-                      <span>Start Your Health Assessment</span>
-                      <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    <div className="flex flex-col items-center gap-3 p-6 bg-slate-900 rounded-xl border border-slate-700">
+                      <TrendingUp className="h-8 w-8 text-brown" />
+                      <span className="text-cream font-medium">Personalised Goals</span>
+                      <span className="text-cream/70 text-sm">Custom weight & health targets</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-3 p-6 bg-slate-900 rounded-xl border border-slate-700">
+                      <Zap className="h-8 w-8 text-brown" />
+                      <span className="text-cream font-medium">AI Health Insights</span>
+                      <span className="text-cream/70 text-sm">Professional analysis & recommendations</span>
                     </div>
                   </div>
 
-                  {/* Right: Preview/Demo */}
-                  <div className="relative">
-                    <div className="bg-slate-900 rounded-xl p-6 border border-slate-700 transform group-hover:scale-105 transition-transform duration-300">
-                      <h4 className="text-lg font-semibold text-cream mb-4">Quick Preview</h4>
-                      <div className="space-y-3">
-                        <div className="flex justify-between">
-                          <span className="text-cream/70">Height</span>
-                          <span className="text-cream">175 cm</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-cream/70">Weight</span>
-                          <span className="text-cream">75 kg</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-cream/70">BMI</span>
-                          <span className="text-brown font-semibold">24.5</span>
-                        </div>
-                        <div className="mt-4 p-3 bg-brown/10 rounded-lg border border-brown/20">
-                          <div className="text-sm text-cream/80">
-                            <span className="text-brown font-medium">✓ Healthy Range</span>
-                            <br />Get detailed analysis in seconds
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="flex items-center justify-center gap-3 text-brown font-bold text-xl group-hover:gap-5 transition-all duration-300">
+                    <span>Start Your Professional Health Assessment</span>
+                    <ArrowRight className="h-6 w-6 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
                 </div>
 
