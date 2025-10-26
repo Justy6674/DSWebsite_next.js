@@ -180,53 +180,37 @@ export default function ConditionsPage() {
         </script>
       </Head>
       {/* Hero Section */}
-      <div
-        className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
-        style={{
-          backgroundImage: "url(/conditions-hero.jpg)",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <OptimizedBackground
+        src="/australian-beach-hero.jpg"
+        className="relative pt-24 pb-20 min-h-[50vh] flex items-center overflow-hidden"
+        priority={true}
+        overlay="linear-gradient(rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.7))"
       >
-        <img
-          src="/conditions-hero.jpg"
-          alt="Medical conditions treatment - evidence-based weight management for comprehensive health"
-          className="hidden"
-          loading="eager"
-        />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-              style={{ color: '#f7f2d3', textShadow: '3px 3px 6px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8)' }}
-            >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
               Medical Conditions We Treat
             </h1>
-            <div className="w-20 h-1 bg-cream/80 mx-auto mb-6"></div>
-            <p
-              className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
-              style={{ color: '#f7f2d3', textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)' }}
-            >
+            <div className="w-20 h-1 bg-white/80 mx-auto mb-6"></div>
+            <p className="text-xl md:text-2xl text-white mb-8 drop-shadow-lg max-w-3xl mx-auto font-light leading-relaxed" style={{
+              textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)'
+            }}>
               Weight loss is powerful medicine. Our evidence-based approach treats multiple health conditions through sustainable weight management.
             </p>
-            <a
-              href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
-              <Button
-                onClick={() => window.open('https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491', '_blank')}
-                className="bg-secondary hover:bg-secondary/90 text-white font-medium text-sm shadow-md"
-                size="sm"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors"
               >
                 Book Initial Consultation
-              </Button>
-            </a>
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </OptimizedBackground>
       <div className="container mx-auto px-4 py-2">
         <PageNavigation />
       </div>
@@ -243,11 +227,11 @@ export default function ConditionsPage() {
         <section className="py-16 bg-slate-900">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-cream mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Detailed Treatment Approaches
               </h2>
               <div className="w-16 h-1 bg-brown mx-auto mb-6"></div>
-              <p className="text-cream opacity-90 text-lg max-w-3xl mx-auto">
+              <p className="text-gray-200 text-lg max-w-3xl mx-auto">
                 Each condition requires a tailored approach. Here's how we address specific health challenges through medical weight management.
               </p>
             </div>
@@ -260,10 +244,10 @@ export default function ConditionsPage() {
                       <condition.icon className="h-8 w-8 text-brown" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-cream mb-2">
+                      <h3 className="text-2xl font-bold text-white mb-2">
                         {condition.name}
                       </h3>
-                      <p className="text-cream opacity-80 mb-4">
+                      <p className="text-gray-200 mb-4">
                         {condition.description}
                       </p>
                     </div>
@@ -271,10 +255,10 @@ export default function ConditionsPage() {
 
                   <div className="grid grid-cols-1 gap-6">
                     <div>
-                      <h4 className="font-semibold text-cream mb-3">Common Symptoms/Signs:</h4>
+                      <h4 className="font-semibold text-white mb-3">Common Symptoms/Signs:</h4>
                       <ul className="space-y-3">
                         {condition.symptoms.map((symptom, idx) => (
-                          <li key={idx} className="flex items-start text-cream opacity-70">
+                          <li key={idx} className="flex items-start text-gray-200">
                             <i className="fas fa-check text-brown mr-3 mt-1"></i>
                             {symptom}
                           </li>
@@ -282,10 +266,10 @@ export default function ConditionsPage() {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-cream mb-3">Treatment Benefits:</h4>
+                      <h4 className="font-semibold text-white mb-3">Treatment Benefits:</h4>
                       <ul className="space-y-3">
                         {condition.benefits.map((benefit, idx) => (
-                          <li key={idx} className="flex items-start text-cream opacity-70">
+                          <li key={idx} className="flex items-start text-gray-200">
                             <i className="fas fa-heart text-brown mr-3 mt-1"></i>
                             {benefit}
                           </li>
@@ -303,25 +287,25 @@ export default function ConditionsPage() {
         <section className="py-16 bg-slate-900">
           <div className="container mx-auto px-4">
             <div className="bg-brown/10 rounded-xl p-8 max-w-4xl mx-auto text-center border border-brown/20">
-              <h2 className="text-3xl font-bold text-cream mb-4">
+              <h2 className="text-3xl font-bold text-white mb-4">
                 Ready to Address Your Health Condition?
               </h2>
-              <p className="text-cream opacity-90 text-lg mb-6">
+              <p className="text-gray-200 text-lg mb-6">
                 Our evidence-based weight management approach can help improve your health condition.
                 Book a consultation to discuss your personalized treatment plan.
               </p>
               <div className="grid md:grid-cols-3 gap-6 mb-8">
                 <div className="text-center">
                   <i className="fas fa-user-md text-brown text-3xl mb-2"></i>
-                  <div className="font-semibold text-cream">Qualified Nurse Practitioner</div>
+                  <div className="font-semibold text-white">Qualified Nurse Practitioner</div>
                 </div>
                 <div className="text-center">
                   <i className="fas fa-laptop-medical text-brown text-3xl mb-2"></i>
-                  <div className="font-semibold text-cream">Telehealth Convenience</div>
+                  <div className="font-semibold text-white">Telehealth Convenience</div>
                 </div>
                 <div className="text-center">
                   <i className="fas fa-heart text-brown text-3xl mb-2"></i>
-                  <div className="font-semibold text-cream">Comprehensive Care</div>
+                  <div className="font-semibold text-white">Comprehensive Care</div>
                 </div>
               </div>
               <a
