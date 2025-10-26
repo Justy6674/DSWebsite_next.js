@@ -1,6 +1,5 @@
 'use client';
 
-import Head from "next/head";
 import Link from 'next/link';
 import React from 'react';
 import { MapPin, Phone, Clock, ExternalLink, Users, Heart, Home } from 'lucide-react';
@@ -83,57 +82,6 @@ export default function LocationsPage() {
 
   return (
     <Layout>
-      <Head>
-        <title>Weight Loss Clinic Locations Australia-wide | Downscale Weight Loss Clinic</title>
-        <meta name="description" content="Downscale Weight Loss Clinic serves 35+ Australian locations across all states and territories via telehealth. Professional weight loss clinics covering metro, regional and remote areas nationwide." />
-        <meta name="keywords" content="weight loss clinic Australia, telehealth weight loss, Australia-wide weight management, all states territories weight loss" />
-        <link rel="canonical" href="https://www.downscale.com.au/locations" />
-        <link rel="preload" href="/australian-outback-hero.jpg" as="image" type="image/jpeg" />
-        
-        <meta property="og:title" content="Weight Loss Clinic Locations Australia-wide | Downscale Weight Loss Clinic" />
-        <meta property="og:description" content="Professional weight loss services available across all Australian states and territories via telehealth consultation." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.downscale.com.au/locations" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Weight Loss Clinic Locations Australia",
-            "description": "Professional weight loss clinics serving all Australian states and territories via telehealth",
-            "url": "https://www.downscale.com.au/locations",
-            "mainEntity": {
-              "@type": "ItemList",
-              "numberOfItems": locationCities.length,
-              "itemListElement": locationCities.map((city, index) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "item": {
-                  "@type": "MedicalBusiness",
-                  "name": `Weight Loss Clinic ${city.name}`,
-                  "url": `https://www.downscale.com.au${city.path}`,
-                  "areaServed": {
-                    "@type": "City",
-                    "name": city.name,
-                    "addressRegion": city.state,
-                    "addressCountry": "AU"
-                  }
-                }
-              }))
-            },
-            "provider": {
-              "@type": "MedicalOrganization",
-              "name": "Downscale Weight Loss Clinic",
-              "url": "https://www.downscale.com.au",
-              "areaServed": {
-                "@type": "Country",
-                "name": "Australia"
-              },
-              "medicalSpecialty": "Weight Management"
-            }
-          })}
-        </script>
-      </Head>
       {/* Hero Section - Camping/Outdoor Australia */}
       <div 
         className="relative min-h-[60vh] flex items-center justify-center"

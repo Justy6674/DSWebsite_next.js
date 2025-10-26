@@ -89,7 +89,7 @@ export function Footer() {
             <p className="text-muted-foreground text-xs mb-3 opacity-80">
               Regional & remote areas supported via telehealth
             </p>
-            <ul className="space-y-1 text-sm text-muted-foreground">
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link href="/locations" className="hover:text-foreground transition-colors touch-target block py-1">View All Locations</Link></li>
               <li><Link href="/weight-loss-clinic-sydney" className="hover:text-foreground transition-colors touch-target block py-1">Sydney</Link></li>
               <li><Link href="/weight-loss-clinic-melbourne" className="hover:text-foreground transition-colors touch-target block py-1">Melbourne</Link></li>
