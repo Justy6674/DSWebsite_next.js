@@ -6,7 +6,7 @@
  */
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'fs';
-import { join, extname } from 'path';
+import { join } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -67,9 +67,9 @@ function checkFile(filePath) {
     }
   }
   
-  // Check for missing www in canonical URLs
-  if (content.match(/canonical"\s+href="https:\/\/downscale\.com\.au/) && 
-      !content.includes('https://www.downscale.com.au')) {
+  // Check for missing www in canonical URLs (more precise check)
+  const canonicalMatch = content.match(/canonical"\s+href="https:\/\/downscale\.com\.au[^"]*"/);
+  if (canonicalMatch && !canonicalMatch[0].includes('www.')) {
     fileIssues.push('Canonical URL missing www subdomain');
   }
   
