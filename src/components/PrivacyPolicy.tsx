@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
         <title>Privacy Policy | Downscale Australia</title>
         <meta name="description" content="Read Downscale's privacy policy to understand how we collect, store, and protect your personal health information. We're committed to your data security and privacy in compliance with the Privacy Act 1988 (Cth)." />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://downscale.health/privacy" />
+        <link rel="canonical" href="https://www.downscale.com.au/privacy" />
         
         {/* Enhanced SEO metadata */}
         <meta name="keywords" content="Downscale privacy policy, health data privacy Australia, telehealth privacy, medical information security, Australian privacy principles, privacy act compliance" />
@@ -22,8 +22,8 @@ export default function PrivacyPolicy() {
         <meta property="og:title" content="Privacy Policy | Downscale | Clinical Weight Loss Support Australia" />
         <meta property="og:description" content="Read Downscale's privacy policy to understand how we collect, store, and protect your personal health information in compliance with Australian privacy laws." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131/privacy" />
-        <meta property="og:image" content="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131/og-image.jpg" />
+        <meta property="og:url" content="https://www.downscale.com.au/privacy" />
+        <meta property="og:image" content="https://www.downscale.com.au/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="en_AU" />

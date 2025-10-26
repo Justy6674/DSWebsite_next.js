@@ -8,7 +8,7 @@ export default function MedicareInfo() {
         <title>Transparent $45 Pricing | Downscale Australia</title>
         <meta name="description" content="Affordable $45 maximum out-of-pocket consultations for all Australians. Learn about accessing our transparent, whole-person telehealth weight management services." />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://downscale.health/medicare" />
+        <link rel="canonical" href="https://www.downscale.com.au/medicare" />
         
         {/* Enhanced SEO metadata */}
         <meta name="keywords" content="affordable weight loss, transparent pricing telehealth, $45 weight management, accessible weight loss clinic Australia, nurse practitioner affordable" />
@@ -19,8 +19,8 @@ export default function MedicareInfo() {
         <meta property="og:title" content="Transparent $45 Pricing | Downscale Weight Loss Clinic Australia" />
         <meta property="og:description" content="Learn about our transparent $45 maximum out-of-pocket pricing for all consultations. Accessible weight management care for all Australians." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://downscale.health/medicare" />
-        <meta property="og:image" content="https://downscale.health/og-medicare.jpg" />
+        <meta property="og:url" content="https://www.downscale.com.au/medicare" />
+        <meta property="og:image" content="https://www.downscale.com.au/og-medicare.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="en_AU" />

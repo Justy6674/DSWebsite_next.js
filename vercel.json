@@ -1,5 +1,18 @@
 {
   "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "downscale.com.au"
+        }
+      ],
+      "destination": "https://www.downscale.com.au/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/sitemap-blog.xml",

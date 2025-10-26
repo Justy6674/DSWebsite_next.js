@@ -66,12 +66,12 @@ export default function NutritionMealPlanning() {
         <title>Nutrition & Meal Planning | Evidence-Based Weight Loss Nutrition | Downscale Weight Loss Clinic</title>
         <meta name="description" content="Professional nutrition guidance and meal planning for sustainable weight loss. Evidence-based protocols, supplement advice, and practical meal prep strategies that fit your lifestyle." />
         <meta name="keywords" content="nutrition weight loss Australia, meal planning telehealth, evidence-based nutrition, supplement protocols, metabolic nutrition, anti-inflammatory diet" />
-        <link rel="canonical" href="https://www.downscale.health/nutrition-meal-planning" />
+        <link rel="canonical" href="https://www.downscale.com.au/nutrition-meal-planning" />
         
         <meta property="og:title" content="Nutrition & Meal Planning | Evidence-Based Weight Loss Nutrition" />
         <meta property="og:description" content="Professional nutrition guidance with practical meal planning strategies for sustainable weight loss success." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.downscale.health/nutrition-meal-planning" />
+        <meta property="og:url" content="https://www.downscale.com.au/nutrition-meal-planning" />
         
         <script type="application/ld+json">
           {`
