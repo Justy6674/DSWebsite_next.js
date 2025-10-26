@@ -53,7 +53,7 @@ export function AustralianHeroSection({
   };
 
   return (
-    <section className="relative pt-16 pb-12 min-h-[75svh] sm:min-h-[80vh] sm:pt-24 sm:pb-20 flex items-center overflow-hidden">
+    <section className="relative pt-16 pb-12 min-h-[60vh] sm:pt-24 sm:pb-20 flex items-center overflow-hidden">
       {/* Australian Background Image */}
       <picture>
         <source

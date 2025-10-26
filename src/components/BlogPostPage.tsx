@@ -86,7 +86,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           <>
             {/* Hero Section with Background Image */}
             <div 
-              className="relative min-h-[70vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
+              className="relative min-h-[60vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
               style={{
                 backgroundImage: post.featured_image 
                   ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${post.featured_image})`
