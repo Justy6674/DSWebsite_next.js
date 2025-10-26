@@ -132,12 +132,12 @@ export default function ConditionsPage() {
     <Layout>
       <Head>
         <title>Medical Conditions We Treat | Weight Loss Clinic Australia</title>
-        <meta name="description" content="Comprehensive medical weight management for obesity, PCOS, menopause, ADHD, sleep apnoea, chronic pain, hypertension and more. Evidence-based treatment across Australia." />
-        <meta name="keywords" content="medical conditions weight loss, obesity treatment Australia, PCOS weight management, menopause weight gain, ADHD weight loss, sleep apnoea treatment" />
+        <meta name="description" content="Professional medical weight management for 12+ conditions: obesity, PCOS, diabetes, metabolic syndrome, depression, anxiety, fatty liver, menopause, ADHD, sleep apnoea, chronic pain, hypertension. Evidence-based treatment across Australia." />
+        <meta name="keywords" content="medical conditions weight loss, obesity treatment Australia, PCOS weight management, diabetes weight loss, metabolic syndrome treatment, depression anxiety weight management, fatty liver disease treatment, menopause weight gain, ADHD weight loss, sleep apnoea treatment, chronic pain weight loss, hypertension treatment Australia" />
         <link rel="canonical" href="https://www.downscale.com.au/conditions" />
         
         <meta property="og:title" content="Medical Conditions Treated - Weight Loss Clinic Australia" />
-        <meta property="og:description" content="Professional medical weight management for obesity, PCOS, menopause, ADHD, and other health conditions. Evidence-based treatment via telehealth across Australia." />
+        <meta property="og:description" content="Professional medical weight management for 12+ conditions including obesity, PCOS, diabetes, metabolic syndrome, depression, anxiety, fatty liver, menopause, ADHD, sleep apnoea, chronic pain, hypertension. Evidence-based telehealth treatment across Australia." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.downscale.com.au/conditions" />
         

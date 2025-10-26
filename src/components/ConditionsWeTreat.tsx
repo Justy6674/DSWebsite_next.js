@@ -142,11 +142,11 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
-        <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl mobile-card-spacing my-6 border border-primary/10">
-          <h3 className="mobile-heading font-bold mb-4 text-center heading-beach">
+        <div className="bg-slate-800 rounded-xl mobile-card-spacing my-6 border border-slate-700">
+          <h3 className="mobile-heading font-bold mb-4 text-center text-cream">
             Medical Conditions We Treat
           </h3>
-          <p className="mobile-text text-center text-foreground/80 mb-6 max-w-2xl mx-auto">
+          <p className="mobile-text text-center text-cream opacity-90 mb-6 max-w-2xl mx-auto">
             Professional weight management leads to improved health outcomes across multiple conditions
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
@@ -188,12 +188,12 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
       </script>
-      <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-xl mobile-card-spacing my-8 border border-primary/10">
+      <div className="bg-slate-800 rounded-xl mobile-card-spacing my-8 border border-slate-700">
         <div className="text-center mb-8">
-          <h2 className="heading-beach font-bold mb-4">
+          <h2 className="text-cream font-bold mb-4 text-3xl md:text-4xl">
             Medical Conditions We Treat
           </h2>
-          <p className="mobile-text text-foreground/80 max-w-3xl mx-auto">
+          <p className="mobile-text text-cream opacity-90 max-w-3xl mx-auto">
             Weight loss isn't just about appearance - it's powerful medicine. Our evidence-based approach 
             treats the root causes of weight gain while addressing associated health conditions.
           </p>
@@ -239,28 +239,28 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
           ))}
         </div>
         
-        <div className="mt-8 sm:mt-12 mobile-card-spacing bg-gradient-to-r from-primary/90 to-accent/90 rounded-2xl text-gray-900 text-center">
+        <div className="mt-8 sm:mt-12 mobile-card-spacing bg-slate-900 rounded-2xl text-center border border-brown/20">
           <div className="max-w-4xl mx-auto">
-            <h3 className="mobile-heading font-bold mb-4 flex items-center justify-center gap-3 heading-beach text-gray-900">
-              <Stethoscope className="h-5 w-5 sm:h-6 sm:w-6 text-gray-800" />
+            <h3 className="mobile-heading font-bold mb-4 flex items-center justify-center gap-3 text-cream">
+              <Stethoscope className="h-5 w-5 sm:h-6 sm:w-6 text-brown" />
               Weight Loss as Medicine
             </h3>
-            <p className="mobile-text mb-6 leading-relaxed text-gray-900">
+            <p className="mobile-text mb-6 leading-relaxed text-cream opacity-90">
               <strong>Evidence shows weight loss improves:</strong> Diabetes control, blood pressure, 
               sleep quality, joint pain, fertility, mood, energy levels, and reduces medication needs.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 mobile-small-text">
               <div className="flex items-center gap-3 justify-center sm:justify-start">
-                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-gray-800" />
-                <span className="font-medium">Evidence-Based Treatment</span>
+                <Users className="h-4 w-4 sm:h-5 sm:w-5 text-brown" />
+                <span className="font-medium text-cream">Evidence-Based Treatment</span>
               </div>
               <div className="flex items-center gap-3 justify-center sm:justify-start">
-                <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-gray-800" />
-                <span className="font-medium">Holistic Health Approach</span>
+                <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-brown" />
+                <span className="font-medium text-cream">Holistic Health Approach</span>
               </div>
               <div className="flex items-center gap-3 justify-center sm:justify-start">
-                <Target className="h-4 w-4 sm:h-5 sm:w-5 text-gray-800" />
-                <span className="font-medium">Personalized Treatment Plans</span>
+                <Target className="h-4 w-4 sm:h-5 sm:w-5 text-brown" />
+                <span className="font-medium text-cream">Personalized Treatment Plans</span>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
@@ -273,7 +273,7 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
               </Link>
               <Link 
                 href="/medical-weight-management" 
-                className="mobile-button bg-transparent border border-gray-800 text-gray-800 hover:bg-gray-800/10 transition-colors inline-flex items-center justify-center gap-2"
+                className="mobile-button bg-transparent border border-brown text-cream hover:bg-brown/10 transition-colors inline-flex items-center justify-center gap-2"
               >
                 Our Treatment Approach
                 <Stethoscope className="h-4 w-4" />
