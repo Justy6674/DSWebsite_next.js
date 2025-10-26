@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
-import WeightLossClinic from '@/components/locations/WeightLossClinic';
+import WeightLossClinicMildura from '@/components/locations/WeightLossClinicMildura';
 
 export const metadata: Metadata = {
-  title: 'Weight Loss Clinic | $45 Telehealth | Downscale',
-  description: 'Professional telehealth weight loss clinic. Consultations from $45 with experienced Nurse Practitioner. Medicare rebates available.',
+  title: 'Weight Loss Clinic Mildura | $45 Telehealth Sunraysia VIC | Downscale',
+  description: 'Professional telehealth weight loss clinic serving Mildura and the Sunraysia region. Consultations from $45 with Medicare rebates.',
   alternates: {
-    canonical: 'https://www.downscale.com.au/weight-loss-clinic-',
+    canonical: 'https://www.downscale.com.au/weight-loss-clinic-mildura',
   },
   robots: {
     index: true,
@@ -13,6 +13,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WeightLossClinicPage() {
-  return <WeightLossClinic locationName="" />;
+export default function WeightLossClinicMilduraPage() {
+  return <WeightLossClinicMildura />;
 }
