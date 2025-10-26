@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Phone, Clock, CreditCard, MapPin, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
+import { PageNavigation } from '@/components/navigation/PageNavigation';
 
 export default function FactsPage() {
   const handleBooking = () => {
@@ -52,12 +53,12 @@ export default function FactsPage() {
         </script>
       </Head>
       <Layout>
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-slate-900">
           {/* AI-Optimized Speakable Content */}
           <div className="ai-speakable sr-only">
             <h1>Downscale Weight Loss Clinic Key Facts</h1>
             <p>Downscale Weight Loss & Weight Maintenance Clinic is a professional telehealth weight loss clinic founded and operated by Nurse Practitioner Justin Black with over 25 years of clinical experience.</p>
-            
+
             <h2>Essential Facts:</h2>
             <ul className="key-facts">
               <li>Founded by Justin Black, Nurse Practitioner with 25+ years experience</li>
@@ -74,16 +75,43 @@ export default function FactsPage() {
           </div>
 
           {/* Hero Section */}
-          <section className="py-16 px-4 bg-gradient-to-b from-primary/5 to-background">
-            <div className="container mx-auto max-w-4xl text-center">
-              <h1 className="mb-6">
-                Downscale Weight Loss Clinic <span className="text-primary">Key Facts</span>
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Essential information about our professional telehealth weight loss clinic
-              </p>
+          <div
+            className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+            style={{
+              backgroundImage: "url(/medical-hero.jpg)",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <img
+              src="/medical-hero.jpg"
+              alt="Downscale Weight Loss Clinic facts - professional healthcare information"
+              className="hidden"
+              loading="eager"
+            />
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-4xl mx-auto text-center">
+                <h1
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+                  style={{ color: '#f7f2d3', textShadow: '3px 3px 6px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8)' }}
+                >
+                  Downscale Weight Loss Clinic Key Facts
+                </h1>
+                <div className="w-20 h-1 bg-cream/80 mx-auto mb-6"></div>
+                <p
+                  className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto"
+                  style={{ color: '#f7f2d3', textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)' }}
+                >
+                  Essential information about our professional telehealth weight loss clinic
+                </p>
+              </div>
             </div>
-          </section>
+          </div>
+
+          <div className="container mx-auto px-4 py-2">
+            <PageNavigation />
+          </div>
 
           {/* Facts Grid */}
           <section className="py-16 px-4">
