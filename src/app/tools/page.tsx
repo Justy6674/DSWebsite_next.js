@@ -66,7 +66,7 @@ export default function ToolsPage() {
       <div
         className="relative h-[50vh] flex items-center justify-center text-center text-white"
         style={{
-          backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/tools-hero.jpg)',
+          backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/TOOLSHEROIMAGE.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
