@@ -14,6 +14,7 @@ import { Layout } from "@/components/layout/Layout";
 import { EXTERNAL_LINKS } from '@/lib/constants';
 
 const locationCities = [
+  // Major Cities
   { name: 'Sydney', path: '/weight-loss-clinic-sydney', state: 'NSW' },
   { name: 'Melbourne', path: '/weight-loss-clinic-melbourne', state: 'VIC' },
   { name: 'Brisbane', path: '/weight-loss-clinic-brisbane', state: 'QLD' },
@@ -22,11 +23,46 @@ const locationCities = [
   { name: 'Gold Coast', path: '/weight-loss-clinic-gold-coast', state: 'QLD' },
   { name: 'Canberra', path: '/weight-loss-clinic-canberra', state: 'ACT' },
   { name: 'Newcastle', path: '/weight-loss-clinic-newcastle', state: 'NSW' },
-  { name: 'Hobart', path: '/weight-loss-clinic-hobart', state: 'TAS' },
-  { name: 'Darwin', path: '/weight-loss-clinic-darwin', state: 'NT' },
+
+  // NSW Regional
+  { name: 'Central Coast', path: '/weight-loss-clinic-central-coast', state: 'NSW' },
+  { name: 'Wollongong', path: '/weight-loss-clinic-wollongong', state: 'NSW' },
+  { name: 'Dubbo', path: '/weight-loss-clinic-dubbo', state: 'NSW' },
+  { name: 'Albury-Wodonga', path: '/weight-loss-clinic-albury-wodonga', state: 'NSW' },
+  { name: 'Wagga Wagga', path: '/weight-loss-clinic-wagga-wagga', state: 'NSW' },
+
+  // VIC Regional
   { name: 'Geelong', path: '/weight-loss-clinic-geelong', state: 'VIC' },
+  { name: 'Ballarat', path: '/weight-loss-clinic-ballarat', state: 'VIC' },
+  { name: 'Bendigo', path: '/weight-loss-clinic-bendigo', state: 'VIC' },
+  { name: 'Mildura', path: '/weight-loss-clinic-mildura', state: 'VIC' },
+
+  // QLD Regional
   { name: 'Sunshine Coast', path: '/weight-loss-clinic-sunshine-coast', state: 'QLD' },
-  { name: 'Wollongong', path: '/weight-loss-clinic-wollongong', state: 'NSW' }
+  { name: 'Townsville', path: '/weight-loss-clinic-townsville', state: 'QLD' },
+  { name: 'Cairns', path: '/weight-loss-clinic-cairns', state: 'QLD' },
+  { name: 'Toowoomba', path: '/weight-loss-clinic-toowoomba', state: 'QLD' },
+  { name: 'Mackay', path: '/weight-loss-clinic-mackay', state: 'QLD' },
+  { name: 'Rockhampton', path: '/weight-loss-clinic-rockhampton', state: 'QLD' },
+  { name: 'Mount Isa', path: '/weight-loss-clinic-mount-isa', state: 'QLD' },
+
+  // WA Regional
+  { name: 'Mandurah', path: '/weight-loss-clinic-mandurah', state: 'WA' },
+  { name: 'Bunbury', path: '/weight-loss-clinic-bunbury', state: 'WA' },
+  { name: 'Kalgoorlie', path: '/weight-loss-clinic-kalgoorlie', state: 'WA' },
+
+  // SA Regional
+  { name: 'Whyalla', path: '/weight-loss-clinic-whyalla', state: 'SA' },
+  { name: 'Mount Gambier', path: '/weight-loss-clinic-mount-gambier', state: 'SA' },
+
+  // TAS Regional
+  { name: 'Hobart', path: '/weight-loss-clinic-hobart', state: 'TAS' },
+  { name: 'Launceston', path: '/weight-loss-clinic-launceston', state: 'TAS' },
+  { name: 'Devonport', path: '/weight-loss-clinic-devonport', state: 'TAS' },
+
+  // NT Regional
+  { name: 'Darwin', path: '/weight-loss-clinic-darwin', state: 'NT' },
+  { name: 'Alice Springs', path: '/weight-loss-clinic-alice-springs', state: 'NT' }
 ];
 
 const statesAndTerritories = [
@@ -49,7 +85,7 @@ export default function LocationsPage() {
     <Layout>
       <Head>
         <title>Weight Loss Clinic Locations Australia-wide | Downscale Weight Loss Clinic</title>
-        <meta name="description" content="Downscale Weight Loss Clinic serves all Australian states and territories via telehealth. Professional weight loss clinics covering metro, regional and remote areas nationwide." />
+        <meta name="description" content="Downscale Weight Loss Clinic serves 35+ Australian locations across all states and territories via telehealth. Professional weight loss clinics covering metro, regional and remote areas nationwide." />
         <meta name="keywords" content="weight loss clinic Australia, telehealth weight loss, Australia-wide weight management, all states territories weight loss" />
         <link rel="canonical" href="https://www.downscale.com.au/locations" />
         <link rel="preload" href="/australian-outback-hero.jpg" as="image" type="image/jpeg" />
@@ -151,30 +187,30 @@ export default function LocationsPage() {
         <PageNavigation />
       </div>
       <div className="container mx-auto px-4 mt-8">
-        {/* Major Cities Grid */}
+        {/* All Locations Grid */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold text-center mb-8 heading-beach">Major City Locations</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h2 className="text-3xl font-bold text-center mb-8 heading-beach">All Australian Locations</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {locationCities.map((city) => (
-              <Card key={city.path} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
+              <Card key={city.path} className="hover:shadow-lg transition-shadow h-full">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center justify-between text-base">
                     {city.name}
-                    <span className="text-sm text-muted-foreground bg-muted px-2 py-1 rounded">
+                    <span className="text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
                       {city.state}
                     </span>
                   </CardTitle>
-                  <CardDescription>
-                    Professional weight loss clinic serving {city.name} and surrounding areas
+                  <CardDescription className="text-sm">
+                    Weight loss clinic {city.name}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Link 
+                <CardContent className="pt-0">
+                  <Link
                     href={city.path}
-                    className="inline-flex items-center text-primary hover:text-primary/80 font-medium"
+                    className="inline-flex items-center text-primary hover:text-primary/80 font-medium text-sm"
                   >
-                    View {city.name} Clinic
-                    <ExternalLink className="ml-1 h-4 w-4" />
+                    View Clinic
+                    <ExternalLink className="ml-1 h-3 w-3" />
                   </Link>
                 </CardContent>
               </Card>

@@ -2,14 +2,14 @@ import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
 import Link from "next/link";
-import { Calculator, ExternalLink } from "lucide-react";
+import { Calculator, ExternalLink, Users, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
-  description: 'Interactive tools to support your weight loss journey including BMI calculator, health assessments, progress tracking, and meal planning tools.',
+  description: 'Health tools including BMI calculator and upcoming comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
   openGraph: {
     title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
-    description: 'Interactive tools to support your weight loss journey including BMI calculator, health assessments, progress tracking, and meal planning tools.',
+    description: 'Health tools including BMI calculator and upcoming comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
     url: 'https://www.downscale.com.au/tools',
     type: 'website',
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
-    description: 'Interactive tools to support your weight loss journey including BMI calculator, health assessments, progress tracking, and meal planning tools.',
+    description: 'Health tools including BMI calculator and upcoming comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
     images: ['https://www.downscale.com.au/og-services.jpg'],
   },
   alternates: {
@@ -40,22 +40,11 @@ const tools = [
     description: 'Calculate BMI, ideal weight, and other health metrics'
   },
   {
-    name: 'Health Assessment Tools',
-    icon: '📋',
-    href: '/assessments',
-    description: 'Comprehensive health and lifestyle assessments'
-  },
-  {
-    name: 'Progress Tracking',
-    icon: '📊',
-    href: '/portal/health-metrics',
-    description: 'Track your weight loss journey and health metrics'
-  },
-  {
-    name: 'Meal Planner',
-    icon: '🍽️',
-    href: '/nutrition-meal-planning',
-    description: 'Plan balanced meals for your weight loss goals'
+    name: 'Comprehensive Patient Portal',
+    icon: Users,
+    href: '#coming-soon',
+    description: 'More comprehensive tools are available for our patients such as Binge Eating, ADHD assessments, Obstructive Sleep Apnoea, mental health and more',
+    isComingSoon: true
   }
 ];
 
@@ -103,9 +92,38 @@ export default function ToolsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {tools.map((tool) => {
                 const Icon = tool.icon;
+
+                if (tool.isComingSoon) {
+                  return (
+                    <div
+                      key={tool.href}
+                      className="bg-slate-900 border border-slate-700 rounded-lg p-6 relative"
+                    >
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-primary/20 text-primary px-2 py-1 rounded text-xs font-medium">
+                          Coming Soon
+                        </span>
+                      </div>
+                      <div className="flex items-center mb-4">
+                        <Icon className="h-8 w-8 text-primary mr-3" />
+                        <h3 className="text-lg font-semibold text-cream">
+                          {tool.name}
+                        </h3>
+                      </div>
+                      <p className="text-cream opacity-90 text-sm mb-4">
+                        {tool.description}
+                      </p>
+                      <div className="flex items-center text-cream/60 text-sm">
+                        <Clock className="mr-2 h-4 w-4" />
+                        Available for Registered Patients
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={tool.href}
@@ -113,11 +131,7 @@ export default function ToolsPage() {
                     className="group bg-slate-900 border border-slate-700 rounded-lg p-6 hover:border-primary transition-all duration-200 hover:shadow-lg"
                   >
                     <div className="flex items-center mb-4">
-                      {typeof Icon === 'string' ? (
-                        <span className="text-3xl mr-3">{Icon}</span>
-                      ) : (
-                        <Icon className="h-8 w-8 text-primary mr-3" />
-                      )}
+                      <Icon className="h-8 w-8 text-primary mr-3" />
                       <h3 className="text-lg font-semibold group-hover:text-primary transition-colors text-cream">
                         {tool.name}
                       </h3>
