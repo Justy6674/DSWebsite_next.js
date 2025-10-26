@@ -158,7 +158,7 @@ export default function WeightLossClinicPerth() {
           {/* Google Maps Section - CRITICAL FOR LOCAL SEO */}
           <section className="py-12 px-4 bg-muted/30" aria-label="Perth service area map">
             <div className="container mx-auto max-w-4xl">
-              <h2 className="text-2xl font-bold mb-6 text-centre">Our Perth Service Area</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center">Our Perth Service Area</h2>
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108085.89092572944!2d115.86041585!3d-31.950527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32966cdb47733d%3A0x304f0b535df55d0!2sPerth%20WA!5e0!3m2!1sen!2sau!4v1234567890"
@@ -172,7 +172,7 @@ export default function WeightLossClinicPerth() {
                   className="w-full"
                 />
               </div>
-              <p className="text-centre text-sm text-muted-foreground mt-4">
+              <p className="text-center text-sm text-muted-foreground mt-4">
                 Telehealth service available across all Perth suburbs • No travel required
               </p>
             </div>
@@ -180,7 +180,7 @@ export default function WeightLossClinicPerth() {
 
           <section className="py-16 px-4">
             <div className="container mx-auto max-w-4xl">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-centre heading-beach">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-center heading-beach">
                 Serving All Perth Areas via Telehealth
               </h2>
               

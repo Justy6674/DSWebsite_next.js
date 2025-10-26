@@ -158,7 +158,7 @@ export default function WeightLossClinicCanberra() {
           {/* Google Maps Section - CRITICAL FOR LOCAL SEO */}
           <section className="py-12 px-4 bg-muted/30" aria-label="Canberra service area map">
             <div className="container mx-auto max-w-4xl">
-              <h2 className="text-2xl font-bold mb-6 text-centre">Our Canberra Service Area</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center">Our Canberra Service Area</h2>
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105919.36682729855!2d149.02844205!3d-35.2809368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b164d69b05c9021%3A0x500ea6ea7695660!2sCanberra%20ACT!5e0!3m2!1sen!2sau!4v1234567890"
@@ -172,7 +172,7 @@ export default function WeightLossClinicCanberra() {
                   className="w-full"
                 />
               </div>
-              <p className="text-centre text-sm text-muted-foreground mt-4">
+              <p className="text-center text-sm text-muted-foreground mt-4">
                 Telehealth service available across all Canberra suburbs • No travel required
               </p>
             </div>
@@ -180,7 +180,7 @@ export default function WeightLossClinicCanberra() {
 
           <section className="py-16 px-4">
             <div className="container mx-auto max-w-4xl">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-centre heading-beach">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-center heading-beach">
                 Serving All Canberra Areas via Telehealth
               </h2>
               

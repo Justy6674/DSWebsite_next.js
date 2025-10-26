@@ -153,7 +153,7 @@ export default function WeightLossClinicAdelaide() {
           {/* Google Maps Section - CRITICAL FOR LOCAL SEO */}
           <section className="py-12 px-4 bg-muted/30" aria-label="Adelaide service area map">
             <div className="container mx-auto max-w-4xl">
-              <h2 className="text-2xl font-bold mb-6 text-centre">Our Adelaide Service Area</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center">Our Adelaide Service Area</h2>
               <div className="rounded-lg overflow-hidden shadow-lg">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d104854.36717229677!2d138.52609655!3d-34.9284989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab735c7c526b33f%3A0x4033654628ec640!2sAdelaide%20SA!5e0!3m2!1sen!2sau!4v1234567890"
@@ -167,7 +167,7 @@ export default function WeightLossClinicAdelaide() {
                   className="w-full"
                 />
               </div>
-              <p className="text-centre text-sm text-muted-foreground mt-4">
+              <p className="text-center text-sm text-muted-foreground mt-4">
                 Telehealth service available across all Adelaide suburbs • No travel required
               </p>
             </div>
@@ -175,7 +175,7 @@ export default function WeightLossClinicAdelaide() {
 
           <section className="py-16 px-4">
             <div className="container mx-auto max-w-4xl">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-centre heading-beach">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 text-center heading-beach">
                 Serving All Adelaide Areas via Telehealth
               </h2>
               
