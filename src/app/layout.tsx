@@ -61,6 +61,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload critical hero image for instant LCP */}
+        <link rel="preload" as="image" href="/hero-family-sunset.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/hero-family-sunset-mobile.webp" type="image/webp" media="(max-width: 768px)" />
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+      </head>
       <body className="font-sans">
         <Providers>
           {children}

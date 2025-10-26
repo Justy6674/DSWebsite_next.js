@@ -37,7 +37,7 @@ export default function HomePage() {
       <div 
         className="relative min-h-screen flex flex-col justify-between overflow-visible"
         style={{
-          backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), image-set(url(/hero-family-sunset-mobile.webp) type("image/webp"), url(/hero-family-sunset.png) type("image/png"))',
+          backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), image-set(url(/hero-family-sunset.webp) type("image/webp"), url(/hero-family-sunset-mobile.webp) type("image/webp"))',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
