@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { ContactForm } from '@/components/ui/contact-form';
 
 export default function DataDeletion() {
   return (
@@ -89,12 +90,15 @@ export default function DataDeletion() {
                     <p className="text-slate-700 mb-4">
                       Send your deletion request to:
                     </p>
-                    <a 
-                      href="mailto:office@downscale.com.au" 
-                      className="text-brown hover:text-brown/80 font-semibold text-lg"
-                    >
-                      office@downscale.com.au
-                    </a>
+                    <div className="space-y-3">
+                      <p className="text-brown font-semibold text-lg">
+                        office@downscale.com.au
+                      </p>
+                      <ContactForm
+                        triggerText="Send Data Deletion Request"
+                        triggerClassName="bg-brown hover:bg-brown/90 text-white inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors"
+                      />
+                    </div>
                   </div>
                   
                   <div className="bg-blue/10 rounded-lg p-6">
@@ -223,9 +227,9 @@ export default function DataDeletion() {
                     <div className="flex items-center">
                       <i className="fas fa-envelope text-brown mr-3"></i>
                       <span className="text-slate-700">Privacy Officer: </span>
-                      <a href="mailto:office@downscale.com.au" className="text-brown hover:text-brown/80 ml-2">
+                      <span className="text-brown ml-2">
                         office@downscale.com.au
-                      </a>
+                      </span>
                     </div>
                     <div className="flex items-center">
                       <i className="fas fa-globe text-brown mr-3"></i>

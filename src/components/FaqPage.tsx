@@ -9,6 +9,7 @@ import { OptimizedBackground } from '@/components/ui/optimized-background';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { HighlightBox } from '@/components/ui/highlight-box';
+import { ContactForm } from '@/components/ui/contact-form';
 import { ExternalLink, Mail } from 'lucide-react';
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 
@@ -390,7 +391,7 @@ export default function FaqPage() {
                           <li>• <strong>Payment and billing management</strong> - View invoices and manage payments online</li>
                         </ul>
                         <p className="mt-4">
-                          In the meantime, you can book consultations directly through our <a href="https://www.halaxy.com/book/downscale/location/1198131" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">booking system</a>. For any questions, please email us at <a href="mailto:office@downscale.com.au" className="text-primary hover:underline">office@downscale.com.au</a>.
+                          In the meantime, you can book consultations directly through our <a href="https://www.halaxy.com/book/downscale/location/1198131" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">booking system</a>. For any questions, please use our contact form or email us at office@downscale.com.au.
                         </p>
                       </AccordionContent>
                     </AccordionItem>
@@ -418,15 +419,10 @@ export default function FaqPage() {
                     Book Today
                     <ExternalLink className="ml-2 h-4 w-4" />
                   </Button>
-                  <Button 
-                    onClick={() => window.open('mailto:office@downscale.com.au', '_blank')}
-                    variant="outline"
-                    size="lg"
-                    className="shadow-xl"
-                  >
-                    <Mail className="mr-2 h-4 w-4" />
-                    Email Us
-                  </Button>
+                  <ContactForm
+                    triggerClassName="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors shadow-xl"
+                    triggerText="Email Us"
+                  />
                 </div>
               </div>
             </div>
