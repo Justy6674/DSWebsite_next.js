@@ -38,6 +38,30 @@ const tools = [
     icon: Calculator,
     href: '/calculator',
     description: 'Calculate BMI, ideal weight, and other health metrics'
+  },
+  {
+    name: 'BED Assessment',
+    icon: Users,
+    href: '/services/mental-health#bed-assessment',
+    description: 'Binge Eating Disorder screening questionnaire for clinical evaluation'
+  },
+  {
+    name: 'ADHD Assessment',
+    icon: Users,
+    href: '/services/mental-health#adhd-assessment',
+    description: 'ADHD screening tool to assess attention and hyperactivity symptoms'
+  },
+  {
+    name: 'STOP-BANG Assessment',
+    icon: Clock,
+    href: '/services/sleep#stop-bang-assessment',
+    description: 'Sleep apnoea screening questionnaire for obstructive sleep apnoea risk'
+  },
+  {
+    name: 'Epworth Sleepiness Scale',
+    icon: Clock,
+    href: '/services/sleep#epworth-assessment',
+    description: 'Measure daytime sleepiness and sleep disorder risk assessment'
   }
 ];
 
