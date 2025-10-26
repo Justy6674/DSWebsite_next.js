@@ -76,21 +76,6 @@ export const BodyMetricsShowcase: React.FC = () => {
             </Link>
           </div>
 
-          {/* Stats Row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="text-center p-6 bg-slate-800 rounded-xl border border-slate-700">
-              <div className="text-3xl font-bold text-brown mb-2">2,000+</div>
-              <div className="text-cream/80">Australians Assessed</div>
-            </div>
-            <div className="text-center p-6 bg-slate-800 rounded-xl border border-slate-700">
-              <div className="text-3xl font-bold text-brown mb-2">30 Sec</div>
-              <div className="text-cream/80">Average Completion Time</div>
-            </div>
-            <div className="text-center p-6 bg-slate-800 rounded-xl border border-slate-700">
-              <div className="text-3xl font-bold text-brown mb-2">AI-Powered</div>
-              <div className="text-cream/80">Personalised Insights</div>
-            </div>
-          </div>
         </div>
       </div>
 
