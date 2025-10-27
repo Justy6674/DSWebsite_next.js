@@ -637,7 +637,7 @@ body {
   .hero-section {
     height: 100vh;
     min-height: 100vh;
-    background-position: center 20% !important;
+    background-position: center 45% !important;
   }
 
   .hero-content {
@@ -648,7 +648,7 @@ body {
   }
 
   .hero-text-container {
-    transform: translateY(-35vh);
+    transform: translateY(-18vh);
     z-index: 10;
   }
 
