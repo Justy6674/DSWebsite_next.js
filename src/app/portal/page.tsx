@@ -1,54 +1,46 @@
-'use client';
+import { Metadata } from 'next';
+import PortalDashboardClient from './PortalDashboardClient';
 
-import React from 'react';
-import Link from 'next/link';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from "@/components/ui/button";
-import PortalLayout from '@/components/portal/PortalLayout';
-import HealthMetricsDashboard from '@/components/portal/HealthMetricsDashboard';
-import GlobalSearch from '@/components/portal/GlobalSearch';
+export const metadata: Metadata = {
+  title: 'Patient Portal Dashboard | Health Tracking & Clinical Access | Downscale Weight Loss Clinic',
+  description: 'Comprehensive patient portal dashboard for Downscale members. Access weight tracking, consultation history, treatment plans, prescriptions, health metrics, and personalised weight loss insights.',
+  alternates: {
+    canonical: 'https://www.downscale.com.au/portal',
+  },
+  openGraph: {
+    title: 'Patient Portal Dashboard | Health Tracking | Downscale',
+    description: 'Comprehensive patient portal for Downscale members. Access weight tracking, consultation history, treatment plans, and personalised health insights.',
+    url: 'https://www.downscale.com.au/portal',
+    type: 'website',
+    siteName: 'Downscale Weight Loss Clinic',
+    images: [
+      {
+        url: 'https://www.downscale.com.au/og-portal-dashboard.jpg',
+        secureUrl: 'https://www.downscale.com.au/og-portal-dashboard.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Patient Portal Dashboard - Downscale Weight Loss Clinic',
+      },
+    ],
+    locale: 'en_AU',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Patient Portal Dashboard | Health Tracking | Downscale',
+    description: 'Comprehensive patient portal for weight tracking, consultation history, and personalised health insights.',
+    images: ['https://www.downscale.com.au/og-portal-dashboard.jpg'],
+  },
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+};
 
-export default function PortalDashboard() {
-  const { user } = useAuth();
-
-  // Check for admin testing session
-  const [portalUser, setPortalUser] = React.useState<any>(null);
-
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('portal_user');
-      if (storedUser) {
-        setPortalUser(JSON.parse(storedUser));
-      }
-    }
-  }, []);
-
-  if (!user && !portalUser) {
-    return (
-      <div className="min-h-screen bg-[#334155] flex items-center justify-center p-4">
-        <div className="bg-slate-800 rounded-xl p-8 max-w-md w-full border border-slate-700">
-          <h2 className="text-2xl font-bold text-[#f8fafc] mb-4">Portal Access Required</h2>
-          <p className="text-[#fef5e7] mb-6">Please sign in to access your clinical portal dashboard.</p>
-          <Link href="/portal/login">
-            <Button className="w-full bg-[#b68a71] hover:bg-[#8B6F47] text-white">
-              Sign In to Portal
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <PortalLayout>
-      <div className="space-y-8">
-        {/* Central Search Engine */}
-        <div className="max-w-md mx-auto">
-          <GlobalSearch />
-        </div>
-
-        <HealthMetricsDashboard />
-      </div>
-    </PortalLayout>
-  );
+export default function PortalDashboardPage() {
+  return <PortalDashboardClient />;
 }
