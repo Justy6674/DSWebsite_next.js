@@ -15,7 +15,6 @@ import { HeroSection } from '@/components/HeroSection';
 
 
 export default function HomePage() {
-
   return (
     <Layout>
       {/* AI Speakable Content */}
