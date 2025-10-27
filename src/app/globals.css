@@ -626,14 +626,14 @@ body {
   }
 
   .hero-content {
-    padding-top: 2vh;
-    padding-bottom: 2vh;
-    gap: 1vh;
-    justify-content: space-evenly;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    gap: 0.5vh;
+    justify-content: space-between;
   }
 
   .hero-text-container {
-    transform: translateY(-12vh);
+    transform: translateY(-20vh);
     z-index: 10;
   }
 
@@ -655,8 +655,8 @@ body {
   }
 
   .hero-section h2 {
-    font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
-    line-height: 1.2;
+    font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
+    line-height: 1.1;
     margin-bottom: 1vh !important;
   }
 
@@ -685,7 +685,7 @@ body {
 @media (max-width: 768px) and (max-height: 700px) {
   /* Extra compression for smaller mobile screens */
   .hero-text-container {
-    transform: translateY(-15vh);
+    transform: translateY(-25vh);
   }
 
   .hero-content {
