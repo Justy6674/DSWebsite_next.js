@@ -648,13 +648,13 @@ body {
   }
 
   .hero-text-container {
-    transform: translateY(-20vh);
+    transform: translateY(-10vh);
     z-index: 10;
   }
 
   /* Optimized spacing for mobile elements */
   .hero-content > div:first-child {
-    padding-top: 1vh !important;
+    padding-top: 4vh !important;
     padding-bottom: 1vh !important;
   }
 
