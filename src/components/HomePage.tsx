@@ -39,7 +39,7 @@ export default function HomePage() {
         style={{
           backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/hero-family-sunset.webp)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center bottom',
+          backgroundPosition: 'center 80%',
           backgroundRepeat: 'no-repeat'
         }}
       >

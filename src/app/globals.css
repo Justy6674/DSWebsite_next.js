@@ -619,11 +619,11 @@ body {
 }
 
 .hero-content {
-  /* Default desktop spacing */
+  /* Default desktop spacing - restore original layout */
   padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   gap: 2rem;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .hero-text-container {
