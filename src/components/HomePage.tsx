@@ -125,8 +125,8 @@ export default function HomePage() {
                 <span className="text-[10px] sm:text-xs font-bold text-center text-[#f7e7c5] drop-shadow-md whitespace-nowrap">Weight Loss 15 Min • From $45</span>
               </a>
               
-              <a 
-                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
+              <a
+                href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto sm:flex-1 h-[60px] sm:h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-slate-700/85 to-slate-800/85 backdrop-blur-lg md:hover:from-slate-700/90 md:hover:to-slate-600/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105"
