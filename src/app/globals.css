@@ -648,15 +648,15 @@ body {
   }
 
   .hero-text-container {
-    transform: translateY(-18vh);
+    transform: translateY(-25vh);
     z-index: 10;
   }
 
   /* Optimized spacing for mobile elements */
   .hero-content > div:first-child {
-    padding-top: 4vh !important;
+    padding-top: 2vh !important;
     padding-bottom: 0vh !important;
-    margin-bottom: -2vh !important;
+    margin-bottom: -4vh !important;
   }
 
   .hero-content > div:last-child {
