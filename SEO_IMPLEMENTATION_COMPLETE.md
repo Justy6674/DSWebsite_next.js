@@ -13,8 +13,8 @@ This document outlines the comprehensive SEO and crawlability implementation for
 #### 1. **Blog Post Pre-rendering (Critical Fix)** ✅
 - **Problem**: Blog posts were being generated on-demand (SSR), causing slow initial loads
 - **Solution**: Added `generateStaticParams()` to `/src/app/blog/[slug]/page.tsx`
-- **Impact**: Blog posts are now pre-rendered at build time for instant loading
-- **ISR Configuration**: 1-hour revalidation (`revalidate = 3600`) ensures fresh content
+- **Impact**: Blog posts are now statically generated with ISR for instant loading
+- **ISR Configuration**: 1-hour revalidation (`revalidate = 3600`) ensures fresh content by regenerating pages every hour after first request
 
 ```typescript
 // Blog posts are now Static Site Generated (SSG) with ISR
