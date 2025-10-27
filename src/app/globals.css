@@ -618,6 +618,20 @@ body {
   min-height: 100vh;
 }
 
+.hero-content {
+  /* Default desktop spacing */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.hero-text-container {
+  /* Default desktop positioning */
+  transform: none;
+  z-index: 10;
+}
+
 @media (max-width: 768px) {
   /* Mobile-specific hero optimizations */
   .hero-section {
@@ -647,7 +661,7 @@ body {
     padding-bottom: 1vh !important;
   }
 
-  /* Responsive text scaling with better spacing */
+  /* Mobile-only responsive text scaling */
   .hero-section h1 {
     font-size: clamp(2.5rem, 10vw, 4rem) !important;
     line-height: 0.9;
