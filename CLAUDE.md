@@ -65,6 +65,7 @@ The platform includes professional clinical assessment tools with dedicated page
 - **ADHD Assessment** (`/assessment/adhd`) - Adult ADHD clinical screening tool
 - **STOP-BANG Assessment** (`/assessment/stop-bang`) - Sleep apnoea risk evaluation
 - **Epworth Sleepiness Scale** (`/assessment/epworth`) - Daytime sleepiness measurement
+- **AMS Menopause Assessment** (`/assessment/menopause`) - Official AMS Symptom Score Card using Greene Climacteric Scale
 - **Body Metrics Calculator** (`/calculator`) - BMI and health metrics calculation
 
 ### Assessment Features

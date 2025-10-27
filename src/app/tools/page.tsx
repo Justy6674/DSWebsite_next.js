@@ -62,6 +62,12 @@ const tools = [
     icon: Clock,
     href: '/assessment/epworth',
     description: 'Measure daytime sleepiness and sleep disorder risk assessment'
+  },
+  {
+    name: 'AMS Menopause Assessment',
+    icon: Users,
+    href: '/assessment/menopause',
+    description: 'Official AMS Symptom Score Card using the validated Greene Climacteric Scale'
   }
 ];
 
