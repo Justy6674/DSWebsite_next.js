@@ -6,29 +6,51 @@ import { Calculator, ExternalLink, Users, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
-  description: 'Health tools including BMI calculator and upcoming comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
+  description: 'Health tools including BMI calculator and comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
+  alternates: {
+    canonical: 'https://www.downscale.com.au/tools',
+  },
   openGraph: {
     title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
-    description: 'Health tools including BMI calculator and upcoming comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
+    description: 'Health tools including BMI calculator and comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
     url: 'https://www.downscale.com.au/tools',
     type: 'website',
+    siteName: 'Downscale Weight Loss Clinic',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-tools.jpg',
+        url: 'https://www.downscale.com.au/og-tools.jpg?v=2',
+        secureUrl: 'https://www.downscale.com.au/og-tools.jpg?v=2',
         width: 1200,
         height: 630,
-        alt: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
+        alt: 'Health & Weight Loss Tools - Downscale Weight Loss Clinic',
+        type: 'image/jpeg',
       },
     ],
+    locale: 'en_AU',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
-    description: 'Health tools including BMI calculator and upcoming comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
-    images: ['https://www.downscale.com.au/og-tools.jpg'],
+    description: 'Health tools including BMI calculator and comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
+    images: [
+      {
+        url: 'https://www.downscale.com.au/og-tools.jpg?v=2',
+        width: 1200,
+        height: 630,
+        alt: 'Health & Weight Loss Tools - Downscale Weight Loss Clinic',
+      },
+    ],
   },
-  alternates: {
-    canonical: 'https://www.downscale.com.au/tools',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
