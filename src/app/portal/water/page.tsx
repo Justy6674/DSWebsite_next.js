@@ -1,38 +1,46 @@
-'use client';
+import { Metadata } from 'next';
+import WaterPortalClient from './WaterPortalClient';
 
-import React from 'react';
-import { Droplets } from 'lucide-react';
-import PortalLayout from '@/components/portal/PortalLayout';
-import DynamicPortalSection from '@/components/portal/DynamicPortalSection';
-import SimpleWaterReminders from '@/components/portal/SimpleWaterReminders';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+export const metadata: Metadata = {
+  title: 'Hydration & Water Tracking | Patient Portal | Downscale Weight Loss Clinic',
+  description: 'Track daily water intake, hydration goals, and fluid balance. Evidence-based hydration strategies to support weight loss and metabolic health optimization.',
+  alternates: {
+    canonical: 'https://www.downscale.com.au/portal/water',
+  },
+  openGraph: {
+    title: 'Hydration & Water Tracking | Patient Portal | Downscale',
+    description: 'Track daily water intake and hydration goals. Evidence-based strategies for weight loss support.',
+    url: 'https://www.downscale.com.au/portal/water',
+    type: 'website',
+    siteName: 'Downscale Weight Loss Clinic',
+    images: [
+      {
+        url: 'https://www.downscale.com.au/og-hydration.jpg',
+        secureUrl: 'https://www.downscale.com.au/og-hydration.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Hydration Tracking Portal - Downscale Weight Loss Clinic',
+      },
+    ],
+    locale: 'en_AU',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hydration & Water Tracking | Downscale Portal',
+    description: 'Track water intake and hydration goals for weight loss support.',
+    images: ['https://www.downscale.com.au/og-hydration.jpg'],
+  },
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+};
 
 export default function WaterPortalPage() {
-  return (
-    <PortalLayout>
-      <div className="space-y-8">
-        {/* Featured Water Gamification System */}
-        <Card className="bg-slate-800 border-slate-700">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center gap-3">
-              <Droplets className="w-6 h-6 text-cyan-400" />
-              Interactive Hydration System
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <SimpleWaterReminders />
-          </CardContent>
-        </Card>
-
-        {/* Dynamic Portal Content for Water */}
-        <DynamicPortalSection
-          pillar="water"
-          title="Hydration Hub"
-          description="Comprehensive hydration resources to support your weight loss journey through optimal water intake and fat burning optimization"
-          colour="bg-cyan-100 text-cyan-800"
-          icon={Droplets}
-        />
-      </div>
-    </PortalLayout>
-  );
+  return <WaterPortalClient />;
 }
