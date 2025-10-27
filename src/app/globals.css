@@ -633,7 +633,7 @@ body {
   }
 
   .hero-text-container {
-    transform: translateY(-4vh);
+    transform: translateY(-12vh);
     z-index: 10;
   }
 
@@ -685,7 +685,7 @@ body {
 @media (max-width: 768px) and (max-height: 700px) {
   /* Extra compression for smaller mobile screens */
   .hero-text-container {
-    transform: translateY(-6vh);
+    transform: translateY(-15vh);
   }
 
   .hero-content {
