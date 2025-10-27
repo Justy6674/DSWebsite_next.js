@@ -12,6 +12,31 @@ interface BlogPostPageProps {
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pooebqhsshfafkhvccrl.supabase.co';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvb2VicWhzc2hmYWZraHZjY3JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyMjA4MzYsImV4cCI6MjA2Nzc5NjgzNn0.HfHAScs024qp9rsm289FzwQ7vr22z_uk48VS9jlxjE8';
 
+// Generate static params for SSG - pre-render all published blog posts
+export async function generateStaticParams() {
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: posts } = await supabase
+      .from('blog_posts')
+      .select('slug')
+      .eq('published', true)
+      .order('created_at', { ascending: false });
+
+    if (posts) {
+      return posts.map((post) => ({
+        slug: post.slug,
+      }));
+    }
+  } catch (error) {
+    console.error('Error generating static params for blog posts:', error);
+  }
+
+  return [];
+}
+
+// ISR - Revalidate every hour for fresh content
+export const revalidate = 3600;
+
 // Enhanced metadata generation with proper SEO for blog posts
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = params;

@@ -230,7 +230,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { data: blogPosts, error } = await supabase
       .from('blog_posts')
       .select('slug, updated_at, created_at')
-      .eq('status', 'published')
+      .eq('published', true)
       .order('created_at', { ascending: false });
 
     console.log('Sitemap debug - Blog posts:', blogPosts?.length, 'Error:', error);

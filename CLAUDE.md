@@ -4,25 +4,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Downscale Weight Loss Clinic Next.js platform with TWO MAIN SYSTEMS:
+This is the Downscale Weight Loss Clinic Next.js platform - a comprehensive Australian telehealth weight management system with TWO MAIN SYSTEMS:
 
 ### 1. PUBLIC FRONT-FACING WEBSITE (Primary)
-**MASSIVE SCALE: 79+ TOTAL PAGES**
+**MASSIVE SCALE: 120+ TOTAL PAGES**
 
 #### Page Breakdown:
 - **13 main website pages** (homepage, about, pricing, team, etc.)
 - **6 clinical/service pillar pages** (nutrition, movement, mental health, etc.)
-- **2 tools/calculator pages** (BMI calculator, goal setting)
-- **3 blog system pages** + **24 dynamic blog posts** ([slug] routing)
-- **27 location pages** (26 Australian cities + locations directory)
-- **2 system pages** (auth, 404)
-- **5 legacy redirects**
+- **5 assessment tools** (ADHD, BED, Epworth, Menopause, STOP-BANG) + BMI calculator
+- **3 blog system pages** + **dynamic blog posts** from Supabase
+- **34+ location pages** (Australian cities + location directory)
+- **8 legal/compliance pages** (privacy, terms, complaints, data-deletion, etc.)
+- **Portal entry points** and authentication
 
 #### Total Website Scale:
-- **55 static route pages** defined in Next.js App Router
-- **24 dynamic blog posts** from Supabase
-- **79+ accessible URLs** total
-- **Deployed at**: ds-website-next-js.vercel.app
+- **80+ static route pages** defined in Next.js App Router
+- **Dynamic blog posts** from Supabase with SSG/ISR
+- **120+ accessible URLs** total
+- **Deployed at**: www.downscale.com.au
 
 ### 2. PATIENT PORTAL SYSTEM (Secondary)
 - **7 health pillars** portal for authenticated patients
@@ -138,6 +138,7 @@ src/
 - Always use Australian English: colour, centre, optimisation, realise
 - Medical terms: GP (not PCP), chemist (not pharmacy), Medicare
 - Currency: AUD formatting with $1,234.56
+- **CRITICAL**: Never mention "bulk billing" - billing changed 1st November
 
 ### Component Patterns
 - Use shadcn/ui components as base
@@ -253,51 +254,36 @@ Run `npm run seo:audit` before major releases to ensure:
 - **Global Search**: Cross-pillar content search functionality
 - **Save System**: Patient bookmarking and annotation capabilities
 
-### Known Critical Issues ⚠️
-**PRODUCTION WEBSITE AT ds-website-next-js.vercel.app HAS MAJOR FAILURES:**
+### Current Status & Recent Updates
 
-- **Navigation Dropdowns**: Clinical and Tools dropdowns NOT WORKING - buttons click but no dropdown appears
-- **Blog Rendering**: All 24 blog posts show RAW HTML instead of rendered React components
-- **SSR/Hydration**: Next.js server-side rendering and client hydration COMPLETELY BROKEN
-- **React Components**: Not rendering properly on production site
-- **User Experience**: UNUSABLE in current state
+**PERFORMANCE OPTIMIZATIONS IMPLEMENTED:**
+- ✅ **Blog SSG/ISR**: `generateStaticParams()` and ISR with 1-hour revalidation
+- ✅ **OpenGraph Images**: Dynamic generation for root site and blog posts using Edge Runtime
+- ✅ **Performance Caching**: Comprehensive cache headers for all page types
+- ✅ **Sitemap Fixed**: Database query corrected (`.eq('published', true)`)
 
-**URGENT**: These are not minor bugs - they are core functionality failures affecting the entire 79+ page website.
+**MEDICAL COMPLIANCE CRITICAL RULES:**
+- ❌ **NO BULK BILLING REFERENCES**: Billing changed 1st November - NEVER mention bulk billing
+- ❌ **NO MEDICARE ITEM NUMBERS**: Do not discuss specific Medicare item numbers
+- ✅ **Medicare Eligible Only**: Can state "Medicare eligible" without specifics
+
+## Common Development Patterns
+
+### Adding New Assessment Tools
+When adding new clinical assessment tools, follow this standardized pattern:
+
+1. **Create dedicated page**: `/assessment/[tool-name]/page.tsx`
+2. **Component structure**: Place in `/components/medical/assessments/`
+3. **Mobile-first design**: Touch-friendly interfaces with responsive layouts
+4. **Clinical validation**: Evidence-based scoring and interpretation
+5. **Professional integration**: Direct booking links to healthcare consultations
+6. **SEO optimization**: Individual pages for search engine indexing
+7. **Compliance ready**: TGA/AHPRA compliant disclaimers and language
+
+### Single Test Command
+Run all quality checks before committing:
+```bash
+npm run lint && npm run type-check && npm run seo:check
+```
 
 This codebase prioritizes Australian healthcare compliance, public website SEO performance, role-based portal functionality, and professional medical presentation while maintaining modern web development practices.
-- DEDICATED PAGES is the optimal approach
-
-  Why Dedicated Pages Win:
-
-  1. SEO Crawlability: Search engines can index assessment content
-  2. Direct URLs: Each tool gets shareable, bookmarkable links
-  3. Consistency: Matches your existing Body Metrics Calculator pattern
-  4. Content Value: Assessment pages become valuable landing pages
-  5. Analytics: Track individual tool usage and conversion
-
-  Recommended URL Structure:
-
-  /assessment/bed              # BED Assessment
-  /assessment/adhd             # ADHD Assessment
-  /assessment/stop-bang        # STOP-BANG Assessment
-  /assessment/epworth          # Epworth Sleepiness Scale
-
-  Implementation Benefits:
-
-  - SEO: Each assessment becomes a landing page for specific searches
-  - User Experience: Consistent with calculator pattern
-  - Medical Compliance: Full pages allow proper disclaimers and context
-  - Analytics: Individual page tracking for each assessment
-  - Sharing: Direct links for healthcare providers to share with patients
-
-  Update Strategy:
-
-  1. Create dedicated assessment pages under /assessment/ route
-  2. Keep current service page anchors as secondary navigation
-  3. Update tools page to link to dedicated assessment pages
-  4. Add breadcrumbs and proper metadata for each assessment
-
-  This approach gives you the best of both worlds - SEO value, user
-  consistency, and medical compliance while maintaining the existing service
-   page structure as supplementary navigation.
-  Remeber the tools process as will be adding more - and you need to add in a standardised fashion
