@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-services.jpg',
+        url: 'https://www.downscale.com.au/og-faq.jpg',
         width: 1200,
         height: 630,
         alt: 'Faq',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Faq',
     description: 'Faq page - Access and manage your content',
-    images: ['https://www.downscale.com.au/og-services.jpg'],
+    images: ['https://www.downscale.com.au/og-faq.jpg'],
   },
 };
 

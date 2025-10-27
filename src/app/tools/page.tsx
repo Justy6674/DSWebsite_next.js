@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-services.jpg',
+        url: 'https://www.downscale.com.au/og-tools.jpg',
         width: 1200,
         height: 630,
         alt: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Health & Weight Loss Tools | Downscale Weight Loss Clinic',
     description: 'Health tools including BMI calculator and upcoming comprehensive patient portal with Binge Eating, ADHD, Sleep Apnoea assessments for Downscale patients.',
-    images: ['https://www.downscale.com.au/og-services.jpg'],
+    images: ['https://www.downscale.com.au/og-tools.jpg'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/tools',

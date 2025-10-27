@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-services.webp',
+        url: 'https://www.downscale.com.au/og-locations.webp',
         width: 1200,
         height: 630,
         alt: 'Downscale Weight Loss Clinic Launceston - Professional telehealth weight management',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Weight Loss Clinic Launceston | Professional Telehealth Medicare',
     description: 'Professional telehealth weight loss clinic serving Launceston, TAS. Consultations from $45 with instant Medicare rebate processing.',
-    images: ['https://www.downscale.com.au/og-services.webp'],
+    images: ['https://www.downscale.com.au/og-locations.webp'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/weight-loss-clinic-launceston',

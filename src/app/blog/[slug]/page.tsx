@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       const title = `${post.title} | Downscale Weight Loss Clinic`;
       const description = post.meta_description || post.excerpt || `Read ${post.title} on Downscale Weight Loss Clinic blog`;
       const keywords = post.tags?.join(', ') || 'weight loss, health, nutrition, wellness';
-      const imageUrl = post.featured_image || 'https://www.downscale.com.au/og-image.jpg';
+      const imageUrl = post.featured_image || 'https://www.downscale.com.au/og-blog.jpg';
 
       return {
         title,
