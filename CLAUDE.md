@@ -56,6 +56,26 @@ npm run crawl:health          # Supabase health check
 npm run crawl:test           # Test site crawlability
 ```
 
+## Assessment Tools (Mobile-Optimized)
+
+The platform includes professional clinical assessment tools with dedicated pages:
+
+### Available Assessments
+- **BED Assessment** (`/assessment/bed`) - Binge Eating Disorder screening questionnaire
+- **ADHD Assessment** (`/assessment/adhd`) - Adult ADHD clinical screening tool
+- **STOP-BANG Assessment** (`/assessment/stop-bang`) - Sleep apnoea risk evaluation
+- **Epworth Sleepiness Scale** (`/assessment/epworth`) - Daytime sleepiness measurement
+- **Body Metrics Calculator** (`/calculator`) - BMI and health metrics calculation
+
+### Assessment Features
+- **Mobile-First Design**: Touch-friendly interfaces with responsive layouts
+- **Clinical Validation**: Evidence-based scoring and interpretation
+- **Professional Integration**: Direct booking links to healthcare consultations
+- **SEO Optimized**: Individual pages for search engine indexing
+- **Compliance Ready**: TGA/AHPRA compliant disclaimers and language
+- **Results Tracking**: Comprehensive scoring with risk stratification
+- **User Journey**: Clear pathways from assessment to professional consultation
+
 ## Architecture
 
 ### Framework & Stack

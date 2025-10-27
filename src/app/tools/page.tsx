@@ -42,25 +42,25 @@ const tools = [
   {
     name: 'BED Assessment',
     icon: Users,
-    href: '/mental-health-support#bed-assessment',
+    href: '/assessment/bed',
     description: 'Binge Eating Disorder screening questionnaire for clinical evaluation'
   },
   {
     name: 'ADHD Assessment',
     icon: Users,
-    href: '/mental-health-support#adhd-assessment',
+    href: '/assessment/adhd',
     description: 'ADHD screening tool to assess attention and hyperactivity symptoms'
   },
   {
     name: 'STOP-BANG Assessment',
     icon: Clock,
-    href: '/sleep-recovery-optimisation#stop-bang-assessment',
+    href: '/assessment/stop-bang',
     description: 'Sleep apnoea screening questionnaire for obstructive sleep apnoea risk'
   },
   {
     name: 'Epworth Sleepiness Scale',
     icon: Clock,
-    href: '/sleep-recovery-optimisation#epworth-assessment',
+    href: '/assessment/epworth',
     description: 'Measure daytime sleepiness and sleep disorder risk assessment'
   }
 ];
