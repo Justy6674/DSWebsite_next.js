@@ -12,8 +12,6 @@ import { WeightLossQuiz } from '@/components/WeightLossQuiz';
 import { BodyMetricsShowcase } from '@/components/ui/body-metrics-showcase';
 import { HeroSection } from '@/components/HeroSection';
 
-
-
 export default function HomePage() {
   return (
     <Layout>
@@ -204,7 +202,6 @@ export default function HomePage() {
           </a>
         </div>
       </OptimizedBackground>
-      </div>
     </Layout>
   );
 }
