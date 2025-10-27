@@ -7,30 +7,42 @@ const Calculator = dynamic(() => import('@/components/medical/Calculator'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Calculator',
-  description: 'Calculator page - Access and manage your content',
+  title: 'BMI & Health Metrics Calculator | Free Weight Loss Tools',
+  description: 'Calculate your BMI, ideal weight, and body composition. Free health calculator for weight loss planning and health assessment.',
+  keywords: 'BMI calculator, ideal weight calculator, body metrics calculator, health calculator, weight loss calculator',
   openGraph: {
-    title: 'Calculator',
-    description: 'Calculator page - Access and manage your content',
+    title: 'BMI & Health Metrics Calculator | Free Weight Loss Tools',
+    description: 'Calculate your BMI, ideal weight, and body composition. Free health calculator for weight loss planning and health assessment.',
     url: 'https://www.downscale.com.au/calculator',
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-services.jpg',
+        url: 'https://www.downscale.com.au/og-tools.jpg',
         width: 1200,
         height: 630,
-        alt: 'Calculator',
+        alt: 'BMI and Health Metrics Calculator',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Calculator',
-    description: 'Calculator page - Access and manage your content',
-    images: ['https://www.downscale.com.au/og-services.jpg'],
+    title: 'BMI & Health Metrics Calculator | Free Weight Loss Tools',
+    description: 'Calculate your BMI, ideal weight, and body composition. Free health calculator for weight loss planning.',
+    images: ['https://www.downscale.com.au/og-tools.jpg'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/calculator',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
