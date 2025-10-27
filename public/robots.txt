@@ -16,6 +16,10 @@ Disallow: /customer_authentication/
 Disallow: /search/suggest
 Disallow: /private/
 Disallow: /tmp/
+Disallow: /auth
+Disallow: /test-upload
+Disallow: /f/
+Disallow: /home/f/
 
 # Block specific query parameters
 Disallow: /*?utm_*
