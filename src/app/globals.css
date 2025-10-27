@@ -655,7 +655,8 @@ body {
   /* Optimized spacing for mobile elements */
   .hero-content > div:first-child {
     padding-top: 4vh !important;
-    padding-bottom: 1vh !important;
+    padding-bottom: 0vh !important;
+    margin-bottom: -2vh !important;
   }
 
   .hero-content > div:last-child {
