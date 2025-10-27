@@ -1,26 +1,10 @@
 "use client";
 
-import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
 import { useState } from 'react';
 import Link from "next/link";
 import { ArrowLeft, AlertTriangle, CheckCircle, Users } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: 'AMS Menopause Symptom Score Card - Greene Climacteric Scale | Downscale Weight Loss Clinic',
-  description: 'Official AMS Menopause Symptom Score Card using the validated Greene Climacteric Scale. Professional menopause symptom assessment for Australian women.',
-  keywords: 'AMS menopause assessment, Greene Climacteric Scale, menopause symptoms, perimenopause screening, Australasian Menopause Society, Australian healthcare',
-  alternates: {
-    canonical: 'https://www.downscale.com.au/assessment/menopause',
-  },
-  openGraph: {
-    title: 'AMS Menopause Symptom Score Card - Greene Climacteric Scale',
-    description: 'Professional menopause symptom assessment using the validated Greene Climacteric Scale from the Australasian Menopause Society.',
-    url: 'https://www.downscale.com.au/assessment/menopause',
-    type: 'website',
-  },
-};
 
 const menopauseQuestions = [
   // Psychological Impact (Items 1-11)

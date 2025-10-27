@@ -1,26 +1,10 @@
 "use client";
 
-import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
 import { useState } from 'react';
 import Link from "next/link";
 import { ArrowLeft, AlertTriangle, CheckCircle } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: 'ADHD Assessment - Adult ADHD Screening Tool | Downscale Weight Loss Clinic',
-  description: 'Professional Adult ADHD screening questionnaire. Clinical assessment tool for healthcare providers to evaluate attention deficit hyperactivity disorder symptoms.',
-  keywords: 'ADHD assessment, adult ADHD screening, attention deficit hyperactivity disorder, clinical evaluation, Australian healthcare',
-  alternates: {
-    canonical: 'https://www.downscale.com.au/assessment/adhd',
-  },
-  openGraph: {
-    title: 'ADHD Assessment - Adult ADHD Screening Tool',
-    description: 'Professional clinical assessment tool for evaluating adult ADHD symptoms and attention patterns.',
-    url: 'https://www.downscale.com.au/assessment/adhd',
-    type: 'website',
-  },
-};
 
 const adhdQuestions = [
   {

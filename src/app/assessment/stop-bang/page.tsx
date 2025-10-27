@@ -1,26 +1,10 @@
 "use client";
 
-import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
 import { useState } from 'react';
 import Link from "next/link";
 import { ArrowLeft, AlertTriangle, CheckCircle } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: 'STOP-BANG Assessment - Sleep Apnoea Screening | Downscale Weight Loss Clinic',
-  description: 'Professional STOP-BANG sleep apnoea screening questionnaire. Clinical assessment tool for evaluating obstructive sleep apnoea risk in Australian patients.',
-  keywords: 'STOP-BANG assessment, sleep apnoea screening, obstructive sleep apnoea, OSA evaluation, sleep disorder assessment, Australian healthcare',
-  alternates: {
-    canonical: 'https://www.downscale.com.au/assessment/stop-bang',
-  },
-  openGraph: {
-    title: 'STOP-BANG Assessment - Sleep Apnoea Screening',
-    description: 'Professional clinical assessment tool for evaluating obstructive sleep apnoea risk using the validated STOP-BANG questionnaire.',
-    url: 'https://www.downscale.com.au/assessment/stop-bang',
-    type: 'website',
-  },
-};
 
 const stopBangQuestions = [
   {

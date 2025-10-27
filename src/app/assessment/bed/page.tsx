@@ -1,26 +1,10 @@
 "use client";
 
-import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
 import { useState } from 'react';
 import Link from "next/link";
 import { ArrowLeft, AlertTriangle, CheckCircle } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: 'BED Assessment - Binge Eating Disorder Screening | Downscale Weight Loss Clinic',
-  description: 'Professional Binge Eating Disorder (BED) screening questionnaire. Clinical assessment tool for healthcare providers to evaluate binge eating patterns and symptoms.',
-  keywords: 'BED assessment, binge eating disorder, clinical screening, eating disorder evaluation, Australian healthcare',
-  alternates: {
-    canonical: 'https://www.downscale.com.au/assessment/bed',
-  },
-  openGraph: {
-    title: 'BED Assessment - Binge Eating Disorder Screening',
-    description: 'Professional clinical assessment tool for evaluating binge eating disorder symptoms and patterns.',
-    url: 'https://www.downscale.com.au/assessment/bed',
-    type: 'website',
-  },
-};
 
 const bedQuestions = [
   {

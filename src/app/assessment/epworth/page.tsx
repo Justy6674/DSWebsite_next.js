@@ -1,26 +1,10 @@
 "use client";
 
-import { Metadata } from 'next';
 import { Layout } from "@/components/layout/Layout";
 import { PageNavigation } from "@/components/navigation/PageNavigation";
 import { useState } from 'react';
 import Link from "next/link";
 import { ArrowLeft, AlertTriangle, CheckCircle } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: 'Epworth Sleepiness Scale - Daytime Sleepiness Assessment | Downscale Weight Loss Clinic',
-  description: 'Professional Epworth Sleepiness Scale assessment. Clinical tool for measuring daytime sleepiness and evaluating sleep disorder risk in Australian patients.',
-  keywords: 'Epworth Sleepiness Scale, daytime sleepiness assessment, sleep disorder screening, excessive daytime sleepiness, ESS evaluation, Australian healthcare',
-  alternates: {
-    canonical: 'https://www.downscale.com.au/assessment/epworth',
-  },
-  openGraph: {
-    title: 'Epworth Sleepiness Scale - Daytime Sleepiness Assessment',
-    description: 'Professional clinical assessment tool for measuring daytime sleepiness using the validated Epworth Sleepiness Scale.',
-    url: 'https://www.downscale.com.au/assessment/epworth',
-    type: 'website',
-  },
-};
 
 const epworthQuestions = [
   {
