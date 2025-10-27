@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.downscale.com.au';
   const currentDate = new Date().toISOString();
 
-  // Core pages with high priority
+  // Core pages with high priority - ALL 25 CORE PAGES
   const corePages = [
     {
       url: baseUrl,
@@ -22,12 +22,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/about`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/pricing`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
     {
@@ -43,13 +37,67 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/calculator`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/clinical-services`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/complaints`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/conditions`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/data-deletion`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/facts`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
+    {
       url: `${baseUrl}/faq`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/goal-setting-maintenance`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/how-it-works`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/locations`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/medical-weight-management`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
@@ -61,65 +109,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/locations`,
+      url: `${baseUrl}/meet-the-team`,
       lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/mental-health-support`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
-  ];
-
-  // Service pages
-  const servicePages = [
-    'medical-weight-management',
-    'nutrition-meal-planning',
-    'sleep-recovery-optimisation',
-    'movement-activity-programs',
-    'mental-health-support',
-    'goal-setting-maintenance',
-  ].map(service => ({
-    url: `${baseUrl}/${service}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  // Location pages - Australian cities
-  const locations = [
-    'sydney',
-    'melbourne',
-    'brisbane',
-    'perth',
-    'adelaide',
-    'canberra',
-    'hobart',
-    'darwin',
-    'gold-coast',
-    'sunshine-coast',
-    'newcastle',
-    'wollongong',
-    'geelong',
-    'townsville',
-    'cairns',
-    'toowoomba',
-    'ballarat',
-    'bendigo',
-    'albury-wodonga',
-    'launceston',
-    'mackay',
-    'rockhampton',
-    'bunbury',
-    'mandurah',
-    'wagga-wagga',
-    'alice-springs',
-  ].map(location => ({
-    url: `${baseUrl}/weight-loss-clinic-${location}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
-
-  // Legal and utility pages
-  const legalPages = [
+    {
+      url: `${baseUrl}/movement-activity-programs`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/nutrition-meal-planning`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/pricing`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
     {
       url: `${baseUrl}/privacy`,
       lastModified: currentDate,
@@ -127,32 +145,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.3,
     },
     {
+      url: `${baseUrl}/sleep-recovery-optimisation`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/terms`,
       lastModified: currentDate,
       changeFrequency: 'yearly' as const,
       priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/complaints`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/data-deletion`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
-  ];
-
-  // Tool pages
-  const toolPages = [
-    {
-      url: `${baseUrl}/calculator`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
     },
     {
       url: `${baseUrl}/tools`,
@@ -162,7 +164,50 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Assessment tools
+  // Location pages - ALL 34 Australian cities
+  const locations = [
+    'adelaide',
+    'albury-wodonga',
+    'alice-springs',
+    'ballarat',
+    'bendigo',
+    'brisbane',
+    'bunbury',
+    'cairns',
+    'canberra',
+    'central-coast',
+    'darwin',
+    'devonport',
+    'dubbo',
+    'geelong',
+    'gold-coast',
+    'hobart',
+    'kalgoorlie',
+    'launceston',
+    'mackay',
+    'mandurah',
+    'melbourne',
+    'mildura',
+    'mount-gambier',
+    'mount-isa',
+    'newcastle',
+    'perth',
+    'rockhampton',
+    'sunshine-coast',
+    'sydney',
+    'toowoomba',
+    'townsville',
+    'wagga-wagga',
+    'whyalla',
+    'wollongong',
+  ].map(location => ({
+    url: `${baseUrl}/weight-loss-clinic-${location}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  // Assessment tools - 5 tools
   const assessmentPages = [
     {
       url: `${baseUrl}/assessment/adhd`,
@@ -196,34 +241,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Additional info pages
-  const infoPages = [
-    {
-      url: `${baseUrl}/facts`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/conditions`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/meet-the-team`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/clinical-services`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-  ];
-
   // Fetch blog posts from Supabase
   let blogPages: MetadataRoute.Sitemap = [];
   try {
@@ -249,13 +266,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   return [
-    ...corePages,
-    ...servicePages,
-    ...locations,
-    ...toolPages,
-    ...assessmentPages,
-    ...infoPages,
-    ...legalPages,
-    ...blogPages,
+    ...corePages,        // 25 core pages (includes all services, tools, legal, info)
+    ...locations,        // 34 location pages
+    ...assessmentPages,  // 5 assessment tools
+    ...blogPages,        // ~30 dynamic blog posts
   ];
 }
