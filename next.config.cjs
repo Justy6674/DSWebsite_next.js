@@ -57,6 +57,25 @@ const nextConfig = {
           }
         ],
       },
+      // Cache static pages for better performance
+      {
+        source: '/blog/:slug',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=3600, stale-while-revalidate=86400'
+          },
+        ],
+      },
+      {
+        source: '/weight-loss-clinic-:location',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=86400, stale-while-revalidate=604800'
+          },
+        ],
+      },
     ];
   },
   // TEMPORARILY DISABLE CSP TO TEST IF IT'S BLOCKING REACT

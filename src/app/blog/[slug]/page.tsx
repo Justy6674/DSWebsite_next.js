@@ -12,6 +12,33 @@ interface BlogPostPageProps {
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pooebqhsshfafkhvccrl.supabase.co';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvb2VicWhzc2hmYWZraHZjY3JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyMjA4MzYsImV4cCI6MjA2Nzc5NjgzNn0.HfHAScs024qp9rsm289FzwQ7vr22z_uk48VS9jlxjE8';
 
+// Generate static paths for all blog posts at build time
+export async function generateStaticParams() {
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: posts } = await supabase
+      .from('blog_posts')
+      .select('slug')
+      .eq('published', true)
+      .not('slug', 'is', null);
+
+    if (posts && posts.length > 0) {
+      console.log(`[generateStaticParams] Pre-rendering ${posts.length} blog posts`);
+      return posts.map((post) => ({
+        slug: post.slug,
+      }));
+    }
+  } catch (error) {
+    console.error('Error fetching blog posts for static params:', error);
+  }
+
+  // Return empty array to allow dynamic generation as fallback
+  return [];
+}
+
+// Enable ISR with 1 hour revalidation
+export const revalidate = 3600;
+
 // Enhanced metadata generation with proper SEO for blog posts
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = params;
