@@ -637,6 +637,7 @@ body {
   .hero-section {
     height: 100vh;
     min-height: 100vh;
+    background-position: center 60% !important;
   }
 
   .hero-content {
