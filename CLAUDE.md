@@ -264,3 +264,39 @@ Run `npm run seo:audit` before major releases to ensure:
 **URGENT**: These are not minor bugs - they are core functionality failures affecting the entire 79+ page website.
 
 This codebase prioritizes Australian healthcare compliance, public website SEO performance, role-based portal functionality, and professional medical presentation while maintaining modern web development practices.
+- DEDICATED PAGES is the optimal approach
+
+  Why Dedicated Pages Win:
+
+  1. SEO Crawlability: Search engines can index assessment content
+  2. Direct URLs: Each tool gets shareable, bookmarkable links
+  3. Consistency: Matches your existing Body Metrics Calculator pattern
+  4. Content Value: Assessment pages become valuable landing pages
+  5. Analytics: Track individual tool usage and conversion
+
+  Recommended URL Structure:
+
+  /assessment/bed              # BED Assessment
+  /assessment/adhd             # ADHD Assessment
+  /assessment/stop-bang        # STOP-BANG Assessment
+  /assessment/epworth          # Epworth Sleepiness Scale
+
+  Implementation Benefits:
+
+  - SEO: Each assessment becomes a landing page for specific searches
+  - User Experience: Consistent with calculator pattern
+  - Medical Compliance: Full pages allow proper disclaimers and context
+  - Analytics: Individual page tracking for each assessment
+  - Sharing: Direct links for healthcare providers to share with patients
+
+  Update Strategy:
+
+  1. Create dedicated assessment pages under /assessment/ route
+  2. Keep current service page anchors as secondary navigation
+  3. Update tools page to link to dedicated assessment pages
+  4. Add breadcrumbs and proper metadata for each assessment
+
+  This approach gives you the best of both worlds - SEO value, user
+  consistency, and medical compliance while maintaining the existing service
+   page structure as supplementary navigation.
+  Remeber the tools process as will be adding more - and you need to add in a standardised fashion
