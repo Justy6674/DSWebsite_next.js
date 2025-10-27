@@ -545,22 +545,24 @@ export const ConditionsWeTreat: React.FC<ConditionsWeTreatProps> = ({ compact = 
                 <span className="text-xs text-cream/70">Stigma-free, patient-centred care</span>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-              <Link
-                href="/clinical-services"
-                className="mobile-button bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors inline-flex items-center justify-center gap-2"
-              >
-                View Full Conditions Page
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/medical-weight-management"
-                className="mobile-button bg-transparent border border-brown text-cream hover:bg-brown/10 transition-colors inline-flex items-center justify-center gap-2"
-              >
-                Our Treatment Approach
-                <Stethoscope className="h-4 w-4" />
-              </Link>
-            </div>
+            {compact && (
+              <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+                <Link
+                  href="/conditions"
+                  className="mobile-button bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  View Full Conditions Page
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/medical-weight-management"
+                  className="mobile-button bg-transparent border border-brown text-cream hover:bg-brown/10 transition-colors inline-flex items-center justify-center gap-2"
+                >
+                  Our Treatment Approach
+                  <Stethoscope className="h-4 w-4" />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
