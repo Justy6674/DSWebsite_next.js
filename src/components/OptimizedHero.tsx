@@ -97,8 +97,8 @@ export function OptimizedHero() {
               <span className="text-xs sm:text-sm font-normal text-center opacity-95">Weight-Loss 15 Minutes</span>
             </a>
             
-            <a 
-              href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
+            <a
+              href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-56 min-h-[64px] sm:min-h-[80px] button-coral-accent inline-flex flex-col items-center justify-center text-white text-base sm:text-lg font-bold px-4 py-3 sm:px-5 sm:py-4 rounded-xl shadow-lg md:transition-all md:duration-300 md:transform md:hover:scale-105 md:hover:shadow-xl touch-target"
