@@ -4,6 +4,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100dvh; /* Dynamic viewport height for mobile */
+  max-height: 100dvh; /* Prevent overflow on mobile */
   width: 100vw;
   position: relative;
   overflow: hidden;
@@ -95,7 +96,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; /* Reduced margin for mobile */
   font-size: clamp(0.75rem, 3vw, 1rem);
   font-weight: 600;
   color: #f7f2d3;
@@ -110,7 +111,7 @@
 .bookingGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem;
+  gap: 0.5rem; /* Reduced gap for mobile */
   max-width: 90vw;
   margin: 0 auto;
 }
@@ -120,8 +121,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 4rem;
-  padding: 1rem;
+  min-height: 3.5rem; /* Reduced height for mobile */
+  padding: 0.75rem; /* Reduced padding for mobile */
   border-radius: 1rem;
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
