@@ -288,3 +288,79 @@ npm run lint && npm run type-check && npm run seo:check
 
 This codebase prioritizes Australian healthcare compliance, public website SEO performance, role-based portal functionality, and professional medical presentation while maintaining modern web development practices.
 - never patch and fix and guess. if something is broken, assess, look using playwright, consider, then amend, then push to git, then look using playwright, consider if your fix worked, if it didnt - repeat the process until the task is perfect. you have been guessing and patching and delivering a shit broken product and Justin is not happy with this
+- Claude you are fucking up my site - you need to optise your building you suggest -  This Morning's Hero Section Disaster Review
+
+  What I Did Wrong:
+  1. Hack-first approach: Used CSS transforms (-4vh → -8vh → -25vh → -35vh)
+  instead of proper responsive design
+  2. Background position chaos: (60% → 20% → 45%) - completely random
+  adjustments
+  3. Global CSS overrides: Modified globals.css instead of component-scoped
+  styles
+  4. Desktop-first thinking: Treated mobile as an afterthought requiring
+  hacks
+  5. Poor testing: Used localhost instead of production URL testing
+  6. Text overlap disaster: -35vh transform pushed content under navigation
+  header
+
+  The Fundamental Problem: I was treating symptoms (positioning) instead of
+  the root cause (architecture).
+
+  ---
+  BEST PRACTICE NEXT.JS HERO SECTION
+
+  1. Mobile-First Architecture
+
+  // Component structure
+  <section className="hero-grid">
+    <header>Navigation</header>
+    <main>Content</main>
+    <footer>Buttons</footer>
+  </section>
+
+  2. CSS Grid Layout
+
+  .hero-grid {
+    display: grid;
+    grid-template-rows: min-content 1fr min-content;
+    min-height: 100dvh; /* Dynamic viewport height */
+    place-items: center;
+    gap: 1rem;
+  }
+
+  3. Dynamic Viewport Units
+
+  - Use 100dvh (dynamic viewport height) not 100vh
+  - Handles mobile browser UI automatically
+  - No need for transform hacks
+
+  4. Container Queries (Modern)
+
+  @container (max-width: 768px) {
+    .hero-content { /* responsive behavior */ }
+  }
+
+  5. Tailwind Utilities
+
+  <div className="h-screen grid grid-rows-[auto_1fr_auto] place-items-center
+   gap-4">
+
+  6. Next.js Image Component
+
+  <Image
+    src="/hero-family-sunset.webp"
+    fill
+    className="object-cover object-center"
+    priority
+  />
+
+  7. Production Testing From Start
+
+  - Test on actual devices
+  - Use production URL
+  - Real mobile viewport dimensions
+
+  The Right Way: Mobile-first, semantic HTML, CSS Grid, dynamic viewport
+  units, component-scoped styles, and proper testing methodology.
+
+ you must MUST ultrathink design and employ best practice - check next.js guides, and always consider google crawling and SEO

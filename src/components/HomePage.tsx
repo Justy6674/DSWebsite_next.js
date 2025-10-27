@@ -10,6 +10,7 @@ import { ConditionsWeTreat } from "@/components/ConditionsWeTreat";
 // Hero images now served from /public/ for instant CDN loading
 import { WeightLossQuiz } from '@/components/WeightLossQuiz';
 import { BodyMetricsShowcase } from '@/components/ui/body-metrics-showcase';
+import { HeroSection } from '@/components/HeroSection';
 
 
 
@@ -32,115 +33,8 @@ export default function HomePage() {
           <li>Prescription medications available when clinically appropriate</li>
         </ul>
       </div>
-      <div className="min-h-screen bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900">
-      {/* Hero Section - WebP optimized for <1s mobile LCP */}
-      <div
-        className="relative hero-section flex flex-col justify-between overflow-visible"
-        style={{
-          backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/hero-family-sunset.webp)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center 80%',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="hero-content flex-1 flex flex-col justify-between py-8 sm:py-12 px-4 sm:px-6 min-h-screen">
-          {/* DOWNSCALE Brand Header - Top */}
-          <div className="pt-4 sm:pt-8 pb-4 sm:pb-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-center leading-none tracking-tight" style={{
-              color: '#f7f2d3',
-              textShadow: '0 4px 20px rgba(247, 242, 211, 0.4), 0 0 40px rgba(247, 242, 211, 0.2)',
-              filter: 'drop-shadow(0 2px 10px rgba(247, 242, 211, 0.3))'
-            }}>
-              DOWNSCALE
-            </h1>
-          </div>
-          
-          {/* Main Heading - Center */}
-          <div className="hero-text-container flex-1 flex items-center justify-center py-6 sm:py-8">
-            <div className="text-center max-w-4xl px-2">
-              <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-5 leading-tight" style={{ 
-                color: '#f7f2d3', 
-                textShadow: '3px 3px 6px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8)' 
-              }}>
-                <div>Online Weight Loss Clinic</div>
-                <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold py-1 sm:py-2 my-1 leading-none">&</div>
-                <div>Weight Maintenance Clinic</div>
-              </h2>
-              
-              <p className="text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white mb-2 sm:mb-3 drop-shadow-lg font-light leading-relaxed" style={{
-                textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)'
-              }}>
-                Evidence-Based Medical Weight Loss with Justin Black
-              </p>
-              
-              <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white" style={{
-                textShadow: '2px 2px 4px rgba(0,0,0,0.9)'
-              }}>
-                From Only $45 Per Consultation — Medicare Rebates Processed Instantly for Eligible Patients
-              </p>
-            </div>
-          </div>
-          
-          {/* Booking Buttons - Bottom */}
-          <div className="pb-8 sm:pb-12 w-full max-w-7xl mx-auto">
-            {/* Clear booking call-to-action */}
-            <div className="mb-4 sm:mb-6 text-center px-4">
-              <p 
-                className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold inline-flex items-center justify-center gap-2"
-                style={{ 
-                  color: '#f7f2d3', 
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)' 
-                }}
-              >
-                <span className="text-sm sm:text-base md:text-lg" aria-hidden="true">👇</span>
-                <span>Choose One to Book Your Appointment</span>
-                <span className="text-sm sm:text-base md:text-lg" aria-hidden="true">👇</span>
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 justify-center items-stretch px-2 sm:px-4 md:px-6 w-full">
-              <a 
-                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto sm:flex-1 min-h-[60px] sm:min-h-[80px] md:min-h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-[#f5deb3]/85 to-[#f7e7c5]/85 backdrop-blur-lg md:hover:from-[#f7e7c5]/90 md:hover:to-[#f5deb3]/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105 touch-target"
-                style={{ minWidth: '160px', maxWidth: '100%' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(139, 111, 71, 0.7), 0 0 20px rgba(139, 111, 71, 0.5)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)'}
-              >
-                <span className="text-center leading-tight mb-1 text-xs sm:text-sm md:text-base lg:text-lg font-black underline text-[#5a4a35] drop-shadow-lg">💊 Book Initial Consultation</span>
-                <span className="text-[10px] sm:text-xs font-bold text-center text-[#6b5840] drop-shadow-md whitespace-nowrap">Weight Loss 30 Min • From $45</span>
-              </a>
-              
-              <a 
-                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto sm:flex-1 min-h-[60px] sm:min-h-[80px] md:min-h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-[#8B6F47]/85 to-[#9d8157]/85 backdrop-blur-lg md:hover:from-[#9d8157]/90 md:hover:to-[#8B6F47]/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105 touch-target"
-                style={{ minWidth: '160px', maxWidth: '100%' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(247, 242, 211, 0.6), 0 0 20px rgba(247, 242, 211, 0.4)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)'}
-              >
-                <span className="text-center leading-tight mb-1 text-xs sm:text-sm md:text-base lg:text-lg font-black underline text-[#f5deb3] drop-shadow-lg">✓ Book Review Consultation</span>
-                <span className="text-[10px] sm:text-xs font-bold text-center text-[#f7e7c5] drop-shadow-md whitespace-nowrap">Weight Loss 15 Min • From $45</span>
-              </a>
-              
-              <a
-                href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto sm:flex-1 min-h-[60px] sm:min-h-[80px] md:min-h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-slate-700/85 to-slate-800/85 backdrop-blur-lg md:hover:from-slate-700/90 md:hover:to-slate-600/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105 touch-target"
-                style={{ minWidth: '160px', maxWidth: '100%' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(139, 111, 71, 0.5)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)'}
-              >
-                <span className="text-center leading-tight mb-1 text-xs sm:text-sm md:text-base lg:text-lg font-black underline text-white drop-shadow-lg">📋 Book General Appointment</span>
-                <span className="text-[10px] sm:text-xs font-bold text-center text-white/90 drop-shadow-md whitespace-nowrap">General Practice 10 Minutes</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Modern Mobile-First Hero Section */}
+      <HeroSection />
 
       {/* Body Metrics Calculator Showcase */}
       <BodyMetricsShowcase />

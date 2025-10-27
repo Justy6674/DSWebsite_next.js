@@ -1,0 +1,258 @@
+/* Mobile-First Hero Section - Modern CSS Grid Layout */
+
+.heroGrid {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Brand Header - Top */
+.heroBrand {
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.brandTitle {
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 900;
+  color: #f7f2d3;
+  text-align: center;
+  letter-spacing: -0.02em;
+  text-shadow:
+    0 4px 20px rgba(247, 242, 211, 0.4),
+    0 0 40px rgba(247, 242, 211, 0.2);
+  filter: drop-shadow(0 2px 10px rgba(247, 242, 211, 0.3));
+  margin: 0;
+}
+
+/* Main Content - Center */
+.heroContent {
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.contentWrapper {
+  text-align: center;
+  max-width: 90vw;
+}
+
+.heroHeading {
+  font-size: clamp(1.25rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: #f7f2d3;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.heroHeading span {
+  display: block;
+}
+
+.ampersand {
+  font-size: clamp(1rem, 4vw, 2rem);
+  margin: 0.25rem 0;
+}
+
+.heroSubtitle {
+  font-size: clamp(0.875rem, 3.5vw, 1.25rem);
+  color: white;
+  font-weight: 300;
+  margin: 0 0 0.75rem 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8);
+  line-height: 1.4;
+}
+
+.heroPrice {
+  font-size: clamp(0.75rem, 3vw, 1rem);
+  color: white;
+  font-weight: 400;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+  line-height: 1.3;
+}
+
+/* Booking Footer - Bottom */
+.heroFooter {
+  grid-row: 3;
+  padding: 1rem;
+  z-index: 10;
+}
+
+.ctaText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: clamp(0.75rem, 3vw, 1rem);
+  font-weight: 600;
+  color: #f7f2d3;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.ctaIcon {
+  font-size: clamp(0.875rem, 3.5vw, 1.125rem);
+}
+
+/* Mobile-First Booking Grid */
+.bookingGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.bookingBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 4rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.bookingBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.btnTitle {
+  font-size: clamp(0.875rem, 3.5vw, 1.125rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  line-height: 1.2;
+}
+
+.btnSubtitle {
+  font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* Button Variants */
+.bookingBtnInitial {
+  background: linear-gradient(135deg, rgba(245, 222, 179, 0.85), rgba(247, 231, 197, 0.85));
+}
+
+.bookingBtnInitial .btnTitle {
+  color: #5a4a35;
+}
+
+.bookingBtnInitial .btnSubtitle {
+  color: #6b5840;
+}
+
+.bookingBtnReview {
+  background: linear-gradient(135deg, rgba(139, 111, 71, 0.85), rgba(157, 129, 87, 0.85));
+}
+
+.bookingBtnReview .btnTitle,
+.bookingBtnReview .btnSubtitle {
+  color: #f5deb3;
+}
+
+.bookingBtnGeneral {
+  background: linear-gradient(135deg, rgba(71, 85, 105, 0.85), rgba(30, 41, 59, 0.85));
+}
+
+.bookingBtnGeneral .btnTitle,
+.bookingBtnGeneral .btnSubtitle {
+  color: white;
+}
+
+/* Tablet Responsive */
+@media (min-width: 768px) {
+  .heroBrand {
+    padding: 2rem;
+  }
+
+  .heroContent {
+    padding: 2rem;
+  }
+
+  .contentWrapper {
+    max-width: 80vw;
+  }
+
+  .heroFooter {
+    padding: 2rem;
+  }
+
+  .bookingGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 80vw;
+  }
+
+  .bookingBtn {
+    min-height: 5rem;
+    padding: 1.5rem;
+  }
+}
+
+/* Desktop Responsive */
+@media (min-width: 1024px) {
+  .heroBrand {
+    padding: 3rem;
+  }
+
+  .heroContent {
+    padding: 3rem;
+  }
+
+  .contentWrapper {
+    max-width: 70vw;
+  }
+
+  .heroFooter {
+    padding: 3rem;
+  }
+
+  .bookingGrid {
+    max-width: 70vw;
+    gap: 1.5rem;
+  }
+
+  .bookingBtn {
+    min-height: 6rem;
+    padding: 2rem;
+  }
+
+  .bookingBtn:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1440px) {
+  .contentWrapper {
+    max-width: 60vw;
+  }
+
+  .bookingGrid {
+    max-width: 60vw;
+  }
+}
