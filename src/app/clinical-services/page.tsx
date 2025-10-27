@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-services.webp',
+        url: 'https://www.downscale.com.au/og-services.jpg',
         width: 1200,
         height: 630,
         alt: 'Clinical Services | Medical Conditions We Treat | Downscale Weight Loss Clinic',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Clinical Services | Medical Conditions We Treat | Downscale Weight Loss Clinic',
     description: 'Professional medical weight management for 12+ conditions including obesity, PCOS, diabetes, metabolic syndrome, depression, anxiety, fatty liver, menopause, ADHD, sleep apnoea, chronic pain, hypertension.',
-    images: ['https://www.downscale.com.au/og-services.webp'],
+    images: ['https://www.downscale.com.au/og-services.jpg'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/clinical-services',

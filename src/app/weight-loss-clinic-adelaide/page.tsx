@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-locations.webp',
+        url: 'https://www.downscale.com.au/og-locations.jpg',
         width: 1200,
         height: 630,
         alt: 'Downscale Weight Loss Clinic Adelaide - Professional telehealth weight management',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Weight Loss Clinic Adelaide | Professional Telehealth Medicare',
     description: 'Professional telehealth weight loss clinic serving Adelaide, SA. Consultations from $45 with instant Medicare rebate processing.',
-    images: ['https://www.downscale.com.au/og-locations.webp'],
+    images: ['https://www.downscale.com.au/og-locations.jpg'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/weight-loss-clinic-adelaide',

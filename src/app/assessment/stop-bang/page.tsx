@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     siteName: 'Downscale Weight Loss Clinic',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-assessment.webp?v=2',
-        secureUrl: 'https://www.downscale.com.au/og-assessment.webp?v=2',
+        url: 'https://www.downscale.com.au/og-assessment.jpg?v=2',
+        secureUrl: 'https://www.downscale.com.au/og-assessment.jpg?v=2',
         width: 1200,
         height: 630,
         alt: 'STOP-BANG Sleep Apnoea Assessment - Sleep Apnoea Screening',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: 'Take the STOP-BANG sleep apnoea screening questionnaire. Professional obstructive sleep apnoea risk assessment.',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-assessment.webp?v=2',
+        url: 'https://www.downscale.com.au/og-assessment.jpg?v=2',
         width: 1200,
         height: 630,
         alt: 'STOP-BANG Sleep Apnoea Assessment - Sleep Apnoea Screening',

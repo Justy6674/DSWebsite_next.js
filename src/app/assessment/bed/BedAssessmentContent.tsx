@@ -137,7 +137,7 @@ export default function BedAssessmentContent() {
       <div
         className="relative min-h-[50vh] flex items-center justify-center text-center text-white"
         style={{
-          backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/medical-hero.webp)',
+          backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/medical-hero.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'

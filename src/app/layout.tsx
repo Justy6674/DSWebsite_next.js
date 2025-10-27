@@ -55,8 +55,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Preload critical hero image for instant LCP */}
-        <link rel="preload" as="image" href="/hero-family-sunset.webp" type="image/webp" />
-        <link rel="preload" as="image" href="/hero-family-sunset-mobile.webp" type="image/webp" media="(max-width: 768px)" />
+        <link rel="preload" as="image" href="/hero-family-sunset.jpg" type="image/webp" />
+        <link rel="preload" as="image" href="/hero-family-sunset-mobile.jpg" type="image/webp" media="(max-width: 768px)" />
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />

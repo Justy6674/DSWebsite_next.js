@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     siteName: 'Downscale Weight Loss Clinic',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-assessment.webp?v=2',
-        secureUrl: 'https://www.downscale.com.au/og-assessment.webp?v=2',
+        url: 'https://www.downscale.com.au/og-assessment.jpg?v=2',
+        secureUrl: 'https://www.downscale.com.au/og-assessment.jpg?v=2',
         width: 1200,
         height: 630,
         alt: 'Epworth Sleepiness Scale Assessment - Sleep Disorder Screening',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     description: 'Take the Epworth Sleepiness Scale assessment. Professional sleep disorder screening tool to measure daytime sleepiness.',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-assessment.webp?v=2',
+        url: 'https://www.downscale.com.au/og-assessment.jpg?v=2',
         width: 1200,
         height: 630,
         alt: 'Epworth Sleepiness Scale Assessment - Sleep Disorder Screening',

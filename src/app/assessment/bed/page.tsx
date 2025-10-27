@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-assessment.webp',
+        url: 'https://www.downscale.com.au/og-assessment.jpg',
         width: 1200,
         height: 630,
         alt: 'BED Assessment - Binge Eating Disorder Screening',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'BED Assessment | Binge Eating Disorder Screening',
     description: 'Professional Binge Eating Disorder (BED) screening questionnaire. Clinical assessment tool to evaluate eating patterns and behaviors.',
-    images: ['https://www.downscale.com.au/og-assessment.webp'],
+    images: ['https://www.downscale.com.au/og-assessment.jpg'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/assessment/bed',

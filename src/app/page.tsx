@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: 'https://www.downscale.com.au',
     images: [
       {
-        url: 'https://www.downscale.com.au/hero-family-sunset.webp',
+        url: 'https://www.downscale.com.au/hero-family-sunset.jpg',
         width: 1200,
         height: 800,
         alt: 'Downscale Weight Loss Clinic - Australian telehealth weight loss and weight maintenance clinic with Justin Black',
