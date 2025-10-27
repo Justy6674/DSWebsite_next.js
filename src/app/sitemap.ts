@@ -83,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // Location pages - Australian cities
+  // Location pages - Australian cities (all 34 locations)
   const locations = [
     'sydney',
     'melbourne',
@@ -111,6 +111,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'mandurah',
     'wagga-wagga',
     'alice-springs',
+    'central-coast',
+    'devonport',
+    'dubbo',
+    'kalgoorlie',
+    'mildura',
+    'mount-gambier',
+    'mount-isa',
+    'whyalla',
   ].map(location => ({
     url: `${baseUrl}/weight-loss-clinic-${location}`,
     lastModified: currentDate,
