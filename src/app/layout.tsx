@@ -62,6 +62,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* CRITICAL: Mobile viewport meta tag */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         {/* Preload critical hero image for instant LCP */}
         <link rel="preload" as="image" href="/hero-family-sunset.webp" type="image/webp" />
         <link rel="preload" as="image" href="/hero-family-sunset-mobile.webp" type="image/webp" media="(max-width: 768px)" />

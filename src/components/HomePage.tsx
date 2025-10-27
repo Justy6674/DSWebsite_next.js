@@ -46,7 +46,7 @@ export default function HomePage() {
         <div className="flex-1 flex flex-col justify-between py-8 sm:py-12 px-4 sm:px-6 min-h-screen">
           {/* DOWNSCALE Brand Header - Top */}
           <div className="pt-4 sm:pt-8 pb-4 sm:pb-6">
-            <h1 className="text-[3rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] font-black text-center leading-none tracking-tight" style={{
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-center leading-none tracking-tight" style={{
               color: '#f7f2d3',
               textShadow: '0 4px 20px rgba(247, 242, 211, 0.4), 0 0 40px rgba(247, 242, 211, 0.2)',
               filter: 'drop-shadow(0 2px 10px rgba(247, 242, 211, 0.3))'
@@ -58,22 +58,22 @@ export default function HomePage() {
           {/* Main Heading - Center */}
           <div className="flex-1 flex items-center justify-center py-6 sm:py-8">
             <div className="text-center max-w-4xl px-2">
-              <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 leading-tight" style={{ 
+              <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-5 leading-tight" style={{ 
                 color: '#f7f2d3', 
                 textShadow: '3px 3px 6px rgba(0,0,0,0.9), 1px 1px 3px rgba(0,0,0,0.8)' 
               }}>
                 <div>Online Weight Loss Clinic</div>
-                <div className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold py-1 sm:py-2 my-1 leading-none">&</div>
+                <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold py-1 sm:py-2 my-1 leading-none">&</div>
                 <div>Weight Maintenance Clinic</div>
               </h2>
               
-              <p className="text-sm sm:text-lg md:text-xl lg:text-2xl text-white mb-2 sm:mb-3 drop-shadow-lg font-light leading-relaxed" style={{
+              <p className="text-xs sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white mb-2 sm:mb-3 drop-shadow-lg font-light leading-relaxed" style={{
                 textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)'
               }}>
                 Evidence-Based Medical Weight Loss with Justin Black
               </p>
               
-              <p className="text-xs sm:text-base md:text-lg lg:text-xl text-white" style={{
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white" style={{
                 textShadow: '2px 2px 4px rgba(0,0,0,0.9)'
               }}>
                 From Only $45 Per Consultation — Medicare Rebates Processed Instantly for Eligible Patients
@@ -86,29 +86,29 @@ export default function HomePage() {
             {/* Clear booking call-to-action */}
             <div className="mb-4 sm:mb-6 text-center px-4">
               <p 
-                className="text-sm sm:text-base md:text-lg font-semibold inline-flex items-center justify-center gap-2"
+                className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold inline-flex items-center justify-center gap-2"
                 style={{ 
                   color: '#f7f2d3', 
                   textShadow: '2px 2px 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8)' 
                 }}
               >
-                <span className="text-base sm:text-lg md:text-xl" aria-hidden="true">👇</span>
+                <span className="text-sm sm:text-base md:text-lg" aria-hidden="true">👇</span>
                 <span>Choose One to Book Your Appointment</span>
-                <span className="text-base sm:text-lg md:text-xl" aria-hidden="true">👇</span>
+                <span className="text-sm sm:text-base md:text-lg" aria-hidden="true">👇</span>
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch px-2 sm:px-4 md:px-6 w-full">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 justify-center items-stretch px-2 sm:px-4 md:px-6 w-full">
               <a 
                 href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto sm:flex-1 h-[60px] sm:h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-[#f5deb3]/85 to-[#f7e7c5]/85 backdrop-blur-lg md:hover:from-[#f7e7c5]/90 md:hover:to-[#f5deb3]/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105"
+                className="w-full sm:w-auto sm:flex-1 min-h-[60px] sm:min-h-[80px] md:min-h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-[#f5deb3]/85 to-[#f7e7c5]/85 backdrop-blur-lg md:hover:from-[#f7e7c5]/90 md:hover:to-[#f5deb3]/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105 touch-target"
                 style={{ minWidth: '160px', maxWidth: '100%' }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(139, 111, 71, 0.7), 0 0 20px rgba(139, 111, 71, 0.5)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)'}
               >
-                <span className="text-center leading-tight mb-1 text-xs sm:text-base md:text-lg lg:text-xl font-black underline text-[#5a4a35] drop-shadow-lg">💊 Book Initial Consultation</span>
+                <span className="text-center leading-tight mb-1 text-xs sm:text-sm md:text-base lg:text-lg font-black underline text-[#5a4a35] drop-shadow-lg">💊 Book Initial Consultation</span>
                 <span className="text-[10px] sm:text-xs font-bold text-center text-[#6b5840] drop-shadow-md whitespace-nowrap">Weight Loss 30 Min • From $45</span>
               </a>
               
@@ -116,12 +116,12 @@ export default function HomePage() {
                 href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto sm:flex-1 h-[60px] sm:h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-[#8B6F47]/85 to-[#9d8157]/85 backdrop-blur-lg md:hover:from-[#9d8157]/90 md:hover:to-[#8B6F47]/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105"
+                className="w-full sm:w-auto sm:flex-1 min-h-[60px] sm:min-h-[80px] md:min-h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-[#8B6F47]/85 to-[#9d8157]/85 backdrop-blur-lg md:hover:from-[#9d8157]/90 md:hover:to-[#8B6F47]/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105 touch-target"
                 style={{ minWidth: '160px', maxWidth: '100%' }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(247, 242, 211, 0.6), 0 0 20px rgba(247, 242, 211, 0.4)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)'}
               >
-                <span className="text-center leading-tight mb-1 text-xs sm:text-base md:text-lg lg:text-xl font-black underline text-[#f5deb3] drop-shadow-lg">✓ Book Review Consultation</span>
+                <span className="text-center leading-tight mb-1 text-xs sm:text-sm md:text-base lg:text-lg font-black underline text-[#f5deb3] drop-shadow-lg">✓ Book Review Consultation</span>
                 <span className="text-[10px] sm:text-xs font-bold text-center text-[#f7e7c5] drop-shadow-md whitespace-nowrap">Weight Loss 15 Min • From $45</span>
               </a>
               
@@ -129,12 +129,12 @@ export default function HomePage() {
                 href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto sm:flex-1 h-[60px] sm:h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-slate-700/85 to-slate-800/85 backdrop-blur-lg md:hover:from-slate-700/90 md:hover:to-slate-600/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105"
+                className="w-full sm:w-auto sm:flex-1 min-h-[60px] sm:min-h-[80px] md:min-h-[100px] flex flex-col items-center justify-center bg-gradient-to-br from-slate-700/85 to-slate-800/85 backdrop-blur-lg md:hover:from-slate-700/90 md:hover:to-slate-600/90 border border-white/20 px-3 sm:px-4 md:px-6 py-3 sm:py-4 rounded-2xl shadow-2xl md:transition-all md:duration-300 md:transform md:hover:scale-105 touch-target"
                 style={{ minWidth: '160px', maxWidth: '100%' }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 24px rgba(139, 111, 71, 0.5)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)'}
               >
-                <span className="text-center leading-tight mb-1 text-xs sm:text-base md:text-lg lg:text-xl font-black underline text-white drop-shadow-lg">📋 Book General Appointment</span>
+                <span className="text-center leading-tight mb-1 text-xs sm:text-sm md:text-base lg:text-lg font-black underline text-white drop-shadow-lg">📋 Book General Appointment</span>
                 <span className="text-[10px] sm:text-xs font-bold text-center text-white/90 drop-shadow-md whitespace-nowrap">General Practice 10 Minutes</span>
               </a>
             </div>
@@ -160,18 +160,18 @@ export default function HomePage() {
           }}></div>
         </div>
         <div className="mobile-container">
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="mb-4 sm:mb-6">Our Services</h2>
-            <p className="mobile-text text-blue-100 max-w-3xl mx-auto">
+          <div className="text-center mb-6 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">Our Services</h2>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-blue-100 max-w-3xl mx-auto">
               Justin has an amazing background - evidence based complete care:
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-7xl mx-auto">
             
-            <a href="/medical-weight-management" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Weight Loss Medication & Medical Management services">
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Weight Loss Medication & Medical Management</h3>
-              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Medical treatment as indicated. Evidence-based weight management assessment and support. Individual results may vary.</p>
+            <a href="/medical-weight-management" className="bg-slate-800/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 md:p-6 border border-slate-700/20 hover:bg-slate-700/95 transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Weight Loss Medication & Medical Management services">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-[#b68a71] pl-3 transition-all duration-300 text-white">Weight Loss Medication & Medical Management</h3>
+              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-xs sm:text-sm md:text-base">Medical treatment as indicated. Evidence-based weight management assessment and support. Individual results may vary.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Professional clinical assessment</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Comprehensive health evaluation</li>
@@ -181,9 +181,9 @@ export default function HomePage() {
               <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
             </a>
 
-            <a href="/nutrition-meal-planning" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Nutrition Optimisation services">
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Nutrition Optimisation</h3>
-              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Practical nutrition for busy lives - from meal prep to fast food choices and athletic performance.</p>
+            <a href="/nutrition-meal-planning" className="bg-slate-800/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 md:p-6 border border-slate-700/20 hover:bg-slate-700/95 transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Nutrition Optimisation services">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-[#b68a71] pl-3 transition-all duration-300 text-white">Nutrition Optimisation</h3>
+              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-xs sm:text-sm md:text-base">Practical nutrition for busy lives - from meal prep to fast food choices and athletic performance.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Busy lifestyle meal planning</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Protein optimisation strategies</li>
@@ -192,9 +192,9 @@ export default function HomePage() {
               <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
             </a>
 
-            <a href="/movement-activity-programs" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Activity & Muscle Building services">
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Activity & Muscle Building</h3>
-              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Exercise programs and muscle building strategies tailored to your fitness level and goals.</p>
+            <a href="/movement-activity-programs" className="bg-slate-800/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 md:p-6 border border-slate-700/20 hover:bg-slate-700/95 transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Activity & Muscle Building services">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-[#b68a71] pl-3 transition-all duration-300 text-white">Activity & Muscle Building</h3>
+              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-xs sm:text-sm md:text-base">Exercise programs and muscle building strategies tailored to your fitness level and goals.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Personalised exercise plans</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Strength training guidance</li>
@@ -203,9 +203,9 @@ export default function HomePage() {
               <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
             </a>
 
-            <a href="/mental-health-support" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Mental Health Support services">
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Mental Health Support</h3>
-              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Holistic health support addressing wellbeing within scope of practice.</p>
+            <a href="/mental-health-support" className="bg-slate-800/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 md:p-6 border border-slate-700/20 hover:bg-slate-700/95 transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Mental Health Support services">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-[#b68a71] pl-3 transition-all duration-300 text-white">Mental Health Support</h3>
+              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-xs sm:text-sm md:text-base">Holistic health support addressing wellbeing within scope of practice.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Wellbeing assessment and support</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Health and wellness strategies</li>
@@ -214,9 +214,9 @@ export default function HomePage() {
               <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
             </a>
 
-            <a href="/sleep-recovery-optimisation" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Sleep Optimisation services">
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">Sleep Optimisation</h3>
-              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Comprehensive sleep analysis and improvement strategies for better rest and recovery.</p>
+            <a href="/sleep-recovery-optimisation" className="bg-slate-800/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 md:p-6 border border-slate-700/20 hover:bg-slate-700/95 transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about Sleep Optimisation services">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-[#b68a71] pl-3 transition-all duration-300 text-white">Sleep Optimisation</h3>
+              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-xs sm:text-sm md:text-base">Comprehensive sleep analysis and improvement strategies for better rest and recovery.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Sleep pattern analysis</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Sleep hygiene coaching</li>
@@ -225,9 +225,9 @@ export default function HomePage() {
               <div className="mt-2 md:mt-3 text-[#b68a71] group-hover:underline text-xs md:text-sm">Learn more →</div>
             </a>
 
-            <a href="/about" className="bg-card/95 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-border/20 hover:bg-card transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about General Practice services">
-              <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-accent pl-3 transition-all duration-300 heading-beach">General Practice</h3>
-              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-sm md:text-base">Comprehensive healthcare with expertise in general practice, emergency medicine, and paediatrics.</p>
+            <a href="/about" className="bg-slate-800/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 md:p-6 border border-slate-700/20 hover:bg-slate-700/95 transition-all duration-300 hover:scale-105 block group" aria-label="Learn more about General Practice services">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 border-l-4 border-transparent group-hover:border-[#b68a71] pl-3 transition-all duration-300 text-white">General Practice</h3>
+              <p className="text-blue-100 mb-3 md:mb-4 leading-relaxed text-xs sm:text-sm md:text-base">Comprehensive healthcare with expertise in general practice, emergency medicine, and paediatrics.</p>
               <ul className="text-blue-200 space-y-1 md:space-y-2 text-xs md:text-sm">
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>General practice consultations</li>
                 <li className="flex items-start"><span className="text-green-400 mr-2 mt-0.5">✓</span>Emergency medicine expertise</li>
@@ -250,7 +250,7 @@ export default function HomePage() {
       >
         
 <div className="container mx-auto px-4 relative z-10">
-  <h2 className="text-center mb-6" style={{
+  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6" style={{
     color: '#f7f2d3',
     textShadow: '0 4px 20px rgba(247, 242, 211, 0.4), 0 0 40px rgba(247, 242, 211, 0.2)',
     filter: 'drop-shadow(0 2px 10px rgba(247, 242, 211, 0.3))'
@@ -275,7 +275,7 @@ export default function HomePage() {
           <div className="text-center mt-8">
             <a 
               href="/locations" 
-              className="text-primary hover:text-primary/80 font-medium text-sm transition-colors inline-flex items-center gap-2"
+              className="text-[#b68a71] hover:text-[#b68a71]/80 font-medium text-sm transition-colors inline-flex items-center gap-2 touch-target"
             >
               Or find weight loss clinic locations across Australia →
             </a>
@@ -291,8 +291,8 @@ export default function HomePage() {
       >
 
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="mb-6">Ready to Start Your Journey?</h2>
-          <p className="text-xl text-cream/80 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">Ready to Start Your Journey?</h2>
+          <p className="text-base sm:text-lg md:text-xl text-cream/80 mb-8 sm:mb-12 max-w-3xl mx-auto">
             Book a no-obligation telehealth consultation today. Let's work together to achieve your health goals with evidence-based, compassionate care.
           </p>
           <a 
@@ -303,7 +303,7 @@ export default function HomePage() {
           >
             <Button
               onClick={() => window.open('https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131', '_blank')}
-              className="bg-secondary hover:bg-secondary/90 text-white font-medium text-sm shadow-md"
+              className="bg-secondary hover:bg-secondary/90 text-white font-medium text-sm shadow-md touch-target"
               size="sm"
             >
               BOOK YOUR CONSULTATION NOW
