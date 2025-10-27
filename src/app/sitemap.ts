@@ -1,6 +1,12 @@
 import { MetadataRoute } from 'next';
+import { createClient } from '@supabase/supabase-js';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+const SUPABASE_URL = "https://pooebqhsshfafkhvccrl.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvb2VicWhzc2hmYWZraHZjY3JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIyMjA4MzYsImV4cCI6MjA2Nzc5NjgzNn0.HfHAScs024qp9rsm289FzwQ7vr22z_uk48VS9jlxjE8";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.downscale.com.au';
   const currentDate = new Date().toISOString();
 
@@ -150,6 +156,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Assessment tools
+  const assessmentPages = [
+    {
+      url: `${baseUrl}/assessment/adhd`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/assessment/bed`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/assessment/epworth`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/assessment/menopause`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/assessment/stop-bang`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    },
+  ];
+
   // Additional info pages
   const infoPages = [
     {
@@ -178,12 +218,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Fetch blog posts from Supabase
+  let blogPages: MetadataRoute.Sitemap = [];
+  try {
+    const { data: blogPosts, error } = await supabase
+      .from('blog_posts')
+      .select('slug, updated_at, created_at')
+      .eq('status', 'published')
+      .order('created_at', { ascending: false });
+
+    console.log('Sitemap debug - Blog posts:', blogPosts?.length, 'Error:', error);
+
+    if (!error && blogPosts && blogPosts.length > 0) {
+      blogPages = blogPosts.map(post => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: post.updated_at || post.created_at,
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
+      console.log('Sitemap debug - Generated blog pages:', blogPages.length);
+    }
+  } catch (error) {
+    console.error('Error fetching blog posts for sitemap:', error);
+  }
+
   return [
     ...corePages,
     ...servicePages,
     ...locations,
     ...toolPages,
+    ...assessmentPages,
     ...infoPages,
     ...legalPages,
+    ...blogPages,
   ];
 }
