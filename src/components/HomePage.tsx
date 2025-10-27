@@ -34,16 +34,16 @@ export default function HomePage() {
       </div>
       <div className="min-h-screen bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900">
       {/* Hero Section - WebP optimized for <1s mobile LCP */}
-      <div 
-        className="relative min-h-screen flex flex-col justify-between overflow-visible"
+      <div
+        className="relative hero-section flex flex-col justify-between overflow-visible"
         style={{
           backgroundImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/hero-family-sunset.webp)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center bottom',
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="flex-1 flex flex-col justify-between py-8 sm:py-12 px-4 sm:px-6 min-h-screen">
+        <div className="hero-content flex-1 flex flex-col justify-between py-8 sm:py-12 px-4 sm:px-6 min-h-screen">
           {/* DOWNSCALE Brand Header - Top */}
           <div className="pt-4 sm:pt-8 pb-4 sm:pb-6">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-center leading-none tracking-tight" style={{
@@ -56,7 +56,7 @@ export default function HomePage() {
           </div>
           
           {/* Main Heading - Center */}
-          <div className="flex-1 flex items-center justify-center py-6 sm:py-8">
+          <div className="hero-text-container flex-1 flex items-center justify-center py-6 sm:py-8">
             <div className="text-center max-w-4xl px-2">
               <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-5 leading-tight" style={{ 
                 color: '#f7f2d3', 

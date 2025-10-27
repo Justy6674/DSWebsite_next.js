@@ -3,7 +3,7 @@ import { Scale, Settings } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/40 bg-secondary/10 py-8 sm:py-12 mobile-container">
+    <footer className="border-t border-border/40 bg-secondary/10 py-4 sm:py-6 mobile-container">
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           <div className="sm:col-span-2 md:col-span-1">
@@ -82,19 +82,16 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="text-foreground font-semibold mb-3 text-sm sm:text-base">Areas We Serve</h4>
-            <p className="text-muted-foreground text-xs mb-2">
-              🇦🇺 Australia-wide (all states and territories)
+            <h4 className="text-foreground font-semibold mb-3 text-sm sm:text-base">Coverage</h4>
+            <p className="text-muted-foreground text-sm mb-2">
+              🇦🇺 All of Australia
             </p>
-            <p className="text-muted-foreground text-xs mb-3 opacity-80">
-              Regional & remote areas supported via telehealth
-            </p>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/locations" className="hover:text-foreground transition-colors touch-target block py-1">View All Locations</Link></li>
-              <li><Link href="/weight-loss-clinic-sydney" className="hover:text-foreground transition-colors touch-target block py-1">Sydney</Link></li>
-              <li><Link href="/weight-loss-clinic-melbourne" className="hover:text-foreground transition-colors touch-target block py-1">Melbourne</Link></li>
-              <li><Link href="/weight-loss-clinic-brisbane" className="hover:text-foreground transition-colors touch-target block py-1">Brisbane</Link></li>
-            </ul>
+            <Link
+              href="/locations"
+              className="text-primary hover:text-primary/80 font-medium text-sm transition-colors"
+            >
+              View 26+ Locations →
+            </Link>
           </div>
           
           <div>
@@ -107,41 +104,20 @@ export function Footer() {
             </ul>
           </div>
           
-          <div className="sm:col-span-2 lg:col-span-1">
-            <h4 className="text-foreground font-semibold mb-3 text-sm sm:text-base">Clinical Information</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Evidence-based clinical approaches</li>
-              <li>Australian clinical guidelines compliance</li>
-              <li>Professional healthcare supervision</li>
-              <li>Ongoing professional development</li>
-              <li>
-                <Link 
-                  href="/blog-admin" 
-                  className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 touch-target py-1"
-                  title="Blog Administration"
-                >
-                  <Settings className="h-3 w-3" />
-                  Admin
-                </Link>
-              </li>
-            </ul>
-          </div>
         </div>
         
-        <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-border/20 text-center">
+        <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-border/20 text-center">
           <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
-            © 2025 Downscale Weight Loss Clinic. Registered healthcare provider in Australia. 
+            © 2025 Downscale Weight Loss Clinic. Registered healthcare provider in Australia.
             All clinical services subject to professional assessment and eligibility.
           </p>
-          <div className="mt-2 flex flex-wrap justify-center gap-3 sm:gap-4 text-xs text-muted-foreground">
-            <Link href="/terms" className="hover:text-foreground transition-colors touch-target">Terms</Link>
-            <span className="hidden sm:inline">•</span>
-            <Link href="/privacy" className="hover:text-foreground transition-colors touch-target">Privacy</Link>
-            <span className="hidden sm:inline">•</span>
-            <Link href="/medicare" className="hover:text-foreground transition-colors touch-target">Medicare</Link>
-            <span className="hidden sm:inline">•</span>
-            <Link href="/complaints" className="hover:text-foreground transition-colors touch-target">Complaints</Link>
-          </div>
+          <Link
+            href="/blog-admin"
+            className="text-muted-foreground/50 hover:text-muted-foreground transition-colors inline-flex items-center gap-1 text-xs mt-2"
+            title="Admin"
+          >
+            <Settings className="h-3 w-3" />
+          </Link>
         </div>
       </div>
     </footer>
