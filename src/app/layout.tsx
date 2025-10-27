@@ -27,21 +27,11 @@ export const metadata: Metadata = {
     siteName: 'Downscale Weight Loss Clinic',
     title: 'Telehealth Weight Loss & Weight Maintenance Clinic Australia - Justin Black',
     description: 'Professional telehealth weight loss & weight maintenance clinic from only $45. Consultations with Justin Black, Nurse Practitioner. Medicare-eligible patients receive instant rebates.',
-    images: [
-      {
-        url: 'https://www.downscale.com.au/og-services.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Comprehensive family health and wellness clinic - treating the whole person and family - Australian telehealth clinic for weight loss, endocrine health, and chronic disease reversal',
-        type: 'image/jpeg',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Telehealth Weight Loss & Weight Maintenance Clinic Australia - Justin Black',
     description: 'Professional telehealth weight loss & weight maintenance clinic from only $45. Consultations with Justin Black, Nurse Practitioner. Medicare-eligible patients receive instant rebates.',
-    images: ['https://www.downscale.com.au/og-services.jpg'],
   },
   robots: {
     index: true,
