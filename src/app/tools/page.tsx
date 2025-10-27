@@ -98,7 +98,7 @@ export default function ToolsPage() {
             className="text-xl md:text-2xl max-w-3xl mx-auto"
             style={{ color: '#f8fafc' }}
           >
-            Interactive tools to support your weight loss journey
+            Interactive tools to support your weight loss journey and health assessments
           </p>
         </div>
 
