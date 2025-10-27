@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   creator: 'Downscale Weight Loss Clinic',
   publisher: 'Downscale Weight Loss Clinic',
   metadataBase: new URL('https://www.downscale.com.au'),
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes',
   alternates: {
     canonical: '/',
   },
@@ -28,10 +29,11 @@ export const metadata: Metadata = {
     description: 'Professional telehealth weight loss & weight maintenance clinic from only $45. Consultations with Justin Black, Nurse Practitioner. Medicare-eligible patients receive instant rebates.',
     images: [
       {
-        url: '/og-services.jpg',
+        url: 'https://www.downscale.com.au/og-services.jpg',
         width: 1200,
         height: 630,
         alt: 'Comprehensive family health and wellness clinic - treating the whole person and family - Australian telehealth clinic for weight loss, endocrine health, and chronic disease reversal',
+        type: 'image/jpeg',
       },
     ],
   },
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Telehealth Weight Loss & Weight Maintenance Clinic Australia - Justin Black',
     description: 'Professional telehealth weight loss & weight maintenance clinic from only $45. Consultations with Justin Black, Nurse Practitioner. Medicare-eligible patients receive instant rebates.',
-    images: ['/og-services.jpg'],
+    images: ['https://www.downscale.com.au/og-services.jpg'],
   },
   robots: {
     index: true,
@@ -62,8 +64,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* CRITICAL: Mobile viewport meta tag */}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
         {/* Preload critical hero image for instant LCP */}
         <link rel="preload" as="image" href="/hero-family-sunset.webp" type="image/webp" />
         <link rel="preload" as="image" href="/hero-family-sunset-mobile.webp" type="image/webp" media="(max-width: 768px)" />
