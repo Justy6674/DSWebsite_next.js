@@ -287,3 +287,4 @@ npm run lint && npm run type-check && npm run seo:check
 ```
 
 This codebase prioritizes Australian healthcare compliance, public website SEO performance, role-based portal functionality, and professional medical presentation while maintaining modern web development practices.
+- never patch and fix and guess. if something is broken, assess, look using playwright, consider, then amend, then push to git, then look using playwright, consider if your fix worked, if it didnt - repeat the process until the task is perfect. you have been guessing and patching and delivering a shit broken product and Justin is not happy with this

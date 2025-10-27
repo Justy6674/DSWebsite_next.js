@@ -648,7 +648,7 @@ body {
   }
 
   .hero-text-container {
-    transform: translateY(-10vh);
+    transform: translateY(-18vh);
     z-index: 10;
   }
 
