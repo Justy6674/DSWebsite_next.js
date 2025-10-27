@@ -13,14 +13,14 @@ export function HeroSection() {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* ALL TEXT GROUPED IN TOP THIRD - ONE EVENLY SPACED BLOCK */}
-      <div className="p-4 pt-8">
-        <div className="text-center space-y-3">
-          <h1 className="text-4xl md:text-6xl font-black text-[#f7f2d3] tracking-tight">
+      {/* ALL TEXT GROUPED IN ONE COMPACT BLOCK - TOP THIRD */}
+      <div className="p-4 pt-6">
+        <div className="text-center space-y-1">
+          <h1 className="text-4xl md:text-6xl font-black text-[#f7f2d3] tracking-tight mb-1">
             DOWNSCALE
           </h1>
 
-          <h2 className="text-xl md:text-3xl font-bold text-white">
+          <h2 className="text-xl md:text-3xl font-bold text-white mb-1">
             Online Weight Loss Clinic
             <br />
             <span className="text-lg md:text-2xl">&</span>
@@ -28,7 +28,7 @@ export function HeroSection() {
             Weight Maintenance Clinic
           </h2>
 
-          <p className="text-base md:text-lg text-white font-medium">
+          <p className="text-base md:text-lg text-white font-medium mb-1">
             Evidence-Based Medical Weight Loss with Justin Black
           </p>
 
