@@ -177,7 +177,7 @@ export default function BlogPage() {
         >
           <img 
             src="/blog-hero-bookshelf.webp" 
-            alt="" 
+            alt="Professional telehealth medical consultation - Downscale Weight Loss Clinic Australia" 
             className="hidden"
             loading="eager"
           />

@@ -704,7 +704,7 @@ export default function MentalHealthSupport() {
           <link rel="preload" as="image" href="/mental-health-hero.webp" type="image/webp" />
           <img 
             src="/mental-health-hero.webp" 
-            alt="" 
+            alt="Professional telehealth medical consultation - Downscale Weight Loss Clinic Australia" 
             className="hidden" 
             loading="eager"
           />

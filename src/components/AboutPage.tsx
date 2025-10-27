@@ -7,7 +7,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { HighlightBox } from '@/components/ui/highlight-box';
 import { OptimizedBackground } from '@/components/ui/optimized-background';
-import { LazyImage } from '@/components/LazyImage';
+import Image from 'next/image';
 // Heart hands sunset hero image optimized for instant loading
 import { PageNavigation } from '@/components/navigation/PageNavigation';
 // Placeholder images - will be replaced with actual team photos
@@ -118,7 +118,7 @@ export default function MeetTheTeam() {
           >
             <img 
               src="/heart-hands-sunset-mobile.webp" 
-              alt="" 
+              alt="Professional telehealth medical consultation - Downscale Weight Loss Clinic Australia" 
               className="hidden" 
               loading="eager"
             />
@@ -154,9 +154,11 @@ export default function MeetTheTeam() {
                       {/* Photo */}
                       <div className="text-center">
                          <div className="w-60 sm:w-72 md:w-80 h-60 sm:h-72 md:h-80 mx-auto rounded-full overflow-hidden border-4 border-brown shadow-2xl">
-                           <LazyImage 
-                             src="/lovable-uploads/850dfd41-0720-4ab2-91fb-b63d0d5e864e.png" 
-                             alt="Justin Black - Australian Nurse Practitioner and Weight Loss Clinic Founder" 
+                           <Image
+                             src="/lovable-uploads/850dfd41-0720-4ab2-91fb-b63d0d5e864e.png"
+                             alt="Justin Black - Australian Nurse Practitioner and Weight Loss Clinic Founder"
+                             width={320}
+                             height={320}
                              className="w-full h-full object-cover"
                              priority={true}
                              style={{ objectPosition: '50% 40%' }}
@@ -304,10 +306,13 @@ export default function MeetTheTeam() {
                     {/* Photo */}
                     <div className="text-center">
                          <div className="w-60 sm:w-72 md:w-80 h-60 sm:h-72 md:h-80 mx-auto rounded-full overflow-hidden border-4 border-brown shadow-2xl">
-                           <LazyImage 
-                             src="/lovable-uploads/b1d32c79-ba80-48b5-83b4-3bf5e5e66bca.png" 
-                             alt="Bec - Australian Registered Nurse and Weight Loss Clinic Practice Manager" 
+                           <Image
+                             src="/lovable-uploads/b1d32c79-ba80-48b5-83b4-3bf5e5e66bca.png"
+                             alt="Bec - Australian Registered Nurse and Weight Loss Clinic Practice Manager"
+                             width={320}
+                             height={320}
                              className="w-full h-full object-cover"
+                             priority={true}
                              style={{ objectPosition: '50% 0%' }}
                            />
                          </div>

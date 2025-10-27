@@ -446,7 +446,7 @@ export default function Calculator() {
           <link rel="preload" as="image" href="/calculator-hero.webp" type="image/webp" />
           <img 
             src="/calculator-hero.webp" 
-            alt="" 
+            alt="Professional telehealth medical consultation - Downscale Weight Loss Clinic Australia" 
             className="hidden" 
             loading="eager"
           />

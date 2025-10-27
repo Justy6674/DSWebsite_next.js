@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.downscale.com.au/og-services.jpg',
+        url: 'https://www.downscale.com.au/lovable-uploads/850dfd41-0720-4ab2-91fb-b63d0d5e864e.png',
         width: 1200,
         height: 630,
-        alt: 'About',
+        alt: 'Meet Justin Black and Bec - Downscale Weight Loss Clinic Team',
       },
     ],
   },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'About',
     description: 'About page - Access and manage your content',
-    images: ['https://www.downscale.com.au/og-services.jpg'],
+    images: ['https://www.downscale.com.au/lovable-uploads/850dfd41-0720-4ab2-91fb-b63d0d5e864e.png'],
   },
   alternates: {
     canonical: 'https://www.downscale.com.au/about',

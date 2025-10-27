@@ -4,7 +4,7 @@ import React from 'react';
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { HighlightBox } from "@/components/ui/highlight-box";
-import { OptimizedImage } from "@/components/ui/optimized-image";
+import Image from 'next/image';
 import { OptimizedBackground } from "@/components/ui/optimized-background";
 import { ConditionsWeTreat } from "@/components/ConditionsWeTreat";
 // Hero images now served from /public/ for instant CDN loading

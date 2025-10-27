@@ -95,7 +95,7 @@ export default function LocationsPage() {
         {/* Hidden preload for instant loading */}
         <img 
           src="/locations-hero-camping.webp" 
-          alt="" 
+          alt="Professional telehealth medical consultation - Downscale Weight Loss Clinic Australia" 
           className="hidden" 
           fetchPriority="high" 
           loading="eager"

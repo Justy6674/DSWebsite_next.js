@@ -49,6 +49,8 @@ Allow: /locations
 Allow: /facts
 Allow: /conditions
 Allow: /weight-loss-clinic-*
+Allow: /clinical-services
+Allow: /assessment/*
 
 # Legal pages
 Allow: /privacy

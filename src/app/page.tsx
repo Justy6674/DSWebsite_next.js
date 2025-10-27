@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     url: 'https://www.downscale.com.au',
     images: [
       {
-        url: '/hero-family-sunset.webp',
+        url: 'https://www.downscale.com.au/hero-family-sunset.webp',
         width: 1200,
         height: 800,
-        alt: 'Comprehensive family health and wellness clinic - treating the whole person and family - Australian telehealth clinic for weight loss, endocrine health, and chronic disease reversal',
+        alt: 'Downscale Weight Loss Clinic - Australian telehealth weight loss and weight maintenance clinic with Justin Black',
       },
     ],
   },

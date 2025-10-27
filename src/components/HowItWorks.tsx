@@ -89,7 +89,7 @@ export default function HowItWorks() {
             <link rel="preload" as="image" href="/how-it-works-hero.webp" type="image/webp" />
             <img 
               src="/how-it-works-hero.webp" 
-              alt="" 
+              alt="Professional telehealth medical consultation - Downscale Weight Loss Clinic Australia" 
               className="hidden" 
               fetchPriority="high"
               loading="eager"

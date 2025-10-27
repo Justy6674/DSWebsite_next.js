@@ -902,7 +902,7 @@ export default function SleepRecoveryOptimisation() {
           <link rel="preload" as="image" href="/sleep-hero.webp" type="image/webp" />
           <img 
             src="/sleep-hero.webp" 
-            alt="" 
+            alt="Sleep recovery and optimisation - Professional telehealth consultation for healthy sleep patterns"
             className="hidden" 
             loading="eager"
           />

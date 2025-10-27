@@ -18,6 +18,20 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: process.env.NODE_ENV === 'production',
   },
+  // Optimize images for fast loading
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: ['www.downscale.com.au'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.downscale.com.au',
+      },
+    ],
+  },
   // Security headers - CSP removed to allow Next.js hydration
   // Next.js needs to load dynamic JavaScript chunks which CSP was blocking
   async headers() {
