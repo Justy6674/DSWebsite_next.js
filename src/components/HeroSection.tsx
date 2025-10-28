@@ -12,7 +12,7 @@ export function HeroSection() {
           src="/hero-family-sunset.webp"
           alt="Family silhouette at sunset"
           fill
-          className="object-cover object-center md:object-contain lg:object-cover"
+          className="object-contain md:object-cover md:object-bottom"
           priority
         />
       </div>
