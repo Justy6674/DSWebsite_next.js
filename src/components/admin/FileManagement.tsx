@@ -1593,16 +1593,20 @@ export default function FileManagement() {
                             <Copy className="h-4 w-4 mr-2" />
                             Copy
                           </Button>
-                          {/* Refresh button - for ALL file types */}
+                        </div>
+
+                        {/* SECOND ROW - REFRESH BUTTON FOR ALL FILES */}
+                        <div className="flex space-x-2">
+                          {/* REFRESH BUTTON - APPEARS ON EVERY SINGLE FILE WITHOUT EXCEPTION */}
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
+                            className="border-green-600 text-green-400 hover:bg-green-900/20 px-3 py-2 flex-1 font-bold"
                             onClick={() => refreshFile(file)}
-                            title="Refresh file metadata and regenerate thumbnails"
+                            title={`REFRESH ${file.name} - Works for ALL file types: ${file.type}`}
                           >
                             <RefreshCw className="h-4 w-4 mr-2" />
-                            Refresh
+                            🔄 REFRESH
                           </Button>
                         </div>
 
