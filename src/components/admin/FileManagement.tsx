@@ -229,16 +229,20 @@ export default function FileManagement() {
 
           await page.render(renderContext).promise;
 
-          // Draw only the top portion of the rendered page to the thumbnail canvas
-          // This ensures we show the top of the document, not the middle
+          // FORCE SHOW TOP OF DOCUMENT ONLY - NO MIDDLE OR BOTTOM PORTIONS
+          // Calculate the source height to capture only the top portion of the PDF
+          const sourceWidth = tempCanvas.width;
+          const sourceHeight = Math.min(tempCanvas.height, (thumbnailHeight / thumbnailWidth) * sourceWidth);
+
+          // Draw ONLY the top portion - starting from (0,0) and taking only what fits in aspect ratio
           ctx.drawImage(
             tempCanvas,
-            0, 0, // Source x, y (top-left of the PDF)
-            Math.min(tempCanvas.width, thumbnailWidth / scale), // Source width
-            Math.min(tempCanvas.height, thumbnailHeight / scale), // Source height
-            0, 0, // Destination x, y
-            thumbnailWidth, // Destination width
-            thumbnailHeight // Destination height
+            0, 0, // ALWAYS start from TOP-LEFT (0,0) - NEVER from middle
+            sourceWidth, // Use full width
+            sourceHeight, // Use calculated height to maintain aspect ratio
+            0, 0, // Destination starts at top-left
+            thumbnailWidth, // Scale to thumbnail width
+            thumbnailHeight // Scale to thumbnail height
           );
 
           // Convert canvas to blob and upload as thumbnail
