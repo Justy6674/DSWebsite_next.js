@@ -20,13 +20,6 @@ export const metadata: Metadata = {
         alt: 'Downscale Weight Loss Clinic - Australian telehealth weight loss and weight maintenance clinic with Justin Black',
         type: 'image/webp',
       },
-      {
-        url: 'https://www.downscale.com.au/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Downscale Weight Loss Clinic - Professional telehealth weight management',
-        type: 'image/jpeg',
-      },
     ],
   },
   twitter: {
