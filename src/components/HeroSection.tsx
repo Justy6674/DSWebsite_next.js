@@ -128,33 +128,30 @@ export function HeroSection() {
                     href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col justify-center items-center bg-gradient-to-r from-[#f5deb3] to-[#f7e7c5] text-[#5a4a35] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[120px]"
+                    className="flex flex-col justify-center items-center bg-gradient-to-r from-[#f5deb3] to-[#f7e7c5] text-[#5a4a35] rounded-xl p-6 text-center shadow-lg border-2 border-[#e6d8a5] hover:shadow-2xl hover:scale-110 hover:border-[#d4c58a] transition-all duration-300 min-h-[130px]"
                   >
-                    <div className="font-bold text-lg mb-1">💊 Book Initial</div>
-                    <div className="text-sm mb-2">Consultation</div>
-                    <div className="text-xs">Weight Loss 30 Min • From $45</div>
+                    <div className="font-bold text-base mb-2 leading-tight">Book Initial Weight Loss Appointment</div>
+                    <div className="text-sm font-medium">30 Minutes</div>
                   </a>
 
                   <a
                     href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col justify-center items-center bg-gradient-to-r from-[#8b6f47] to-[#9d8157] text-[#f5deb3] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[120px]"
+                    className="flex flex-col justify-center items-center bg-gradient-to-r from-[#8b6f47] to-[#9d8157] text-[#f5deb3] rounded-xl p-6 text-center shadow-lg border-2 border-[#7a5f3e] hover:shadow-2xl hover:scale-110 hover:border-[#6b5235] transition-all duration-300 min-h-[130px]"
                   >
-                    <div className="font-bold text-lg mb-1">✓ Book Review</div>
-                    <div className="text-sm mb-2">Consultation</div>
-                    <div className="text-xs">Weight Loss 15 Min • From $45</div>
+                    <div className="font-bold text-base mb-2 leading-tight">Book Weight Loss Follow-Up Appointment</div>
+                    <div className="text-sm font-medium">15 Minutes</div>
                   </a>
 
                   <a
                     href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col justify-center items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[120px]"
+                    className="flex flex-col justify-center items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-xl p-6 text-center shadow-lg border-2 border-orange-300 hover:shadow-2xl hover:scale-110 hover:border-orange-200 transition-all duration-300 min-h-[130px]"
                   >
-                    <div className="font-bold text-lg mb-1">📋 Book General</div>
-                    <div className="text-sm mb-2">Appointment</div>
-                    <div className="text-xs">General Practice 10 Minutes</div>
+                    <div className="font-bold text-base mb-2 leading-tight">Book General Appointment</div>
+                    <div className="text-sm font-medium">10 Minutes</div>
                   </a>
                 </div>
               </div>
