@@ -12,7 +12,7 @@ serve(async (req) => {
 
   try {
     // Ping Google about sitemap update
-    const sitemapUrl = 'https://www.downscale.com.au/sitemap-index.xml'
+    const sitemapUrl = 'https://www.downscale.com.au/sitemap.xml'
     const googlePingUrl = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`
     
     const response = await fetch(googlePingUrl)
