@@ -208,13 +208,24 @@ export default function UnifiedAdminDashboard() {
   useEffect(() => {
     const checkAdminStatus = async () => {
       if (user?.id) {
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('role')
-          .eq('id', user.id)
-          .single();
+        try {
+          const { data: profile, error } = await supabase
+            .from('user_profiles')
+            .select('role')
+            .eq('id', user.id)
+            .single();
 
-        setIsAdmin(profile?.role === 'admin');
+          if (error) {
+            console.error('Error checking admin status:', error);
+            // Fall back to email whitelist if database check fails
+            setIsAdmin(false);
+          } else {
+            setIsAdmin(profile?.role === 'admin');
+          }
+        } catch (error) {
+          console.error('Error in admin status check:', error);
+          setIsAdmin(false);
+        }
       }
     };
 
@@ -593,15 +604,48 @@ export default function UnifiedAdminDashboard() {
     );
   }
 
-  // If user logged in but not admin
+  // Check if user is admin via email whitelist (fallback method)
   const adminEmails = ['downscale@icloud.com', 'bec@downscale.health', 'rebecca@downscale.health', 'b.burstow83@gmail.com'];
-  if (!isAdmin && !adminEmails.includes(user?.email || '')) {
+  const isAdminByEmail = adminEmails.includes(user?.email || '');
+
+  // If user logged in but not admin - show login form to allow admin login
+  if (!isAdmin && !isAdminByEmail) {
     return (
-      <Card className="bg-slate-800 border-slate-700">
-        <CardContent className="p-8 text-center">
-          <p className="text-[#fef5e7]">Access denied. Admin privileges required.</p>
-        </CardContent>
-      </Card>
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+        <Card className="bg-slate-800 border-slate-700 w-full max-w-md">
+          <CardHeader>
+            <div className="flex items-center justify-between mb-2">
+              <CardTitle className="text-[#f8fafc]">Admin Login Required</CardTitle>
+              <Link
+                href="/"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-slate-700 hover:bg-slate-600 text-[#fef5e7] transition-colors"
+                title="Back to Website"
+              >
+                <Home className="h-4 w-4" />
+                Website
+              </Link>
+            </div>
+            {user && (
+              <p className="text-[#fef5e7] text-center text-sm">
+                Logged in as: {user.email} (not admin)
+              </p>
+            )}
+            <p className="text-[#fef5e7] text-center text-sm">Please sign in with admin credentials</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {user && (
+              <Button
+                onClick={signOut}
+                variant="outline"
+                className="w-full mb-4 border-slate-600 text-[#fef5e7] hover:bg-slate-700"
+              >
+                Sign Out Current User
+              </Button>
+            )}
+            <AdminLoginForm />
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 
