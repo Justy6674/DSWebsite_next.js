@@ -293,22 +293,22 @@ export function Header() {
         scrolled ? 'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border shadow-lg' : 'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border shadow-lg'
       }`}>
         {/* Main Header */}
-        <div className="container mx-auto px-2 sm:px-4 lg:px-6 xl:px-8 py-6 md:py-4 flex justify-between items-center gap-2 lg:gap-4">
-          <div className="cursor-pointer flex-shrink-0 flex items-center space-x-3 relative h-16 md:h-12">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="p-2 md:p-1 rounded-lg bg-primary/10">
+        <div className="container mx-auto px-2 sm:px-4 lg:px-6 xl:px-8 py-8 md:py-6 flex justify-between items-center gap-2 lg:gap-4">
+          <div className="cursor-pointer flex-shrink-0 flex items-center space-x-4 relative h-20 md:h-16">
+            <Link href="/" className="flex items-center space-x-4">
+              <div className="p-3 md:p-2 rounded-lg bg-primary/10">
                 <img
                   src="/lovable-uploads/a0c37573-face-441d-8873-97dfc850d27c.png"
                   alt="Downscale Australian Weight Loss Clinic Logo"
-                  className="h-12 w-12 md:h-8 md:w-8 object-contain"
+                  className="h-16 w-16 md:h-12 md:w-12 object-contain"
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
                 />
               </div>
               <div>
-                <h1 className="text-2xl md:text-xl font-bold text-foreground">Downscale</h1>
-                <p className="text-base md:text-sm text-muted-foreground">Weight Loss Clinic</p>
+                <h1 className="text-3xl md:text-2xl font-bold text-foreground">Downscale</h1>
+                <p className="text-lg md:text-base text-muted-foreground">Weight Loss Clinic</p>
               </div>
             </Link>
             {/* Discrete admin access - tiny cogwheel */}
