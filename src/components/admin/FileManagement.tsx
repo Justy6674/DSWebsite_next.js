@@ -288,23 +288,97 @@ export default function FileManagement() {
 
     if (fileExtension === 'pdf') {
       try {
-        // Fetch the PDF file
-        const response = await fetch(file.url);
-        const blob = await response.blob();
-        // Create a file-like object for PDF.js processing
-        const pdfFile = blob as File;
+        console.log(`🔄 Generating missing thumbnail for: ${file.name}`);
 
-        const thumbnailUrl = await generatePDFThumbnail(pdfFile, file.name);
+        // Create AbortController for timeout handling
+        const abortController = new AbortController();
+        const timeoutId = setTimeout(() => abortController.abort(), 30000); // 30 second timeout
 
-        // Update the database with the new thumbnail
-        await supabase
-          .from('file_storage')
-          .update({ thumbnail_url: thumbnailUrl })
-          .eq('id', file.id);
+        try {
+          // Fetch the PDF file with timeout and error handling
+          const response = await fetch(file.url, {
+            signal: abortController.signal,
+            headers: {
+              'Accept': 'application/pdf,*/*',
+            }
+          });
 
-        return thumbnailUrl;
+          clearTimeout(timeoutId);
+
+          // Check if response is ok
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          // Verify content type
+          const contentType = response.headers.get('content-type');
+          if (contentType && !contentType.includes('pdf') && !contentType.includes('octet-stream')) {
+            console.warn(`⚠️  Unexpected content type for ${file.name}: ${contentType}`);
+          }
+
+          // Check file size (skip if too large for client-side processing)
+          const contentLength = response.headers.get('content-length');
+          if (contentLength && parseInt(contentLength) > 50 * 1024 * 1024) { // 50MB limit
+            throw new Error(`PDF file too large for thumbnail generation: ${(parseInt(contentLength) / 1024 / 1024).toFixed(1)}MB`);
+          }
+
+          const blob = await response.blob();
+
+          // Verify blob size
+          if (blob.size === 0) {
+            throw new Error('Downloaded PDF file is empty');
+          }
+
+          console.log(`📄 Processing PDF (${(blob.size / 1024 / 1024).toFixed(1)}MB): ${file.name}`);
+
+          const thumbnailUrl = await generatePDFThumbnail(blob, file.name);
+
+          // Update the database with the new thumbnail
+          const { error: updateError } = await supabase
+            .from('file_storage')
+            .update({ thumbnail_url: thumbnailUrl })
+            .eq('id', file.id);
+
+          if (updateError) {
+            console.error('Failed to update database with thumbnail URL:', updateError);
+            throw updateError;
+          }
+
+          console.log(`✅ Successfully generated thumbnail for: ${file.name}`);
+          return thumbnailUrl;
+
+        } catch (fetchError) {
+          clearTimeout(timeoutId);
+
+          // Handle specific error types
+          if (fetchError.name === 'AbortError') {
+            throw new Error(`Timeout: PDF download took longer than 30 seconds`);
+          } else if (fetchError.name === 'TypeError' && fetchError.message.includes('Failed to fetch')) {
+            throw new Error(`Network error: Could not download PDF from server`);
+          } else {
+            throw fetchError;
+          }
+        }
+
       } catch (error) {
-        console.error('Failed to generate thumbnail for existing PDF:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error(`❌ Failed to generate thumbnail for ${file.name}:`, errorMessage);
+
+        // Categorize errors for better user feedback
+        if (errorMessage.includes('Timeout')) {
+          console.error('   → Network timeout - PDF took too long to download');
+        } else if (errorMessage.includes('Network error')) {
+          console.error('   → Network connectivity issue');
+        } else if (errorMessage.includes('HTTP')) {
+          console.error('   → Server returned error status');
+        } else if (errorMessage.includes('too large')) {
+          console.error('   → PDF file exceeds processing limits');
+        } else if (errorMessage.includes('PDF.js')) {
+          console.error('   → PDF processing/rendering error');
+        } else {
+          console.error('   → Unexpected error during thumbnail generation');
+        }
+
         return null;
       }
     }
@@ -679,10 +753,15 @@ export default function FileManagement() {
         );
 
         if (pdfFiles.length > 0) {
-          console.log(`📄 Generating thumbnails for ${pdfFiles.length} PDF files...`);
+          console.log(`📄 Starting background thumbnail generation for ${pdfFiles.length} PDF files...`);
+
+          let successCount = 0;
+          let failureCount = 0;
 
           for (const pdfFile of pdfFiles) {
             try {
+              console.log(`🔄 Processing ${successCount + failureCount + 1}/${pdfFiles.length}: ${pdfFile.name}`);
+
               const thumbnailUrl = await generateMissingThumbnail(pdfFile);
               if (thumbnailUrl) {
                 // Update the file in state with new thumbnail
@@ -693,14 +772,35 @@ export default function FileManagement() {
                       : f
                   )
                 );
-                console.log(`✅ Generated thumbnail for: ${pdfFile.name}`);
+                successCount++;
+                console.log(`✅ Generated thumbnail for: ${pdfFile.name} (${successCount} of ${pdfFiles.length} completed)`);
+              } else {
+                failureCount++;
+                console.log(`⚠️ Thumbnail generation returned null for: ${pdfFile.name}`);
               }
             } catch (error) {
-              console.error(`❌ Failed to generate thumbnail for ${pdfFile.name}:`, error);
+              failureCount++;
+              const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+              console.error(`❌ Failed to generate thumbnail for ${pdfFile.name}:`, errorMessage);
+
+              // Don't show toast errors for background processing to avoid spam
+              // but do log detailed information for debugging
+              console.error(`   📊 Progress: ${successCount} successful, ${failureCount} failed, ${pdfFiles.length - successCount - failureCount} remaining`);
             }
 
-            // Small delay between processing to avoid overwhelming the browser
-            await new Promise(resolve => setTimeout(resolve, 500));
+            // Progressive delay - longer delays after failures to prevent overloading
+            const delay = failureCount > 3 ? 2000 : failureCount > 1 ? 1000 : 500;
+            await new Promise(resolve => setTimeout(resolve, delay));
+          }
+
+          // Final summary
+          console.log(`🏁 Background thumbnail generation complete:`);
+          console.log(`   ✅ ${successCount} thumbnails generated successfully`);
+          console.log(`   ❌ ${failureCount} thumbnails failed`);
+          console.log(`   📊 Success rate: ${((successCount / pdfFiles.length) * 100).toFixed(1)}%`);
+
+          if (failureCount > 0) {
+            console.log(`   💡 Tip: Use the manual refresh button (⟳) on failed PDFs to retry`);
           }
         }
       }, 1000); // Start after files are displayed
