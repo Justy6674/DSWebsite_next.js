@@ -166,6 +166,110 @@ export default function FileManagement() {
   const [fileTypeFilter, setFileTypeFilter] = useState('all');
   const [dragActive, setDragActive] = useState(false);
 
+  // Upload tracking and cancellation
+  const [activeUploads, setActiveUploads] = useState<Map<string, any>>(new Map());
+  const [uploadProgress, setUploadProgress] = useState<Map<string, number>>(new Map());
+
+  // PDF thumbnail generation function
+  const generatePDFThumbnail = async (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject(new Error('Canvas context not available'));
+        return;
+      }
+
+      // Use PDF.js to render first page as thumbnail
+      import('pdfjs-dist').then(async (pdfjsLib) => {
+        try {
+          // Set up PDF.js worker
+          pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+
+          const arrayBuffer = await file.arrayBuffer();
+          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          const page = await pdf.getPage(1);
+
+          const viewport = page.getViewport({ scale: 0.5 });
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport,
+          };
+
+          await page.render(renderContext).promise;
+
+          // Convert canvas to blob and upload as thumbnail
+          canvas.toBlob(async (blob) => {
+            if (!blob) {
+              reject(new Error('Failed to create thumbnail blob'));
+              return;
+            }
+
+            try {
+              // Upload thumbnail to Supabase storage
+              const thumbnailName = `thumbnails/${Date.now()}_${file.name.replace('.pdf', '.png')}`;
+              const { data: thumbnailData, error: thumbnailError } = await supabase.storage
+                .from('portal-files')
+                .upload(thumbnailName, blob, {
+                  contentType: 'image/png',
+                  cacheControl: '3600'
+                });
+
+              if (thumbnailError) {
+                reject(thumbnailError);
+                return;
+              }
+
+              const { data: thumbnailUrl } = supabase.storage
+                .from('portal-files')
+                .getPublicUrl(thumbnailName);
+
+              resolve(thumbnailUrl.publicUrl);
+            } catch (error) {
+              reject(error);
+            }
+          }, 'image/png', 0.8);
+        } catch (error) {
+          reject(error);
+        }
+      }).catch(reject);
+    });
+  };
+
+  // Generate thumbnail for existing files that don't have one
+  const generateMissingThumbnail = async (file: FileItem): Promise<string | null> => {
+    if (file.thumbnail_url) return file.thumbnail_url; // Already has thumbnail
+
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+    if (fileExtension === 'pdf') {
+      try {
+        // Fetch the PDF file
+        const response = await fetch(file.url);
+        const blob = await response.blob();
+        const pdfFile = new File([blob], file.name, { type: 'application/pdf' });
+
+        const thumbnailUrl = await generatePDFThumbnail(pdfFile);
+
+        // Update the database with the new thumbnail
+        await supabase
+          .from('file_storage')
+          .update({ thumbnail_url: thumbnailUrl })
+          .eq('id', file.id);
+
+        return thumbnailUrl;
+      } catch (error) {
+        console.error('Failed to generate thumbnail for existing PDF:', error);
+        return null;
+      }
+    }
+
+    return null;
+  };
+
   // Portal categorization state
   const [showPortalModal, setShowPortalModal] = useState(false);
   const [selectedFileForPortal, setSelectedFileForPortal] = useState<FileItem | null>(null);
@@ -181,12 +285,40 @@ export default function FileManagement() {
   const [showAllFiles, setShowAllFiles] = useState(false); // Debug toggle
 
   // Resumable upload function using TUS protocol
+  // Cancel upload function
+  const cancelUpload = (fileName: string) => {
+    const upload = activeUploads.get(fileName);
+    if (upload) {
+      upload.abort();
+      activeUploads.delete(fileName);
+      uploadProgress.delete(fileName);
+      setActiveUploads(new Map(activeUploads));
+      setUploadProgress(new Map(uploadProgress));
+      toast.error(`Upload cancelled: ${fileName}`);
+    }
+  };
+
+  // Refresh session before upload to prevent 400 auth errors
+  const refreshSession = async () => {
+    try {
+      const { data: { session }, error } = await supabase.auth.refreshSession();
+      if (error || !session) {
+        throw new Error('Failed to refresh authentication session');
+      }
+      return session;
+    } catch (error) {
+      throw new Error('Authentication required - please log in again');
+    }
+  };
+
   const uploadLargeFile = async (file: File, folder: string): Promise<string> => {
     return new Promise(async (resolve, reject) => {
-      // Get user session for authentication
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      if (sessionError || !session) {
-        reject(new Error('Authentication required for large file uploads'));
+      // Refresh session to prevent 400 auth errors
+      let session;
+      try {
+        session = await refreshSession();
+      } catch (error) {
+        reject(error);
         return;
       }
 
@@ -208,10 +340,10 @@ export default function FileManagement() {
 
       const upload = new tus.Upload(file, {
         endpoint: `https://${projectId}.supabase.co/storage/v1/upload/resumable`,
-        retryDelays: [0, 3000, 5000, 10000, 20000],
+        retryDelays: [0, 1000, 3000, 5000, 10000], // Faster initial retry
         headers: {
           authorization: `Bearer ${session.access_token}`,
-          'x-upsert': 'true'
+          'x-upsert': 'false' // Prevent conflicts with existing files
         },
         uploadDataDuringCreation: true,
         removeFingerprintOnSuccess: true,
@@ -221,25 +353,39 @@ export default function FileManagement() {
           contentType: file.type || 'application/octet-stream',
           cacheControl: '3600'
         },
-        chunkSize: 6 * 1024 * 1024, // 6MB chunks as required by Supabase
+        chunkSize: 3 * 1024 * 1024, // Reduced to 3MB for better reliability
         onError: function (error) {
           console.error('TUS upload failed:', error);
+          activeUploads.delete(fileName);
+          uploadProgress.delete(fileName);
+          setActiveUploads(new Map(activeUploads));
+          setUploadProgress(new Map(uploadProgress));
           toast.error(`Upload failed: ${error.message}`);
           reject(error);
         },
         onProgress: function (bytesUploaded, bytesTotal) {
-          const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(1);
-          toast.loading(`Uploading ${file.name}: ${percentage}%`, {
+          const percentage = (bytesUploaded / bytesTotal) * 100;
+          uploadProgress.set(fileName, percentage);
+          setUploadProgress(new Map(uploadProgress));
+          toast.loading(`Uploading ${file.name}: ${percentage.toFixed(1)}%`, {
             id: `upload-${file.name}`,
             duration: Infinity
           });
         },
         onSuccess: function () {
           console.log('TUS upload completed for:', file.name);
+          activeUploads.delete(fileName);
+          uploadProgress.delete(fileName);
+          setActiveUploads(new Map(activeUploads));
+          setUploadProgress(new Map(uploadProgress));
           toast.success(`Upload completed: ${file.name}`, { id: `upload-${file.name}` });
           resolve(objectName);
         }
       });
+
+      // Track active upload for cancellation
+      activeUploads.set(fileName, upload);
+      setActiveUploads(new Map(activeUploads));
 
       // Check for previous uploads and resume if available
       upload.findPreviousUploads().then(function (previousUploads) {
@@ -247,6 +393,9 @@ export default function FileManagement() {
           upload.resumeFromPreviousUpload(previousUploads[0]);
         }
         upload.start();
+      }).catch(function (error) {
+        console.error('Failed to start upload:', error);
+        reject(error);
       });
     });
   };
@@ -279,22 +428,30 @@ export default function FileManagement() {
         let finalPath = filePath;
 
         if (file.size <= maxStandardSize) {
-          // Standard upload for files ≤6MB
+          // Standard upload for files ≤6MB - refresh session first
           console.log('Using standard upload (≤6MB)');
           toast.loading(`Uploading ${file.name}...`, { id: `upload-${file.name}` });
 
-          const result = await supabase.storage
-            .from('portal-files')
-            .upload(filePath, file, {
-              contentType: file.type || 'application/octet-stream',
-              cacheControl: '3600',
-              upsert: false
-            });
-          uploadData = result.data;
-          uploadError = result.error;
+          try {
+            // Refresh session to prevent 400 auth errors
+            await refreshSession();
 
-          if (!uploadError) {
-            toast.success(`Upload completed: ${file.name}`, { id: `upload-${file.name}` });
+            const result = await supabase.storage
+              .from('portal-files')
+              .upload(filePath, file, {
+                contentType: file.type || 'application/octet-stream',
+                cacheControl: '3600',
+                upsert: false
+              });
+            uploadData = result.data;
+            uploadError = result.error;
+
+            if (!uploadError) {
+              toast.success(`Upload completed: ${file.name}`, { id: `upload-${file.name}` });
+            }
+          } catch (authError) {
+            uploadError = authError;
+            console.error('Authentication error during standard upload:', authError);
           }
         } else {
           // For files >6MB, use resumable upload
@@ -332,11 +489,20 @@ export default function FileManagement() {
           .from('portal-files')
           .getPublicUrl(finalPath);
 
-        // Generate thumbnail for images
+        // Generate thumbnail for images and PDFs
         let thumbnailUrl;
         if (FILE_TYPES.image.includes(fileExtension?.toLowerCase() || '')) {
-          // In a real implementation, you'd generate thumbnails
+          // For images, use the image itself as thumbnail (should be optimized in production)
           thumbnailUrl = urlData.publicUrl;
+        } else if (fileExtension?.toLowerCase() === 'pdf') {
+          // Generate PDF thumbnail
+          try {
+            thumbnailUrl = await generatePDFThumbnail(file);
+          } catch (error) {
+            console.error('Failed to generate PDF thumbnail:', error);
+            // Use a default PDF icon if thumbnail generation fails
+            thumbnailUrl = null;
+          }
         }
 
         // Save file metadata to database with enhanced logging
@@ -463,6 +629,39 @@ export default function FileManagement() {
       }
 
       setFiles(filteredFiles);
+
+      // Generate missing thumbnails for PDFs in background
+      setTimeout(async () => {
+        const pdfFiles = filteredFiles.filter(file =>
+          file.name.toLowerCase().endsWith('.pdf') && !file.thumbnail_url
+        );
+
+        if (pdfFiles.length > 0) {
+          console.log(`📄 Generating thumbnails for ${pdfFiles.length} PDF files...`);
+
+          for (const pdfFile of pdfFiles) {
+            try {
+              const thumbnailUrl = await generateMissingThumbnail(pdfFile);
+              if (thumbnailUrl) {
+                // Update the file in state with new thumbnail
+                setFiles(prevFiles =>
+                  prevFiles.map(f =>
+                    f.id === pdfFile.id
+                      ? { ...f, thumbnail_url: thumbnailUrl }
+                      : f
+                  )
+                );
+                console.log(`✅ Generated thumbnail for: ${pdfFile.name}`);
+              }
+            } catch (error) {
+              console.error(`❌ Failed to generate thumbnail for ${pdfFile.name}:`, error);
+            }
+
+            // Small delay between processing to avoid overwhelming the browser
+            await new Promise(resolve => setTimeout(resolve, 500));
+          }
+        }
+      }, 1000); // Start after files are displayed
 
       // Additional debugging for empty results
       if (filteredFiles.length === 0 && allFiles && allFiles.length > 0) {
@@ -712,6 +911,50 @@ export default function FileManagement() {
         </div>
       </div>
 
+      {/* Active Uploads Progress */}
+      {activeUploads.size > 0 && (
+        <Card className="bg-slate-800 border-slate-700 mb-6">
+          <CardHeader>
+            <CardTitle className="text-[#f8fafc]">Active Uploads</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {Array.from(activeUploads.entries()).map(([fileName, upload]) => {
+                const progress = uploadProgress.get(fileName) || 0;
+                return (
+                  <div key={fileName} className="bg-slate-900 rounded-lg p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-[#f8fafc] text-sm font-medium truncate flex-1 mr-4">
+                        {fileName}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#fef5e7] text-xs">
+                          {progress.toFixed(1)}%
+                        </span>
+                        <Button
+                          onClick={() => cancelUpload(fileName)}
+                          variant="destructive"
+                          size="sm"
+                          className="h-8 w-8 p-0"
+                        >
+                          ×
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="w-full bg-slate-700 rounded-full h-2">
+                      <div
+                        className="bg-[#b68a71] h-2 rounded-full transition-all duration-300"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Filters and Search */}
       <Card className="bg-slate-800 border-slate-700">
         <CardHeader>
@@ -814,12 +1057,24 @@ export default function FileManagement() {
                   >
                     {/* File Preview */}
                     <div className="aspect-video bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-slate-700">
-                      {file.type === 'image' && file.thumbnail_url ? (
-                        <img
-                          src={file.thumbnail_url}
-                          alt={file.name}
-                          className="w-full h-full object-cover"
-                        />
+                      {file.thumbnail_url ? (
+                        <div className="relative w-full h-full">
+                          <img
+                            src={file.thumbnail_url}
+                            alt={file.name}
+                            className="w-full h-full object-cover"
+                          />
+                          {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') && (
+                            <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
+                              PDF
+                            </div>
+                          )}
+                        </div>
+                      ) : file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') ? (
+                        <div className="flex flex-col items-center gap-2">
+                          <FileIcon className="h-12 w-12 text-slate-400" />
+                          <span className="text-xs text-slate-500">Generating thumbnail...</span>
+                        </div>
                       ) : (
                         <FileIcon className="h-12 w-12 text-slate-400" />
                       )}
@@ -927,12 +1182,19 @@ export default function FileManagement() {
                 {/* Large File Preview */}
                 <div className="bg-slate-800 rounded-xl p-6 mb-6">
                   <div className="aspect-square bg-slate-700 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                    {selectedFileForPortal.type === 'image' && selectedFileForPortal.thumbnail_url ? (
-                      <img
-                        src={selectedFileForPortal.thumbnail_url}
-                        alt={selectedFileForPortal.name}
-                        className="w-full h-full object-cover"
-                      />
+                    {selectedFileForPortal.thumbnail_url ? (
+                      <div className="relative w-full h-full">
+                        <img
+                          src={selectedFileForPortal.thumbnail_url}
+                          alt={selectedFileForPortal.name}
+                          className="w-full h-full object-cover"
+                        />
+                        {selectedFileForPortal.type === 'document' && selectedFileForPortal.name.toLowerCase().endsWith('.pdf') && (
+                          <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
+                            PDF
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       (() => {
                         const FileIcon = getFileIcon(selectedFileForPortal.type);
