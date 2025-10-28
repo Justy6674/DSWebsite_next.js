@@ -171,7 +171,7 @@ export default function FileManagement() {
   const [uploadProgress, setUploadProgress] = useState<Map<string, number>>(new Map());
 
   // PDF thumbnail generation function
-  const generatePDFThumbnail = async (file: File): Promise<string> => {
+  const generatePDFThumbnail = async (file: File | Blob, fileName?: string): Promise<string> => {
     return new Promise((resolve, reject) => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -211,7 +211,8 @@ export default function FileManagement() {
 
             try {
               // Upload thumbnail to Supabase storage
-              const thumbnailName = `thumbnails/${Date.now()}_${file.name.replace('.pdf', '.png')}`;
+              const originalName = fileName || (file as File).name || 'unknown.pdf';
+              const thumbnailName = `thumbnails/${Date.now()}_${originalName.replace('.pdf', '.png')}`;
               const { data: thumbnailData, error: thumbnailError } = await supabase.storage
                 .from('portal-files')
                 .upload(thumbnailName, blob, {
@@ -254,7 +255,7 @@ export default function FileManagement() {
         // Create a file-like object for PDF.js processing
         const pdfFile = blob as File;
 
-        const thumbnailUrl = await generatePDFThumbnail(pdfFile);
+        const thumbnailUrl = await generatePDFThumbnail(pdfFile, file.name);
 
         // Update the database with the new thumbnail
         await supabase
