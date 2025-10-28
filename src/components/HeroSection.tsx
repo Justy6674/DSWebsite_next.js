@@ -7,7 +7,7 @@ export function HeroSection() {
   return (
     <div className="flex flex-col">
       {/* HERO IMAGE SECTION: Clean Family Image */}
-      <div className="relative h-64 md:h-80 lg:h-96">
+      <div className="relative h-64 md:h-80 lg:h-[500px] xl:h-[600px]">
         <Image
           src="/hero-family-sunset.webp"
           alt="Family silhouette at sunset - Downscale Weight Loss Clinic"
