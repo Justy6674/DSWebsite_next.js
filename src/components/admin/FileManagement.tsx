@@ -1079,8 +1079,19 @@ export default function FileManagement() {
         toast.success(`Thumbnail regenerated successfully!`, { id: `thumb-${file.id}` });
         console.log(`✅ Manual refresh completed for: ${file.name}`);
 
-        // Refresh files to show new thumbnail
-        await fetchFiles();
+        // Update ONLY this specific file in state with new thumbnail
+        const { data: updatedFile, error: fetchError } = await supabase
+          .from('file_storage')
+          .select('*')
+          .eq('id', file.id)
+          .single();
+
+        if (!fetchError && updatedFile) {
+          setFiles(prevFiles =>
+            prevFiles.map(f => f.id === file.id ? updatedFile : f)
+          );
+          console.log(`✅ Updated single file in state with new thumbnail: ${file.name}`);
+        }
       } else {
         console.error(`❌ Manual refresh returned null for: ${file.name}`);
         toast.error(`Failed to regenerate thumbnail - check console for details`, { id: `thumb-${file.id}` });
@@ -1328,8 +1339,23 @@ export default function FileManagement() {
         }
       }
 
-      // Refresh the file list to show any updates
-      await fetchFiles();
+      // Update ONLY this specific file in state - don't refresh all files
+      if (file.type === 'document' && fileExtension === 'pdf') {
+        // For PDFs, fetch the updated file data from database to get new thumbnail
+        const { data: updatedFile, error: fetchError } = await supabase
+          .from('file_storage')
+          .select('*')
+          .eq('id', file.id)
+          .single();
+
+        if (!fetchError && updatedFile) {
+          // Update only this file in the files state
+          setFiles(prevFiles =>
+            prevFiles.map(f => f.id === file.id ? updatedFile : f)
+          );
+          console.log(`✅ Updated single file in state: ${file.name}`);
+        }
+      }
 
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
