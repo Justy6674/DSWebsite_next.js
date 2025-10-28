@@ -1058,7 +1058,7 @@ export default function FileManagement() {
     }
   }, [user?.id]);
 
-  // Manual thumbnail refresh function
+  // Manual thumbnail refresh function - works for ALL PDFs
   const refreshThumbnail = async (file: FileItem) => {
     if (file.type !== 'document' || !file.name.toLowerCase().endsWith('.pdf')) {
       toast.error('Thumbnail refresh only available for PDF files');
@@ -1066,19 +1066,20 @@ export default function FileManagement() {
     }
 
     console.log(`🔄 Manual thumbnail refresh requested for: ${file.name}`);
-    toast.loading(`Generating thumbnail for ${file.name}...`, { id: `thumb-${file.id}` });
+    toast.loading(`Regenerating thumbnail for ${file.name}...`, { id: `thumb-${file.id}` });
 
     try {
-      const thumbnailUrl = await generateMissingThumbnail(file);
-      if (thumbnailUrl) {
-        toast.success(`Thumbnail generated successfully!`, { id: `thumb-${file.id}` });
+      // Force regeneration by calling generateMissingThumbnail even if thumbnail exists
+      const result = await forceRegenerateThumbnail(file);
+      if (result) {
+        toast.success(`Thumbnail regenerated successfully!`, { id: `thumb-${file.id}` });
         console.log(`✅ Manual refresh completed for: ${file.name}`);
 
         // Refresh files to show new thumbnail
         await fetchFiles();
       } else {
         console.error(`❌ Manual refresh returned null for: ${file.name}`);
-        toast.error(`Failed to generate thumbnail - check console for details`, { id: `thumb-${file.id}` });
+        toast.error(`Failed to regenerate thumbnail - check console for details`, { id: `thumb-${file.id}` });
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -1103,6 +1104,95 @@ export default function FileManagement() {
         duration: 6000 // Longer duration for error messages
       });
     }
+  };
+
+  // Force regenerate thumbnail function - always generates new thumbnail
+  const forceRegenerateThumbnail = async (file: FileItem): Promise<string | null> => {
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+
+    if (fileExtension === 'pdf') {
+      try {
+        console.log(`🔄 Force regenerating thumbnail for: ${file.name}`);
+
+        // Create AbortController for timeout handling
+        const abortController = new AbortController();
+        const timeoutId = setTimeout(() => abortController.abort(), 30000); // 30 second timeout
+
+        try {
+          // Fetch the PDF file with timeout and error handling
+          const response = await fetch(file.url, {
+            signal: abortController.signal,
+            headers: {
+              'Accept': 'application/pdf,*/*',
+            }
+          });
+
+          clearTimeout(timeoutId);
+
+          // Check if response is ok
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          // Verify content type
+          const contentType = response.headers.get('content-type');
+          if (contentType && !contentType.includes('pdf') && !contentType.includes('octet-stream')) {
+            console.warn(`⚠️  Unexpected content type for ${file.name}: ${contentType}`);
+          }
+
+          // Check file size (skip if too large for client-side processing)
+          const contentLength = response.headers.get('content-length');
+          if (contentLength && parseInt(contentLength) > 50 * 1024 * 1024) { // 50MB limit
+            throw new Error(`PDF file too large for thumbnail generation: ${(parseInt(contentLength) / 1024 / 1024).toFixed(1)}MB`);
+          }
+
+          const blob = await response.blob();
+
+          // Verify blob size
+          if (blob.size === 0) {
+            throw new Error('Downloaded PDF file is empty');
+          }
+
+          console.log(`📄 Processing PDF (${(blob.size / 1024 / 1024).toFixed(1)}MB): ${file.name}`);
+
+          // Generate new thumbnail (this will always show top of document)
+          const thumbnailUrl = await generatePDFThumbnail(blob, file.name);
+
+          // Update the database with the new thumbnail
+          const { error: updateError } = await supabase
+            .from('file_storage')
+            .update({ thumbnail_url: thumbnailUrl })
+            .eq('id', file.id);
+
+          if (updateError) {
+            console.error('Failed to update database with thumbnail URL:', updateError);
+            throw updateError;
+          }
+
+          console.log(`✅ Successfully force regenerated thumbnail for: ${file.name}`);
+          return thumbnailUrl;
+
+        } catch (fetchError) {
+          clearTimeout(timeoutId);
+
+          // Handle specific error types
+          if (fetchError.name === 'AbortError') {
+            throw new Error(`Timeout: PDF download took longer than 30 seconds`);
+          } else if (fetchError.name === 'TypeError' && fetchError.message.includes('Failed to fetch')) {
+            throw new Error(`Network error: Could not download PDF from server`);
+          } else {
+            throw fetchError;
+          }
+        }
+
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error(`❌ Failed to force regenerate thumbnail for ${file.name}:`, errorMessage);
+        return null;
+      }
+    }
+
+    return null;
   };
 
   return (
@@ -1364,36 +1454,19 @@ export default function FileManagement() {
                             <Copy className="h-4 w-4 mr-2" />
                             Copy
                           </Button>
-                          {/* Refresh button - for ALL PDFs without thumbnails */}
-                          {(() => {
-                            const isPDF = file.type === 'document' && file.name.toLowerCase().endsWith('.pdf');
-                            const hasNoThumbnail = !file.thumbnail_url || file.thumbnail_url === '';
-                            const shouldShowRefresh = isPDF && hasNoThumbnail;
-
-                            // Debug logging
-                            if (isPDF) {
-                              console.log(`🔍 PDF Debug: ${file.name}`, {
-                                type: file.type,
-                                isPDF,
-                                thumbnail_url: file.thumbnail_url,
-                                hasNoThumbnail,
-                                shouldShowRefresh
-                              });
-                            }
-
-                            return shouldShowRefresh ? (
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
-                                onClick={() => refreshThumbnail(file)}
-                                title="Generate thumbnail"
-                              >
-                                <RefreshCw className="h-4 w-4 mr-2" />
-                                Refresh
-                              </Button>
-                            ) : null;
-                          })()}
+                          {/* Refresh button - for ALL PDF files */}
+                          {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
+                              onClick={() => refreshThumbnail(file)}
+                              title="Regenerate thumbnail (ensures top of document is shown)"
+                            >
+                              <RefreshCw className="h-4 w-4 mr-2" />
+                              Refresh
+                            </Button>
+                          )}
                         </div>
 
                         {/* Bottom row - Primary Actions */}
