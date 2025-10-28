@@ -22,7 +22,8 @@ import {
   Plus,
   MoreHorizontal,
   BookOpen,
-  X
+  X,
+  RefreshCw
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -190,17 +191,55 @@ export default function FileManagement() {
           const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
           const page = await pdf.getPage(1);
 
-          const viewport = page.getViewport({ scale: 0.5 });
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
+          // Get page dimensions with a good scale for quality
+          const originalViewport = page.getViewport({ scale: 1.0 });
+
+          // Create thumbnail with fixed aspect ratio (16:9) and good quality
+          const thumbnailWidth = 400;
+          const thumbnailHeight = 225;
+
+          // Calculate scale to fit width while maintaining quality
+          const scale = thumbnailWidth / originalViewport.width;
+          const scaledViewport = page.getViewport({ scale });
+
+          // Set canvas to thumbnail size
+          canvas.width = thumbnailWidth;
+          canvas.height = thumbnailHeight;
+
+          // Clear canvas with white background
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, thumbnailWidth, thumbnailHeight);
+
+          // Create a temporary canvas for the full page
+          const tempCanvas = document.createElement('canvas');
+          const tempCtx = tempCanvas.getContext('2d');
+          if (!tempCtx) {
+            reject(new Error('Temporary canvas context not available'));
+            return;
+          }
+
+          tempCanvas.width = scaledViewport.width;
+          tempCanvas.height = scaledViewport.height;
 
           const renderContext = {
-            canvasContext: ctx,
-            viewport: viewport,
-            canvas: canvas,
+            canvasContext: tempCtx,
+            viewport: scaledViewport,
+            canvas: tempCanvas,
           };
 
           await page.render(renderContext).promise;
+
+          // Draw only the top portion of the rendered page to the thumbnail canvas
+          // This ensures we show the top of the document, not the middle
+          ctx.drawImage(
+            tempCanvas,
+            0, 0, // Source x, y (top-left of the PDF)
+            Math.min(tempCanvas.width, thumbnailWidth / scale), // Source width
+            Math.min(tempCanvas.height, thumbnailHeight / scale), // Source height
+            0, 0, // Destination x, y
+            thumbnailWidth, // Destination width
+            thumbnailHeight // Destination height
+          );
 
           // Convert canvas to blob and upload as thumbnail
           canvas.toBlob(async (blob) => {
@@ -867,6 +906,30 @@ export default function FileManagement() {
     }
   }, [user?.id]);
 
+  // Manual thumbnail refresh function
+  const refreshThumbnail = async (file: FileItem) => {
+    if (file.type !== 'document' || !file.name.toLowerCase().endsWith('.pdf')) {
+      toast.error('Thumbnail refresh only available for PDF files');
+      return;
+    }
+
+    toast.loading(`Generating thumbnail for ${file.name}...`, { id: `thumb-${file.id}` });
+
+    try {
+      const thumbnailUrl = await generateMissingThumbnail(file);
+      if (thumbnailUrl) {
+        toast.success(`Thumbnail generated successfully!`, { id: `thumb-${file.id}` });
+        // Refresh files to show new thumbnail
+        await fetchFiles();
+      } else {
+        toast.error(`Failed to generate thumbnail`, { id: `thumb-${file.id}` });
+      }
+    } catch (error) {
+      console.error('Manual thumbnail refresh failed:', error);
+      toast.error(`Thumbnail generation failed: ${error.message}`, { id: `thumb-${file.id}` });
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -1102,34 +1165,50 @@ export default function FileManagement() {
                         </p>
                       </div>
 
-                      {/* File Actions */}
-                      <div className="flex items-center justify-between pt-4 border-t border-slate-700">
+                      {/* File Actions - Improved Layout */}
+                      <div className="pt-4 border-t border-slate-700 space-y-3">
+                        {/* Top row - Quick Actions */}
                         <div className="flex space-x-2">
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 px-3 py-2"
+                            className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 px-3 py-2 flex-1"
                             onClick={() => window.open(file.url, '_blank')}
                             title="View file"
                           >
-                            <Eye className="h-4 w-4 mr-1" />
+                            <Eye className="h-4 w-4 mr-2" />
                             View
                           </Button>
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 px-3 py-2"
+                            className="border-slate-600 text-[#fef5e7] hover:bg-slate-700 px-3 py-2 flex-1"
                             onClick={() => copyFileUrl(file.url)}
                             title="Copy URL"
                           >
-                            <Copy className="h-4 w-4 mr-1" />
+                            <Copy className="h-4 w-4 mr-2" />
                             Copy
                           </Button>
+                          {/* Refresh button - only for PDFs without thumbnails */}
+                          {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') && !file.thumbnail_url && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
+                              onClick={() => refreshThumbnail(file)}
+                              title="Generate thumbnail"
+                            >
+                              <RefreshCw className="h-4 w-4 mr-2" />
+                              Refresh
+                            </Button>
+                          )}
                         </div>
+
+                        {/* Bottom row - Primary Actions */}
                         <div className="flex space-x-2">
                           <Button
                             size="sm"
-                            className="bg-[#b68a71] hover:bg-[#8B6F47] text-white px-4 py-2"
+                            className="bg-[#b68a71] hover:bg-[#8B6F47] text-white px-4 py-2 flex-1"
                             onClick={() => openPortalModal(file)}
                             title="Add to Portal"
                           >
