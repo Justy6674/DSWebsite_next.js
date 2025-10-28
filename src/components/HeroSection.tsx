@@ -5,20 +5,20 @@ import Image from 'next/image';
 
 export function HeroSection() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       {/* HERO IMAGE SECTION: Clean Family Image */}
       <div className="relative h-64 md:h-80 lg:h-96">
         <Image
           src="/hero-family-sunset.webp"
           alt="Family silhouette at sunset"
           fill
-          className="object-cover md:object-center"
+          className="object-cover md:object-contain"
           priority
         />
       </div>
 
       {/* BOTTOM SECTION: Text Content on Slate Background */}
-      <div className="bg-[#334155] text-[#f7f2d3] px-4 pt-4 pb-0 flex-1">
+      <div className="bg-[#334155] text-[#f7f2d3] px-4 pt-4 pb-0">
         <div className="max-w-4xl mx-auto text-center space-y-2">
           <h2 className="text-xl md:text-3xl font-bold leading-tight">
             <span className="block">Weight Loss Clinic</span>
