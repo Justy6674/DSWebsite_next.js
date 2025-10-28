@@ -27,11 +27,23 @@ export const metadata: Metadata = {
     siteName: 'Downscale Weight Loss Clinic',
     title: 'Telehealth Weight Loss & Weight Maintenance Clinic Australia - Justin Black',
     description: 'Professional telehealth weight loss & weight maintenance clinic from only $45. Consultations with Justin Black, Nurse Practitioner. Medicare-eligible patients receive instant rebates.',
+    images: [
+      {
+        url: 'https://www.downscale.com.au/hero-family-sunset.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Downscale Weight Loss Clinic - Australian telehealth weight loss and weight maintenance clinic',
+        type: 'image/webp',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@downscale_weightloss',
+    creator: '@downscale_weightloss',
     title: 'Telehealth Weight Loss & Weight Maintenance Clinic Australia - Justin Black',
     description: 'Professional telehealth weight loss & weight maintenance clinic from only $45. Consultations with Justin Black, Nurse Practitioner. Medicare-eligible patients receive instant rebates.',
+    images: ['https://www.downscale.com.au/hero-family-sunset.webp'],
   },
   robots: {
     index: true,
@@ -55,11 +67,21 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Preload critical hero image for instant LCP */}
-        <link rel="preload" as="image" href="/hero-family-sunset.jpg" type="image/webp" />
-        <link rel="preload" as="image" href="/hero-family-sunset-mobile.jpg" type="image/webp" media="(max-width: 768px)" />
+        <link rel="preload" as="image" href="/hero-family-sunset.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/hero-family-sunset.webp" type="image/webp" media="(max-width: 1024px)" />
+        {/* Preload critical font for instant text rendering */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* DNS prefetch for external resources */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.halaxy.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        {/* Preload favicon for instant load */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Resource hints for booking links */}
+        <link rel="dns-prefetch" href="//www.halaxy.com" />
+        <link rel="preconnect" href="https://www.halaxy.com" />
       </head>
       <body className="font-sans">
         <Providers>

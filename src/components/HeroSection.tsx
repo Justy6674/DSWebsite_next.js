@@ -96,8 +96,7 @@ export function HeroSection() {
             <div className="text-[#f7f2d3] space-y-8">
               <div className="space-y-4">
                 <h1 className="text-5xl xl:text-6xl font-bold leading-tight">
-                  <span className="block">Weight Loss Clinic</span>
-                  <span className="block text-3xl xl:text-4xl">&</span>
+                  <span className="block">Weight Loss Clinic &</span>
                   <span className="block">Weight Maintenance Clinic</span>
                 </h1>
 
@@ -129,33 +128,33 @@ export function HeroSection() {
                     href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-gradient-to-r from-[#f5deb3] to-[#f7e7c5] text-[#5a4a35] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    className="flex flex-col justify-center items-center bg-gradient-to-r from-[#f5deb3] to-[#f7e7c5] text-[#5a4a35] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[120px]"
                   >
-                    <div className="font-bold text-lg">💊 Book Initial</div>
-                    <div className="text-sm">Consultation</div>
-                    <div className="text-xs mt-1">Weight Loss 30 Min • From $45</div>
+                    <div className="font-bold text-lg mb-1">💊 Book Initial</div>
+                    <div className="text-sm mb-2">Consultation</div>
+                    <div className="text-xs">Weight Loss 30 Min • From $45</div>
                   </a>
 
                   <a
                     href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-gradient-to-r from-[#8b6f47] to-[#9d8157] text-[#f5deb3] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    className="flex flex-col justify-center items-center bg-gradient-to-r from-[#8b6f47] to-[#9d8157] text-[#f5deb3] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[120px]"
                   >
-                    <div className="font-bold text-lg">✓ Book Review</div>
-                    <div className="text-sm">Consultation</div>
-                    <div className="text-xs mt-1">Weight Loss 15 Min • From $45</div>
+                    <div className="font-bold text-lg mb-1">✓ Book Review</div>
+                    <div className="text-sm mb-2">Consultation</div>
+                    <div className="text-xs">Weight Loss 15 Min • From $45</div>
                   </a>
 
                   <a
                     href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    className="flex flex-col justify-center items-center bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 min-h-[120px]"
                   >
-                    <div className="font-bold text-lg">📋 Book General</div>
-                    <div className="text-sm">Appointment</div>
-                    <div className="text-xs mt-1">General Practice 10 Minutes</div>
+                    <div className="font-bold text-lg mb-1">📋 Book General</div>
+                    <div className="text-sm mb-2">Appointment</div>
+                    <div className="text-xs">General Practice 10 Minutes</div>
                   </a>
                 </div>
               </div>
