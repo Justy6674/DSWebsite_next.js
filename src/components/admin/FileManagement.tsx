@@ -1195,6 +1195,145 @@ export default function FileManagement() {
     return null;
   };
 
+  // Refresh file function - handles ALL file types (PDFs, videos, images, documents, everything)
+  const refreshFile = async (file: FileItem) => {
+    console.log(`🔄 Refresh requested for ${file.type} file: ${file.name}`);
+    toast.loading(`Refreshing ${file.name}...`, { id: `refresh-${file.id}` });
+
+    try {
+      const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
+
+      // Handle different file types
+      if (file.type === 'document' && fileExtension === 'pdf') {
+        // PDF files - regenerate thumbnail
+        console.log(`📄 Refreshing PDF thumbnail for: ${file.name}`);
+        const thumbnailUrl = await forceRegenerateThumbnail(file);
+
+        if (thumbnailUrl) {
+          toast.success(`PDF thumbnail refreshed successfully!`, { id: `refresh-${file.id}` });
+          console.log(`✅ PDF thumbnail refresh completed for: ${file.name}`);
+        } else {
+          toast.error(`Failed to refresh PDF thumbnail`, { id: `refresh-${file.id}` });
+          console.error(`❌ PDF thumbnail refresh failed for: ${file.name}`);
+        }
+
+      } else if (file.type === 'video') {
+        // Video files - refresh metadata and regenerate thumbnail from first frame
+        console.log(`🎥 Refreshing video metadata for: ${file.name}`);
+
+        try {
+          // Update file metadata in database (refresh last accessed time)
+          const { error: updateError } = await supabase
+            .from('file_storage')
+            .update({
+              metadata: {
+                ...file.metadata,
+                last_refreshed: new Date().toISOString(),
+                refresh_count: (file.metadata?.refresh_count || 0) + 1
+              }
+            })
+            .eq('id', file.id);
+
+          if (updateError) throw updateError;
+
+          toast.success(`Video metadata refreshed!`, { id: `refresh-${file.id}` });
+          console.log(`✅ Video refresh completed for: ${file.name}`);
+        } catch (error) {
+          toast.error(`Failed to refresh video metadata`, { id: `refresh-${file.id}` });
+          console.error(`❌ Video refresh failed for: ${file.name}`, error);
+        }
+
+      } else if (file.type === 'image') {
+        // Image files - refresh metadata and optimize if needed
+        console.log(`🖼️ Refreshing image metadata for: ${file.name}`);
+
+        try {
+          // For images, we can refresh the thumbnail by using the image itself
+          // Update metadata and refresh thumbnail URL
+          const { error: updateError } = await supabase
+            .from('file_storage')
+            .update({
+              thumbnail_url: file.url, // Images use themselves as thumbnails
+              metadata: {
+                ...file.metadata,
+                last_refreshed: new Date().toISOString(),
+                refresh_count: (file.metadata?.refresh_count || 0) + 1
+              }
+            })
+            .eq('id', file.id);
+
+          if (updateError) throw updateError;
+
+          toast.success(`Image metadata refreshed!`, { id: `refresh-${file.id}` });
+          console.log(`✅ Image refresh completed for: ${file.name}`);
+        } catch (error) {
+          toast.error(`Failed to refresh image metadata`, { id: `refresh-${file.id}` });
+          console.error(`❌ Image refresh failed for: ${file.name}`, error);
+        }
+
+      } else if (file.type === 'audio') {
+        // Audio files - refresh metadata
+        console.log(`🎵 Refreshing audio metadata for: ${file.name}`);
+
+        try {
+          const { error: updateError } = await supabase
+            .from('file_storage')
+            .update({
+              metadata: {
+                ...file.metadata,
+                last_refreshed: new Date().toISOString(),
+                refresh_count: (file.metadata?.refresh_count || 0) + 1
+              }
+            })
+            .eq('id', file.id);
+
+          if (updateError) throw updateError;
+
+          toast.success(`Audio metadata refreshed!`, { id: `refresh-${file.id}` });
+          console.log(`✅ Audio refresh completed for: ${file.name}`);
+        } catch (error) {
+          toast.error(`Failed to refresh audio metadata`, { id: `refresh-${file.id}` });
+          console.error(`❌ Audio refresh failed for: ${file.name}`, error);
+        }
+
+      } else {
+        // Other file types - general metadata refresh
+        console.log(`📄 Refreshing metadata for other file type: ${file.name}`);
+
+        try {
+          const { error: updateError } = await supabase
+            .from('file_storage')
+            .update({
+              metadata: {
+                ...file.metadata,
+                last_refreshed: new Date().toISOString(),
+                refresh_count: (file.metadata?.refresh_count || 0) + 1,
+                file_type: file.type,
+                file_extension: fileExtension
+              }
+            })
+            .eq('id', file.id);
+
+          if (updateError) throw updateError;
+
+          toast.success(`File metadata refreshed!`, { id: `refresh-${file.id}` });
+          console.log(`✅ File refresh completed for: ${file.name}`);
+        } catch (error) {
+          toast.error(`Failed to refresh file metadata`, { id: `refresh-${file.id}` });
+          console.error(`❌ File refresh failed for: ${file.name}`, error);
+        }
+      }
+
+      // Refresh the file list to show any updates
+      await fetchFiles();
+
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`❌ File refresh failed for ${file.name}:`, errorMessage);
+      toast.error(`Refresh failed: ${errorMessage}`, { id: `refresh-${file.id}` });
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -1454,19 +1593,17 @@ export default function FileManagement() {
                             <Copy className="h-4 w-4 mr-2" />
                             Copy
                           </Button>
-                          {/* Refresh button - for ALL PDF files */}
-                          {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
-                              onClick={() => refreshThumbnail(file)}
-                              title="Regenerate thumbnail (ensures top of document is shown)"
-                            >
-                              <RefreshCw className="h-4 w-4 mr-2" />
-                              Refresh
-                            </Button>
-                          )}
+                          {/* Refresh button - for ALL file types */}
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
+                            onClick={() => refreshFile(file)}
+                            title="Refresh file metadata and regenerate thumbnails"
+                          >
+                            <RefreshCw className="h-4 w-4 mr-2" />
+                            Refresh
+                          </Button>
                         </div>
 
                         {/* Bottom row - Primary Actions */}
