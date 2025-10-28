@@ -76,7 +76,7 @@ export function HeroSection() {
                   href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg p-2 text-center shadow-lg"
+                  className="block bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-lg p-2 text-center shadow-lg"
                 >
                   <div className="font-bold text-xs">📋 Book General Appointment</div>
                   <div className="text-xs">General Practice 10 Minutes</div>
