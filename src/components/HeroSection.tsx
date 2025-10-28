@@ -12,7 +12,7 @@ export function HeroSection() {
           src="/hero-family-sunset.webp"
           alt="Family silhouette at sunset"
           fill
-          className="object-cover"
+          className="object-cover object-center md:object-contain lg:object-cover"
           priority
         />
       </div>
@@ -20,12 +20,14 @@ export function HeroSection() {
       {/* BOTTOM SECTION: Text Content on Slate Background */}
       <div className="bg-[#334155] text-[#f7f2d3] p-4 flex-1">
         <div className="max-w-4xl mx-auto text-center space-y-2">
-          <h2 className="text-xl md:text-3xl font-bold">
-            Telehealth Weight Loss Clinic & Weight Maintenance Clinic
+          <h2 className="text-xl md:text-3xl font-bold leading-tight">
+            <span className="block">Weight Loss Clinic</span>
+            <span className="block text-base md:text-2xl">&</span>
+            <span className="block">Weight Maintenance Clinic</span>
           </h2>
 
           <p className="text-base md:text-xl font-medium">
-            Personalised, evidence-based care by Nurse Practitioner Justin Black
+            Personalised, evidence-based telehealth care by Nurse Practitioner Justin Black
           </p>
 
           <p className="text-sm md:text-lg">
