@@ -18,7 +18,7 @@ export function HeroSection() {
       </div>
 
       {/* BOTTOM SECTION: Text Content on Slate Background */}
-      <div className="bg-[#334155] text-[#f7f2d3] px-4 pt-4 pb-1 flex-1">
+      <div className="bg-[#334155] text-[#f7f2d3] px-4 pt-4 pb-0 flex-1">
         <div className="max-w-4xl mx-auto text-center space-y-2">
           <h2 className="text-xl md:text-3xl font-bold leading-tight">
             <span className="block">Weight Loss Clinic</span>
