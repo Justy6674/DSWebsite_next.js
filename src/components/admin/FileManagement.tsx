@@ -249,27 +249,79 @@ export default function FileManagement() {
             }
 
             try {
-              // Upload thumbnail to Supabase storage
+              // Upload thumbnail to Supabase storage with retry mechanism
               const originalName = fileName || (file as File).name || 'unknown.pdf';
-              const thumbnailName = `thumbnails/${Date.now()}_${originalName.replace('.pdf', '.png')}`;
-              const { data: thumbnailData, error: thumbnailError } = await supabase.storage
-                .from('portal-files')
-                .upload(thumbnailName, blob, {
-                  contentType: 'image/png',
-                  cacheControl: '3600'
-                });
+              const safeName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_'); // Sanitize filename
+              const thumbnailName = `thumbnails/${Date.now()}_${safeName.replace('.pdf', '.png')}`;
 
-              if (thumbnailError) {
-                reject(thumbnailError);
+              console.log(`📤 Uploading thumbnail: ${thumbnailName}`);
+
+              // Refresh session before upload to prevent auth issues
+              const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+              if (sessionError || !session) {
+                console.error('❌ Authentication session invalid during thumbnail upload');
+                reject(new Error('Authentication required for thumbnail upload'));
                 return;
               }
 
+              // Retry upload with exponential backoff
+              let uploadError;
+              let uploadData;
+              const maxRetries = 3;
+
+              for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                try {
+                  console.log(`📤 Upload attempt ${attempt}/${maxRetries} for: ${thumbnailName}`);
+
+                  const result = await supabase.storage
+                    .from('portal-files')
+                    .upload(thumbnailName, blob, {
+                      contentType: 'image/png',
+                      cacheControl: '3600',
+                      upsert: false
+                    });
+
+                  uploadData = result.data;
+                  uploadError = result.error;
+
+                  if (!uploadError && uploadData) {
+                    console.log(`✅ Thumbnail uploaded successfully: ${thumbnailName}`);
+                    break;
+                  } else if (uploadError) {
+                    console.error(`❌ Upload attempt ${attempt} failed:`, uploadError);
+                    if (attempt === maxRetries) {
+                      reject(new Error(`Upload failed after ${maxRetries} attempts: ${uploadError.message}`));
+                      return;
+                    }
+                    // Wait before retry (exponential backoff)
+                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
+                  }
+                } catch (networkError) {
+                  console.error(`❌ Network error on attempt ${attempt}:`, networkError);
+                  uploadError = networkError;
+                  if (attempt === maxRetries) {
+                    reject(new Error(`Network error after ${maxRetries} attempts: ${networkError.message}`));
+                    return;
+                  }
+                  // Wait before retry
+                  await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
+                }
+              }
+
+              if (!uploadData) {
+                reject(new Error('Upload failed: No data returned from storage'));
+                return;
+              }
+
+              // Get public URL
               const { data: thumbnailUrl } = supabase.storage
                 .from('portal-files')
                 .getPublicUrl(thumbnailName);
 
+              console.log(`📍 Generated public URL: ${thumbnailUrl.publicUrl}`);
               resolve(thumbnailUrl.publicUrl);
             } catch (error) {
+              console.error('❌ Unexpected error during thumbnail upload:', error);
               reject(error);
             }
           }, 'image/png', 0.8);
@@ -1013,20 +1065,43 @@ export default function FileManagement() {
       return;
     }
 
+    console.log(`🔄 Manual thumbnail refresh requested for: ${file.name}`);
     toast.loading(`Generating thumbnail for ${file.name}...`, { id: `thumb-${file.id}` });
 
     try {
       const thumbnailUrl = await generateMissingThumbnail(file);
       if (thumbnailUrl) {
         toast.success(`Thumbnail generated successfully!`, { id: `thumb-${file.id}` });
+        console.log(`✅ Manual refresh completed for: ${file.name}`);
+
         // Refresh files to show new thumbnail
         await fetchFiles();
       } else {
-        toast.error(`Failed to generate thumbnail`, { id: `thumb-${file.id}` });
+        console.error(`❌ Manual refresh returned null for: ${file.name}`);
+        toast.error(`Failed to generate thumbnail - check console for details`, { id: `thumb-${file.id}` });
       }
     } catch (error) {
-      console.error('Manual thumbnail refresh failed:', error);
-      toast.error(`Thumbnail generation failed: ${error.message}`, { id: `thumb-${file.id}` });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`❌ Manual thumbnail refresh failed for ${file.name}:`, errorMessage);
+
+      // Provide specific error messages based on error type
+      let userMessage = 'Thumbnail generation failed';
+      if (errorMessage.includes('Authentication')) {
+        userMessage = 'Authentication error - please refresh page and try again';
+      } else if (errorMessage.includes('Network') || errorMessage.includes('connection')) {
+        userMessage = 'Network error - check internet connection and try again';
+      } else if (errorMessage.includes('Upload failed')) {
+        userMessage = 'Upload failed - server may be busy, try again in a moment';
+      } else if (errorMessage.includes('too large')) {
+        userMessage = 'PDF file too large for thumbnail generation';
+      } else if (errorMessage.includes('Timeout')) {
+        userMessage = 'Request timed out - try again with better connection';
+      }
+
+      toast.error(`${userMessage}: ${errorMessage}`, {
+        id: `thumb-${file.id}`,
+        duration: 6000 // Longer duration for error messages
+      });
     }
   };
 
