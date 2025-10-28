@@ -10,10 +10,11 @@ export function HeroSection() {
       <div className="relative h-64 md:h-80 lg:h-96">
         <Image
           src="/hero-family-sunset.webp"
-          alt="Family silhouette at sunset"
+          alt="Family silhouette at sunset - Downscale Weight Loss Clinic"
           fill
-          className="object-cover md:object-[50%_25%]"
+          className="object-cover object-center md:object-[50%_50%]"
           priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
         />
       </div>
 
@@ -107,7 +108,7 @@ export function HeroSection() {
                 href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                className="block bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
               >
                 <div className="font-bold text-lg">📋 Book General Appointment</div>
                 <div className="text-sm">General Practice 10 Minutes</div>
