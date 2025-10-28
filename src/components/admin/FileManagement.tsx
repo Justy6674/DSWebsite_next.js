@@ -1364,19 +1364,36 @@ export default function FileManagement() {
                             <Copy className="h-4 w-4 mr-2" />
                             Copy
                           </Button>
-                          {/* Refresh button - only for PDFs without thumbnails */}
-                          {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') && !file.thumbnail_url && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
-                              onClick={() => refreshThumbnail(file)}
-                              title="Generate thumbnail"
-                            >
-                              <RefreshCw className="h-4 w-4 mr-2" />
-                              Refresh
-                            </Button>
-                          )}
+                          {/* Refresh button - for ALL PDFs without thumbnails */}
+                          {(() => {
+                            const isPDF = file.type === 'document' && file.name.toLowerCase().endsWith('.pdf');
+                            const hasNoThumbnail = !file.thumbnail_url || file.thumbnail_url === '';
+                            const shouldShowRefresh = isPDF && hasNoThumbnail;
+
+                            // Debug logging
+                            if (isPDF) {
+                              console.log(`🔍 PDF Debug: ${file.name}`, {
+                                type: file.type,
+                                isPDF,
+                                thumbnail_url: file.thumbnail_url,
+                                hasNoThumbnail,
+                                shouldShowRefresh
+                              });
+                            }
+
+                            return shouldShowRefresh ? (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-blue-600 text-blue-400 hover:bg-blue-900/20 px-3 py-2 flex-1"
+                                onClick={() => refreshThumbnail(file)}
+                                title="Generate thumbnail"
+                              >
+                                <RefreshCw className="h-4 w-4 mr-2" />
+                                Refresh
+                              </Button>
+                            ) : null;
+                          })()}
                         </div>
 
                         {/* Bottom row - Primary Actions */}
