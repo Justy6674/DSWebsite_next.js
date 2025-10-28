@@ -197,6 +197,7 @@ export default function FileManagement() {
           const renderContext = {
             canvasContext: ctx,
             viewport: viewport,
+            canvas: canvas,
           };
 
           await page.render(renderContext).promise;
@@ -250,7 +251,8 @@ export default function FileManagement() {
         // Fetch the PDF file
         const response = await fetch(file.url);
         const blob = await response.blob();
-        const pdfFile = new File([blob], file.name, { type: 'application/pdf' });
+        // Create a file-like object for PDF.js processing
+        const pdfFile = blob as File;
 
         const thumbnailUrl = await generatePDFThumbnail(pdfFile);
 
