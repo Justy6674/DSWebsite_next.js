@@ -43,7 +43,7 @@ export function HeroSection() {
           </p>
 
           {/* BOOKING BUTTONS */}
-          <div className="max-w-sm md:max-w-6xl mx-auto pt-1 pb-2">
+          <div className="max-w-sm md:max-w-6xl mx-auto pt-1 pb-4">
             <p className="text-center text-[#f7f2d3] font-semibold text-xs md:text-sm mb-1 md:mb-4">
               👇 Choose One to Book Your Appointment 👇
             </p>
