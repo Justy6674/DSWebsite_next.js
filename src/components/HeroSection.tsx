@@ -12,7 +12,7 @@ export function HeroSection() {
           src="/hero-family-sunset.webp"
           alt="Family silhouette at sunset - Downscale Weight Loss Clinic"
           fill
-          className="object-cover object-center md:object-[50%_75%]"
+          className="object-cover object-center md:object-[50%_50%]"
           priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
         />
