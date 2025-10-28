@@ -93,11 +93,11 @@ export function HeroSection() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
 
             {/* LEFT COLUMN: Content */}
-            <div className="text-[#f7f2d3] space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-5xl xl:text-6xl font-bold leading-tight">
+            <div className="text-[#f7f2d3] space-y-4">
+              <div className="space-y-2">
+                <h1 className="text-4xl xl:text-5xl font-bold leading-tight">
                   <span className="block">Weight Loss Clinic &</span>
-                  <span className="block">Weight Maintenance Clinic</span>
+                  <span className="block whitespace-nowrap">Weight Maintenance Clinic</span>
                 </h1>
 
                 <p className="text-xl xl:text-2xl font-medium leading-relaxed">
@@ -118,7 +118,7 @@ export function HeroSection() {
               </div>
 
               {/* DESKTOP BOOKING BUTTONS */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <p className="text-center text-[#f7f2d3] font-semibold text-lg">
                   👇 Choose One to Book Your Appointment 👇
                 </p>
