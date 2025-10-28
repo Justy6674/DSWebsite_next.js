@@ -12,13 +12,14 @@ export function HeroSection() {
           src="/hero-family-sunset.webp"
           alt="Family silhouette at sunset"
           fill
-          className="object-contain md:object-cover md:object-bottom"
+          className="object-cover object-center"
+          style={{ objectPosition: 'center 30%' }}
           priority
         />
       </div>
 
       {/* BOTTOM SECTION: Text Content on Slate Background */}
-      <div className="bg-[#334155] text-[#f7f2d3] p-4 flex-1">
+      <div className="bg-[#334155] text-[#f7f2d3] p-4 md:p-8 flex-1">
         <div className="max-w-4xl mx-auto text-center space-y-2">
           <h2 className="text-xl md:text-3xl font-bold leading-tight">
             <span className="block">Weight Loss Clinic</span>
@@ -43,40 +44,76 @@ export function HeroSection() {
           </p>
 
           {/* BOOKING BUTTONS */}
-          <div className="space-y-1 max-w-sm mx-auto pt-1">
-            <p className="text-center text-[#f7f2d3] font-semibold text-xs mb-1">
+          <div className="max-w-sm md:max-w-6xl mx-auto pt-1">
+            <p className="text-center text-[#f7f2d3] font-semibold text-xs md:text-sm mb-1 md:mb-4">
               👇 Choose One to Book Your Appointment 👇
             </p>
 
-            <a
-              href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-gradient-to-r from-[#f5deb3] to-[#f7e7c5] text-[#5a4a35] rounded-lg p-2 md:p-4 text-center shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <div className="font-bold text-xs md:text-sm">💊 Book Initial Consultation</div>
-              <div className="text-xs">Weight Loss 30 Min • From $45</div>
-            </a>
+            {/* MOBILE: Stacked */}
+            <div className="md:hidden space-y-1">
+              <a
+                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-gradient-to-r from-[#f5deb3] to-[#f7e7c5] text-[#5a4a35] rounded-lg p-2 text-center shadow-lg"
+              >
+                <div className="font-bold text-xs">💊 Book Initial Consultation</div>
+                <div className="text-xs">Weight Loss 30 Min • From $45</div>
+              </a>
 
-            <a
-              href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-gradient-to-r from-[#8b6f47] to-[#9d8157] text-[#f5deb3] rounded-lg p-2 md:p-4 text-center shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <div className="font-bold text-xs md:text-sm">✓ Book Review Consultation</div>
-              <div className="text-xs">Weight Loss 15 Min • From $45</div>
-            </a>
+              <a
+                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-gradient-to-r from-[#8b6f47] to-[#9d8157] text-[#f5deb3] rounded-lg p-2 text-center shadow-lg"
+              >
+                <div className="font-bold text-xs">✓ Book Review Consultation</div>
+                <div className="text-xs">Weight Loss 15 Min • From $45</div>
+              </a>
 
-            <a
-              href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg p-2 md:p-4 text-center shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <div className="font-bold text-xs md:text-sm">📋 Book General Appointment</div>
-              <div className="text-xs">General Practice 10 Minutes</div>
-            </a>
+              <a
+                href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg p-2 text-center shadow-lg"
+              >
+                <div className="font-bold text-xs">📋 Book General Appointment</div>
+                <div className="text-xs">General Practice 10 Minutes</div>
+              </a>
+            </div>
+
+            {/* DESKTOP: Side by side with hover effects */}
+            <div className="hidden md:grid md:grid-cols-3 md:gap-6">
+              <a
+                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=452491"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-gradient-to-r from-[#f5deb3] to-[#f7e7c5] text-[#5a4a35] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              >
+                <div className="font-bold text-lg">💊 Book Initial Consultation</div>
+                <div className="text-sm">Weight Loss 30 Min • From $45</div>
+              </a>
+
+              <a
+                href="https://www.halaxy.com/book/downscale/location/1198131?appointmentTypeId=472181"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-gradient-to-r from-[#8b6f47] to-[#9d8157] text-[#f5deb3] rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              >
+                <div className="font-bold text-lg">✓ Book Review Consultation</div>
+                <div className="text-sm">Weight Loss 15 Min • From $45</div>
+              </a>
+
+              <a
+                href="https://www.halaxy.com/book/nurse-practitioner/mr-justin-black/1488401/1198131?appointmentTypeId=544473"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl p-6 text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+              >
+                <div className="font-bold text-lg">📋 Book General Appointment</div>
+                <div className="text-sm">General Practice 10 Minutes</div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
