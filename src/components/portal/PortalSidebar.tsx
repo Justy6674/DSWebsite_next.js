@@ -39,11 +39,13 @@ const pillars = [
     icon: Pill,
     href: '/portal/medication',
     subItems: [
-      { name: 'Device Videos', href: '/portal/medication/videos' },
+      { name: 'Guides', href: '/portal/medication/guides' },
+      { name: 'Research & Journal Articles', href: '/portal/medication/research' },
       { name: 'Product Information', href: '/portal/medication/products' },
-      { name: 'Research Articles', href: '/portal/medication/research' },
-      { name: 'Side Effect Management', href: '/portal/medication/side-effects' },
-      { name: 'Dose Tracking', href: '/portal/medication/tracking' }
+      { name: 'Videos and Video Links', href: '/portal/medication/videos' },
+      { name: 'Podcast Links', href: '/portal/medication/podcasts' },
+      { name: 'Other', href: '/portal/medication/other' },
+      { name: 'Tools', href: '/portal/medication/tools' }
     ]
   },
   {
@@ -52,11 +54,13 @@ const pillars = [
     icon: UtensilsCrossed,
     href: '/portal/nutrition',
     subItems: [
-      { name: 'Meal Planning Tools', href: '/portal/nutrition/planning' },
-      { name: 'Recipe Library', href: '/portal/nutrition/recipes' },
-      { name: 'Macro Calculators', href: '/portal/nutrition/calculators' },
-      { name: 'Eating Guides', href: '/portal/nutrition/guides' },
-      { name: 'Saved Meal Plans', href: '/portal/nutrition/saved' }
+      { name: 'Guides', href: '/portal/nutrition/guides' },
+      { name: 'Research & Journal Articles', href: '/portal/nutrition/research' },
+      { name: 'Product Information', href: '/portal/nutrition/products' },
+      { name: 'Videos and Video Links', href: '/portal/nutrition/videos' },
+      { name: 'Podcast Links', href: '/portal/nutrition/podcasts' },
+      { name: 'Other', href: '/portal/nutrition/other' },
+      { name: 'Tools', href: '/portal/nutrition/tools' }
     ]
   },
   {
@@ -65,11 +69,13 @@ const pillars = [
     icon: Activity,
     href: '/portal/activity',
     subItems: [
-      { name: 'Home Workouts', href: '/portal/activity/workouts' },
-      { name: 'Exercise Videos', href: '/portal/activity/videos' },
-      { name: 'Movement Alternatives', href: '/portal/activity/alternatives' },
-      { name: 'Progress Tracking', href: '/portal/activity/tracking' },
-      { name: 'Equipment-Free', href: '/portal/activity/equipment-free' }
+      { name: 'Guides', href: '/portal/activity/guides' },
+      { name: 'Research & Journal Articles', href: '/portal/activity/research' },
+      { name: 'Product Information', href: '/portal/activity/products' },
+      { name: 'Videos and Video Links', href: '/portal/activity/videos' },
+      { name: 'Podcast Links', href: '/portal/activity/podcasts' },
+      { name: 'Other', href: '/portal/activity/other' },
+      { name: 'Tools', href: '/portal/activity/tools' }
     ]
   },
   {
@@ -78,11 +84,13 @@ const pillars = [
     icon: Brain,
     href: '/portal/mental-health',
     subItems: [
-      { name: 'Stress Management', href: '/portal/mental-health/stress' },
-      { name: 'Emotional Eating', href: '/portal/mental-health/emotional-eating' },
-      { name: 'CBT Resources', href: '/portal/mental-health/cbt' },
-      { name: 'Identity Change', href: '/portal/mental-health/identity' },
-      { name: 'Mindfulness Library', href: '/portal/mental-health/mindfulness' }
+      { name: 'Guides', href: '/portal/mental-health/guides' },
+      { name: 'Research & Journal Articles', href: '/portal/mental-health/research' },
+      { name: 'Product Information', href: '/portal/mental-health/products' },
+      { name: 'Videos and Video Links', href: '/portal/mental-health/videos' },
+      { name: 'Podcast Links', href: '/portal/mental-health/podcasts' },
+      { name: 'Other', href: '/portal/mental-health/other' },
+      { name: 'Tools', href: '/portal/mental-health/tools' }
     ]
   },
   {
@@ -91,11 +99,13 @@ const pillars = [
     icon: Moon,
     href: '/portal/sleep-recovery',
     subItems: [
-      { name: 'Sleep Hygiene', href: '/portal/sleep-recovery/hygiene' },
-      { name: 'Relaxation Resources', href: '/portal/sleep-recovery/relaxation' },
-      { name: 'Recovery Strategies', href: '/portal/sleep-recovery/strategies' },
-      { name: 'Parent Tips', href: '/portal/sleep-recovery/parent-tips' },
-      { name: 'Sleep Tracking', href: '/portal/sleep-recovery/tracking' }
+      { name: 'Guides', href: '/portal/sleep-recovery/guides' },
+      { name: 'Research & Journal Articles', href: '/portal/sleep-recovery/research' },
+      { name: 'Product Information', href: '/portal/sleep-recovery/products' },
+      { name: 'Videos and Video Links', href: '/portal/sleep-recovery/videos' },
+      { name: 'Podcast Links', href: '/portal/sleep-recovery/podcasts' },
+      { name: 'Other', href: '/portal/sleep-recovery/other' },
+      { name: 'Tools', href: '/portal/sleep-recovery/tools' }
     ]
   }
 ];

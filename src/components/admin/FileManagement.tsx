@@ -46,11 +46,13 @@ interface FileItem {
 }
 
 const STANDARD_SUBSECTIONS = [
-  'Getting Started',
-  'Core Resources',
-  'Tools & Calculators',
-  'Educational Content',
-  'Community Support'
+  'Guides',
+  'Research & Journal Articles',
+  'Product Information',
+  'Videos and Video Links',
+  'Podcast Links',
+  'Other',
+  'Tools'
 ];
 
 interface PortalContentData {
