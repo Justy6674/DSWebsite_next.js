@@ -31,14 +31,34 @@ npm run lighthouse            # Run Lighthouse performance test
 
 ## 📱 Patient Portal Features
 
-### 7 Health Pillars
+### Portal Navigation
+- **Dashboard** - Central hub with global search, featured tools, health metrics, and water reminders
+- **Medication** - GLP-1 and weight loss medication resources
 - **Nutrition** - Evidence-based dietary resources
 - **Activity** - Exercise and movement content
-- **Mental Health** - Psychology and mindset tools
-- **Sleep & Recovery** - Sleep optimization protocols
+- **Mental Health / Goal Setting** - Psychology, mindset tools, and goal achievement resources
+- **Sleep** - Sleep optimization protocols and recovery strategies
 - **Water** - Gamified hydration tracking with 8 notification personalities
-- **Shop** - Supplement and product information
-- **Medication** - GLP-1 and weight loss medication resources
+
+### Standard Content Sub-Sections (All Pillars Except Dashboard)
+Every pillar uses the same 7 sub-sections for consistent content organization:
+1. **Guides** - Step-by-step educational guides
+2. **Research / Journal Articles** - Evidence-based research papers and studies
+3. **Product Information** - Product details and recommendations
+4. **Videos / Video Links** - Educational videos and external video resources
+5. **Podcast Links** - Audio content and podcast recommendations
+6. **Tools** - Interactive calculators, assessments, and trackers (also available on Dashboard)
+7. **Other** - Additional resources and miscellaneous content
+
+### Content Management
+- **Admin Dashboard** → **Portal Content Manager** - Fully built system for adding, editing, and organizing all portal content
+- Content is manually categorized by pillar and sub-section during upload
+- Admin can preview content exactly as patients will see it before publishing
+- All content types supported: videos, PDFs, external links, tools, and guides
+
+### Access Model
+- **Free Portal**: Available to all current Downscale patients at no cost
+- **Future Paid Features**: Additional premium modules and features planned for future releases
 
 ### Core Functionality
 - 🔍 **Global Search** - Full-text search across all content
@@ -55,19 +75,29 @@ npm run lighthouse            # Run Lighthouse performance test
 
 ## ⚙️ Admin System
 
+### Portal Content Management (Primary System)
+- **Portal Content Manager** - Fully built and operational system for managing all portal content
+- **Content Upload & Organization**: 
+  - Select pillar (Medication, Nutrition, Activity, Mental Health/Goal Setting, Sleep, Water)
+  - Select sub-section (Guides, Research/Journal Articles, Product Information, Videos/Video Links, Podcast Links, Tools, Other)
+  - Add title, description, tags, and content data
+  - Preview content exactly as patients will see it
+  - Publish/unpublish with one click
+- **Content Types Supported**: Videos, External Documents, Downscale Documents, Links, Tools, Program Guides
+- **Content Preview**: Real-time preview showing exact patient-facing styling and layout
+
 ### File Management
 - **Full-screen modal** with drag & drop upload
-- **Manual categorization** - Admin assigns every piece of content
+- **Manual categorization** - Admin assigns every piece of content to pillar and sub-section
 - **Two-level organization** - Pillar → Sub-section selection
 - **Rich metadata** - Title, description, tags, display order
 - **Professional tile design** with progress tracking
 
-### Content Management
-- **Portal Content Manager** - CRUD operations for all resources
-- **JB&BB Feed Manager** - Internal blog post creation
-- **User Management** - Patient profiles and subscription tiers
-- **Analytics Dashboard** - Content performance and engagement
-- **AI Content Generator** - Automated resource creation
+### Additional Admin Features
+- **JB&BB Feed Manager** - Internal blog post creation (member-only content)
+- **User Management** - Patient profiles and access management
+- **Analytics Dashboard** - Content performance and engagement tracking
+- **AI Content Generator** - Automated resource creation assistance
 
 ### Admin Dashboard Features
 - Role-based access control (admin/practitioner/patient)
@@ -282,8 +312,10 @@ npm run lighthouse
 
 ## 📋 Current Features Summary
 
-✅ **Complete patient portal** with 7 health pillars
-✅ **Full admin management system** with manual content control
+✅ **Complete patient portal** with Dashboard + 6 health pillars (Medication, Nutrition, Activity, Mental Health/Goal Setting, Sleep, Water)
+✅ **Standardized content organization** - 7 sub-sections across all pillars (Guides, Research/Journal Articles, Product Information, Videos/Video Links, Podcast Links, Tools, Other)
+✅ **Fully operational admin content management** - Portal Content Manager for adding, editing, and organizing all portal content
+✅ **Free access portal** for all current Downscale patients (paid features planned)
 ✅ **Gamified water tracking** with 8 notification personalities
 ✅ **JB&BB internal blog** with media attachments
 ✅ **Global search** across all content

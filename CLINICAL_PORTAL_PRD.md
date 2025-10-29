@@ -55,10 +55,31 @@ Dashboard
 ├── Medication Pillar 💊
 ├── Nutrition Pillar 🥗
 ├── Activity Pillar 🏃
-├── Mental Health Pillar 🧠
-├── Sleep + Recovery Pillar 😴
-└── Shop Pillar 🛒
+├── Mental Health / Goal Setting Pillar 🧠
+├── Sleep Pillar 😴
+└── Water Pillar 💧
 ```
+
+### **Standard Content Sub-Sections (All Pillars)**
+Every pillar uses the same 7 sub-sections for consistent organization:
+1. **Guides** - Step-by-step educational guides
+2. **Research / Journal Articles** - Evidence-based research papers and studies
+3. **Product Information** - Product details and recommendations
+4. **Videos / Video Links** - Educational videos and external video resources
+5. **Podcast Links** - Audio content and podcast recommendations
+6. **Tools** - Interactive calculators, assessments, and trackers (also available on Dashboard)
+7. **Other** - Additional resources and miscellaneous content
+
+### **Content Management System**
+- **Admin Dashboard → Portal Content Manager** - Fully built and operational
+- All content is manually added via admin interface
+- Content is categorized by pillar and sub-section during upload
+- Real-time preview available before publishing
+- Publish/unpublish workflow with one-click control
+
+### **Access Model**
+- **Free Portal**: Available to all current Downscale patients at no cost
+- **Future Paid Features**: Additional premium modules and features planned for future releases
 
 ### **Content Hierarchy**
 ```
@@ -177,7 +198,6 @@ border: 1px solid #b68a71 (brown border)
 - Recipe search and filtering
 - Meal plan customisation based on preferences
 - Macro tracking integration
-- Shopping list generation
 
 ---
 
@@ -236,21 +256,6 @@ border: 1px solid #b68a71 (brown border)
 
 ---
 
-## **SHOP PILLAR 🛒**
-
-### **Core Features**
-| Feature | Description | Content Type | Priority |
-|---------|-------------|--------------|----------|
-| Current Shop Integration | Embed existing shop | iFrame/redirect | High |
-| Product Categories | Organised product browsing | Database | Medium |
-| Educational Guides | Product need assessments | PDF guides | Low |
-| Affiliate Links | Amazon, local supplier links | Link management | Medium |
-| Product Reviews | Evidence-based recommendations | Articles | Low |
-
-### **E-commerce Integration**
-- Link to existing Downscale shop
-- Affiliate tracking for revenue
-- Product recommendation engine
 
 ---
 
@@ -350,9 +355,9 @@ Draft → Review → Publish → Analytics → Update
 - [ ] Medication pillar content upload
 - [ ] Nutrition pillar resources
 - [ ] Activity pillar development
-- [ ] Mental health resources
+- [ ] Mental Health / Goal Setting resources
 - [ ] Sleep pillar content
-- [ ] Shop integration
+- [ ] Water pillar gamification features
 
 ### **Phase 3: Advanced Features (4 weeks)**
 - [ ] Interactive tools (calculators, assessments)

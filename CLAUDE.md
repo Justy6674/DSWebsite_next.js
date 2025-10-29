@@ -25,8 +25,9 @@ This is the Downscale Weight Loss Clinic Next.js platform - a comprehensive Aust
 - **Deployed at**: www.downscale.com.au
 
 ### 2. PATIENT PORTAL SYSTEM (Secondary)
-- **7 health pillars** portal for authenticated patients
-- **Admin management system** for content and users
+- **Patient portal** with Dashboard + 6 health pillars for authenticated Downscale patients
+- **Free access** for all current Downscale patients (paid features planned for future)
+- **Admin management system** for adding and organizing content (fully built and operational)
 - **Role-based access** (admin/practitioner/patient)
 - **Internal JB&BB feed** and water tracking
 
@@ -125,12 +126,14 @@ src/
 6. **Australian Compliance**: AHPRA, Medicare, TGA compliance throughout
 
 #### Portal System (Secondary)
-7. **Patient Portal**: 7 health pillars with content management
-8. **Admin System**: Full-screen admin dashboard with file management
-9. **Authentication**: Role-based access (admin/practitioner/patient)
-10. **Water Tracking**: Gamified hydration with 8 notification personalities
-11. **JB&BB Feed**: Internal member blog with media attachments
-12. **Global Search**: Full-text search across all portal content
+7. **Patient Portal**: Dashboard + 6 health pillars (Medication, Nutrition, Activity, Mental Health/Goal Setting, Sleep, Water) - Free for all Downscale patients
+8. **Content Management**: Portal Content Manager in Admin Dashboard (fully built) - All content added manually via admin interface
+9. **Admin System**: Full-screen admin dashboard with file management and content organization
+10. **Authentication**: Role-based access (admin/practitioner/patient)
+11. **Water Tracking**: Gamified hydration with 8 notification personalities
+12. **JB&BB Feed**: Internal member blog with media attachments
+13. **Global Search**: Full-text search across all portal content
+14. **Standard Sub-Sections**: 7 consistent sub-sections across all pillars (Guides, Research/Journal Articles, Product Information, Videos/Video Links, Podcast Links, Tools, Other)
 
 ## Development Guidelines
 
@@ -247,9 +250,25 @@ Run `npm run seo:audit` before major releases to ensure:
 - **Healthcare Compliance**: Medicare, AHPRA, TGA information and policies
 
 ### Portal-Specific Architecture
-- **7 Health Pillars**: nutrition, activity, mental-health, sleep-recovery, water, shop, medication
+- **Navigation Structure**: Dashboard + 6 Health Pillars
+  - Dashboard (central hub with search, tools, health metrics)
+  - Medication
+  - Nutrition
+  - Activity
+  - Mental Health / Goal Setting
+  - Sleep
+  - Water (includes gamified hydration tracking)
+- **Content Organization**: Standardised sub-sections across all pillars
+  1. Guides
+  2. Research / Journal Articles
+  3. Product Information
+  4. Videos / Video Links
+  5. Podcast Links
+  6. Tools (also available on Dashboard)
+  7. Other
+- **Content Management**: All content added via Admin Dashboard → Portal Content Manager (fully operational)
+- **Access Model**: Free for all current Downscale patients. Additional paid features/modules planned for future releases.
 - **Role-Based Access**: Different views for admin, practitioner, and patient roles
-- **Content Organization**: Two-level structure (pillar → sub-section)
 - **Water Tracking**: Gamified system with 8 notification personalities
 - **Global Search**: Cross-pillar content search functionality
 - **Save System**: Patient bookmarking and annotation capabilities
