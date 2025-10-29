@@ -98,13 +98,7 @@ const FOLDERS = [
 const PORTAL_PILLARS = {
   medication: {
     name: 'Medication',
-    subsections: [
-      'Device Videos',
-      'Product Information',
-      'Research Articles',
-      'Side Effect Management',
-      'Dose Tracking'
-    ]
+    subsections: STANDARD_SUBSECTIONS
   },
   nutrition: {
     name: 'Nutrition',
