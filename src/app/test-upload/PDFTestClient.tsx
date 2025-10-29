@@ -7,14 +7,20 @@ export default function PDFTestClient() {
   const [testFiles] = useState([
     {
       id: '1',
-      name: 'sample.pdf',
-      url: 'https://cojkqtmcqhhlblrhglvw.supabase.co/storage/v1/object/public/portal-files/test/sample.pdf',
+      name: 'high-protein-breakfast-2.pdf',
+      url: 'https://pooebqhsshfafkhvccrl.supabase.co/storage/v1/object/public/portal-files/other/1761634856507_high_protein_breakfast_2.pdf',
       type: 'document' as const
     },
     {
       id: '2',
-      name: 'medical-report.pdf',
-      url: 'https://cojkqtmcqhhlblrhglvw.supabase.co/storage/v1/object/public/portal-files/nutrition/medical-report.pdf',
+      name: 'Protein-Downscale.pdf',
+      url: 'https://pooebqhsshfafkhvccrl.supabase.co/storage/v1/object/public/portal-files/other/1761634856507_Protein_Downscale.pdf',
+      type: 'document' as const
+    },
+    {
+      id: '3',
+      name: 'Side Effect Management.pdf',
+      url: 'https://pooebqhsshfafkhvccrl.supabase.co/storage/v1/object/public/portal-files/other/1761634856506_Side_Effect_Management.pdf',
       type: 'document' as const
     }
   ]);
