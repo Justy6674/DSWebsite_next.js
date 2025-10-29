@@ -35,7 +35,8 @@ export default function ContentList({ pillar, subsection }: ContentListProps) {
 
       // Filter by subsection - handle multiple variations
       const filtered = (data || []).filter((item) => {
-        const itemSubsection = item.content_data?.subsection;
+        const contentData = item.content_data as any;
+        const itemSubsection = contentData?.subsection;
         if (!itemSubsection || typeof itemSubsection !== 'string') return false;
         return (
           itemSubsection === subsection ||
