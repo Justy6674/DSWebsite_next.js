@@ -23,12 +23,14 @@ import {
   MoreHorizontal,
   BookOpen,
   X,
-  RefreshCw
+  RefreshCw,
+  ExternalLink
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import * as tus from 'tus-js-client';
 import toast, { Toaster } from 'react-hot-toast';
+import PDFThumbnail, { FileTypeIcon } from './PDFThumbnail';
 
 interface FileItem {
   id: string;
@@ -171,170 +173,8 @@ export default function FileManagement() {
   const [activeUploads, setActiveUploads] = useState<Map<string, any>>(new Map());
   const [uploadProgress, setUploadProgress] = useState<Map<string, number>>(new Map());
 
-  // PDF thumbnail generation function
-  const generatePDFThumbnail = async (file: File | Blob, fileName?: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        reject(new Error('Canvas context not available'));
-        return;
-      }
-
-      // Use PDF.js to render first page as thumbnail
-      import('pdfjs-dist').then(async (pdfjsLib) => {
-        try {
-          // Set up PDF.js worker
-          pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
-
-          const arrayBuffer = await file.arrayBuffer();
-          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-          const page = await pdf.getPage(1);
-
-          // Get page dimensions with a good scale for quality
-          const originalViewport = page.getViewport({ scale: 1.0 });
-
-          // Create thumbnail with fixed aspect ratio (16:9) and good quality
-          const thumbnailWidth = 400;
-          const thumbnailHeight = 225;
-
-          // Calculate scale to fit width while maintaining quality
-          const scale = thumbnailWidth / originalViewport.width;
-          const scaledViewport = page.getViewport({ scale });
-
-          // Set canvas to thumbnail size
-          canvas.width = thumbnailWidth;
-          canvas.height = thumbnailHeight;
-
-          // Clear canvas with white background
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, thumbnailWidth, thumbnailHeight);
-
-          // Create a temporary canvas for the full page
-          const tempCanvas = document.createElement('canvas');
-          const tempCtx = tempCanvas.getContext('2d');
-          if (!tempCtx) {
-            reject(new Error('Temporary canvas context not available'));
-            return;
-          }
-
-          tempCanvas.width = scaledViewport.width;
-          tempCanvas.height = scaledViewport.height;
-
-          const renderContext = {
-            canvasContext: tempCtx,
-            viewport: scaledViewport,
-            canvas: tempCanvas,
-          };
-
-          await page.render(renderContext).promise;
-
-          // FORCE SHOW TOP OF DOCUMENT ONLY - NO MIDDLE OR BOTTOM PORTIONS
-          // Calculate the source height to capture only the top portion of the PDF
-          const sourceWidth = tempCanvas.width;
-          const sourceHeight = Math.min(tempCanvas.height, (thumbnailHeight / thumbnailWidth) * sourceWidth);
-
-          // Draw ONLY the top portion - starting from (0,0) and taking only what fits in aspect ratio
-          ctx.drawImage(
-            tempCanvas,
-            0, 0, // ALWAYS start from TOP-LEFT (0,0) - NEVER from middle
-            sourceWidth, // Use full width
-            sourceHeight, // Use calculated height to maintain aspect ratio
-            0, 0, // Destination starts at top-left
-            thumbnailWidth, // Scale to thumbnail width
-            thumbnailHeight // Scale to thumbnail height
-          );
-
-          // Convert canvas to blob and upload as thumbnail
-          canvas.toBlob(async (blob) => {
-            if (!blob) {
-              reject(new Error('Failed to create thumbnail blob'));
-              return;
-            }
-
-            try {
-              // Upload thumbnail to Supabase storage with retry mechanism
-              const originalName = fileName || (file as File).name || 'unknown.pdf';
-              const safeName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_'); // Sanitize filename
-              const thumbnailName = `thumbnails/${Date.now()}_${safeName.replace('.pdf', '.png')}`;
-
-              console.log(`📤 Uploading thumbnail: ${thumbnailName}`);
-
-              // Refresh session before upload to prevent auth issues
-              const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-              if (sessionError || !session) {
-                console.error('❌ Authentication session invalid during thumbnail upload');
-                reject(new Error('Authentication required for thumbnail upload'));
-                return;
-              }
-
-              // Retry upload with exponential backoff
-              let uploadError;
-              let uploadData;
-              const maxRetries = 3;
-
-              for (let attempt = 1; attempt <= maxRetries; attempt++) {
-                try {
-                  console.log(`📤 Upload attempt ${attempt}/${maxRetries} for: ${thumbnailName}`);
-
-                  const result = await supabase.storage
-                    .from('portal-files')
-                    .upload(thumbnailName, blob, {
-                      contentType: 'image/png',
-                      cacheControl: '3600',
-                      upsert: false
-                    });
-
-                  uploadData = result.data;
-                  uploadError = result.error;
-
-                  if (!uploadError && uploadData) {
-                    console.log(`✅ Thumbnail uploaded successfully: ${thumbnailName}`);
-                    break;
-                  } else if (uploadError) {
-                    console.error(`❌ Upload attempt ${attempt} failed:`, uploadError);
-                    if (attempt === maxRetries) {
-                      reject(new Error(`Upload failed after ${maxRetries} attempts: ${uploadError.message}`));
-                      return;
-                    }
-                    // Wait before retry (exponential backoff)
-                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
-                  }
-                } catch (networkError) {
-                  console.error(`❌ Network error on attempt ${attempt}:`, networkError);
-                  uploadError = networkError;
-                  if (attempt === maxRetries) {
-                    reject(new Error(`Network error after ${maxRetries} attempts: ${networkError.message}`));
-                    return;
-                  }
-                  // Wait before retry
-                  await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
-                }
-              }
-
-              if (!uploadData) {
-                reject(new Error('Upload failed: No data returned from storage'));
-                return;
-              }
-
-              // Get public URL
-              const { data: thumbnailUrl } = supabase.storage
-                .from('portal-files')
-                .getPublicUrl(thumbnailName);
-
-              console.log(`📍 Generated public URL: ${thumbnailUrl.publicUrl}`);
-              resolve(thumbnailUrl.publicUrl);
-            } catch (error) {
-              console.error('❌ Unexpected error during thumbnail upload:', error);
-              reject(error);
-            }
-          }, 'image/png', 0.8);
-        } catch (error) {
-          reject(error);
-        }
-      }).catch(reject);
-    });
-  };
+  // PDF thumbnail generation removed - now using react-pdf component
+  const generatePDFThumbnail = null; // Removed broken function
 
   // Generate thumbnail for existing files that don't have one
   const generateMissingThumbnail = async (file: FileItem): Promise<string | null> => {
@@ -387,7 +227,7 @@ export default function FileManagement() {
 
           console.log(`📄 Processing PDF (${(blob.size / 1024 / 1024).toFixed(1)}MB): ${file.name}`);
 
-          const thumbnailUrl = await generatePDFThumbnail(blob, file.name);
+          const thumbnailUrl = null; // Using react-pdf component instead
 
           // Update the database with the new thumbnail
           const { error: updateError } = await supabase
@@ -669,7 +509,7 @@ export default function FileManagement() {
         } else if (fileExtension?.toLowerCase() === 'pdf') {
           // Generate PDF thumbnail
           try {
-            thumbnailUrl = await generatePDFThumbnail(file);
+            thumbnailUrl = null; // Using react-pdf component instead
           } catch (error) {
             console.error('Failed to generate PDF thumbnail:', error);
             // Use a default PDF icon if thumbnail generation fails
@@ -1171,7 +1011,7 @@ export default function FileManagement() {
           console.log(`📄 Processing PDF (${(blob.size / 1024 / 1024).toFixed(1)}MB): ${file.name}`);
 
           // Generate new thumbnail (this will always show top of document)
-          const thumbnailUrl = await generatePDFThumbnail(blob, file.name);
+          const thumbnailUrl = null; // Using react-pdf component instead
 
           // Update the database with the new thumbnail
           const { error: updateError } = await supabase
@@ -1557,26 +1397,24 @@ export default function FileManagement() {
                   >
                     {/* File Preview */}
                     <div className="aspect-video bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-slate-700">
-                      {file.thumbnail_url ? (
+                      {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') ? (
+                        <PDFThumbnail
+                          fileUrl={file.url}
+                          fileName={file.name}
+                          width={300}
+                          onRefresh={() => refreshThumbnail(file)}
+                          className="w-full h-full"
+                        />
+                      ) : file.thumbnail_url ? (
                         <div className="relative w-full h-full">
                           <img
                             src={file.thumbnail_url}
                             alt={file.name}
                             className="w-full h-full object-cover"
                           />
-                          {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') && (
-                            <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
-                              PDF
-                            </div>
-                          )}
-                        </div>
-                      ) : file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') ? (
-                        <div className="flex flex-col items-center gap-2">
-                          <FileIcon className="h-12 w-12 text-slate-400" />
-                          <span className="text-xs text-slate-500">Generating thumbnail...</span>
                         </div>
                       ) : (
-                        <FileIcon className="h-12 w-12 text-slate-400" />
+                        <FileTypeIcon type={file.type} className="w-full h-full" />
                       )}
                     </div>
 
@@ -1700,18 +1538,21 @@ export default function FileManagement() {
                 {/* Large File Preview */}
                 <div className="bg-slate-800 rounded-xl p-6 mb-6">
                   <div className="aspect-square bg-slate-700 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                    {selectedFileForPortal.thumbnail_url ? (
+                    {selectedFileForPortal.type === 'document' && selectedFileForPortal.name.toLowerCase().endsWith('.pdf') ? (
+                      <PDFThumbnail
+                        fileUrl={selectedFileForPortal.url}
+                        fileName={selectedFileForPortal.name}
+                        width={250}
+                        onRefresh={() => refreshThumbnail(selectedFileForPortal)}
+                        className="w-full h-full"
+                      />
+                    ) : selectedFileForPortal.thumbnail_url ? (
                       <div className="relative w-full h-full">
                         <img
                           src={selectedFileForPortal.thumbnail_url}
                           alt={selectedFileForPortal.name}
                           className="w-full h-full object-cover"
                         />
-                        {selectedFileForPortal.type === 'document' && selectedFileForPortal.name.toLowerCase().endsWith('.pdf') && (
-                          <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
-                            PDF
-                          </div>
-                        )}
                       </div>
                     ) : (
                       (() => {
@@ -1722,9 +1563,20 @@ export default function FileManagement() {
                   </div>
 
                   <div className="space-y-3">
-                    <h4 className="font-bold text-[#f8fafc] text-lg leading-tight">
-                      {selectedFileForPortal.name}
-                    </h4>
+                    <div className="flex items-start justify-between">
+                      <h4 className="font-bold text-[#f8fafc] text-lg leading-tight flex-1 pr-3">
+                        {selectedFileForPortal.name}
+                      </h4>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="border-[#b68a71] text-[#b68a71] hover:bg-[#b68a71]/10 hover:border-[#b68a71] px-3 py-2 flex-shrink-0"
+                        onClick={() => window.open(selectedFileForPortal.url, '_blank')}
+                        title="View document in new window"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    </div>
                     <div className="flex items-center justify-between text-sm text-[#fef5e7]">
                       <span className="bg-slate-700 px-3 py-1 rounded-full">
                         {formatFileSize(selectedFileForPortal.size)}
