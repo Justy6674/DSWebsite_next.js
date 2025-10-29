@@ -902,7 +902,7 @@ export default function FileManagement() {
     }
   }, [user?.id]);
 
-  // Manual thumbnail refresh function - works for ALL PDFs
+  // Manual thumbnail refresh function - triggers PDFThumbnailClient re-render
   const refreshThumbnail = async (file: FileItem) => {
     if (file.type !== 'document' || !file.name.toLowerCase().endsWith('.pdf')) {
       toast.error('Thumbnail refresh only available for PDF files');
@@ -910,31 +910,26 @@ export default function FileManagement() {
     }
 
     console.log(`🔄 Manual thumbnail refresh requested for: ${file.name}`);
-    toast.loading(`Regenerating thumbnail for ${file.name}...`, { id: `thumb-${file.id}` });
+    toast.loading(`Refreshing PDF thumbnail...`, { id: `thumb-${file.id}` });
 
     try {
-      // Force regeneration by calling generateMissingThumbnail even if thumbnail exists
-      const result = await forceRegenerateThumbnail(file);
-      if (result) {
-        toast.success(`Thumbnail regenerated successfully!`, { id: `thumb-${file.id}` });
-        console.log(`✅ Manual refresh completed for: ${file.name}`);
+      // Just trigger a re-render by updating the file in state
+      // The PDFThumbnailClient handles the actual rendering
+      const { data: updatedFile, error: fetchError } = await supabase
+        .from('file_storage')
+        .select('*')
+        .eq('id', file.id)
+        .single();
 
-        // Update ONLY this specific file in state with new thumbnail
-        const { data: updatedFile, error: fetchError } = await supabase
-          .from('file_storage')
-          .select('*')
-          .eq('id', file.id)
-          .single();
-
-        if (!fetchError && updatedFile) {
-          setFiles(prevFiles =>
-            prevFiles.map(f => f.id === file.id ? updatedFile : f)
-          );
-          console.log(`✅ Updated single file in state with new thumbnail: ${file.name}`);
-        }
+      if (!fetchError && updatedFile) {
+        setFiles(prevFiles =>
+          prevFiles.map(f => f.id === file.id ? updatedFile : f)
+        );
+        console.log(`✅ Updated single file in state with new thumbnail: ${file.name}`);
+        toast.success(`PDF thumbnail refreshed successfully!`, { id: `thumb-${file.id}` });
       } else {
-        console.error(`❌ Manual refresh returned null for: ${file.name}`);
-        toast.error(`Failed to regenerate thumbnail - check console for details`, { id: `thumb-${file.id}` });
+        console.error(`❌ Manual refresh failed for: ${file.name}`);
+        toast.error(`Failed to refresh thumbnail - check console for details`, { id: `thumb-${file.id}` });
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -1010,22 +1005,10 @@ export default function FileManagement() {
 
           console.log(`📄 Processing PDF (${(blob.size / 1024 / 1024).toFixed(1)}MB): ${file.name}`);
 
-          // Generate new thumbnail (this will always show top of document)
-          const thumbnailUrl = null; // Using react-pdf component instead
-
-          // Update the database with the new thumbnail
-          const { error: updateError } = await supabase
-            .from('file_storage')
-            .update({ thumbnail_url: thumbnailUrl })
-            .eq('id', file.id);
-
-          if (updateError) {
-            console.error('Failed to update database with thumbnail URL:', updateError);
-            throw updateError;
-          }
-
+          // PDF thumbnail is handled directly by PDFThumbnailClient component
+          // No need to generate or store thumbnail URLs in database
           console.log(`✅ Successfully force regenerated thumbnail for: ${file.name}`);
-          return thumbnailUrl;
+          return file.url; // Return the PDF URL for the PDFThumbnailClient to render
 
         } catch (fetchError) {
           clearTimeout(timeoutId);
