@@ -85,21 +85,16 @@ const FOLDERS = [
   'other'
 ];
 
-// STANDARDIZED 6-SECTION PORTAL STRUCTURE
-// All pillars use the same sections for consistent patient experience
-const STANDARD_SUBSECTIONS = [
-  'Guides',
-  'Research & Journal Articles',
-  'Product Information',
-  'Videos and Video Links',
-  'Podcast Links',
-  'Other'
-];
-
 const PORTAL_PILLARS = {
   medication: {
     name: 'Medication',
-    subsections: STANDARD_SUBSECTIONS
+    subsections: [
+      'Device Videos',
+      'Product Information',
+      'Research Articles',
+      'Side Effect Management',
+      'Dose Tracking'
+    ]
   },
   nutrition: {
     name: 'Nutrition',

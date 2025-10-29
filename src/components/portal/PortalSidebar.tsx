@@ -10,7 +10,6 @@ import {
   Activity,
   Brain,
   Moon,
-  ShoppingBag,
   Calendar,
   Menu,
   X,
@@ -97,19 +96,6 @@ const pillars = [
       { name: 'Recovery Strategies', href: '/portal/sleep-recovery/strategies' },
       { name: 'Parent Tips', href: '/portal/sleep-recovery/parent-tips' },
       { name: 'Sleep Tracking', href: '/portal/sleep-recovery/tracking' }
-    ]
-  },
-  {
-    id: 'shop',
-    name: 'Shop',
-    icon: ShoppingBag,
-    href: '/portal/shop',
-    subItems: [
-      { name: 'Compounding Pharmacy', href: '/portal/shop/pharmacy' },
-      { name: 'Supplements', href: '/portal/shop/supplements' },
-      { name: 'Devices & Equipment', href: '/portal/shop/equipment' },
-      { name: 'Educational Products', href: '/portal/shop/educational' },
-      { name: 'Recommendations', href: '/portal/shop/recommendations' }
     ]
   }
 ];

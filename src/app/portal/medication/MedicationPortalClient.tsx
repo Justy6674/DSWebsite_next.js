@@ -87,8 +87,6 @@ export default function MedicationPortalClient() {
   const renderDynamicContent = (subsection: string, title: string, description: string) => {
     const items = dynamicContent.filter(item => item.content_data?.subsection === subsection);
 
-    if (items.length === 0) return null;
-
     const typeIcons: any = {
       video: Play,
       external_doc: FileText,
