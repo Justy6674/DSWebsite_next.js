@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
 import { Plus, FileText, Video, Link, Settings, BookOpen, ExternalLink, Upload, Search, Eye, Edit, Trash2, Calendar, TrendingUp } from 'lucide-react'
+import PortalContentPreview from './PortalContentPreview'
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
 type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication'
@@ -75,7 +76,8 @@ const PILLARS: { value: Pillar; label: string; colour: string }[] = [
   { value: 'mental-health', label: '🧠 Mental Health', colour: 'bg-purple-100 text-purple-800' },
   { value: 'sleep-recovery', label: '😴 Sleep & Recovery', colour: 'bg-indigo-100 text-indigo-800' },
   { value: 'water', label: '💧 Hydration', colour: 'bg-cyan-100 text-cyan-800' },
-  { value: 'shop', label: '🛒 Shop (→ downscale.shop)', colour: 'bg-orange-100 text-orange-800' }
+  { value: 'shop', label: '🛒 Shop (→ downscale.shop)', colour: 'bg-orange-100 text-orange-800' },
+  { value: 'medication', label: '💊 Medication', colour: 'bg-red-100 text-red-800' }
 ]
 
 const CONTENT_TYPES: { value: ContentType; label: string; icon: any; description: string }[] = [
@@ -95,6 +97,7 @@ export default function PortalContentManager() {
   const [selectedType, setSelectedType] = useState<ContentType | 'all'>('all')
   const [showAddForm, setShowAddForm] = useState(false)
   const [editingContent, setEditingContent] = useState<PortalContent | null>(null)
+  const [previewContent, setPreviewContent] = useState<PortalContent | null>(null)
   const { toast } = useToast()
 
   // Form state
@@ -641,9 +644,17 @@ export default function PortalContentManager() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleTogglePublish(item)}
+                        onClick={() => setPreviewContent(item)}
+                        className="text-blue-600 hover:text-blue-700"
                       >
                         <Eye className="w-4 h-4" />
+                        Preview
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleTogglePublish(item)}
+                      >
                         {item.is_published ? 'Unpublish' : 'Publish'}
                       </Button>
                       <Button
@@ -669,6 +680,15 @@ export default function PortalContentManager() {
           })
         )}
       </div>
+
+      {/* Portal Content Preview Modal */}
+      {previewContent && (
+        <PortalContentPreview
+          content={previewContent}
+          isOpen={!!previewContent}
+          onClose={() => setPreviewContent(null)}
+        />
+      )}
     </div>
   )
 }
