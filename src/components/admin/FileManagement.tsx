@@ -74,6 +74,7 @@ interface PortalCategoryAssignment {
   tags: string[];
   subsection?: string;
   customSubsection?: string;
+  multiSubsections?: string[];
   displayOrder?: string;
 }
 
@@ -271,7 +272,8 @@ export default function FileManagement() {
     title: '',
     description: '',
     content_data: {},
-    tags: []
+    tags: [],
+    multiSubsections: []
   });
   const [assigningToPortal, setAssigningToPortal] = useState(false);
   const [showAllFiles, setShowAllFiles] = useState(false); // Debug toggle
@@ -766,7 +768,8 @@ export default function FileManagement() {
         file_url: file.url,
         file_id: file.id
       },
-      tags: []
+      tags: [],
+      multiSubsections: []
     });
     setShowPortalModal(true);
   };
@@ -781,7 +784,8 @@ export default function FileManagement() {
       title: '',
       description: '',
       content_data: {},
-      tags: []
+      tags: [],
+      multiSubsections: []
     });
   };
 
@@ -797,50 +801,47 @@ export default function FileManagement() {
       return;
     }
 
-    if (!portalAssignment.subsection || (portalAssignment.subsection === 'custom' && !portalAssignment.customSubsection?.trim())) {
-      toast.error('Please select or create a sub-section');
+    const selectedSubs: string[] = [
+      ...((portalAssignment.multiSubsections || []))
+    ];
+    if (portalAssignment.customSubsection && portalAssignment.customSubsection.trim()) {
+      selectedSubs.push(portalAssignment.customSubsection.trim());
+    }
+    if (selectedSubs.length === 0) {
+      toast.error('Please select at least one sub-section');
       return;
     }
 
     setAssigningToPortal(true);
 
     try {
-      // Determine final subsection name
-      const finalSubsection = portalAssignment.subsection === 'custom'
-        ? portalAssignment.customSubsection?.trim()
-        : portalAssignment.subsection;
-
-      // Enhanced content data with subsection and display order
-      const enhancedContentData = {
-        ...portalAssignment.content_data,
-        subsection: finalSubsection,
-        displayOrder: portalAssignment.displayOrder || 'normal',
-        originalFileName: selectedFileForPortal.name,
-        fileType: selectedFileForPortal.type,
-        fileSize: selectedFileForPortal.size,
-        uploadedAt: selectedFileForPortal.created_at
-      };
+      const rows = selectedSubs.map((sub) => ({
+        pillar: portalAssignment.pillar,
+        content_type: portalAssignment.content_type,
+        title: portalAssignment.title.trim(),
+        description: portalAssignment.description.trim() || null,
+        content_data: {
+          ...portalAssignment.content_data,
+          subsection: sub,
+          displayOrder: portalAssignment.displayOrder || 'normal',
+          originalFileName: selectedFileForPortal.name,
+          fileType: selectedFileForPortal.type,
+          fileSize: selectedFileForPortal.size,
+          uploadedAt: selectedFileForPortal.created_at
+        },
+        tags: portalAssignment.tags,
+        is_published: true,
+        created_by: user.id
+      }));
 
       const { data, error } = await supabase
         .from('portal_content')
-        .insert([
-          {
-            pillar: portalAssignment.pillar,
-            content_type: portalAssignment.content_type,
-            title: portalAssignment.title.trim(),
-            description: portalAssignment.description.trim() || null,
-            content_data: enhancedContentData,
-            tags: portalAssignment.tags,
-            is_published: true,
-            created_by: user.id
-          }
-        ])
-        .select()
-        .single();
+        .insert(rows)
+        .select();
 
       if (error) throw error;
 
-      toast.success(`File successfully added to ${PORTAL_PILLARS[portalAssignment.pillar].name} → ${finalSubsection}`);
+      toast.success(`File added to ${selectedSubs.length} sub-section(s) in ${PORTAL_PILLARS[portalAssignment.pillar].name}`);
       closePortalModal();
     } catch (error) {
       console.error('Portal assignment error:', error);
@@ -1578,9 +1579,14 @@ export default function FileManagement() {
                     <div className="text-[#b68a71] text-lg font-semibold">
                       {PORTAL_PILLARS[portalAssignment.pillar].name}
                     </div>
-                    {portalAssignment.subsection && (
-                      <div className="text-[#fef5e7] text-base">
-                        → {portalAssignment.subsection}
+                    {((portalAssignment.multiSubsections && portalAssignment.multiSubsections.length > 0) || portalAssignment.customSubsection) && (
+                      <div className="text-[#fef5e7] text-base space-y-1">
+                        {(portalAssignment.multiSubsections || []).map((s) => (
+                          <div key={s}>→ {s}</div>
+                        ))}
+                        {portalAssignment.customSubsection && (
+                          <div>→ {portalAssignment.customSubsection}</div>
+                        )}
                       </div>
                     )}
                     <div className="text-sm text-slate-400">
@@ -1609,7 +1615,9 @@ export default function FileManagement() {
                           onChange={(e) => setPortalAssignment(prev => ({
                             ...prev,
                             pillar: e.target.value as any,
-                            subsection: '' // Reset subsection when pillar changes
+                            subsection: '',
+                            customSubsection: '',
+                            multiSubsections: []
                           }))}
                           className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
                         >
@@ -1621,34 +1629,40 @@ export default function FileManagement() {
                         </select>
                       </div>
 
-                      {/* Sub-section Selection */}
+                      {/* Sub-section Selection (multi-select) */}
                       <div>
                         <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
-                          Sub-section *
+                          Sub-sections * (select one or more)
                         </Label>
-                        <select
-                          value={portalAssignment.subsection || ''}
-                          onChange={(e) => setPortalAssignment(prev => ({
-                            ...prev,
-                            subsection: e.target.value
-                          }))}
-                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
-                        >
-                          <option value="">Select a sub-section...</option>
-                          {PORTAL_PILLARS[portalAssignment.pillar].subsections.map((subsection) => (
-                            <option key={subsection} value={subsection}>
-                              {subsection}
-                            </option>
-                          ))}
-                          <option value="custom">+ Create New Sub-section</option>
-                        </select>
+                        <div className="bg-slate-900 border border-slate-700 rounded-lg p-3 max-h-60 overflow-y-auto space-y-2">
+                          {PORTAL_PILLARS[portalAssignment.pillar].subsections.map((subsection) => {
+                            const checked = (portalAssignment.multiSubsections || []).includes(subsection);
+                            return (
+                              <label key={subsection} className="flex items-center gap-3 text-[#fef5e7] text-sm">
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={(e) => {
+                                    setPortalAssignment(prev => {
+                                      const set = new Set(prev.multiSubsections || []);
+                                      if (e.target.checked) set.add(subsection); else set.delete(subsection);
+                                      return { ...prev, multiSubsections: Array.from(set) };
+                                    });
+                                  }}
+                                />
+                                <span>{subsection}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                        <p className="text-xs text-slate-400 mt-2">You can also create one custom sub-section below.</p>
                       </div>
 
                       {/* Custom Sub-section Input */}
-                      {portalAssignment.subsection === 'custom' && (
+                      {true && (
                         <div className="lg:col-span-2">
                           <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
-                            New Sub-section Name *
+                            Add a custom sub-section (optional)
                           </Label>
                           <Input
                             value={portalAssignment.customSubsection || ''}
@@ -1784,7 +1798,12 @@ export default function FileManagement() {
                 </Button>
                 <Button
                   onClick={assignToPortal}
-                  disabled={assigningToPortal || !portalAssignment.title.trim() || (!portalAssignment.subsection || portalAssignment.subsection === 'custom' && !portalAssignment.customSubsection?.trim())}
+                  disabled={(() => {
+                    if (assigningToPortal) return true;
+                    if (!portalAssignment.title.trim()) return true;
+                    const selected = (portalAssignment.multiSubsections || []).length + (portalAssignment.customSubsection?.trim() ? 1 : 0);
+                    return selected === 0;
+                  })()}
                   className="bg-[#b68a71] hover:bg-[#8B6F47] text-white px-8 py-3"
                   size="lg"
                 >
