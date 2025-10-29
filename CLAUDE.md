@@ -289,8 +289,32 @@ import { Document, Page } from 'react-pdf';
 - **Database URL**: `https://pooebqhsshfafkhvccrl.supabase.co`
 - **Public bucket**: `portal-files/other/` - Direct public access
 - **Signed URLs**: Automatic generation for secure file access
-- **File types supported**: PDF (thumbnails), Excel, Word, images, videos
+- **File types supported**: PDF (thumbnails), Excel, Word, images, videos, website links
 - **Upload handling**: Admin file management with drag-drop interface
+
+**UNIVERSAL FILE PREVIEW SYSTEM - FULLY IMPLEMENTED ✅**
+- ✅ **FilePreviewClient Component** - Universal preview for all file types
+- ✅ **PDF Support** - Iframe-based browser-native rendering
+- ✅ **Excel/Word Support** - Professional icons with download indicators
+- ✅ **Image Support** - Direct image rendering with proper aspect ratio
+- ✅ **Video Support** - HTML5 video element with controls
+- ✅ **Website Link Support** - Iframe preview with sandbox security
+- ✅ **Error Handling** - Graceful fallbacks and retry functionality
+- ✅ **Professional Styling** - Hover effects, transitions, and dark theme
+- ✅ **Mobile Responsive** - Touch-friendly interfaces across all devices
+- ✅ **Production Tested** - Verified working on production deployment
+
+**Extended File Type Support:**
+```typescript
+// Supported file categories in FilePreviewClient
+- PDF files: browser-native iframe rendering
+- Excel files (.xlsx, .xls, .csv): styled icons with download
+- Word documents (.docx, .doc): styled icons with download
+- Images (.jpg, .png, .gif, .webp, .svg): direct rendering
+- Videos (.mp4, .mov, .avi, .webm): HTML5 video player
+- Website links: sandboxed iframe preview
+- Generic documents: fallback with file type indicators
+```
 
 **MEDICAL COMPLIANCE CRITICAL RULES:**
 - ❌ **NO BULK BILLING REFERENCES**: Billing changed 1st November - NEVER mention bulk billing
