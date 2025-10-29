@@ -45,6 +45,14 @@ interface FileItem {
   metadata: any;
 }
 
+const STANDARD_SUBSECTIONS = [
+  'Getting Started',
+  'Core Resources',
+  'Tools & Calculators',
+  'Educational Content',
+  'Community Support'
+];
+
 interface PortalContentData {
   file_url?: string;
   file_id?: string;
@@ -115,10 +123,6 @@ const PORTAL_PILLARS = {
   water: {
     name: 'Water',
     subsections: STANDARD_SUBSECTIONS
-  },
-  shop: {
-    name: 'Shop',
-    subsections: ['External Shop Link'] // Shop redirects to www.downscale.shop
   }
 };
 
