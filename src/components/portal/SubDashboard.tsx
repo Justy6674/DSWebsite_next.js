@@ -116,11 +116,13 @@ export default function SubDashboard({ pillar, title, description, icon }: SubDa
       // Count content by subsection
       SUB_SECTIONS.forEach((section) => {
         const count = (allContent || []).filter((item) => {
-          const subsection = item.content_data?.subsection;
+          const contentData = item.content_data as any;
+          const subsection = contentData?.subsection;
+          if (!subsection || typeof subsection !== 'string') return false;
           return (
             subsection === section.subsectionKey ||
             subsection === section.name ||
-            subsection?.toLowerCase() === section.id.toLowerCase()
+            subsection.toLowerCase() === section.id.toLowerCase()
           );
         }).length;
         counts[section.id] = count;
