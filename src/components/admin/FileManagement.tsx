@@ -1380,10 +1380,18 @@ export default function FileManagement() {
                   >
                     {/* File Preview */}
                     <div className="aspect-video bg-slate-800 rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-slate-700">
-                      {file.type === 'document' && file.name.toLowerCase().endsWith('.pdf') ? (
+                      {(file.type === 'document' && file.name.toLowerCase().endsWith('.pdf')) ||
+                       (file.type === 'image') ||
+                       (file.type === 'video') ||
+                       (file.name.toLowerCase().endsWith('.xlsx')) ||
+                       (file.name.toLowerCase().endsWith('.xls')) ||
+                       (file.name.toLowerCase().endsWith('.docx')) ||
+                       (file.name.toLowerCase().endsWith('.doc')) ||
+                       (file.url.startsWith('http') && !file.url.includes('supabase')) ? (
                         <PDFThumbnail
                           fileUrl={file.url}
                           fileName={file.name}
+                          fileType={file.name.split('.').pop() || ''}
                           width={300}
                           onRefresh={() => refreshThumbnail(file)}
                           className="w-full h-full"
@@ -1521,10 +1529,18 @@ export default function FileManagement() {
                 {/* Large File Preview */}
                 <div className="bg-slate-800 rounded-xl p-6 mb-6">
                   <div className="aspect-square bg-slate-700 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                    {selectedFileForPortal.type === 'document' && selectedFileForPortal.name.toLowerCase().endsWith('.pdf') ? (
+                    {(selectedFileForPortal.type === 'document' && selectedFileForPortal.name.toLowerCase().endsWith('.pdf')) ||
+                     (selectedFileForPortal.type === 'image') ||
+                     (selectedFileForPortal.type === 'video') ||
+                     (selectedFileForPortal.name.toLowerCase().endsWith('.xlsx')) ||
+                     (selectedFileForPortal.name.toLowerCase().endsWith('.xls')) ||
+                     (selectedFileForPortal.name.toLowerCase().endsWith('.docx')) ||
+                     (selectedFileForPortal.name.toLowerCase().endsWith('.doc')) ||
+                     (selectedFileForPortal.url.startsWith('http') && !selectedFileForPortal.url.includes('supabase')) ? (
                       <PDFThumbnail
                         fileUrl={selectedFileForPortal.url}
                         fileName={selectedFileForPortal.name}
+                        fileType={selectedFileForPortal.name.split('.').pop() || ''}
                         width={250}
                         onRefresh={() => refreshThumbnail(selectedFileForPortal)}
                         className="w-full h-full"

@@ -7,14 +7,15 @@ import dynamic from 'next/dynamic';
 interface PDFThumbnailProps {
   fileUrl: string;
   fileName: string;
+  fileType?: string;
   width?: number;
   onRefresh?: () => void;
   className?: string;
 }
 
-// Dynamically import the client component with no SSR
-const PDFThumbnailClient = dynamic(
-  () => import('./PDFThumbnailClient'),
+// Dynamically import the universal file preview client with no SSR
+const FilePreviewClient = dynamic(
+  () => import('./FilePreviewClient'),
   {
     ssr: false,
     loading: () => {
@@ -36,7 +37,7 @@ const PDFThumbnailClient = dynamic(
 );
 
 const PDFThumbnail: React.FC<PDFThumbnailProps> = (props) => {
-  return <PDFThumbnailClient {...props} />;
+  return <FilePreviewClient {...props} />;
 };
 
 // Fallback component for non-PDF files
