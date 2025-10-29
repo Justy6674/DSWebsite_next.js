@@ -105,7 +105,7 @@ export default function ContentItem({ item }: ContentItemProps) {
                   </Badge>
                 </div>
                 {item.description && (
-                  <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto mb-3">
+                  <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 md:h-24 overflow-y-auto mb-3">
                     <p className="text-xs text-[#fef5e7] whitespace-pre-wrap">
                       {item.description}
                     </p>

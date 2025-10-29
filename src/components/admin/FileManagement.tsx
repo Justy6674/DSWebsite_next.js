@@ -811,8 +811,25 @@ export default function FileManagement() {
     setAssigningToPortal(true);
 
     try {
+      // Map legacy/admin labels to standard portal labels
+      const normalize = (pillar: string, label: string): string => {
+        const map: Record<string, Record<string, string>> = {
+          'medication': {
+            'Device Videos': 'Videos and Video Links',
+            'Research Articles': 'Research & Journal Articles',
+            'Side Effect Management': 'Other',
+            'Dose Tracking': 'Tools'
+          }
+        };
+        const genericMap: Record<string, string> = {
+          'Research Articles': 'Research & Journal Articles',
+          'Videos': 'Videos and Video Links'
+        };
+        return (map[pillar]?.[label]) || genericMap[label] || label;
+      };
+
       // Ensure each selected subsection exists in validation table
-      const uniqueSubs = Array.from(new Set(selectedSubs));
+      const uniqueSubs = Array.from(new Set(selectedSubs.map(s => normalize(portalAssignment.pillar, s))));
       const upsertRows = uniqueSubs.map((s) => ({ pillar: portalAssignment.pillar, name: s }));
       const { error: upsertError } = await (supabase as any)
         .from('portal_subsections')
