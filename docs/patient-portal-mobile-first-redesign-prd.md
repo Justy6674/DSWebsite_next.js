@@ -282,7 +282,7 @@ graph TD
     style D fill:#fff3e0
 ```
 
-**Specifications:**
+**Mobile Specifications:**
 - **Content Grid**: 2 columns for sub-section cards
 - **Touch Targets**: Minimum 44px × 44px
 - **Typography**: Responsive clamp() scaling
@@ -295,10 +295,19 @@ graph TD
 graph TD
     subgraph "Tablet Viewport"
         A[Top Bar: Search + Profile + Quick Actions]
-        B[Section Header]
+        B[Section Header + Meta Information]
         C[Content Grid: 3 columns]
         D[Bottom Tab Navigation<br/>Optional on larger tablets]
     end
+
+    A --> B
+    B --> C
+    C --> D
+
+    style A fill:#e8f5e8
+    style B fill:#fff3e0
+    style C fill:#f3e5f5
+    style D fill:#e3f2fd
 ```
 
 ### Desktop Layout (≥ 1025px)
@@ -306,26 +315,32 @@ graph TD
 ```mermaid
 graph LR
     subgraph "Desktop Viewport"
-        A[Left Sidebar<br/>Navigation]
-        B[Main Content Area]
-        C[Right Panel<br/>Optional]
+        A[Left Sidebar<br/>Navigation<br/>240px]
+        B[Main Content Area<br/>Flexible]
+        C[Right Panel<br/>Optional<br/>280px]
     end
 
     A --> B
     B --> C
 
-    subgraph "Main Content"
-        D[Top Bar]
+    subgraph "Main Content Structure"
+        D[Top Bar with Search]
         E[Section Header]
-        F[Content Grid: 4 columns]
+        F[Content Grid: 3-4 columns]
+        G[Footer Actions]
     end
 
     B --> D
     D --> E
     E --> F
+    F --> G
+
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
 ```
 
-**Specifications:**
+**Desktop Specifications:**
 - **Sidebar Width**: 240px (collapsible to 64px)
 - **Content Grid**: 3-4 columns for sub-section cards
 - **No Bottom Navigation**: Desktop uses sidebar only
@@ -337,89 +352,105 @@ graph LR
 
 ### File Structure (Next.js App Router)
 
-```
-src/app/portal/
-├── layout.tsx                    # Shared portal layout with responsive nav
-├── page.tsx                      # Main Dashboard
-├── components/
-│   ├── MobileBottomNav.tsx      # Bottom tab navigation
-│   ├── DesktopSidebar.tsx       # Collapsible left sidebar
-│   ├── SubDashboard.tsx         # Reusable sub-dashboard layout
-│   ├── ContentCard.tsx          # Sub-section cards with counts
-│   └── ContentList.tsx          # Content item lists
-│
-├── medication/
-│   ├── page.tsx                 # Medication sub-dashboard
-│   ├── guides/page.tsx          # Guides content list
-│   ├── research/page.tsx        # Research articles list
-│   ├── products/page.tsx        # Product information list
-│   ├── videos/page.tsx          # Video content list
-│   ├── podcasts/page.tsx        # Podcast links list
-│   ├── tools/page.tsx           # Interactive tools list
-│   └── other/page.tsx           # Other resources list
-│
-├── nutrition/
-│   └── [same 7 sub-sections]
-├── activity/
-│   └── [same 7 sub-sections]
-├── mental-health/
-│   └── [same 7 sub-sections]
-├── sleep/
-│   └── [same 7 sub-sections]
-└── water/
-    ├── page.tsx                 # Water tracking dashboard
-    └── tracking/page.tsx        # Detailed tracking interface
+```mermaid
+graph TD
+    A[src/app/portal/] --> B[layout.tsx]
+    A --> C[page.tsx - Dashboard]
+    A --> D[components/]
+    A --> E[Health Pillars]
+
+    D --> F[MobileBottomNav.tsx]
+    D --> G[DesktopSidebar.tsx]
+    D --> H[SubDashboard.tsx]
+    D --> I[ContentCard.tsx]
+    D --> J[ContentList.tsx]
+
+    E --> K[medication/]
+    E --> L[nutrition/]
+    E --> M[activity/]
+    E --> N[mental-health/]
+    E --> O[sleep/]
+    E --> P[water/]
+
+    K --> Q[page.tsx - Sub-dashboard]
+    K --> R[guides/page.tsx]
+    K --> S[research/page.tsx]
+    K --> T[products/page.tsx]
+    K --> U[videos/page.tsx]
+    K --> V[podcasts/page.tsx]
+    K --> W[tools/page.tsx]
+    K --> X[other/page.tsx]
+
+    style A fill:#e3f2fd
+    style D fill:#e8f5e8
+    style E fill:#f3e5f5
 ```
 
 ### Component Architecture
 
 ```mermaid
 graph TD
-    A[PortalLayout] --> B[MobileBottomNav]
-    A --> C[DesktopSidebar]
-    A --> D[MainContent]
+    A[PortalLayout] --> B[ResponsiveNavigation]
+    A --> C[MainContent]
+    A --> D[GlobalSearch]
 
-    D --> E[SubDashboard]
-    D --> F[ContentList]
+    B --> E[MobileBottomNav]
+    B --> F[DesktopSidebar]
+    B --> G[TabletHybridNav]
 
-    E --> G[SectionHeader]
-    E --> H[ContentCard × 7]
+    C --> H[SubDashboard]
+    C --> I[ContentList]
+    C --> J[ContentDetail]
 
-    F --> I[SearchBar]
-    F --> J[FilterOptions]
-    F --> K[ContentItem × N]
+    H --> K[SectionHeader]
+    H --> L[ContentCard × 7]
+    H --> M[QuickActions]
 
-    H --> L[ContentPreview]
-    K --> M[FilePreview]
-    K --> N[SaveButton]
+    I --> N[SearchBar]
+    I --> O[FilterOptions]
+    I --> P[ContentItem × N]
+    I --> Q[Pagination]
+
+    L --> R[ContentPreview]
+    L --> S[ItemCount]
+    L --> T[NavigationAction]
+
+    P --> U[FilePreview]
+    P --> V[SaveButton]
+    P --> W[ShareButton]
+
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#f3e5f5
+    style H,I,J fill:#fff3e0
 ```
 
 ### Responsive Navigation Logic
 
-```typescript
-// Pseudo-code for navigation component selection
-function PortalNavigation() {
-  const isMobile = useMediaQuery('(max-width: 768px)')
-  const isTablet = useMediaQuery('(min-width: 769px) and (max-width: 1024px)')
+```mermaid
+graph TD
+    A[User Loads Portal] --> B{Screen Size?}
 
-  return (
-    <>
-      {/* Mobile: Bottom tabs only */}
-      {isMobile && <MobileBottomNav />}
+    B -->|Mobile ≤ 768px| C[Show Bottom Tabs Only]
+    B -->|Tablet 769-1024px| D[Show Both Navigation Options]
+    B -->|Desktop ≥ 1025px| E[Show Sidebar Only]
 
-      {/* Tablet: Both navigation options */}
-      {isTablet && (
-        <>
-          <CollapsibleSidebar />
-          <MobileBottomNav />
-        </>
-      )}
+    C --> F[5 Bottom Tabs]
+    C --> G[Hamburger Menu for More]
 
-      {/* Desktop: Sidebar only */}
-      {!isMobile && !isTablet && <DesktopSidebar />}
-    </>
-  )
-}
+    D --> H[Collapsible Sidebar]
+    D --> I[Bottom Tabs]
+    D --> J[Adaptive Layout]
+
+    E --> K[Full Left Sidebar]
+    E --> L[Desktop Navigation Patterns]
+
+    F --> M[Touch-Optimized Targets]
+    G --> N[Overflow Menu]
+
+    style A fill:#e3f2fd
+    style C,D,E fill:#e8f5e8
+    style M,N,J,L fill:#f3e5f5
 ```
 
 ---
@@ -434,47 +465,105 @@ sequenceDiagram
     participant CMS
     participant Database
     participant Portal
+    participant User
 
     Admin->>CMS: Upload new content
+    CMS->>CMS: Validate and process
     CMS->>Database: Store with pillar/section metadata
-    Database->>Portal: Update content counts
+    Database->>Portal: Trigger content update
+    Portal->>Portal: Update content counts
     Portal->>Portal: Refresh sub-dashboard cards
     Portal->>Portal: Update content lists
+    User->>Portal: Request content
+    Portal->>Database: Query updated content
+    Database->>Portal: Return fresh content
+    Portal->>User: Display updated content
 ```
 
 ### Dynamic Content Loading
 
 ```mermaid
 graph TD
-    A[User Navigates to Sub-Dashboard] --> B[Fetch Content Counts]
-    B --> C[Display Cards with Counts]
-    C --> D[User Taps Content Card]
-    D --> E[Fetch Content List]
-    E --> F[Display Paginated Content]
+    A[User Navigates to Sub-Dashboard] --> B[Check Cache]
+    B --> C{Cache Valid?}
 
-    F --> G{User Action?}
-    G -->|Search| H[Filter Content List]
-    G -->|Scroll| I[Load More Items]
-    G -->|Select| J[Open Content Preview]
+    C -->|Yes| D[Display Cached Counts]
+    C -->|No| E[Fetch Content Counts from API]
+
+    E --> F[Update Cache]
+    F --> G[Display Cards with Counts]
+    D --> G
+
+    G --> H[User Taps Content Card]
+    H --> I[Check Content Cache]
+    I --> J{Content Cached?}
+
+    J -->|Yes| K[Display Cached Content]
+    J -->|No| L[Fetch Content List]
+
+    L --> M[Implement Pagination]
+    M --> N[Display Paginated Content]
+    K --> O[User Interactions]
+    N --> O
+
+    O --> P{User Action?}
+    P -->|Search| Q[Filter Content List]
+    P -->|Scroll| R[Load More Items]
+    P -->|Select| S[Open Content Preview]
+
+    style A fill:#e3f2fd
+    style G,N fill:#e8f5e8
+    style O fill:#f3e5f5
 ```
 
 ### Database Schema Requirements
 
-```typescript
-// Content organization structure
-interface PortalContent {
-  id: string
-  title: string
-  pillar: 'medication' | 'nutrition' | 'activity' | 'mental-health' | 'sleep' | 'water'
-  section: 'guides' | 'research' | 'products' | 'videos' | 'podcasts' | 'tools' | 'other'
-  content_type: 'pdf' | 'video' | 'link' | 'tool' | 'guide'
-  file_url?: string
-  description: string
-  tags: string[]
-  created_at: timestamp
-  updated_at: timestamp
-  published: boolean
-}
+```mermaid
+erDiagram
+    PORTAL_CONTENT {
+        uuid id PK
+        string title
+        enum pillar
+        enum section
+        enum content_type
+        string file_url
+        text description
+        string[] tags
+        timestamp created_at
+        timestamp updated_at
+        boolean published
+        integer sort_order
+    }
+
+    USER_PROFILES {
+        uuid id PK
+        string email
+        jsonb metadata
+        enum role
+        timestamp last_login
+    }
+
+    CONTENT_ANALYTICS {
+        uuid id PK
+        uuid content_id FK
+        uuid user_id FK
+        string action_type
+        jsonb metadata
+        timestamp created_at
+    }
+
+    SAVED_CONTENT {
+        uuid id PK
+        uuid user_id FK
+        uuid content_id FK
+        text notes
+        timestamp saved_at
+    }
+
+    PORTAL_CONTENT ||--o{ CONTENT_ANALYTICS : tracks
+    PORTAL_CONTENT ||--o{ SAVED_CONTENT : bookmarked
+    USER_PROFILES ||--o{ CONTENT_ANALYTICS : performs
+    USER_PROFILES ||--o{ SAVED_CONTENT : saves
 ```
 
 ---
@@ -483,11 +572,28 @@ interface PortalContent {
 
 ### Loading Performance Targets
 
-| Page Type | Initial Load | Navigation | Content Load |
-|-----------|--------------|------------|--------------|
-| Dashboard | < 2s | < 0.5s | < 1s |
-| Sub-Dashboard | < 1.5s | < 0.3s | < 0.8s |
-| Content List | < 2s | < 0.5s | < 1.2s |
+```mermaid
+graph TD
+    A[Performance Targets] --> B[Page Load Times]
+    A --> C[Navigation Speed]
+    A --> D[Content Rendering]
+
+    B --> E[Dashboard: < 2s]
+    B --> F[Sub-Dashboard: < 1.5s]
+    B --> G[Content List: < 2s]
+
+    C --> H[Tab Switch: < 0.3s]
+    C --> I[Card Navigation: < 0.5s]
+    C --> J[Back Navigation: < 0.2s]
+
+    D --> K[Content Preview: < 1s]
+    D --> L[Search Results: < 0.8s]
+    D --> M[Filter Updates: < 0.5s]
+
+    style A fill:#e3f2fd
+    style B,C,D fill:#e8f5e8
+    style E,F,G,H,I,J,K,L,M fill:#f3e5f5
+```
 
 ### Mobile-Specific Optimizations
 
@@ -500,16 +606,24 @@ graph TD
 
     B --> F[Content Lists]
     B --> G[Sub-Dashboards]
+    B --> H[Below-Fold Content]
 
-    C --> H[WebP Format]
-    C --> I[Responsive Images]
-    C --> J[Progressive Loading]
+    C --> I[WebP Format]
+    C --> J[Responsive Images]
+    C --> K[Progressive Loading]
+    C --> L[Thumbnail Generation]
 
-    D --> K[Route-Based Splits]
-    D --> L[Component Chunks]
+    D --> M[Route-Based Splits]
+    D --> N[Component Chunks]
+    D --> O[Dynamic Imports]
 
-    E --> M[Next Page Prefetch]
-    E --> N[Critical Resources]
+    E --> P[Next Page Prefetch]
+    E --> Q[Critical Resources]
+    E --> R[User Intent Prediction]
+
+    style A fill:#e3f2fd
+    style B,C,D,E fill:#e8f5e8
+    style F,G,H,I,J,K,L,M,N,O,P,Q,R fill:#f3e5f5
 ```
 
 ---
@@ -518,51 +632,92 @@ graph TD
 
 ### Touch Target Specifications
 
-| Element Type | Mobile Size | Desktop Size | Spacing |
-|--------------|-------------|--------------|---------|
-| Bottom Tab | 44px × 44px | N/A | 8px gap |
-| Content Card | 140px × 120px | 160px × 140px | 16px gap |
-| List Item | Full width × 56px | Full width × 48px | 1px border |
-| Action Button | 44px × 44px | 32px × 32px | 12px gap |
+```mermaid
+graph TD
+    A[Touch Target Guidelines] --> B[Mobile Targets]
+    A --> C[Tablet Targets]
+    A --> D[Desktop Targets]
+
+    B --> E[Bottom Tab: 44px × 44px]
+    B --> F[Content Card: 140px × 120px]
+    B --> G[List Item: Full width × 56px]
+    B --> H[Action Button: 44px × 44px]
+
+    C --> I[Bottom Tab: 44px × 44px]
+    C --> J[Content Card: 160px × 140px]
+    C --> K[List Item: Full width × 52px]
+    C --> L[Action Button: 40px × 40px]
+
+    D --> M[Sidebar Item: 200px × 40px]
+    D --> N[Content Card: 180px × 160px]
+    D --> O[List Item: Full width × 48px]
+    D --> P[Action Button: 32px × 32px]
+
+    style A fill:#e3f2fd
+    style B,C,D fill:#e8f5e8
+    style E,F,G,H,I,J,K,L,M,N,O,P fill:#f3e5f5
+```
 
 ### Animation Guidelines
 
 ```mermaid
-graph LR
-    A[Navigation Transitions] --> B[300ms ease-out]
-    C[Card Hover Effects] --> D[200ms ease-in-out]
-    E[Content Loading] --> F[Skeleton screens]
-    G[Page Transitions] --> H[Slide animations]
-```
+graph TD
+    A[Animation System] --> B[Navigation Transitions]
+    A --> C[Content Loading]
+    A --> D[User Feedback]
+    A --> E[Accessibility]
 
-**Animation Specifications:**
-- **Navigation**: 300ms ease-out slide transitions
-- **Hover Effects**: 200ms ease-in-out scale/shadow changes
-- **Loading States**: Skeleton screens instead of spinners
-- **Reduced Motion**: Respect `prefers-reduced-motion` setting
+    B --> F[Tab Switch: 300ms ease-out]
+    B --> G[Page Transition: 250ms ease-in-out]
+    B --> H[Modal Open/Close: 200ms ease-out]
+
+    C --> I[Skeleton Screens]
+    C --> J[Progressive Loading]
+    C --> K[Fade-in Content: 150ms]
+
+    D --> L[Button Press: 100ms scale]
+    D --> M[Card Hover: 200ms shadow]
+    D --> N[Success States: 300ms bounce]
+
+    E --> O[prefers-reduced-motion Support]
+    E --> P[Focus Indicators]
+    E --> Q[High Contrast Mode]
+
+    style A fill:#e3f2fd
+    style B,C,D,E fill:#e8f5e8
+    style F,G,H,I,J,K,L,M,N,O,P,Q fill:#f3e5f5
+```
 
 ### Accessibility Requirements
 
 ```mermaid
 graph TD
-    A[Accessibility Standards] --> B[WCAG 2.1 AA]
+    A[Accessibility Standards] --> B[WCAG 2.1 AA Compliance]
     A --> C[Screen Reader Support]
     A --> D[Keyboard Navigation]
-    A --> E[High Contrast]
+    A --> E[High Contrast Support]
 
     B --> F[Colour Contrast 4.5:1]
     B --> G[Focus Indicators]
+    B --> H[Text Scaling 200%]
 
-    C --> H[Semantic HTML]
-    C --> I[ARIA Labels]
-    C --> J[Live Regions]
+    C --> I[Semantic HTML]
+    C --> J[ARIA Labels]
+    C --> K[Live Regions]
+    C --> L[Screen Reader Testing]
 
-    D --> K[Tab Order]
-    D --> L[Skip Links]
-    D --> M[Focus Management]
+    D --> M[Tab Order]
+    D --> N[Skip Links]
+    D --> O[Focus Management]
+    D --> P[Keyboard Shortcuts]
 
-    E --> N[Dark Theme Support]
-    E --> O[Font Size Scaling]
+    E --> Q[Dark Theme Support]
+    E --> R[Custom Colour Schemes]
+    E --> S[Font Size Scaling]
+
+    style A fill:#e3f2fd
+    style B,C,D,E fill:#e8f5e8
+    style F,G,H,I,J,K,L,M,N,O,P,Q,R,S fill:#f3e5f5
 ```
 
 ---
@@ -571,71 +726,103 @@ graph TD
 
 ### Primary KPIs
 
-| Metric | Current | Target | Measurement |
-|--------|---------|--------|-------------|
-| Time to Content | 15-20s | 5-8s | Analytics timing |
-| Tap Reduction | 5 taps | 2 taps | User flow tracking |
-| Mobile Engagement | 60% | 85% | Session duration |
-| Content Discovery | 40% | 70% | Unique page views |
+```mermaid
+graph TD
+    A[Success Metrics] --> B[User Engagement]
+    A --> C[Performance Metrics]
+    A --> D[Business Metrics]
 
-### Secondary Metrics
+    B --> E[Time to Content: 15-20s → 5-8s]
+    B --> F[Tap Reduction: 5 → 2 taps]
+    B --> G[Session Duration: +40%]
+    B --> H[Content Discovery: +70%]
+
+    C --> I[Page Load Speed: <2s]
+    C --> J[Mobile Usability Score: >90]
+    C --> K[Accessibility Score: >95]
+    C --> L[Performance Budget: <200KB]
+
+    D --> M[User Retention: +25%]
+    D --> N[Content Engagement: +60%]
+    D --> O[Support Requests: -30%]
+    D --> P[User Satisfaction: >85%]
+
+    style A fill:#e3f2fd
+    style B,C,D fill:#e8f5e8
+    style E,F,G,H,I,J,K,L,M,N,O,P fill:#f3e5f5
+```
+
+### A/B Testing Strategy
 
 ```mermaid
 graph TD
-    A[User Engagement] --> B[Session Duration]
-    A --> C[Pages per Session]
-    A --> D[Return Visits]
+    A[A/B Testing Plan] --> B[Phase 1: Navigation]
+    A --> C[Phase 2: Layout]
+    A --> D[Phase 3: Content]
+    A --> E[Phase 4: Performance]
 
-    E[Content Performance] --> F[Content Views]
-    E --> G[Downloads]
-    E --> H[Saves/Bookmarks]
+    B --> F[Bottom Nav vs Traditional Menu]
+    B --> G[5 Tabs vs 6 Tabs]
+    B --> H[Tab Labels vs Icons Only]
 
-    I[Technical Performance] --> J[Page Load Speed]
-    I --> K[Mobile Usability Score]
-    I --> L[Accessibility Score]
+    C --> I[Sub-dashboard Grid Layout]
+    C --> J[Card Size Optimization]
+    C --> K[Content Density]
+
+    D --> L[List vs Card Presentation]
+    D --> M[Preview vs Direct Download]
+    D --> N[Search Placement]
+
+    E --> O[Loading Strategies]
+    E --> P[Caching Approaches]
+    E --> Q[Image Optimization]
+
+    style A fill:#e3f2fd
+    style B,C,D,E fill:#e8f5e8
+    style F,G,H,I,J,K,L,M,N,O,P,Q fill:#f3e5f5
 ```
-
-### A/B Testing Plan
-
-1. **Phase 1**: Test bottom navigation vs. traditional menu (2 weeks)
-2. **Phase 2**: Test sub-dashboard card layouts (2 weeks)
-3. **Phase 3**: Test content list vs. card presentation (2 weeks)
-4. **Phase 4**: Full mobile-first rollout with monitoring (ongoing)
 
 ---
 
 ## Implementation Timeline
 
 ### Phase 1: Foundation (Weeks 1-2)
+
 ```mermaid
 gantt
     title Mobile-First Portal Redesign Timeline
     dateFormat  YYYY-MM-DD
-    section Phase 1
-    Mobile Bottom Navigation    :a1, 2024-11-01, 5d
-    Responsive Layout System    :a2, after a1, 5d
-    Component Architecture      :a3, after a2, 4d
+    section Phase 1: Foundation
+    Mobile Bottom Navigation     :a1, 2024-11-01, 5d
+    Responsive Layout System     :a2, after a1, 5d
+    Component Architecture       :a3, after a2, 4d
+    Basic Routing Setup         :a4, after a3, 2d
 ```
 
 ### Phase 2: Core Features (Weeks 3-4)
+
 ```mermaid
 gantt
-    title Phase 2 Implementation
+    title Phase 2: Core Implementation
     dateFormat  YYYY-MM-DD
-    section Phase 2
-    Sub-Dashboard Pages        :b1, 2024-11-15, 7d
-    Content List Components    :b2, after b1, 7d
+    section Phase 2: Features
+    Sub-Dashboard Pages         :b1, 2024-11-15, 7d
+    Content List Components     :b2, after b1, 7d
+    Search and Filter           :b3, after b2, 5d
+    Content Preview System      :b4, after b3, 3d
 ```
 
 ### Phase 3: Polish & Testing (Weeks 5-6)
+
 ```mermaid
 gantt
-    title Phase 3 Completion
+    title Phase 3: Testing and Launch
     dateFormat  YYYY-MM-DD
-    section Phase 3
-    Performance Optimization   :c1, 2024-11-29, 5d
-    Accessibility Testing      :c2, after c1, 3d
-    User Testing & Feedback    :c3, after c2, 6d
+    section Phase 3: Polish
+    Performance Optimization    :c1, 2024-11-29, 5d
+    Accessibility Testing       :c2, after c1, 3d
+    User Testing and Feedback   :c3, after c2, 6d
+    Production Deployment       :c4, after c3, 2d
 ```
 
 ---
@@ -644,29 +831,68 @@ gantt
 
 ### Technical Risks
 
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Navigation State Management | High | Medium | Implement robust routing solution |
-| Performance on Older Devices | Medium | High | Progressive enhancement strategy |
-| Cross-Platform Consistency | Medium | Medium | Extensive device testing |
-| Content Loading Delays | High | Low | Implement skeleton loading states |
+```mermaid
+graph TD
+    A[Technical Risk Assessment] --> B[High Risk]
+    A --> C[Medium Risk]
+    A --> D[Low Risk]
+
+    B --> E[Navigation State Management]
+    B --> F[Performance on Older Devices]
+    B --> G[Cross-Platform Consistency]
+
+    C --> H[Content Loading Delays]
+    C --> I[Cache Invalidation]
+    C --> J[Search Performance]
+
+    D --> K[Component Reusability]
+    D --> L[Design System Consistency]
+    D --> M[Testing Coverage]
+
+    E --> N[Implement Robust Router]
+    F --> O[Progressive Enhancement]
+    G --> P[Extensive Device Testing]
+
+    H --> Q[Skeleton Loading States]
+    I --> R[Smart Caching Strategy]
+    J --> S[Debounced Search]
+
+    style A fill:#e3f2fd
+    style B fill:#ffebee
+    style C fill:#fff3e0
+    style D fill:#e8f5e8
+```
 
 ### User Experience Risks
 
 ```mermaid
 graph TD
-    A[UX Risk Assessment] --> B[Learning Curve]
-    A --> C[Feature Discoverability]
-    A --> D[Content Accessibility]
+    A[UX Risk Assessment] --> B[Learning Curve Risk]
+    A --> C[Feature Discovery Risk]
+    A --> D[Content Accessibility Risk]
 
-    B --> E[Onboarding Flow]
-    B --> F[Progressive Disclosure]
+    B --> E[New Navigation Patterns]
+    B --> F[Changed User Flows]
 
-    C --> G[Clear Visual Hierarchy]
-    C --> H[Intuitive Icons]
+    C --> G[Hidden Features]
+    C --> H[Poor Information Architecture]
 
-    D --> I[Search Functionality]
-    D --> J[Consistent Organization]
+    D --> I[Content Organization]
+    D --> J[Search Effectiveness]
+
+    E --> K[Onboarding Flow]
+    E --> L[Progressive Disclosure]
+
+    G --> M[Clear Visual Hierarchy]
+    G --> N[Intuitive Icons]
+
+    I --> O[Consistent Categorization]
+    I --> P[Logical Grouping]
+
+    style A fill:#e3f2fd
+    style B,C,D fill:#fff3e0
+    style E,F,G,H,I,J fill:#ffebee
+    style K,L,M,N,O,P fill:#e8f5e8
 ```
 
 ---
@@ -675,12 +901,37 @@ graph TD
 
 ### Definition of Done
 
-1. ✅ **Mobile Navigation**: Bottom tabs implemented with 5-tab limit
-2. ✅ **Responsive Design**: Seamless experience across all device sizes
-3. ✅ **Performance**: Meets loading time targets on 3G networks
-4. ✅ **Accessibility**: WCAG 2.1 AA compliance verified
-5. ✅ **User Testing**: 85% user satisfaction in usability testing
-6. ✅ **Analytics**: 60% reduction in time-to-content metrics
+```mermaid
+graph TD
+    A[Success Criteria] --> B[Technical Requirements]
+    A --> C[User Experience Requirements]
+    A --> D[Performance Requirements]
+    A --> E[Business Requirements]
+
+    B --> F[✅ Mobile Navigation Implemented]
+    B --> G[✅ Responsive Design Complete]
+    B --> H[✅ Component Architecture]
+    B --> I[✅ Database Integration]
+
+    C --> J[✅ 2-Tap Content Access]
+    C --> K[✅ Intuitive Navigation]
+    C --> L[✅ WCAG 2.1 AA Compliance]
+    C --> M[✅ Cross-Device Consistency]
+
+    D --> N[✅ Page Load < 2s]
+    D --> O[✅ 3G Network Support]
+    D --> P[✅ Lighthouse Score > 90]
+    D --> Q[✅ Bundle Size < 200KB]
+
+    E --> R[✅ 85% User Satisfaction]
+    E --> S[✅ 60% Engagement Increase]
+    E --> T[✅ 30% Support Reduction]
+    E --> U[✅ ROI Positive]
+
+    style A fill:#e3f2fd
+    style B,C,D,E fill:#e8f5e8
+    style F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U fill:#f3e5f5
+```
 
 ### Post-Launch Monitoring
 
@@ -690,15 +941,49 @@ graph LR
     B --> C[Week 2: User Behaviour Analysis]
     C --> D[Week 4: Performance Review]
     D --> E[Month 1: Feature Optimization]
-    E --> F[Quarterly Reviews]
+    E --> F[Month 3: Full Assessment]
+    F --> G[Quarterly Reviews]
+
+    B --> H[Server Performance]
+    B --> I[Error Tracking]
+
+    C --> J[User Flow Analytics]
+    C --> K[Feature Usage Stats]
+
+    D --> L[Performance Metrics]
+    D --> M[User Feedback]
+
+    E --> N[A/B Test Results]
+    E --> O[Feature Refinements]
+
+    style A fill:#e3f2fd
+    style B,C,D,E,F,G fill:#e8f5e8
+    style H,I,J,K,L,M,N,O fill:#f3e5f5
 ```
 
 ---
 
 ## Conclusion
 
-This mobile-first redesign addresses the core usability issues of the current desktop-centric portal while maintaining desktop functionality. By implementing bottom tab navigation and reducing the content access journey from 5 taps to 2 taps, we expect to see significant improvements in user engagement and satisfaction.
+This comprehensive mobile-first redesign addresses the fundamental usability issues of the current desktop-centric portal while maintaining full desktop functionality. By implementing bottom tab navigation and reducing the content access journey from 5 taps to 2 taps, we expect to see significant improvements in user engagement and satisfaction.
+
+### Key Benefits Delivered:
+
+1. **60% Reduction in Time-to-Content** - From 5 taps to 2 taps
+2. **Mobile-Optimized Experience** - Bottom navigation for 80% of users
+3. **Consistent Cross-Platform Design** - Responsive architecture
+4. **Performance Improvements** - Faster loading and navigation
+5. **Accessibility Compliance** - WCAG 2.1 AA standards
+6. **Scalable Architecture** - Easy to extend and maintain
+
+### Implementation Strategy:
 
 The phased implementation approach allows for iterative testing and refinement while minimizing risk to the existing user base. Success will be measured through reduced time-to-content, increased mobile engagement, and improved overall user satisfaction metrics.
 
 **Next Steps**: Proceed with Phase 1 implementation focusing on the mobile bottom navigation foundation and responsive layout system.
+
+---
+
+**Document Status**: Complete
+**Review Required**: Technical Architecture Team
+**Approval Needed**: Product Owner, UX Lead, Engineering Manager
