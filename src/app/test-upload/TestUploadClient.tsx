@@ -1,15 +1,8 @@
 'use client';
 
 import React from 'react';
-import FileManagement from '@/components/admin/FileManagement';
+import PDFTestClient from './PDFTestClient';
 
 export default function TestUploadClient() {
-  return (
-    <div className="min-h-screen bg-slate-900 p-4">
-      <div className="container mx-auto">
-        <h1 className="text-2xl font-bold text-white mb-4">Test File Upload (Auth Bypass)</h1>
-        <FileManagement />
-      </div>
-    </div>
-  );
+  return <PDFTestClient />;
 }

@@ -5,7 +5,6 @@ import { RefreshCw, File, AlertCircle, FileText } from 'lucide-react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import { supabase } from '@/integrations/supabase/client';
 
 // Configure PDF.js worker for client-side rendering
 if (typeof window !== 'undefined') {
@@ -31,8 +30,6 @@ const PDFThumbnailClient: React.FC<PDFThumbnailClientProps> = ({
   const [pdfLoading, setPdfLoading] = useState(true);
   const [pdfError, setPdfError] = useState<string | null>(null);
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [signedUrl, setSignedUrl] = useState<string | null>(null);
-
   // Calculate thumbnail height based on standard PDF aspect ratio (√2:1)
   const height = Math.round(width * 1.414);
 
@@ -41,55 +38,10 @@ const PDFThumbnailClient: React.FC<PDFThumbnailClientProps> = ({
     setHasMounted(true);
   }, []);
 
-  // Generate signed URL for private PDF access
-  useEffect(() => {
-    const generateSignedUrl = async () => {
-      if (!fileUrl || !hasMounted) return;
-
-      try {
-        // Extract the file path from the full URL
-        const urlParts = fileUrl.split('/');
-        const bucketIndex = urlParts.findIndex(part => part === 'portal-files');
-        if (bucketIndex === -1) {
-          throw new Error('Invalid file URL - portal-files bucket not found');
-        }
-
-        const filePath = urlParts.slice(bucketIndex + 1).join('/');
-        console.log(`🔐 Generating signed URL for: ${filePath}`);
-
-        // Generate signed URL with 1 hour expiry
-        const { data, error } = await supabase.storage
-          .from('portal-files')
-          .createSignedUrl(filePath, 3600); // 1 hour
-
-        if (error) {
-          console.error('❌ Failed to generate signed URL:', error);
-          setPdfError(`Failed to access PDF: ${error.message}`);
-          setPdfLoading(false);
-          return;
-        }
-
-        if (data?.signedUrl) {
-          console.log(`✅ Generated signed URL for: ${fileName}`);
-          setSignedUrl(data.signedUrl);
-        } else {
-          throw new Error('No signed URL returned');
-        }
-      } catch (error) {
-        console.error('❌ Error generating signed URL:', error);
-        setPdfError(error instanceof Error ? error.message : 'Failed to access PDF');
-        setPdfLoading(false);
-      }
-    };
-
-    generateSignedUrl();
-  }, [fileUrl, fileName, hasMounted]);
-
   const handleRefresh = () => {
     setPdfLoading(true);
     setPdfError(null);
     setNumPages(null);
-    setSignedUrl(null);
     onRefresh?.();
   };
 
@@ -129,8 +81,8 @@ const PDFThumbnailClient: React.FC<PDFThumbnailClientProps> = ({
     );
   }
 
-  // Show loading state while PDF is loading or signed URL is being generated
-  if (pdfLoading || !signedUrl) {
+  // Show loading state while PDF is loading
+  if (pdfLoading) {
     return (
       <div
         className={`bg-slate-800 rounded-lg border border-slate-700 overflow-hidden relative ${className}`}
@@ -205,7 +157,7 @@ const PDFThumbnailClient: React.FC<PDFThumbnailClientProps> = ({
       style={{ width, height }}
     >
       <Document
-        file={signedUrl}
+        file={fileUrl}
         onLoadSuccess={onDocumentLoadSuccess}
         onLoadError={onDocumentLoadError}
         loading={null} // We handle loading state ourselves
