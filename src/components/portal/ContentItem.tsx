@@ -74,7 +74,9 @@ export default function ContentItem({ item }: ContentItemProps) {
 
     const contentData = item.content_data || {};
     
-    if (contentData.file_url) {
+    if (item.content_type === 'video' && contentData.mux_playback_id) {
+      window.location.href = `/portal/video/${contentData.mux_playback_id}`;
+    } else if (contentData.file_url) {
       window.open(contentData.file_url, '_blank');
     } else if (contentData.url) {
       window.open(contentData.url, '_blank');

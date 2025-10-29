@@ -149,7 +149,9 @@ export default function DynamicPortalSection({
     // Handle different content types
     switch (item.content_type) {
       case 'video':
-        if (item.content_data.url) {
+        if (item.content_data.mux_playback_id) {
+          window.location.href = `/portal/video/${item.content_data.mux_playback_id}`
+        } else if (item.content_data.url) {
           window.open(item.content_data.url, '_blank')
         }
         break

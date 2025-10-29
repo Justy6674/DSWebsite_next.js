@@ -271,6 +271,10 @@ export default function FileManagement() {
   const [assigningToPortal, setAssigningToPortal] = useState(false);
   const [showAllFiles, setShowAllFiles] = useState(false); // Debug toggle
   const [tagsDraft, setTagsDraft] = useState('');
+  // Mux upload state for video content
+  const [muxUploading, setMuxUploading] = useState(false);
+  const [muxProgress, setMuxProgress] = useState(0);
+  const [muxUploadId, setMuxUploadId] = useState<string | null>(null);
 
   // Resumable upload function using TUS protocol
   // Cancel upload function
@@ -783,6 +787,58 @@ export default function FileManagement() {
       multiSubsections: []
     });
     setTagsDraft('');
+    setMuxUploading(false);
+    setMuxProgress(0);
+    setMuxUploadId(null);
+  };
+
+  // Start Mux direct upload for video files
+  const startMuxUpload = async (file: File) => {
+    try {
+      setMuxUploading(true);
+      setMuxProgress(0);
+      const res = await fetch('/api/mux/create-upload', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+      const json = await res.json();
+      if (!json?.url) throw new Error('Failed to create Mux upload');
+
+      const upload = new (tus as any).Upload(file, {
+        endpoint: json.url,
+        retryDelays: [0, 1000, 3000, 5000],
+        metadata: { filename: file.name, filetype: file.type },
+        uploadSize: file.size,
+        onError: (error: any) => {
+          console.error('Mux upload error', error);
+          setMuxUploading(false);
+          toast.error('Mux upload failed');
+        },
+        onProgress: (bytesUploaded: number, bytesTotal: number) => {
+          setMuxProgress((bytesUploaded / bytesTotal) * 100);
+        },
+        onSuccess: async () => {
+          setMuxUploadId(json.id);
+          const poll = async () => {
+            const r = await fetch(`/api/mux/upload-status?uploadId=${json.id}`);
+            const j = await r.json();
+            if (j?.playbackId) {
+              setMuxUploading(false);
+              setPortalAssignment(prev => ({
+                ...prev,
+                content_data: { ...prev.content_data, mux_playback_id: j.playbackId }
+              }));
+              toast.success('Video ready for portal');
+            } else {
+              setTimeout(poll, 3000);
+            }
+          };
+          poll();
+        }
+      });
+
+      upload.start();
+    } catch (e: any) {
+      setMuxUploading(false);
+      toast.error(e?.message || 'Mux upload error');
+    }
   };
 
   // Assign file to portal content
@@ -1726,6 +1782,24 @@ export default function FileManagement() {
                     <h3 className="text-xl font-bold text-[#f8fafc] mb-6">Content Details</h3>
 
                     <div className="space-y-6">
+                      {/* Video Upload (Mux) */}
+                      {portalAssignment.content_type === 'video' && (
+                        <div className="bg-slate-900 border border-slate-700 rounded-lg p-4">
+                          <Label className="text-[#fef5e7] mb-3 block text-base font-medium">Upload Video (secure)</Label>
+                          <input
+                            type="file"
+                            accept="video/*"
+                            onChange={(e) => {
+                              const f = e.target.files?.[0];
+                              if (f) startMuxUpload(f);
+                            }}
+                            className="block text-sm text-slate-200"
+                          />
+                          <div className="mt-2 text-xs text-slate-400">
+                            {muxUploading ? `Uploading to Mux… ${muxProgress.toFixed(0)}%` : portalAssignment.content_data?.mux_playback_id ? 'Ready: secured playback configured' : 'Select a video file to upload. Large files supported.'}
+                          </div>
+                        </div>
+                      )}
                       {/* Title */}
                       <div>
                         <Label htmlFor="portal-title" className="text-[#fef5e7] mb-3 block text-base font-medium">
