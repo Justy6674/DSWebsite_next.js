@@ -85,66 +85,45 @@ const FOLDERS = [
   'other'
 ];
 
+// STANDARDIZED 6-SECTION PORTAL STRUCTURE
+// All pillars use the same sections for consistent patient experience
+const STANDARD_SUBSECTIONS = [
+  'Guides',
+  'Research & Journal Articles',
+  'Product Information',
+  'Videos and Video Links',
+  'Podcast Links',
+  'Other'
+];
+
 const PORTAL_PILLARS = {
   medication: {
     name: 'Medication',
-    subsections: [
-      'Device Videos',
-      'Product Information',
-      'Research Articles',
-      'Side Effect Management',
-      'Dose Tracking'
-    ]
+    subsections: STANDARD_SUBSECTIONS
   },
   nutrition: {
     name: 'Nutrition',
-    subsections: [
-      'Meal Planning Tools',
-      'Recipe Library',
-      'Macro Calculators',
-      'Eating Guides',
-      'Saved Meal Plans'
-    ]
+    subsections: STANDARD_SUBSECTIONS
   },
   activity: {
     name: 'Activity',
-    subsections: [
-      'Home Workouts',
-      'Exercise Videos',
-      'Movement Alternatives',
-      'Progress Tracking',
-      'Equipment-Free'
-    ]
+    subsections: STANDARD_SUBSECTIONS
   },
   'mental-health': {
     name: 'Mental Health',
-    subsections: [
-      'Stress Management',
-      'Emotional Eating',
-      'CBT Resources',
-      'Identity Change',
-      'Mindfulness Library'
-    ]
+    subsections: STANDARD_SUBSECTIONS
   },
   'sleep-recovery': {
     name: 'Sleep + Recovery',
-    subsections: [
-      'Sleep Hygiene',
-      'Relaxation Resources',
-      'Recovery Strategies',
-      'Parent Tips',
-      'Sleep Tracking'
-    ]
+    subsections: STANDARD_SUBSECTIONS
+  },
+  water: {
+    name: 'Water',
+    subsections: STANDARD_SUBSECTIONS
   },
   shop: {
     name: 'Shop',
-    subsections: [
-      'Compounding Pharmacy',
-      'Supplements',
-      'Devices & Equipment',
-      'Educational Products',
-      'Recommendations'
-    ]
+    subsections: ['External Shop Link'] // Shop redirects to www.downscale.shop
   }
 };
 
