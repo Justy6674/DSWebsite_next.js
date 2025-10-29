@@ -76,6 +76,13 @@ npm run lighthouse            # Run Lighthouse performance test
 - Search and filtering of admin content
 - Comprehensive analytics and reporting
 
+### File Preview System
+- **PDF Thumbnails** - Browser-native iframe rendering (no JavaScript dependencies)
+- **Reliable Previews** - Works across all modern browsers without SSR issues
+- **Performance Optimized** - No external library overhead, direct Supabase integration
+- **Error Handling** - Graceful fallbacks with refresh functionality
+- **Mobile Compatible** - Responsive thumbnails on all device sizes
+
 ## 🗄️ Database Schema
 
 ### Core Tables
@@ -141,6 +148,39 @@ npm install
 cp .env.example .env.local
 # Add Supabase URL and keys
 ```
+
+### Supabase Configuration
+**Database URL**: `https://pooebqhsshfafkhvccrl.supabase.co`
+**Public Storage**: Direct access to portal files via signed URLs
+
+**Key Technical Achievements**:
+- ✅ **PDF Thumbnails Fixed** - Replaced broken react-pdf with iframe solution
+- ✅ **SSR Compatible** - No hydration mismatches or server-side rendering issues
+- ✅ **Browser Native** - Uses built-in PDF viewer, no external dependencies
+- ✅ **Production Ready** - Deployed and working across all admin interfaces
+- ✅ **Mobile Optimized** - Responsive thumbnails on all device sizes
+
+**File Preview Architecture**:
+```typescript
+// Before (Broken) - react-pdf library
+import { Document, Page } from 'react-pdf';
+<Document file={url}>
+  <Page pageNumber={1} />
+</Document>
+
+// After (Working) - iframe solution
+<iframe
+  src={`${fileUrl}#page=1&zoom=50&toolbar=0`}
+  onLoad={handleLoad}
+  onError={handleError}
+/>
+```
+
+**Supabase Storage Access**:
+- **Public bucket**: `portal-files/other/` - Direct public access
+- **Signed URLs**: Automatic generation for secure file access
+- **File types supported**: PDF (thumbnails), Excel, Word, images, videos
+- **Upload handling**: Admin file management with drag-drop interface
 
 ### Key Commands
 ```bash
