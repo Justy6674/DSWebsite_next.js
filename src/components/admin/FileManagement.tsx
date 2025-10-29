@@ -75,7 +75,6 @@ interface PortalCategoryAssignment {
   subsection?: string;
   customSubsection?: string;
   multiSubsections?: string[];
-  displayOrder?: string;
 }
 
 const FILE_TYPES = {
@@ -277,6 +276,7 @@ export default function FileManagement() {
   });
   const [assigningToPortal, setAssigningToPortal] = useState(false);
   const [showAllFiles, setShowAllFiles] = useState(false); // Debug toggle
+  const [tagsDraft, setTagsDraft] = useState('');
 
   // Resumable upload function using TUS protocol
   // Cancel upload function
@@ -771,6 +771,7 @@ export default function FileManagement() {
       tags: [],
       multiSubsections: []
     });
+    setTagsDraft('');
     setShowPortalModal(true);
   };
 
@@ -787,6 +788,7 @@ export default function FileManagement() {
       tags: [],
       multiSubsections: []
     });
+    setTagsDraft('');
   };
 
   // Assign file to portal content
@@ -823,7 +825,7 @@ export default function FileManagement() {
         content_data: {
           ...portalAssignment.content_data,
           subsection: sub,
-          displayOrder: portalAssignment.displayOrder || 'normal',
+          
           originalFileName: selectedFileForPortal.name,
           fileType: selectedFileForPortal.type,
           fileSize: selectedFileForPortal.size,
@@ -1697,24 +1699,7 @@ export default function FileManagement() {
                         </select>
                       </div>
 
-                      {/* Display Priority */}
-                      <div>
-                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
-                          Display Priority
-                        </Label>
-                        <select
-                          value={portalAssignment.displayOrder || 'normal'}
-                          onChange={(e) => setPortalAssignment(prev => ({
-                            ...prev,
-                            displayOrder: e.target.value
-                          }))}
-                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
-                        >
-                          <option value="top">Top of section (high priority)</option>
-                          <option value="normal">Normal placement</option>
-                          <option value="bottom">Bottom of section (low priority)</option>
-                        </select>
-                      </div>
+                      {/* Display Priority removed - order inherits from section layout */}
                     </div>
                   </div>
 
@@ -1764,16 +1749,26 @@ export default function FileManagement() {
                           Search Tags
                         </Label>
                         <Input
-                          value={portalAssignment.tags.join(', ')}
-                          onChange={(e) => setPortalAssignment(prev => ({
+                          value={tagsDraft}
+                          onChange={(e) => setTagsDraft(e.target.value)}
+                          onBlur={() => setPortalAssignment(prev => ({
                             ...prev,
-                            tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
+                            tags: tagsDraft.split(',').map(t => t.trim()).filter(Boolean)
                           }))}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              setPortalAssignment(prev => ({
+                                ...prev,
+                                tags: tagsDraft.split(',').map(t => t.trim()).filter(Boolean)
+                              }));
+                            }
+                          }}
                           placeholder="obesity, weight loss, research, glp-1, medication..."
                           className="bg-slate-900 border-slate-700 text-[#f8fafc] text-base py-3"
                         />
                         <p className="text-sm text-slate-400 mt-2">
-                          Separate tags with commas. These help patients find this content when searching.
+                          Separate tags with commas; spaces inside a tag are allowed.
                         </p>
                       </div>
                     </div>
