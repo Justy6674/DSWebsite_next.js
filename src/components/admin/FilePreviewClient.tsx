@@ -129,35 +129,103 @@ const FilePreviewClient: React.FC<FilePreviewClientProps> = ({
 
       case 'video':
         return (
-          <video
-            src={fileUrl}
-            className="w-full h-full object-cover"
-            controls={false}
-            muted
-            onLoadedData={handleLoad}
-            onError={handleError}
-            poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23475569'/%3E%3C/svg%3E"
-          />
+          <div className="w-full h-full relative bg-slate-800 rounded overflow-hidden">
+            <video
+              src={fileUrl}
+              className="w-full h-full object-cover"
+              controls={false}
+              muted
+              preload="metadata"
+              onLoadedData={handleLoad}
+              onError={handleError}
+              onLoadedMetadata={(e) => {
+                // Generate thumbnail from video at 1 second mark
+                const video = e.target as HTMLVideoElement;
+                video.currentTime = 1;
+              }}
+            />
+            {/* Video play overlay */}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+              <div className="bg-white/90 rounded-full p-3">
+                <Video className="w-8 h-8 text-slate-800" />
+              </div>
+            </div>
+            {/* Video duration overlay */}
+            <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+              VIDEO
+            </div>
+          </div>
         );
 
       case 'website':
         return (
-          <iframe
-            src={fileUrl}
-            width={width}
-            height={height}
-            className="w-full h-full border-0"
-            title={`Website preview: ${fileName}`}
-            onLoad={handleLoad}
-            onError={handleError}
-            sandbox="allow-same-origin"
-          />
+          <div className="w-full h-full relative bg-slate-800 rounded overflow-hidden">
+            {/* Try to load website preview using screenshot service or iframe */}
+            <iframe
+              src={fileUrl}
+              className="w-full h-full border-0 transform scale-75 origin-top-left"
+              title={`Website preview: ${fileName}`}
+              onLoad={handleLoad}
+              onError={handleError}
+              sandbox="allow-same-origin allow-scripts"
+              style={{
+                width: '133%',
+                height: '133%',
+                pointerEvents: 'none' // Prevent interaction in thumbnail
+              }}
+            />
+            {/* Website overlay indicator */}
+            <div className="absolute top-2 left-2 bg-cyan-600/80 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
+              <Link className="w-3 h-3" />
+              WEB
+            </div>
+            {/* Click overlay */}
+            <div className="absolute inset-0 bg-transparent cursor-pointer"
+                 onClick={() => window.open(fileUrl, '_blank')}
+                 title="Click to open website" />
+          </div>
         );
 
       case 'excel':
       case 'word':
+        // For Office documents, try Office Online viewer with fallback
+        return (
+          <div className="w-full h-full relative">
+            <iframe
+              src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(fileUrl)}`}
+              className="w-full h-full border-0"
+              title={`Office document preview: ${fileName}`}
+              onLoad={handleLoad}
+              onError={() => {
+                // Fallback to Google Docs viewer if Office Online fails
+                const fallbackFrame = document.createElement('iframe');
+                fallbackFrame.src = `https://docs.google.com/gview?url=${encodeURIComponent(fileUrl)}&embedded=true`;
+                fallbackFrame.className = 'w-full h-full border-0';
+                fallbackFrame.onload = handleLoad;
+                fallbackFrame.onerror = handleError;
+
+                const container = document.querySelector(`iframe[title*="${fileName}"]`)?.parentElement;
+                if (container) {
+                  container.innerHTML = '';
+                  container.appendChild(fallbackFrame);
+                }
+              }}
+              style={{
+                transform: 'scale(0.8)',
+                transformOrigin: 'top left',
+                width: '125%',
+                height: '125%'
+              }}
+            />
+            {/* Office document overlay indicator */}
+            <div className="absolute top-2 left-2 bg-blue-600/80 text-white text-xs px-2 py-1 rounded">
+              {getFileType().toUpperCase()}
+            </div>
+          </div>
+        );
+
       default:
-        // For office documents and other files, show a styled file icon
+        // For other files, show a styled file icon with proper thumbnail attempt
         return (
           <div className="w-full h-full flex flex-col items-center justify-center bg-slate-700 p-4">
             {getFileIcon()}
@@ -165,7 +233,7 @@ const FilePreviewClient: React.FC<FilePreviewClientProps> = ({
               {getFileType().toUpperCase()}
             </span>
             <span className="text-slate-400 text-xs text-center mt-1">
-              Click to download
+              Click to open
             </span>
           </div>
         );
