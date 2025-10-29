@@ -19,157 +19,10 @@ interface PortalContentItem {
   created_at: string;
 }
 
-const staticMedicationContent = [
-  {
-    id: 'device-videos',
-    title: 'Device Usage Videos',
-    description: 'Step-by-step injection demonstrations for Mounjaro and Wegovy pen devices',
-    type: 'video',
-    items: [
-      {
-        title: 'Mounjaro Pen Injection Guide',
-        duration: '4:32',
-        thumbnail: '/api/placeholder/320/180',
-        description: 'Complete guide to using your Mounjaro pen injector safely and effectively'
-      },
-      {
-        title: 'Wegovy Injection Technique',
-        duration: '3:45',
-        thumbnail: '/api/placeholder/320/180',
-        description: 'Proper injection technique and rotation sites for Wegovy administration'
-      },
-      {
-        title: 'Pen Storage and Handling',
-        duration: '2:18',
-        thumbnail: '/api/placeholder/320/180',
-        description: 'Best practices for storing and handling your GLP-1 medication pens'
-      }
-    ]
-  },
-  {
-    id: 'product-info',
-    title: 'Product Information',
-    description: 'Official medication sheets and prescribing information for Mounjaro and Wegovy',
-    type: 'pdf',
-    items: [
-      {
-        title: 'Mounjaro Product Information',
-        size: '2.4 MB',
-        pages: 24,
-        description: 'Complete prescribing information, dosing guidelines and safety information'
-      },
-      {
-        title: 'Wegovy Product Information',
-        size: '1.8 MB',
-        pages: 18,
-        description: 'Official product monograph with clinical data and administration guidelines'
-      },
-      {
-        title: 'GLP-1 Medication Comparison Chart',
-        size: '0.8 MB',
-        pages: 4,
-        description: 'Side-by-side comparison of available GLP-1 medications and their profiles'
-      }
-    ]
-  },
-  {
-    id: 'research',
-    title: 'Research Articles',
-    description: 'Peer-reviewed studies on GLP-1 medications and weight management',
-    type: 'research',
-    items: [
-      {
-        title: 'Semaglutide for Weight Management: STEP Trial Results',
-        journal: 'New England Journal of Medicine',
-        year: '2024',
-        description: 'Landmark clinical trial demonstrating efficacy of semaglutide for weight loss'
-      },
-      {
-        title: 'Tirzepatide in Adults with Overweight or Obesity',
-        journal: 'The Lancet',
-        year: '2024',
-        description: 'Phase 3 trial results showing superior weight loss with dual GIP/GLP-1 agonism'
-      },
-      {
-        title: 'Long-term Safety of GLP-1 Receptor Agonists',
-        journal: 'Diabetes Care',
-        year: '2024',
-        description: 'Comprehensive review of cardiovascular and safety outcomes with GLP-1 therapies'
-      }
-    ]
-  },
-  {
-    id: 'side-effects',
-    title: 'Side Effect Management',
-    description: 'Practical guides for managing common GLP-1 medication side effects',
-    type: 'guide',
-    items: [
-      {
-        title: 'Nausea Management Strategies',
-        rating: 4.8,
-        downloads: 1247,
-        description: 'Evidence-based approaches to minimise and manage nausea during treatment'
-      },
-      {
-        title: 'Digestive Health During GLP-1 Therapy',
-        rating: 4.6,
-        downloads: 892,
-        description: 'Dietary modifications and supplements to support digestive comfort'
-      },
-      {
-        title: 'Injection Site Care and Rotation',
-        rating: 4.9,
-        downloads: 756,
-        description: 'Preventing injection site reactions and proper rotation techniques'
-      }
-    ]
-  },
-  {
-    id: 'expectations',
-    title: 'What to Expect',
-    description: 'Week-by-week treatment guides and realistic timeline expectations',
-    type: 'timeline',
-    items: [
-      {
-        title: 'First 4 Weeks: Starting Treatment',
-        phase: 'Initiation',
-        description: 'What to expect during dose escalation and early treatment phase'
-      },
-      {
-        title: 'Weeks 5-12: Finding Your Dose',
-        phase: 'Titration',
-        description: 'Optimising your medication dose and establishing routines'
-      },
-      {
-        title: 'Months 3-6: Active Weight Loss',
-        phase: 'Active Phase',
-        description: 'Maximising weight loss during the most effective treatment period'
-      },
-      {
-        title: 'Beyond 6 Months: Maintenance',
-        phase: 'Maintenance',
-        description: 'Sustaining weight loss and preventing regain long-term'
-      }
-    ]
-  },
-  {
-    id: 'comparison',
-    title: 'Medication Comparison',
-    description: 'Decision-making tools to understand which medication might be right for you',
-    type: 'tool',
-    items: [
-      {
-        title: 'Interactive Medication Selector',
-        features: ['Personalised recommendations', 'Side effect comparison', 'Cost analysis'],
-        description: 'Answer questions about your health goals to receive medication guidance'
-      },
-      {
-        title: 'Efficacy Comparison Calculator',
-        features: ['Weight loss projections', 'Timeline estimates', 'Success probability'],
-        description: 'Compare expected outcomes between different GLP-1 medications'
-      }
-    ]
-  }
+// MEDICAL SAFETY: Removed static medical placeholders per HEALTHCARE_PORTAL_PRD.md
+// All medical content now comes from admin-approved sources via database
+const staticMedicationContent: any[] = [
+  // Static content removed for patient safety - fake medical content could mislead patients
 ];
 
 export default function MedicationPortalClient() {
@@ -230,9 +83,9 @@ export default function MedicationPortalClient() {
     }
   };
 
-  // Render dynamic content items
-  const renderDynamicContent = (contentType: string, title: string, description: string) => {
-    const items = dynamicContent.filter(item => item.content_type === contentType);
+  // Render dynamic content items by admin-selected subsection
+  const renderDynamicContent = (subsection: string, title: string, description: string) => {
+    const items = dynamicContent.filter(item => item.content_data?.subsection === subsection);
 
     if (items.length === 0) return null;
 
@@ -245,7 +98,8 @@ export default function MedicationPortalClient() {
       program_guide: Clock
     };
 
-    const Icon = typeIcons[contentType] || FileText;
+    // Use content type from first item since they're now grouped by subsection
+    const Icon = typeIcons[items[0]?.content_type] || FileText;
 
     return (
       <div className="bg-slate-800 rounded-xl p-8 border border-slate-700 hover:border-[#b68a71] transition-all duration-300">
@@ -295,9 +149,9 @@ export default function MedicationPortalClient() {
                   }}
                 >
                   <Eye className="h-4 w-4 mr-2" />
-                  {contentType === 'video' ? 'Watch' :
-                   contentType.includes('doc') ? 'View' :
-                   contentType === 'tool' ? 'Use' : 'Open'}
+                  {item.content_type === 'video' ? 'Watch' :
+                   item.content_type.includes('doc') ? 'View' :
+                   item.content_type === 'tool' ? 'Use' : 'Open'}
                 </Button>
               </div>
             </div>
@@ -394,16 +248,15 @@ export default function MedicationPortalClient() {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Dynamic Content Sections */}
-            {renderDynamicContent('external_doc', 'Research Articles', 'Evidence-based research and clinical studies on weight management')}
-            {renderDynamicContent('downscale_doc', 'Downscale Resources', 'Clinic-created guides and educational materials')}
-            {renderDynamicContent('video', 'Video Resources', 'Educational videos and demonstrations')}
-            {renderDynamicContent('tool', 'Interactive Tools', 'Calculators and assessment tools')}
-            {renderDynamicContent('link', 'External Resources', 'Curated links to trusted external resources')}
-            {renderDynamicContent('program_guide', 'Programs & Guides', 'Structured programs and step-by-step guides')}
+            {/* Dynamic Content Sections - Organized by Admin Sub-Sections */}
+            {renderDynamicContent('Device Videos', 'Device Videos', 'Video tutorials for injection devices and demonstration videos')}
+            {renderDynamicContent('Product Information', 'Product Information', 'Comprehensive medication information and prescribing guides')}
+            {renderDynamicContent('Research Articles', 'Research Articles', 'Evidence-based research and clinical studies on weight management')}
+            {renderDynamicContent('Side Effect Management', 'Side Effect Management', 'Managing and understanding medication side effects')}
+            {renderDynamicContent('Dose Tracking', 'Dose Tracking', 'Tools and resources for tracking medication doses and progress')}
 
-            {/* Static Content (legacy) */}
-            {staticMedicationContent.map(renderContentTile)}
+            {/* Static Content (legacy) - REMOVED FOR MEDICAL SAFETY */}
+            {/* staticMedicationContent.map(renderContentTile) - Commented out per HEALTHCARE_PORTAL_PRD.md */}
           </div>
         )}
 
