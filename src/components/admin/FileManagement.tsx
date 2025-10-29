@@ -758,7 +758,8 @@ export default function FileManagement() {
     setSelectedFileForPortal(file);
     setPortalAssignment({
       pillar: 'medication',
-      content_type: file.type === 'document' ? 'external_doc' : 'downscale_doc',
+      // Default uploaded files to Downscale Document; admin can change if needed
+      content_type: 'downscale_doc',
       title: file.name.replace(/\.[^/.]+$/, ""), // Remove file extension
       description: '',
       content_data: {
