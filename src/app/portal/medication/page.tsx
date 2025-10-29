@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import MedicationPortalClient from './MedicationPortalClient';
+import MedicationSubDashboardClient from './MedicationSubDashboardClient';
 
 export const metadata: Metadata = {
   title: 'Medication Hub | GLP-1 Resources & Management | Downscale Weight Loss Clinic',
@@ -42,5 +42,5 @@ export const metadata: Metadata = {
 };
 
 export default function MedicationPortalPage() {
-  return <MedicationPortalClient />;
+  return <MedicationSubDashboardClient />;
 }

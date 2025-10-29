@@ -3,6 +3,7 @@
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import PortalSidebar from './PortalSidebar';
+import MobileBottomNav from './MobileBottomNav';
 import { User, Settings, Home } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import Link from 'next/link';
@@ -59,20 +60,20 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#334155] flex">
-      {/* Sidebar */}
+    <div className="min-h-screen bg-[#334155] flex flex-col">
+      {/* Sidebar - Desktop Only */}
       <PortalSidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 lg:ml-80">
         {/* Top Header Bar */}
-        <div className="bg-slate-800 border-b border-slate-700 px-6 py-4">
+        <div className="bg-slate-800 border-b border-slate-700 px-4 md:px-6 py-4 sticky top-0 z-40">
           <div className="flex items-center justify-between">
             <div className="lg:hidden">
               {/* Mobile menu button space - handled by sidebar component */}
             </div>
 
-            <div className="flex items-center space-x-4 ml-auto">
+            <div className="flex items-center space-x-2 md:space-x-4 ml-auto">
               {/* Website Link */}
               <Link
                 href="/"
@@ -80,7 +81,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                 title="Back to Website"
               >
                 <Home className="h-4 w-4" />
-                Website
+                <span className="hidden md:inline">Website</span>
               </Link>
 
               {/* Admin Access Link - Only show for admin emails */}
@@ -91,26 +92,31 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
                   title="Admin Dashboard"
                 >
                   <Settings className="h-4 w-4" />
-                  Admin
+                  <span className="hidden md:inline">Admin</span>
                 </Link>
               )}
 
-              <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
-                <User className="h-6 w-6 text-[#b68a71]" />
+              <div className="bg-slate-900 rounded-lg p-2 md:p-3 border border-slate-700">
+                <User className="h-5 w-5 md:h-6 md:w-6 text-[#b68a71]" />
               </div>
-              <div className="text-right">
-                <p className="text-sm text-[#fef5e7]">Welcome back</p>
-                <p className="font-medium text-[#f8fafc]">{getDisplayName()}</p>
+              <div className="text-right hidden sm:block">
+                <p className="text-xs md:text-sm text-[#fef5e7]">Welcome back</p>
+                <p className="text-xs md:text-sm font-medium text-[#f8fafc] truncate max-w-[120px] md:max-w-none">
+                  {getDisplayName()}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Page Content */}
-        <main className="p-6">
+        {/* Page Content - with bottom padding for mobile nav */}
+        <main className="p-4 md:p-6 pb-24 md:pb-6">
           {children}
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <MobileBottomNav />
     </div>
   );
 }

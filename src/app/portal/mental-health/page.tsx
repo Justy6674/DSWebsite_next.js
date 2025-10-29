@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import MentalHealthPortalClient from './MentalHealthPortalClient';
+import MentalHealthSubDashboardClient from './MentalHealthSubDashboardClient';
 
 export const metadata: Metadata = {
   title: 'Mental Health Hub | Psychological Support & Assessments | Downscale Weight Loss Clinic',
@@ -42,5 +42,5 @@ export const metadata: Metadata = {
 };
 
 export default function MentalHealthPortalPage() {
-  return <MentalHealthPortalClient />;
+  return <MentalHealthSubDashboardClient />;
 }

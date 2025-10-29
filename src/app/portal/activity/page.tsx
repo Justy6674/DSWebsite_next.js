@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import ActivityPortalClient from './ActivityPortalClient';
+import ActivitySubDashboardClient from './ActivitySubDashboardClient';
 
 export const metadata: Metadata = {
   title: 'Activity Hub | Exercise Programs & Fitness Tracking | Downscale Weight Loss Clinic',
@@ -42,5 +42,5 @@ export const metadata: Metadata = {
 };
 
 export default function ActivityPortalPage() {
-  return <ActivityPortalClient />;
+  return <ActivitySubDashboardClient />;
 }

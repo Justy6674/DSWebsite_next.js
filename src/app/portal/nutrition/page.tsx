@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import NutritionPortalClient from './NutritionPortalClient';
+import NutritionSubDashboardClient from './NutritionSubDashboardClient';
 
 export const metadata: Metadata = {
   title: 'Nutrition Hub | Evidence-Based Meal Plans & Resources | Downscale Weight Loss Clinic',
@@ -42,5 +42,5 @@ export const metadata: Metadata = {
 };
 
 export default function NutritionPortalPage() {
-  return <NutritionPortalClient />;
+  return <NutritionSubDashboardClient />;
 }

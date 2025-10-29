@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import SleepRecoveryClient from './SleepRecoveryClient';
+import SleepSubDashboardClient from './SleepSubDashboardClient';
 
 export const metadata: Metadata = {
   title: 'Sleep & Recovery Hub | Evidence-Based Sleep Optimisation | Downscale Weight Loss Clinic',
@@ -42,5 +42,5 @@ export const metadata: Metadata = {
 };
 
 export default function SleepRecoveryPage() {
-  return <SleepRecoveryClient />;
+  return <SleepSubDashboardClient />;
 }

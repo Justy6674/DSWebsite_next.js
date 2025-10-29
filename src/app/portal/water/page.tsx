@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import WaterPortalClient from './WaterPortalClient';
+import WaterSubDashboardClient from './WaterSubDashboardClient';
 
 export const metadata: Metadata = {
   title: 'Hydration & Water Tracking | Patient Portal | Downscale Weight Loss Clinic',
@@ -42,5 +42,5 @@ export const metadata: Metadata = {
 };
 
 export default function WaterPortalPage() {
-  return <WaterPortalClient />;
+  return <WaterSubDashboardClient />;
 }
