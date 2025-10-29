@@ -811,7 +811,15 @@ export default function FileManagement() {
     setAssigningToPortal(true);
 
     try {
-      const rows = selectedSubs.map((sub) => ({
+      // Ensure each selected subsection exists in validation table
+      const uniqueSubs = Array.from(new Set(selectedSubs));
+      const upsertRows = uniqueSubs.map((s) => ({ pillar: portalAssignment.pillar, name: s }));
+      const { error: upsertError } = await (supabase as any)
+        .from('portal_subsections')
+        .upsert(upsertRows);
+      if (upsertError) throw upsertError;
+
+      const rows = uniqueSubs.map((sub) => ({
         pillar: portalAssignment.pillar,
         content_type: portalAssignment.content_type,
         title: portalAssignment.title.trim(),
@@ -819,7 +827,6 @@ export default function FileManagement() {
         content_data: {
           ...portalAssignment.content_data,
           subsection: sub,
-          
           originalFileName: selectedFileForPortal.name,
           fileType: selectedFileForPortal.type,
           fileSize: selectedFileForPortal.size,
@@ -837,7 +844,7 @@ export default function FileManagement() {
 
       if (error) throw error;
 
-      toast.success(`File added to ${selectedSubs.length} sub-section(s) in ${PORTAL_PILLARS[portalAssignment.pillar].name}`);
+      toast.success(`File added to ${uniqueSubs.length} sub-section(s) in ${PORTAL_PILLARS[portalAssignment.pillar].name}`);
       closePortalModal();
     } catch (error) {
       console.error('Portal assignment error:', error);
