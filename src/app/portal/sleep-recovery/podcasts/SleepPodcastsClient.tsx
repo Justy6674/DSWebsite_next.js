@@ -11,7 +11,7 @@ export default function SleepPodcastsClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=Podcast
+          icon={Podcast}
           title="Podcast Links"
           description="Expert interviews and educational podcasts"
         />

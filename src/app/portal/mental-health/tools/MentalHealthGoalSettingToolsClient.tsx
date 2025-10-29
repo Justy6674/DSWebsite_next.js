@@ -11,7 +11,7 @@ export default function MentalHealthGoalSettingToolsClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=Settings
+          icon={Settings}
           title="Tools"
           description="Interactive calculators and assessments"
         />

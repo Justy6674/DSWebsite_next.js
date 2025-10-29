@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 
 interface ContentListProps {
-  pillar: string;
+  pillar: 'medication' | 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water';
   subsection: string;
 }
 

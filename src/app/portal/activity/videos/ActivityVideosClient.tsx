@@ -11,7 +11,7 @@ export default function ActivityVideosClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=Video
+          icon={Video}
           title="Videos and Video Links"
           description="Educational videos and tutorials"
         />

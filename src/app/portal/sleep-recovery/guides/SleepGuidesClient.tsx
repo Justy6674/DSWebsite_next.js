@@ -11,7 +11,7 @@ export default function SleepGuidesClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=BookOpen
+          icon={BookOpen}
           title="Guides"
           description="Step-by-step educational guides and instructions"
         />

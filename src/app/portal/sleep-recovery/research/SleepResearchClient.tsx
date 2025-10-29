@@ -11,7 +11,7 @@ export default function SleepResearchClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=FileText
+          icon={FileText}
           title="Research & Journal Articles"
           description="Evidence-based research papers and peer-reviewed studies"
         />

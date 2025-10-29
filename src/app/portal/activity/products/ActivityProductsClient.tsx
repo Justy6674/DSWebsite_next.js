@@ -11,7 +11,7 @@ export default function ActivityProductsClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=Package
+          icon={Package}
           title="Product Information"
           description="Product details and recommendations"
         />

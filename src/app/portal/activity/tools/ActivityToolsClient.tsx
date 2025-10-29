@@ -11,7 +11,7 @@ export default function ActivityToolsClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=Settings
+          icon={Settings}
           title="Tools"
           description="Interactive calculators and assessments"
         />

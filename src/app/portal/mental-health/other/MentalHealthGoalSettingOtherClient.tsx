@@ -11,7 +11,7 @@ export default function MentalHealthGoalSettingOtherClient() {
     <PortalLayout>
       <div className="space-y-6">
         <SectionHeader
-          icon=File
+          icon={File}
           title="Other"
           description="Additional resources"
         />
