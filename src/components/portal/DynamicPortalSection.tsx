@@ -190,6 +190,14 @@ export default function DynamicPortalSection({
     ? content
     : content.filter(item => item.content_type === selectedType)
 
+  // Group by admin-defined subsection so sections reflect placement decisions
+  const contentBySubsection = filteredContent.reduce((acc: Record<string, PortalContent[]>, item) => {
+    const subsection = (item.content_data?.subsection || 'Other') as string
+    if (!acc[subsection]) acc[subsection] = []
+    acc[subsection].push(item)
+    return acc
+  }, {})
+
   const renderContentItem = (item: PortalContent) => {
     const config = CONTENT_TYPE_CONFIG[item.content_type]
     const IconComponent = config.icon
@@ -213,7 +221,10 @@ export default function DynamicPortalSection({
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
                   <h3 className="font-semibold text-lg leading-tight">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm">{item.description}</p>
+                  {/* Fixed-height, scrollable description to keep tiles uniform */}
+                  <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto">
+                    <p className="text-xs text-[#fef5e7] whitespace-pre-wrap">{item.description}</p>
+                  </div>
                 </div>
                 <Badge className={config.colour} variant="secondary">
                   {config.label}
@@ -386,9 +397,16 @@ export default function DynamicPortalSection({
             ))}
           </div>
 
-          {/* Content Grid */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredContent.map(renderContentItem)}
+          {/* Content grouped by sub-section as chosen in Admin */}
+          <div className="space-y-8">
+            {Object.entries(contentBySubsection).map(([sub, items]) => (
+              <div key={sub} className="space-y-3">
+                <h3 className="text-xl font-semibold">{sub}</h3>
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {items.map(renderContentItem)}
+                </div>
+              </div>
+            ))}
           </div>
 
           {filteredContent.length === 0 && selectedType !== 'all' && (
