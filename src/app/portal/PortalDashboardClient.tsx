@@ -43,7 +43,7 @@ export default function PortalDashboardClient() {
     <PortalLayout>
       <div className="space-y-8">
         {/* Central Search Engine */}
-        <div className="max-w-md mx-auto">
+        <div className="w-full">
           <GlobalSearch />
         </div>
 

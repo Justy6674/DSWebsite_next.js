@@ -63,14 +63,14 @@ export default function ContentList({ pillar, subsection }: ContentListProps) {
 
   return (
     <div className="space-y-4 pb-20 md:pb-6">
-      <div className="relative max-w-md">
+      <div className="relative w-full">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
         <Input
           type="text"
           placeholder="Search in this section..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10 bg-slate-900 border-slate-700 text-[#f8fafc] placeholder:text-slate-500"
+          className="pl-10 bg-slate-900 border-slate-700 text-[#f8fafc] placeholder:text-slate-500 w-full"
         />
       </div>
 
