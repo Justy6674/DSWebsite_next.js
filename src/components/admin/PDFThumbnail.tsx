@@ -17,11 +17,12 @@ const PDFThumbnailClient = dynamic(
   () => import('./PDFThumbnailClient'),
   {
     ssr: false,
-    loading: ({ width = 120, className = '' }) => {
+    loading: () => {
+      const width = 120;
       const height = Math.round(width * 1.414);
       return (
         <div
-          className={`bg-slate-800 rounded-lg border border-slate-700 flex items-center justify-center ${className}`}
+          className="bg-slate-800 rounded-lg border border-slate-700 flex items-center justify-center"
           style={{ width, height }}
         >
           <div className="flex flex-col items-center justify-center space-y-2">
