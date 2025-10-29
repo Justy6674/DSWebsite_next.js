@@ -4,8 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { Document, Thumbnail, pdfjs } from 'react-pdf';
 import { RefreshCw, File, AlertCircle } from 'lucide-react';
 
-// Configure PDF.js worker for Next.js environment
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+// Configure PDF.js worker for Next.js environment - only in browser
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+}
 
 interface PDFThumbnailProps {
   fileUrl: string;
@@ -25,9 +27,30 @@ const PDFThumbnail: React.FC<PDFThumbnailProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  // Ensure we're client-side before rendering
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Calculate thumbnail height based on standard PDF aspect ratio (√2:1)
   const height = Math.round(width * 1.414);
+
+  // Don't render PDF components during SSR
+  if (!isClient) {
+    return (
+      <div
+        className={`bg-slate-800 rounded-lg border border-slate-700 flex items-center justify-center ${className}`}
+        style={{ width, height }}
+      >
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <File className="h-6 w-6 text-slate-500" />
+          <span className="text-slate-400 text-xs font-medium">Loading...</span>
+        </div>
+      </div>
+    );
+  }
 
   const handleDocumentLoadSuccess = () => {
     setIsLoading(false);

@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import TestUploadClient from './TestUploadClient';
 
+// Force dynamic rendering to prevent DOMMatrix SSR issues
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Test Upload | Development Tool | Downscale',
   description: 'Internal development tool for file upload testing. Not for public use.',
