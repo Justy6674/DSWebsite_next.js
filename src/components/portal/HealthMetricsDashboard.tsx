@@ -325,14 +325,9 @@ export default function HealthMetricsDashboard() {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button onClick={handleCalculate} className="flex-1 bg-blue-600 hover:bg-blue-700">
+                  <Button onClick={handleCalculate} className="w-full bg-blue-600 hover:bg-blue-700">
                     Calculate Metrics
                   </Button>
-                  {results && (
-                    <Button onClick={handleSubmitMetrics} className="flex-1 bg-green-600 hover:bg-green-700" disabled={healthLoading}>
-                      {healthLoading ? 'Saving...' : 'Save to Profile'}
-                    </Button>
-                  )}
                 </div>
               </CardContent>
             </Card>
@@ -397,6 +392,38 @@ export default function HealthMetricsDashboard() {
                         <div className="text-sm font-semibold text-blue-400">{results.carbs_g}g</div>
                       </div>
                     </div>
+                  </div>
+
+                  <div className="flex gap-3 pt-2">
+                    <Button onClick={handleSubmitMetrics} className="flex-1 bg-green-600 hover:bg-green-700" disabled={healthLoading}>
+                      {healthLoading ? 'Saving…' : 'Save to Profile'}
+                    </Button>
+                    <Button
+                      onClick={async () => {
+                        try {
+                          const today = new Date().toISOString().split('T')[0];
+                          const weight = parseFloat(weightInput);
+                          const waist = waistInput ? parseFloat(waistInput) : undefined;
+                          if (!Number.isFinite(weight) && !Number.isFinite(waist as any)) {
+                            alert('Enter weight and/or waist to save to Daily Tracking.');
+                            return;
+                          }
+                          await saveTrackingData({
+                            tracking_date: today,
+                            weight_kg: Number.isFinite(weight) ? weight : undefined,
+                            waist_cm: Number.isFinite(waist as any) ? (waist as number) : undefined,
+                            daily_notes: 'Saved from calculator'
+                          });
+                          alert('Saved to Daily Tracking');
+                        } catch (e) {
+                          console.error(e);
+                          alert('Failed to save to tracking');
+                        }
+                      }}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700"
+                    >
+                      Save to Daily Tracking
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
