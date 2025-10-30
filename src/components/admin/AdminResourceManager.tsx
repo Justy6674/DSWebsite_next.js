@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import TagsInput from '@/components/admin/TagsInput';
 import {
   Plus,
   Edit,
@@ -422,16 +423,11 @@ export default function AdminResourceManager() {
             </div>
 
             <div>
-              <Label htmlFor="tags" className="text-[#fef5e7]">Tags (comma-separated)</Label>
-              <Input
-                id="tags"
-                value={formData.tags?.join(', ') || ''}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
-                }))}
-                className="bg-slate-900 border-slate-700 text-[#f8fafc]"
-                placeholder="weight loss, nutrition, meal planning"
+              <Label htmlFor="tags" className="text-[#fef5e7]">Tags</Label>
+              <TagsInput
+                value={formData.tags || []}
+                onChange={(tags) => setFormData(prev => ({ ...prev, tags }))}
+                placeholder="Add a tag (e.g., sleep, weight loss, research), press Enter/Comma"
               />
             </div>
 

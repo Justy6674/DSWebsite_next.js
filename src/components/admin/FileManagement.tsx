@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import TagsInput from '@/components/admin/TagsInput';
 import { Label } from '@/components/ui/label';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -1873,28 +1874,11 @@ export default function FileManagement() {
                         <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
                           Search Tags
                         </Label>
-                        <Input
-                          value={tagsDraft}
-                          onChange={(e) => setTagsDraft(e.target.value)}
-                          onBlur={() => setPortalAssignment(prev => ({
-                            ...prev,
-                            tags: tagsDraft.split(',').map(t => t.trim()).filter(Boolean)
-                          }))}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault();
-                              setPortalAssignment(prev => ({
-                                ...prev,
-                                tags: tagsDraft.split(',').map(t => t.trim()).filter(Boolean)
-                              }));
-                            }
-                          }}
-                          placeholder="obesity, weight loss, research, glp-1, medication..."
-                          className="bg-slate-900 border-slate-700 text-[#f8fafc] text-base py-3"
+                        <TagsInput
+                          value={portalAssignment.tags || []}
+                          onChange={(tags) => setPortalAssignment(prev => ({ ...prev, tags }))}
+                          placeholder="Add tags (e.g., medication, weight loss, research) then press Enter/Comma"
                         />
-                        <p className="text-sm text-slate-400 mt-2">
-                          Separate tags with commas; spaces inside a tag are allowed.
-                        </p>
                       </div>
                     </div>
                   </div>

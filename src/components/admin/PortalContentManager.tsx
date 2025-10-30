@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
 import { Plus, FileText, Video, Link, Settings, BookOpen, ExternalLink, Upload, Search, Eye, Edit, Trash2, Calendar, TrendingUp } from 'lucide-react'
 import PortalContentPreview from './PortalContentPreview'
+import TagsInput from '@/components/admin/TagsInput'
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
 type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication'
@@ -520,15 +521,11 @@ export default function PortalContentManager() {
         )}
 
         <div>
-          <Label htmlFor="tags">Tags (comma-separated)</Label>
-          <Input
-            id="tags"
-            value={formData.tags.join(', ')}
-            onChange={(e) => setFormData({
-              ...formData,
-              tags: e.target.value.split(',').map(tag => tag.trim()).filter(Boolean)
-            })}
-            placeholder="e.g., weight loss, meal planning, recipes"
+          <Label htmlFor="tags">Tags</Label>
+          <TagsInput
+            value={formData.tags}
+            onChange={(tags) => setFormData({ ...formData, tags })}
+            placeholder="Add a tag (press Enter or Comma)"
           />
         </div>
 
