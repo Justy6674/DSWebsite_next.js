@@ -3,7 +3,7 @@
 **Version:** 1.0
 **Date:** October 2024
 **Owner:** Justin Black, Downscale Weight Loss Clinic
-**Status:** Planning Phase
+**Status:** In Progress (core portal live; admin CMS operational)
 
 ---
 
@@ -87,11 +87,37 @@ Pillar → Tile Categories → Individual Resources
 ```
 
 ### **Technical Stack**
-- **Frontend:** Next.js with existing Downscale design system
-- **Backend:** Supabase (existing infrastructure)
-- **Storage:** Supabase Storage for files
-- **Authentication:** Integrated with existing patient system
-- **Admin:** Extension of current blog CMS
+- **Frontend:** Next.js 14 App Router, TypeScript, Tailwind/shadcn
+- **Backend:** Supabase (Postgres + RLS, Auth)
+- **Video:** Mux direct upload + signed playback (HLS)
+- **Storage:**
+  - Public: `portal-files` for general resources (non‑PHI)
+  - Private: `patient-documents` with strict RLS (owner-only; clinicians allowed)
+- **Authentication:** Supabase Auth; portal routes protected via middleware; admin guarded by role
+- **Admin:** File Management with portal assignment; Mux upload tips; tag-based onboarding
+
+---
+
+## ✅ Implementation Status (Oct 2025)
+
+### Delivered
+- Portal sidebar and dashboards for all pillars
+- Dynamic portal content system (`portal_content`) with RLS and search vectors
+- Admin File Management: upload to `portal-files`, assign to pillars/subsections, tags
+- Mux integration: direct uploads, processing status polling, signed playback route
+- New Client Resources: `/portal/new-client-resources` (lists items tagged `onboarding`)
+- Patient Documents (read‑only): `/portal/documents` lists files from private bucket; signed URL open
+- Security:
+  - Next.js middleware requires auth on `/portal/**`
+  - Admin test bypass disabled in production
+  - Signed playback enforced in production (no unsigned fallback)
+  - Private bucket `patient-documents` with RLS (patients own only; clinicians manage)
+
+### In Progress / Next
+- Enforce MFA for staff/admin accounts
+- Add CSP/HSTS headers hardening
+- Admin “Bulk Invite” (CSV → Supabase invites)
+- Patient profile/settings page for name/email/password
 
 ---
 

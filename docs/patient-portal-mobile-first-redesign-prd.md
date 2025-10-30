@@ -1,6 +1,36 @@
 # Patient Portal Mobile-First Navigation Redesign
 ## Product Requirements Document (PRD)
 
+> Implementation snapshot (Oct 2025): The redesigned portal is live with protected routes, dynamic content, and secure media. This section captures what has shipped and the current architecture.
+
+### What’s Live
+- Sidebar: Dashboard + pillars (Medication, Nutrition, Activity, Mental Health, Sleep + Recovery, Water)
+- New Dashboard items:
+  - New Client Resources (`/portal/new-client-resources`) — lists content tagged `onboarding` (admin‑assigned)
+  - Patient Documents (`/portal/documents`) — read‑only list of files shared by clinicians from private bucket
+- Admin CMS:
+  - File Management with Mux direct upload (tips for Mac/iPhone), assignment to portal subsections, tags
+  - “Onboarding” tag drives New Client Resources
+- Video: Mux signed playback via server route; no unsigned fallback in production
+- Auth & Security:
+  - Next.js middleware requires Supabase session on `/portal/**`
+  - Admin localStorage bypass disabled in production
+  - Storage split: `portal-files` (public, non‑PHI) vs `patient-documents` (private, RLS)
+
+### Architecture Notes
+- Next.js 14 App Router with TypeScript and shadcn
+- Supabase Postgres with RLS
+- Storage
+  - `portal-files`: public bucket for general resources
+  - `patient-documents`: private bucket with policies: patients own only; clinicians can manage
+- Video: Mux direct uploads + signed HLS playback
+
+### Near-Term TODOs
+- Add staff/admin MFA requirement
+- Add CSP/HSTS headers and Mux Playback Restrictions allow‑list
+- Admin “Bulk Invite” (CSV → Supabase invites)
+- Patient Settings page for name/email/password management
+
 **Version**: 3.0  
 **Date**: January 2025  
 **Author**: Claude Code Assistant  
