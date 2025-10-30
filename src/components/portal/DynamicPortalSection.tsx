@@ -220,17 +220,17 @@ export default function DynamicPortalSection({
             </div>
 
             <div className="flex-1 space-y-3">
-              <div className="flex items-start justify-between">
-                <div className="flex-1 min-w-0 space-y-1">
-                  <h3 className="font-semibold text-lg leading-tight">{item.title}</h3>
-                  {/* Fixed-height, scrollable description to keep tiles uniform */}
-                  <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto">
-                    <p className="text-xs text-[#fef5e7] whitespace-pre-wrap w-full max-w-none">{item.description}</p>
-                  </div>
-                </div>
-                <Badge className={config.colour} variant="secondary">
+              {/* Header row with title + type badge */}
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="font-semibold text-lg leading-tight min-w-0 flex-1">{item.title}</h3>
+                <Badge className={`${config.colour} flex-shrink-0`} variant="secondary">
                   {config.label}
                 </Badge>
+              </div>
+
+              {/* Description spans full card width below header */}
+              <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto w-full">
+                <p className="text-xs text-[#fef5e7] whitespace-pre-wrap w-full max-w-none">{item.description}</p>
               </div>
 
               {/* Content-specific metadata */}
