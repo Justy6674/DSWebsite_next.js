@@ -58,6 +58,9 @@ export default function ContentItem({ item }: ContentItemProps) {
 
   const IconComponent = CONTENT_TYPE_ICONS[item.content_type] || FileText;
   const typeLabel = CONTENT_TYPE_LABELS[item.content_type] || 'Content';
+  const cd = (item.content_data || {}) as any;
+  const displayTitle = (item.title || cd.title || cd.originalFileName || 'Untitled').toString();
+  const displayDescription = (item.description || cd.description || '').toString();
 
   const [thumbUrl, setThumbUrl] = React.useState<string | null>(null);
 
@@ -174,7 +177,7 @@ export default function ContentItem({ item }: ContentItemProps) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <h3 className="text-base md:text-lg font-bold text-[#f8fafc] group-hover:text-[#b68a71] transition-colors line-clamp-2">
-                    {item.title}
+                    {displayTitle}
                   </h3>
                   <Badge
                     variant="outline"
@@ -183,7 +186,7 @@ export default function ContentItem({ item }: ContentItemProps) {
                     {typeLabel}
                   </Badge>
                 </div>
-                {item.description && (
+                {displayDescription && (
                   <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 md:h-24 overflow-y-auto mb-3 w-full">
                     <div className="prose prose-invert max-w-none text-xs md:text-sm [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-4">
                       <ReactMarkdown
@@ -195,7 +198,7 @@ export default function ContentItem({ item }: ContentItemProps) {
                           )
                         }}
                       >
-                        {item.description}
+                        {displayDescription}
                       </ReactMarkdown>
                     </div>
                   </div>
