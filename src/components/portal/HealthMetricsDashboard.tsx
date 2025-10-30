@@ -55,16 +55,14 @@ export default function HealthMetricsDashboard() {
     getTrackingForDate
   } = useDailyTracking();
 
-  // Form state for body metrics input
-  const [bodyMetrics, setBodyMetrics] = useState<BodyMetricsInput>({
-    age: 30,
-    sex: 'male',
-    height_cm: 170,
-    weight_kg: 70,
-    waist_cm: 80,
-    activity_level: 'moderate',
-    goal: 'lose-safe'
-  });
+  // Input state (strings) so fields can be blank until user types
+  const [ageInput, setAgeInput] = useState('');
+  const [sex, setSex] = useState<'male' | 'female'>('male');
+  const [heightInput, setHeightInput] = useState('');
+  const [weightInput, setWeightInput] = useState('');
+  const [waistInput, setWaistInput] = useState('');
+  const [activityLevel, setActivityLevel] = useState<'sedentary' | 'light' | 'moderate' | 'very' | 'extra'>('moderate');
+  const [goal, setGoal] = useState<'lose-safe' | 'lose-preserve' | 'lose-build' | 'build'>('lose-safe');
 
   // Calculation results and UI state
   const [results, setResults] = useState<CalculationResults | null>(null);
@@ -92,7 +90,16 @@ export default function HealthMetricsDashboard() {
   useEffect(() => {
     if (metrics && metrics.length > 0) {
       const latest = metrics[0];
-      setBodyMetrics({
+      setAgeInput(String(latest.age));
+      setSex(latest.sex);
+      setHeightInput(String(latest.height_cm));
+      setWeightInput(String(latest.weight_kg));
+      setWaistInput(latest.waist_cm ? String(latest.waist_cm) : '');
+      setActivityLevel(latest.activity_level);
+      setGoal(latest.goal);
+
+      // Calculate and display results
+      const calculatedResults = calculateMetrics({
         age: latest.age,
         sex: latest.sex,
         height_cm: latest.height_cm,
@@ -101,16 +108,31 @@ export default function HealthMetricsDashboard() {
         activity_level: latest.activity_level,
         goal: latest.goal
       });
-
-      // Calculate and display results
-      const calculatedResults = calculateMetrics(bodyMetrics);
       setResults(calculatedResults);
     }
   }, [metrics]);
 
   // Calculate metrics when form changes
   const handleCalculate = () => {
-    const calculatedResults = calculateMetrics(bodyMetrics);
+    const age = parseInt(ageInput);
+    const height = parseInt(heightInput);
+    const weight = parseFloat(weightInput);
+    const waist = waistInput ? parseFloat(waistInput) : undefined;
+
+    if (!Number.isFinite(age) || !Number.isFinite(height) || !Number.isFinite(weight)) {
+      alert('Please enter age, height and weight to calculate.');
+      return;
+    }
+
+    const calculatedResults = calculateMetrics({
+      age,
+      sex,
+      height_cm: height,
+      weight_kg: weight,
+      waist_cm: waist,
+      activity_level: activityLevel,
+      goal
+    });
     setResults(calculatedResults);
   };
 
@@ -119,7 +141,23 @@ export default function HealthMetricsDashboard() {
     if (!currentUser?.id) return;
 
     try {
-      await submitHealthMetrics(bodyMetrics);
+      const age = parseInt(ageInput);
+      const height = parseInt(heightInput);
+      const weight = parseFloat(weightInput);
+      const waist = waistInput ? parseFloat(waistInput) : undefined;
+      if (!Number.isFinite(age) || !Number.isFinite(height) || !Number.isFinite(weight)) {
+        alert('Please enter age, height and weight before saving.');
+        return;
+      }
+      await submitHealthMetrics({
+        age,
+        sex,
+        height_cm: height,
+        weight_kg: weight,
+        waist_cm: waist,
+        activity_level: activityLevel,
+        goal
+      });
       alert('Health metrics saved successfully!');
     } catch (error) {
       console.error('Error saving metrics:', error);
@@ -219,17 +257,12 @@ export default function HealthMetricsDashboard() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="age" className="text-slate-300">Age</Label>
-                    <Input
-                      id="age"
-                      type="number"
-                      value={bodyMetrics.age}
-                      onChange={(e) => setBodyMetrics({...bodyMetrics, age: parseInt(e.target.value) || 0})}
-                      className="bg-slate-900 border-slate-600 text-white"
-                    />
+                    <Input id="age" type="number" inputMode="numeric" placeholder="e.g. 35" value={ageInput}
+                      onChange={(e) => setAgeInput(e.target.value)} className="bg-slate-900 border-slate-600 text-white" />
                   </div>
                   <div>
                     <Label htmlFor="sex" className="text-slate-300">Sex</Label>
-                    <Select value={bodyMetrics.sex} onValueChange={(value: 'male' | 'female') => setBodyMetrics({...bodyMetrics, sex: value})}>
+                    <Select value={sex} onValueChange={(value: 'male' | 'female') => setSex(value)}>
                       <SelectTrigger className="bg-slate-900 border-slate-600 text-white">
                         <SelectValue />
                       </SelectTrigger>
@@ -244,40 +277,25 @@ export default function HealthMetricsDashboard() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="height" className="text-slate-300">Height (cm)</Label>
-                    <Input
-                      id="height"
-                      type="number"
-                      value={bodyMetrics.height_cm}
-                      onChange={(e) => setBodyMetrics({...bodyMetrics, height_cm: parseInt(e.target.value) || 0})}
-                      className="bg-slate-900 border-slate-600 text-white"
-                    />
+                    <Input id="height" type="number" inputMode="numeric" placeholder="e.g. 170" value={heightInput}
+                      onChange={(e) => setHeightInput(e.target.value)} className="bg-slate-900 border-slate-600 text-white" />
                   </div>
                   <div>
                     <Label htmlFor="weight" className="text-slate-300">Weight (kg)</Label>
-                    <Input
-                      id="weight"
-                      type="number"
-                      value={bodyMetrics.weight_kg}
-                      onChange={(e) => setBodyMetrics({...bodyMetrics, weight_kg: parseInt(e.target.value) || 0})}
-                      className="bg-slate-900 border-slate-600 text-white"
-                    />
+                    <Input id="weight" type="number" inputMode="decimal" step="0.1" placeholder="e.g. 82.5" value={weightInput}
+                      onChange={(e) => setWeightInput(e.target.value)} className="bg-slate-900 border-slate-600 text-white" />
                   </div>
                 </div>
 
                 <div>
                   <Label htmlFor="waist" className="text-slate-300">Waist Circumference (cm) - Optional</Label>
-                  <Input
-                    id="waist"
-                    type="number"
-                    value={bodyMetrics.waist_cm || ''}
-                    onChange={(e) => setBodyMetrics({...bodyMetrics, waist_cm: parseInt(e.target.value) || undefined})}
-                    className="bg-slate-900 border-slate-600 text-white"
-                  />
+                  <Input id="waist" type="number" inputMode="numeric" placeholder="e.g. 80" value={waistInput}
+                    onChange={(e) => setWaistInput(e.target.value)} className="bg-slate-900 border-slate-600 text-white" />
                 </div>
 
                 <div>
                   <Label htmlFor="activity" className="text-slate-300">Activity Level</Label>
-                  <Select value={bodyMetrics.activity_level} onValueChange={(value: any) => setBodyMetrics({...bodyMetrics, activity_level: value})}>
+                  <Select value={activityLevel} onValueChange={(value: any) => setActivityLevel(value)}>
                     <SelectTrigger className="bg-slate-900 border-slate-600 text-white">
                       <SelectValue />
                     </SelectTrigger>
@@ -293,7 +311,7 @@ export default function HealthMetricsDashboard() {
 
                 <div>
                   <Label htmlFor="goal" className="text-slate-300">Goal</Label>
-                  <Select value={bodyMetrics.goal} onValueChange={(value: any) => setBodyMetrics({...bodyMetrics, goal: value})}>
+                  <Select value={goal} onValueChange={(value: any) => setGoal(value)}>
                     <SelectTrigger className="bg-slate-900 border-slate-600 text-white">
                       <SelectValue />
                     </SelectTrigger>
