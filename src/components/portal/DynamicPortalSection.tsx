@@ -1,6 +1,9 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeSanitize from 'rehype-sanitize'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -229,9 +232,23 @@ export default function DynamicPortalSection({
               </div>
 
               {/* Description spans full card width below header */}
-              <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto w-full">
-                <p className="text-xs text-[#fef5e7] whitespace-pre-wrap w-full max-w-none">{item.description}</p>
-              </div>
+              {item.description && (
+                <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto w-full">
+                  <div className="prose prose-invert max-w-none text-xs md:text-sm [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-4">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      rehypePlugins={[rehypeSanitize]}
+                      components={{
+                        a: (props) => (
+                          <a {...props} rel="noopener noreferrer" target="_blank" />
+                        )
+                      }}
+                    >
+                      {item.description}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+              )}
 
               {/* Content-specific metadata */}
               <div className="flex items-center gap-4 text-sm text-muted-foreground">

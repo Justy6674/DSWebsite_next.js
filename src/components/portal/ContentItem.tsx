@@ -17,6 +17,9 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeSanitize from 'rehype-sanitize';
 
 interface ContentItemProps {
   item: {
@@ -108,9 +111,19 @@ export default function ContentItem({ item }: ContentItemProps) {
                 </div>
                 {item.description && (
                   <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 md:h-24 overflow-y-auto mb-3 w-full">
-                    <p className="text-xs text-[#fef5e7] whitespace-pre-wrap break-words w-full max-w-none">
-                      {item.description}
-                    </p>
+                    <div className="prose prose-invert max-w-none text-xs md:text-sm [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-4">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeSanitize]}
+                        components={{
+                          a: (props) => (
+                            <a {...props} rel="noopener noreferrer" target="_blank" />
+                          )
+                        }}
+                      >
+                        {item.description}
+                      </ReactMarkdown>
+                    </div>
                   </div>
                 )}
               </div>

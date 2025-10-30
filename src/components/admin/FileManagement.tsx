@@ -5,6 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeSanitize from 'rehype-sanitize';
 import {
   Upload,
   File,
@@ -1833,6 +1836,26 @@ export default function FileManagement() {
                           rows={4}
                           className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 resize-none text-base"
                         />
+                        <p className="text-xs text-slate-400 mt-2">Supports Markdown: headings (###), bullet lists (- item), numbers (1.), bold (**text**), links ([text](url)).</p>
+                        {/* Live Markdown preview */}
+                        {portalAssignment.description?.trim() && (
+                          <div className="mt-3 bg-slate-900 border border-slate-700 rounded-lg p-3">
+                            <div className="text-xs text-slate-300 mb-2">Preview</div>
+                            <div className="prose prose-invert max-w-none text-sm [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-4">
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeSanitize]}
+                                components={{
+                                  a: (props) => (
+                                    <a {...props} rel="noopener noreferrer" target="_blank" />
+                                  )
+                                }}
+                              >
+                                {portalAssignment.description}
+                              </ReactMarkdown>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       {/* Tags */}
