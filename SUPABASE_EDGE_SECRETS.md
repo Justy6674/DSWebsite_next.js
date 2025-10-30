@@ -2,20 +2,48 @@
 
 ## Adding Mux Credentials to Supabase Edge Functions
 
+⚠️ **IMPORTANT**: Use these exact variable names (case-sensitive). The app only reads these 4 variables:
+
 ### Method 1: Using Supabase CLI
 
 ```bash
 # First, link your project
 npx supabase link --project-ref pooebqhsshfafkhvccrl
 
-# Add each secret one by one
-npx supabase secrets set MUX_ENV_ID="0tab53"
-npx supabase secrets set MUX_ENV_KEY="u7k4lc4rptpli1ag2r1hgoakk"
-npx supabase secrets set MUX_ENV_NAME="Production"
+# Add the 4 REQUIRED secrets (case-sensitive)
+# Required for uploads
 npx supabase secrets set MUX_TOKEN_ID="fc52c111-e7a6-4cc5-89c2-a01d28748f28"
-npx supabase secrets set MUX_SECRET_KEY="yy7m/bx5Q0WxjnUjV6Jsvk35tS5h37BNd+yruxG9wsq+4Rsz5RrGxQc9I6Q7nrxLpXr/+rYRD0n"
+npx supabase secrets set MUX_TOKEN_SECRET="yy7m/bx5Q0WxjnUjV6Jsvk35tS5h37BNd+yruxG9wsq+4Rsz5RrGxQc9I6Q7nrxLpXr/+rYRD0n"
+
+# Required for signed playback
 npx supabase secrets set MUX_SIGNING_KEY_ID="BccCfBqZchAdkvquuK7NZ00HUbL01Q2Q600yjDy6ouxLE8"
-npx supabase secrets set MUX_SIGNING_SECRET_KEY="LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBNlUvUWRCamZNMzRDaVFNK2pLM09wRWhQMGxSU2tPWUxJT3J4ckpSa1B6Zzl6Y0VwCmhJdWR1ZU5SaGpXWkZpWEMvK0pKa0JSenlZQTdyZ3pGUTRFeEhmU293UllIaWs1RlZ4WE9qbEdhOWxDZitJK3AKMzVnaWhHb2N4M2UzcVlUdzFzZFZxLzRJMFhjNnZEV0pSQWtTeU9IYUZpK2dwNlRpcjNuV0ttMkRPcmdHZ0J5UgpiejlyZkJkMkh6KzdxNE1ESjRhbHhyRVZZckpJcGUrMVZRb2NvWGw3eFRMMm1CaDE3TWJzT0hBVFk5M3RuaFNmCmpoS2tqVHJ3VHdaeWloZ0Y5WUNuQUpGN2w0M2xicWFrRFE2aGQzUEt4R09rN0Rqdkp3cldUYjN6Y1dNaDg2aEoKdjlsNGFIVXkwSWFXajE2T2NZZmdrcjI0Z3diaGhsMUNqV1A3ZVFJREFRQUJBb0lCQUR1cGZGM2o2bGZwbGs1aApOUUtXZzZ4QkRhQjBqYlNlRHlSNDBCcFl6QlhhbFB0anRQRS9Ick5sYlBpTUJqekNwVTM0R09XdVJUbTNBQXZ2CkdoYThGOHBZUVRzM0hmQ0JPWHdlaUhhZWFha3BUdThxRmIrbTBOVFpxY2hjVmV3VW9kM2FsWTdvNUdwa09mSGQKSXQveURncXVycTFUdXBxRU1LKzgwVWFDUUxlbjBISUFSWGlJRTZDWExXU0ZicEdKOGN6YTVsOC9OUnVvbC9hegpodmRGdmpnVWVOOEY5YnJpOVhyOVhFT1JRSFliT241UmlwblpOWjBxaDBCd0h3alV1bnBaN1Q5RGVTS3dIZ2kxCjdvNDdzbEhhODM0cDU4MDBnTGhyUUhCdFByV3BNOHhoVGJpOXZzMFB6MWJLNmFmVCtQTjZleXR2cEx1SHFCV0gKR1lYQTUyMENnWUVBNnRXYzEvY3d4am5DNW5Ha3Rlc1VSa2dpMFVFQjY0UXo0SHNaS3lzL1d6VFhVQ1hrNjFlVQpQcWxyRnNkOHZOTGlEYnIydHR0SnlpdFRNbCs4U3JSb0RGcndBVWNSUzB5TEVleWtOWkd0aTFJRzdaRkgycTlDClhlMGVZbklhK2pCUkdseDRTSExkZW1JVzZQajZMRXp4Q3BCMC8zYU00N3lUVWxDZzJYS0t2NGNDZ1lFQS9sY1IKdER1SEhyZjc5dDR2RmRaTWo4UjZ0WTZJL0NiblV1NFlmUk5IMHFSMFZHcE5TTEVobTVQSk40S2R3OXN1WGFRWApFUnh1bFhSSGd4d2FGNUV5UFJxOENScHhTZisrMHhGSEd3ZXg2bFAzRmVwVW9WUTVEK2Y0d0Z5b1FjQ20xZGhWCjN3V29ENlBzcWdHc2xBTFRxanFReU1zQlJyMzduNEdEcVdxY0xQOENnWUFYam1IelQvcDJoK2pERVBkQ3dGZ0MKVE00aFMzSVQyK2tRUllqYXliWExRbHV1MEg1TUZUYnJxamJ4ekFUNU0vWTFCbUlsS1k0WFY0MDY2bHVLNnRuZApFMm9yMXFNbmVJQWl4aWdhcjRoSEIyMW1lMEpINzNpcXoxUlM3N3RCQ1lPNUx6bHBtd3dZY0twM3FESUFLNStxClBaOWUyTmQ5S0xkbWRHd09JKzFERlFLQmdRQysveVcxWWtxYS8vRkFOeVBHMDFKVldHZ0o5WXJiU0YvSXdESTEKb3dmNW9EUVh2R2hqSVZtcW1uV3RzUEhHeGM3dzFTdlpWcStZbm1TaGliWHlZc0FHY1JBcUNlaHZlSldWclZEbgpkSVRnQXNQM2VpeXBwalRmeEFUaWQvS0d4aVREVEIxWVNNZ25UcU9JRzQrODZzNkc5RW9MNzU3NnYrcTRvcXI3Cnk2cVNnd0tCZ1FDaW9jbTZYaEtrcXluWGZuLytLR01va2FpanJTM1VXUFdIV3VUcmRRVlAweWZoQmI5VHFqQWYKL2V0T0tmbSs0WloyK3VpSitYbFZZcGx2ZjlUUGtmc2xSaG1qVk13cmdoUHdETXhUYi9hbGRHVWVBK1pNalY1ZQp4WVQ1blRaRzNER0U1Q1dNNm1ZSlBIL21KTmhEU3YvQ3RwZGx2UWFHbnFCOW93YmExVjNISnc9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
+npx supabase secrets set MUX_SIGNING_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA6U/QdBjfM34CiQM+jK3OpEhP0lRSkOYLIOrrJRkPzg9zcEph
+IuduuNRhjWZFiXC/+JJkBRzyYA7rgzFQ4ExHfSowRYHik5FVxXOjlGa9lCf+I+p3
+5gihGocx3e3qYTw1sdVq/4I0Xc6vDWJRAksyOHaFi+gp6Tir3nWKm2DOrgGgByRb
+z9rfBd2Hz+7q4MDJ4alxrEVYrJIpe+1VQocoXl7xTL2mBh17MbsOHATY93tnhSfj
+hKkjTrwTwZyihgF9YCnAJF7l43lbqakDQ6hd3PKxGOk7DjvJwrWTb3zcWMh86hJv
+9l4aHUy0IaWj16OcYfgkr24gwbhhl1CjWP7eQIDAQABAoIBADupfF3j6lfplk5h
+NQKWg6xBDaB0jbSeDyR40BpYzBXalPtjtPE/HrNlbPiMBjzCpU34GOWuRTm3AAvv
+Gha8F8pYQTs3HfCBOXweiHaeaakpTu8qFb+m0NTZqchcVewUod3alY7o5GpkOfHd
+It/yDgqurq1TupqEMK+80UaCQLen0HIARXiIE6CXLWSFbpGJ8cza5l8/NRuol/az
+hvdFvjgUeN8F9bri9Xr9XEORQHYbOn5RipnZNZ0qh0BwHwjUunpZ7T9DeSKwHgi1
+7o47slHa834p5800gLhrQHBtPrWpM8xhTbi9vs0Pz1bK6afT+PN6eytvpLuHqBWH
+GYXA520CgYEA6tWc1/cxxjnC5nGktesURkgi0UEB64Qz4HsZKys/WzTXUCXk61eU
+PqlrFsd8vNLiDbr2tttJyitTMl+8SrRoDFrwAUcRS0yLEeykNZGti1IG7ZFH2q9C
+Xe0eYnIa+jBRGlx4SHLdemIW6Pj6LEzxCpB0/3aM47yTUlCg2XKKv4cCgYEA/lcR
+tDuHHrf79t4vFdZMj8R6tY6I/CbnUu4YfRNH0qR0VGpNSLEhm5PJN4Kdw9suXaQX
+ERxulXRHgxwaF5EyPRq8CRpxSf++0xFHGwex6lP3FepUoVQ5D+f4wFyoQcCm1dhV
+3wWoD6PsqgGslALTqjqQyMsBRr37n4GDqWqcLP8CgYAXjmHzT/p2h+jDEPdCwFgC
+TM4hS3IT2+kQRYjayXLQluu0H5MFTbrqjbxzAT5M/Y1BmIlKY4XV4066luK6tnd
+E2or1qMneIAixigar4hHB21me0JH73iqz1RS77tBCYO5LzlpmwwYcKp3qDIAK5+q
+PZ9e2Nd9KLdmdGwOI+1DFQKBgQC+/yW1Ykqa//FANyPG01JVWGgJ9YrbSF/IwDI1
+owf5oDQXvGhjIVmqmnWtsPHGxc7w1SvZVq+YnmShibXyYsAGcRAqCehveJWVrVDn
+dITgAsP3eiyppjTfxATid/KGxiTDTB1YSMgnTqOIG4+86s6G9EoL7576v+q4oqr7
+y6qSgwKBgQCiocm6XhKkqynXfn/+KGMokaiirS3UWPWHW0TrdQVP0yfhBb9TqjAf
+/etOKfm+4ZZ2+uiJ+XlVYplvf9TPkfslRhmjVMwrghPwDMxTb/aldGUeA+ZMjV5e
+xYT5nTZG3DGE5CWM6mYJPH/mJNhDSv/CtpdlvQaGnqB9owba1V3HJw==
+-----END RSA PRIVATE KEY-----"
 
 # List all secrets to verify
 npx supabase secrets list
@@ -25,7 +53,7 @@ npx supabase secrets list
 
 1. Go to your Supabase Dashboard: https://supabase.com/dashboard/project/pooebqhsshfafkhvccrl
 2. Navigate to **Settings** → **Edge Functions** → **Secrets**
-3. Click **Add Secret** and add each secret one by one
+3. Click **Add Secret** and add each secret one by one with the exact names above
 
 ### Usage in Edge Functions
 
@@ -36,26 +64,51 @@ In your Edge Function code, access these secrets using `Deno.env.get()`:
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 
 serve(async (req) => {
-  // Access Mux credentials
-  const muxEnvId = Deno.env.get('MUX_ENV_ID')
-  const muxEnvKey = Deno.env.get('MUX_ENV_KEY')
-  const muxTokenId = Deno.env.get('MUX_TOKEN_ID')
-  const muxSecretKey = Deno.env.get('MUX_SECRET_KEY')
-  const muxSigningKeyId = Deno.env.get('MUX_SIGNING_KEY_ID')
-  const muxSigningSecretKey = Deno.env.get('MUX_SIGNING_SECRET_KEY')
+  // Access Mux credentials (ONLY THESE 4 VARIABLES ARE READ BY THE APP)
+  const muxTokenId = Deno.env.get('MUX_TOKEN_ID')           // Required for uploads
+  const muxTokenSecret = Deno.env.get('MUX_TOKEN_SECRET')   // Required for uploads
+  const muxSigningKeyId = Deno.env.get('MUX_SIGNING_KEY_ID') // Required for signed playback
+  const muxSigningPrivateKey = Deno.env.get('MUX_SIGNING_PRIVATE_KEY') // Required for signed playback
 
   // Use credentials for Mux API calls
   // ...
 })
 ```
 
+## Quick Verification Steps
+
+### For Production (Vercel/Hosting)
+1. Add the 4 exact variables above to your hosting environment (e.g., Vercel)
+2. Redeploy your application
+3. Test the Mux upload flow:
+   - Admin → Add to Portal → Content Type "Video" → choose a file
+   - You should see "Uploading to Mux…", then "Video ready for portal"
+4. Test playback: Open video tile → should route to `/portal/video/[playbackId]` and play with watermark
+5. Test signing: Visit `/api/mux/sign-playback?playbackId=YOUR_ID`
+   - ✅ Configured correctly: returns URL with `?token=...`
+   - ❌ Not configured: returns public stream URL
+
 ### Important Notes
 
-1. **Never commit secrets** to version control
-2. **Use environment variables** in development (`.env.local`)
-3. **Use Edge Secrets** in production (Supabase Dashboard or CLI)
-4. **Rotate keys regularly** for security
-5. **The signing key is Base64 encoded** - decode it when using in your application
+1. **Variable Names Matter**: The app only reads these 4 exact variable names (case-sensitive):
+   - `MUX_TOKEN_ID`
+   - `MUX_TOKEN_SECRET`
+   - `MUX_SIGNING_KEY_ID`
+   - `MUX_SIGNING_PRIVATE_KEY`
+
+2. **Unused Variables**: These variables are NOT read by the app (you can keep them for reference):
+   - `MUX_ENV_ID`
+   - `MUX_ENV_KEY`
+   - `MUX_ENV_NAME`
+   - `MUX_SECRET_KEY`
+   - `MUX_SIGNING_SECRET_KEY`
+
+3. **Private Key Format**: The `MUX_SIGNING_PRIVATE_KEY` must include the full PEM format with `-----BEGIN RSA PRIVATE KEY-----` and `-----END RSA PRIVATE KEY-----` lines
+
+4. **Never commit secrets** to version control
+5. **Use environment variables** in development (`.env.local`)
+6. **Use Edge Secrets** in production (Supabase Dashboard or CLI)
+7. **Rotate keys regularly** for security
 
 ### Testing Edge Functions Locally
 
