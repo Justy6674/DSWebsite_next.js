@@ -12,7 +12,7 @@ Downscale Weight Loss Clinic - Australian telehealth platform with two main syst
 - **Focus**: SEO, Australian healthcare compliance, lead generation
 
 ### 2. PATIENT PORTAL (Secondary)
-- **Dashboard + 6 health pillars**: Medication, Nutrition, Activity, Mental Health, Sleep, Water
+- **Dashboard + 7 health pillars**: Medication, Nutrition, Activity, Mental Health/Goal Setting, Sleep, Water
 - **Admin content management system** (fully operational)
 - **Role-based access**: admin/practitioner/patient
 
@@ -42,7 +42,18 @@ npm run lint && npm run type-check && npm run seo:check
 
 # SEO & Performance
 npm run seo:audit             # Comprehensive SEO audit
+npm run seo:qa                # Quality assurance validation
 npm run lighthouse            # Lighthouse performance test
+npm run perf:audit            # Comprehensive performance audit
+
+# Blog Management
+npm run generate:sitemaps     # Generate blog sitemap & RSS feed
+npm run sitemap:generate      # Generate optimized sitemaps
+
+# Content Optimization
+npm run perf:images           # Convert images to WebP format
+npm run perf:optimize         # Optimize page metadata
+npm run perf:canonical        # Add canonical URLs
 ```
 
 ## Architecture
@@ -92,11 +103,24 @@ src/
 - **Evidence-based claims** only
 
 ### Supabase Integration
-- Client: `src/integrations/supabase/client.ts`
-- Database: `https://pooebqhsshfafkhvccrl.supabase.co`
-- Authentication context provides global user state
-- Portal content in `portal_content` table
-- File uploads via Supabase Storage with signed URLs
+- **Client**: `src/integrations/supabase/client.ts`
+- **Database URL**: `https://pooebqhsshfafkhvccrl.supabase.co`
+- **Project ID**: `pooebqhsshfafkhvccrl`
+- **Authentication**: Supabase Auth with role-based access
+- **Storage Buckets**:
+  - `portal-files`: Public bucket for portal content
+  - `patient-documents`: Private bucket with RLS for patient files
+- **Key Tables**:
+  - `portal_content`: Main content repository
+  - `user_profiles`: User data with role management
+  - `jb_bb_feed`: Internal blog posts
+  - `patient_notifications`: Notification settings
+
+### Edge Functions
+- **AI Functions**: ai-interpret-calculator, blog-ai-optimizer, sleep-ai-analysis, claude-chat
+- **SEO Functions**: generate-sitemap, sitemap-xml, robots-txt, blog-rss
+- **Image Functions**: optimize-image
+- **API Functions**: halaxy-auth, halaxy-api, website-crawler
 
 ## Key Development Patterns
 
@@ -112,28 +136,59 @@ src/
 - Blog system: `/blog/[slug]/` with SSG/ISR
 - All pages need proper metadata and structured data
 
-### Common Tasks
-```bash
-# Add new assessment tool
-1. Create `/assessment/[tool]/page.tsx`
-2. Mobile-first design with touch targets
-3. Clinical validation and scoring
-4. TGA/AHPRA compliant disclaimers
+### Common Development Tasks
 
-# Add location page
-1. Create `/weight-loss-clinic-[city]/page.tsx`
-2. Local SEO optimization
-3. Australian healthcare info
-4. Consistent template structure
+#### Adding a Location Page
+```bash
+# 1. Create the page component
+src/app/weight-loss-clinic-[city]/page.tsx
+
+# 2. Required elements:
+- SEO metadata with city-specific keywords
+- Structured data for LocalBusiness schema
+- Medicare bulk billing information
+- Australian healthcare compliance
+- Mobile-first responsive design
+```
+
+#### Adding an Assessment Tool
+```bash
+# 1. Create the assessment page
+src/app/assessment/[tool-name]/page.tsx
+
+# 2. Required elements:
+- Clinical validation logic
+- Score calculation and interpretation
+- TGA/AHPRA compliant disclaimers
+- Touch-friendly UI (44px minimum targets)
+- Results storage in Supabase
+```
+
+#### Portal Content Management
+```bash
+# 1. Access admin portal
+/portal/admin
+
+# 2. Navigate to Portal Content Manager
+# 3. Select pillar and sub-section
+# 4. Upload content with metadata
+# 5. Preview and publish
 ```
 
 ## Critical Configuration Notes
 
-### Next.js Setup
-- **Production builds ignore TypeScript/ESLint errors** (temporary config)
-- **Typed routes enabled experimentally**
-- **SSG/ISR for blog posts** with 1-hour revalidation
-- **Performance caching** headers for all page types
+### Next.js Configuration
+- **Build Optimization**: Production builds temporarily ignore TypeScript/ESLint errors
+- **Routing**: Typed routes enabled, trailing slashes enforced
+- **Rendering Strategy**:
+  - SSR enabled for blog posts from Supabase
+  - ISR with 1-hour revalidation for dynamic content
+  - Static generation for location and service pages
+- **Caching Headers**:
+  - Blog posts: 1hr cache, 24hr stale-while-revalidate
+  - Location pages: 24hr cache, 1 week stale-while-revalidate
+  - Assessment tools: 2hr cache, 24hr stale-while-revalidate
+- **Image Optimization**: WebP/AVIF formats with responsive sizing
 
 ### File Preview System
 - **PDF thumbnails**: Browser-native iframe rendering (no external libraries)
@@ -154,4 +209,29 @@ src/
 - Apply semantic HTML structure
 - Consider Google crawling and SEO in all implementations
 
-**Always follow the 7-step workflow. Never skip assessment or production testing.**
+## Database Schema Key Points
+
+### User Profiles Pattern
+- **Single user table**: `user_profiles` with `metadata` JSONB column
+- **Never create separate user tables** for saved items
+- **All user data in metadata**: saved_searches, saved_reports, preferences
+- **RLS policies** enforce security at database level
+
+### Storage Security
+- **Public buckets**: portal-files for general content
+- **Private buckets**: patient-documents with owner-based RLS
+- **Signed URLs**: Required for all private file access
+- **File organization**: Pillar-based folder structure
+
+## Testing & Validation Workflow
+
+**Always follow the 7-step workflow:**
+1. **ASSESS**: Use Playwright to examine the issue
+2. **CONSIDER**: Understand root cause, not symptoms
+3. **FIX**: Implement proper solution
+4. **PUSH**: Auto-commit to git main
+5. **TEST**: Verify on production URL
+6. **VERIFY**: Confirm fix worked
+7. **REPEAT**: If not fixed, repeat entire process
+
+**Never skip assessment or production testing.**
