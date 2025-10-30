@@ -151,6 +151,17 @@ export default function PortalContentManager() {
         return
       }
 
+      // Require sub-section to ensure portal list visibility
+      const subsection = (formData.content_data as any)?.subsection || ''
+      if (!subsection.trim()) {
+        toast({
+          title: 'Sub-section required',
+          description: 'Select where this appears (e.g., Research & Journal Articles).',
+          variant: 'destructive'
+        })
+        return
+      }
+
       const contentPayload = {
         ...formData,
         content_data: buildContentData(formData.content_type, formData.content_data)
@@ -186,56 +197,65 @@ export default function PortalContentManager() {
   }
 
   const buildContentData = (type: ContentType, data: any) => {
+    let base: any
     switch (type) {
       case 'video':
-        return {
+        base = {
           url: data.url || '',
           duration: data.duration || '',
           thumbnail_url: data.thumbnail_url || '',
           is_youtube: data.url?.includes('youtube.com') || data.url?.includes('youtu.be') || false,
           is_vimeo: data.url?.includes('vimeo.com') || false
         }
+        break
       case 'external_doc':
-        return {
+        base = {
           url: data.url || '',
           file_type: data.file_type || 'PDF',
           file_size: data.file_size || '',
           source: data.source || ''
         }
+        break
       case 'downscale_doc':
-        return {
+        base = {
           file_url: data.file_url || '',
           file_type: data.file_type || 'PDF',
           file_size: data.file_size || '',
           can_export_pdf: true,
           requires_completion: data.requires_completion || false
         }
+        break
       case 'link':
-        return {
+        base = {
           url: data.url || '',
           thumbnail_url: data.thumbnail_url || '',
           resource_type: data.resource_type || 'website',
           estimated_read_time: data.estimated_read_time || ''
         }
+        break
       case 'tool':
-        return {
+        base = {
           tool_url: data.tool_url || '',
           can_export_pdf: true,
           requires_login: data.requires_login || false,
           estimated_completion_time: data.estimated_completion_time || '',
           tool_type: data.tool_type || 'assessment'
         }
+        break
       case 'program_guide':
-        return {
+        base = {
           duration_weeks: data.duration_weeks || '',
           total_steps: data.total_steps || '',
           difficulty_level: data.difficulty_level || 'beginner',
           includes_resources: data.includes_resources || false,
           progress_tracking: true
         }
+        break
       default:
-        return data
+        base = data
     }
+    // Always include subsection to drive portal placement
+    return { ...base, subsection: (data?.subsection || '').toString() }
   }
 
   const handleDeleteContent = async (id: string) => {
@@ -368,6 +388,25 @@ export default function PortalContentManager() {
             </Select>
           </div>
         </div>
+
+      {/* Sub-section selection (required) */}
+      <div>
+        <Label htmlFor="subsection">Sub-section</Label>
+        <Select value={(formData.content_data as any)?.subsection || ''} onValueChange={(value: string) => setFormData({ ...formData, content_data: { ...formData.content_data, subsection: value } })}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select sub-section" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Guides">Guides</SelectItem>
+            <SelectItem value="Research & Journal Articles">Research & Journal Articles</SelectItem>
+            <SelectItem value="Product Information">Product Information</SelectItem>
+            <SelectItem value="Videos and Video Links">Videos and Video Links</SelectItem>
+            <SelectItem value="Podcast Links">Podcast Links</SelectItem>
+            <SelectItem value="Other">Other</SelectItem>
+            <SelectItem value="Tools">Tools</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
         <div>
           <Label htmlFor="title">Title</Label>
