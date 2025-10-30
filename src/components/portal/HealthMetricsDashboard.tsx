@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { CalendarDays, Target, TrendingUp, Scale, Ruler, Activity } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useHealthMetrics } from '@/hooks/useHealthMetrics';
-import { useDailyTracking } from '@/hooks/useDailyTracking';
+// Daily tracking removed per product decision (avoid daily weigh-ins)
 
 // Core interfaces for body metrics calculation
 interface BodyMetricsInput {
@@ -48,12 +48,7 @@ export default function HealthMetricsDashboard() {
     calculateMetrics
   } = useHealthMetrics();
 
-  const {
-    trackingData,
-    loading: trackingLoading,
-    saveTrackingData,
-    getTrackingForDate
-  } = useDailyTracking();
+  // Progress History now uses saved metric snapshots (health_metrics)
 
   // Input state (strings) so fields can be blank until user types
   const [ageInput, setAgeInput] = useState('');
@@ -67,10 +62,7 @@ export default function HealthMetricsDashboard() {
   // Calculation results and UI state
   const [results, setResults] = useState<CalculationResults | null>(null);
   const [activeTab, setActiveTab] = useState('calculator');
-  const [dailyWeight, setDailyWeight] = useState('');
-  const [dailyWaist, setDailyWaist] = useState('');
-  const [trackingDate, setTrackingDate] = useState(new Date().toISOString().split('T')[0]);
-  const [trackingNotes, setTrackingNotes] = useState('');
+  // Daily tracking removed
 
   // Check for admin testing session
   const [portalUser, setPortalUser] = useState<any>(null);
@@ -165,28 +157,7 @@ export default function HealthMetricsDashboard() {
     }
   };
 
-  // Handle daily tracking data save
-  const handleSaveTracking = async () => {
-    if (!currentUser?.id) return;
-
-    try {
-      await saveTrackingData({
-        tracking_date: trackingDate,
-        weight_kg: dailyWeight ? parseFloat(dailyWeight) : undefined,
-        waist_cm: dailyWaist ? parseFloat(dailyWaist) : undefined,
-        daily_notes: trackingNotes || undefined
-      });
-
-      // Clear form
-      setDailyWeight('');
-      setDailyWaist('');
-      setTrackingNotes('');
-      alert('Daily tracking saved successfully!');
-    } catch (error) {
-      console.error('Error saving tracking data:', error);
-      alert('Failed to save tracking data. Please try again.');
-    }
-  };
+  // Daily tracking removed
 
   // Get BMI category color
   const getBmiColor = (category: string) => {
@@ -227,14 +198,10 @@ export default function HealthMetricsDashboard() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 bg-slate-800 border-slate-700">
+        <TabsList className="grid w-full grid-cols-2 bg-slate-800 border-slate-700">
           <TabsTrigger value="calculator" className="data-[state=active]:bg-slate-700">
             <Target className="w-4 h-4 mr-2" />
             Body Metrics Calculator
-          </TabsTrigger>
-          <TabsTrigger value="tracking" className="data-[state=active]:bg-slate-700">
-            <CalendarDays className="w-4 h-4 mr-2" />
-            Daily Tracking
           </TabsTrigger>
           <TabsTrigger value="history" className="data-[state=active]:bg-slate-700">
             <TrendingUp className="w-4 h-4 mr-2" />
@@ -395,109 +362,14 @@ export default function HealthMetricsDashboard() {
                   </div>
 
                   <div className="flex gap-3 pt-2">
-                    <Button onClick={handleSubmitMetrics} className="flex-1 bg-green-600 hover:bg-green-700" disabled={healthLoading}>
-                      {healthLoading ? 'Saving…' : 'Save to Profile'}
-                    </Button>
-                    <Button
-                      onClick={async () => {
-                        try {
-                          const today = new Date().toISOString().split('T')[0];
-                          const weight = parseFloat(weightInput);
-                          const waist = waistInput ? parseFloat(waistInput) : undefined;
-                          if (!Number.isFinite(weight) && !Number.isFinite(waist as any)) {
-                            alert('Enter weight and/or waist to save to Daily Tracking.');
-                            return;
-                          }
-                          await saveTrackingData({
-                            tracking_date: today,
-                            weight_kg: Number.isFinite(weight) ? weight : undefined,
-                            waist_cm: Number.isFinite(waist as any) ? (waist as number) : undefined,
-                            daily_notes: 'Saved from calculator'
-                          });
-                          alert('Saved to Daily Tracking');
-                        } catch (e) {
-                          console.error(e);
-                          alert('Failed to save to tracking');
-                        }
-                      }}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700"
-                    >
-                      Save to Daily Tracking
+                    <Button onClick={handleSubmitMetrics} className="w-full bg-green-600 hover:bg-green-700" disabled={healthLoading}>
+                      {healthLoading ? 'Saving…' : 'Save Metrics'}
                     </Button>
                   </div>
                 </CardContent>
               </Card>
             )}
           </div>
-        </TabsContent>
-
-        {/* Daily Tracking Tab */}
-        <TabsContent value="tracking" className="space-y-6">
-          <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center">
-                <CalendarDays className="w-5 h-5 mr-2" />
-                Daily Measurements
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <Label htmlFor="trackingDate" className="text-slate-300">Date</Label>
-                  <Input
-                    id="trackingDate"
-                    type="date"
-                    value={trackingDate}
-                    onChange={(e) => setTrackingDate(e.target.value)}
-                    className="bg-slate-900 border-slate-600 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="dailyWeight" className="text-slate-300">Weight (kg)</Label>
-                  <Input
-                    id="dailyWeight"
-                    type="number"
-                    step="0.1"
-                    value={dailyWeight}
-                    onChange={(e) => setDailyWeight(e.target.value)}
-                    className="bg-slate-900 border-slate-600 text-white"
-                    placeholder="Enter today's weight"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="dailyWaist" className="text-slate-300">Waist (cm)</Label>
-                  <Input
-                    id="dailyWaist"
-                    type="number"
-                    step="0.1"
-                    value={dailyWaist}
-                    onChange={(e) => setDailyWaist(e.target.value)}
-                    className="bg-slate-900 border-slate-600 text-white"
-                    placeholder="Enter waist measurement"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="trackingNotes" className="text-slate-300">Notes (optional)</Label>
-                <Input
-                  id="trackingNotes"
-                  value={trackingNotes}
-                  onChange={(e) => setTrackingNotes(e.target.value)}
-                  className="bg-slate-900 border-slate-600 text-white"
-                  placeholder="Any notes about today's measurements..."
-                />
-              </div>
-
-              <Button
-                onClick={handleSaveTracking}
-                className="w-full bg-green-600 hover:bg-green-700"
-                disabled={trackingLoading || (!dailyWeight && !dailyWaist)}
-              >
-                {trackingLoading ? 'Saving...' : 'Save Daily Measurement'}
-              </Button>
-            </CardContent>
-          </Card>
         </TabsContent>
 
         {/* Progress History Tab */}
@@ -510,31 +382,21 @@ export default function HealthMetricsDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {trackingData && trackingData.length > 0 ? (
+              {metrics && metrics.length > 0 ? (
                 <div className="space-y-4">
-                  {trackingData.slice(0, 10).map((entry) => (
-                    <div key={entry.id} className="p-4 bg-slate-900 rounded-lg flex justify-between items-center">
-                      <div>
-                        <div className="text-white font-medium">{entry.tracking_date}</div>
-                        <div className="text-slate-400 text-sm">
-                          {entry.weight_kg && `Weight: ${entry.weight_kg}kg`}
-                          {entry.weight_kg && entry.waist_cm && ' • '}
-                          {entry.waist_cm && `Waist: ${entry.waist_cm}cm`}
-                        </div>
-                        {entry.daily_notes && (
-                          <div className="text-slate-500 text-xs mt-1">{entry.daily_notes}</div>
-                        )}
-                      </div>
-                      <div className="text-slate-400 text-sm">
-                        {new Date(entry.created_at!).toLocaleDateString()}
-                      </div>
+                  {metrics.slice(0, 10).map((m) => (
+                    <div key={m.id} className="p-4 bg-slate-900 rounded-lg grid grid-cols-2 md:grid-cols-4 gap-2 items-center">
+                      <div className="text-white font-medium">{new Date(m.created_at).toLocaleDateString('en-AU')}</div>
+                      <div className="text-slate-400 text-sm">Weight: {m.weight_kg}kg{m.waist_cm ? ` • Waist: ${m.waist_cm}cm` : ''}</div>
+                      <div className="text-slate-400 text-sm">TDEE: {m.tdee}</div>
+                      <div className="text-slate-400 text-sm">Goal cals: {m.goal_calories}</div>
                     </div>
                   ))}
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <div className="text-slate-400 mb-4">No tracking data available yet</div>
-                  <p className="text-slate-500 text-sm">Start tracking your daily measurements to see your progress here.</p>
+                  <div className="text-slate-400 mb-4">No saved metrics yet</div>
+                  <p className="text-slate-500 text-sm">Calculate your metrics and save them to see progress here.</p>
                 </div>
               )}
             </CardContent>
