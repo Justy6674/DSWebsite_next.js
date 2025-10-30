@@ -124,8 +124,8 @@ export default function ContentItem({ item }: ContentItemProps) {
       window.location.href = `/portal/video/${contentData.mux_playback_id}`;
     } else if (contentData.file_url) {
       window.open(contentData.file_url, '_blank');
-    } else if (contentData.url) {
-      window.open(contentData.url, '_blank');
+    } else if (contentData.url || contentData.external_url) {
+      window.open(contentData.url || contentData.external_url, '_blank');
     } else if (contentData.tool_url) {
       window.location.href = contentData.tool_url;
     }
@@ -137,20 +137,20 @@ export default function ContentItem({ item }: ContentItemProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3 mb-2">
-              {thumbUrl ? (
-                <div className="flex-shrink-0">
+              <div className="flex-shrink-0">
+                {thumbUrl ? (
                   <img
                     src={thumbUrl}
                     alt="thumbnail"
                     loading="lazy"
                     className="w-20 h-14 md:w-28 md:h-20 object-cover rounded-lg border border-slate-700"
                   />
-                </div>
-              ) : (
-                <div className="bg-slate-900 rounded-lg p-2 border border-slate-700 flex-shrink-0 group-hover:border-[#b68a71] transition-colors">
-                  <IconComponent className="h-5 w-5 text-[#b68a71]" />
-                </div>
-              )}
+                ) : (
+                  <div className="w-20 h-14 md:w-28 md:h-20 rounded-lg border border-slate-700 bg-slate-900 grid place-items-center group-hover:border-[#b68a71]">
+                    <IconComponent className="h-6 w-6 md:h-7 md:w-7 text-[#b68a71]" />
+                  </div>
+                )}
+              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <h3 className="text-base md:text-lg font-bold text-[#f8fafc] group-hover:text-[#b68a71] transition-colors line-clamp-2">
