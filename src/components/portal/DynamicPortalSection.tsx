@@ -221,7 +221,7 @@ export default function DynamicPortalSection({
 
             <div className="flex-1 space-y-3">
               <div className="flex items-start justify-between">
-                <div className="space-y-1">
+                <div className="flex-1 min-w-0 space-y-1">
                   <h3 className="font-semibold text-lg leading-tight">{item.title}</h3>
                   {/* Fixed-height, scrollable description to keep tiles uniform */}
                   <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto">
