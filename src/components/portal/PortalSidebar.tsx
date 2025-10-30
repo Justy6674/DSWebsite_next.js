@@ -28,6 +28,7 @@ const pillars = [
     href: '/portal',
     subItems: [
       { name: 'Personal Metrics', href: '/portal' },
+      { name: 'New Client Resources', href: '/portal/new-client-resources' },
       { name: 'Saved Resources', href: '/portal/saved' },
       { name: 'Water Reminders', href: '/portal/water' },
       { name: 'Halaxy Portal', href: 'https://www.halaxy.com/a/login', external: true }
