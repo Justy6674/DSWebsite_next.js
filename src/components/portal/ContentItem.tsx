@@ -59,8 +59,8 @@ export default function ContentItem({ item }: ContentItemProps) {
   const IconComponent = CONTENT_TYPE_ICONS[item.content_type] || FileText;
   const typeLabel = CONTENT_TYPE_LABELS[item.content_type] || 'Content';
   const cd = (item.content_data || {}) as any;
-  const displayTitle = (item.title || cd.title || cd.originalFileName || 'Untitled').toString();
-  const displayDescription = (item.description || cd.description || '').toString();
+  const displayTitle = (item.title || cd.og_title || cd.title || cd.originalFileName || 'Untitled').toString();
+  const displayDescription = (item.description || cd.og_description || cd.description || '').toString();
 
   const [thumbUrl, setThumbUrl] = React.useState<string | null>(null);
 
@@ -90,7 +90,13 @@ export default function ContentItem({ item }: ContentItemProps) {
       }
     }
 
-    // 3) Link favicon
+    // 3) Prefer OG image for links/external docs
+    if ((item.content_type === 'link' || item.content_type === 'external_doc') && typeof cd.og_image === 'string' && cd.og_image) {
+      setThumbUrl(cd.og_image);
+      return;
+    }
+
+    // 4) Link favicon
     if ((item.content_type === 'link' || item.content_type === 'external_doc') && typeof cd.url === 'string') {
       try {
         const host = new URL(cd.url).hostname;
@@ -99,7 +105,7 @@ export default function ContentItem({ item }: ContentItemProps) {
       } catch {}
     }
 
-    // 4) Optional provided thumbnail_url
+    // 5) Optional provided thumbnail_url
     if (typeof cd.thumbnail_url === 'string') {
       setThumbUrl(cd.thumbnail_url);
     }

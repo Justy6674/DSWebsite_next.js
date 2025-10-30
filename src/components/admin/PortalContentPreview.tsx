@@ -130,10 +130,14 @@ const PortalContentPreview: React.FC<PortalContentPreviewProps> = ({ content, is
         );
 
       case 'external_doc':
-        const extDocData = content.content_data as ExternalDocContent;
+        const extDocData = content.content_data as ExternalDocContent & { og_image?: string };
         return (
           <div className="w-full bg-slate-800 rounded-lg p-6 text-center">
-            <ExternalLink className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+            {extDocData.og_image ? (
+              <img src={extDocData.og_image} alt="preview" className="w-full max-h-64 object-cover rounded mb-4" />
+            ) : (
+              <ExternalLink className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+            )}
             <p className="text-slate-300 mb-4">External Document</p>
             <Button asChild variant="outline" size="sm">
               <a href={extDocData.url} target="_blank" rel="noopener noreferrer">
@@ -144,10 +148,14 @@ const PortalContentPreview: React.FC<PortalContentPreviewProps> = ({ content, is
         );
 
       case 'link':
-        const linkData = content.content_data as LinkContent;
+        const linkData = content.content_data as LinkContent & { og_image?: string };
         return (
           <div className="w-full bg-slate-800 rounded-lg p-6 text-center">
-            <Link className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
+            {linkData.og_image ? (
+              <img src={linkData.og_image} alt="preview" className="w-full max-h-64 object-cover rounded mb-4" />
+            ) : (
+              <Link className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
+            )}
             <p className="text-slate-300 mb-4">External Link</p>
             <Button asChild variant="outline" size="sm">
               <a href={linkData.url} target="_blank" rel="noopener noreferrer">

@@ -122,20 +122,47 @@ export default function AdminResourceManager() {
     setError(null);
 
     try {
+      // Build payload and auto-enrich link previews when applicable
+      let payload: PortalResource = { ...formData };
+      try {
+        const isLinkLike = payload.content_type === 'link' || payload.content_type === 'external_doc';
+        const url = (payload.content_data as any)?.url;
+        if (isLinkLike && typeof url === 'string' && url.trim()) {
+          const r = await fetch(`/api/link-preview?url=${encodeURIComponent(url)}`);
+          if (r.ok) {
+            const preview = await r.json();
+            const existing = (payload.content_data || {}) as any;
+            const merged = {
+              ...existing,
+              og_title: preview.title || existing.og_title,
+              og_description: preview.description || existing.og_description,
+              og_image: preview.image || existing.og_image,
+              favicon_url: preview.favicon || existing.favicon_url,
+              canonical_url: preview.canonical_url || existing.canonical_url,
+            };
+            if (preview.image && !merged.thumbnail_url) {
+              merged.thumbnail_url = preview.image;
+            }
+            payload = {
+              ...payload,
+              title: payload.title || preview.title || payload.title,
+              description: (payload.description || preview.description || '') as any,
+              content_data: merged,
+            };
+          }
+        }
+      } catch {}
+
       if (editingResource?.id) {
-        // Update existing resource
         const { error: updateError } = await supabase
           .from('portal_content')
-          .update(formData)
+          .update(payload)
           .eq('id', editingResource.id);
-
         if (updateError) throw updateError;
       } else {
-        // Create new resource
         const { error: insertError } = await supabase
           .from('portal_content')
-          .insert(formData);
-
+          .insert(payload);
         if (insertError) throw insertError;
       }
 
