@@ -87,7 +87,10 @@ export default function NewClientResourcesClient() {
           </div>
         ) : visible.length === 0 ? (
           <div className="text-center py-12 bg-slate-800 rounded-xl border border-slate-700">
-            <p className="text-[#fef5e7] mb-2">No resources yet. Add items in Admin → Add to Portal and tag with <span className=\"text-[#b68a71]\">onboarding</span>.</p>
+            <p className="text-[#fef5e7] mb-2">
+              No resources yet. Add items in Admin → Add to Portal and tag with
+              {' '}<span className="text-[#b68a71]">onboarding</span>.
+            </p>
           </div>
         ) : (
           <div className="space-y-3">
