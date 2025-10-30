@@ -208,7 +208,7 @@ export default function DynamicPortalSection({
     return (
       <Card
         key={item.id}
-        className={`cursor-pointer hover:shadow-lg transition-all duration-200 hover:scale-[1.02] ${
+        className={`cursor-pointer hover:shadow-lg transition-all duration-200 hover:scale-[1.02] min-w-0 ${
           isHighlighted ? 'ring-2 ring-primary ring-offset-2' : ''
         }`}
         onClick={() => handleContentClick(item)}

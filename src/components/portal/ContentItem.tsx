@@ -86,7 +86,7 @@ export default function ContentItem({ item }: ContentItemProps) {
   };
 
   return (
-    <Card className="bg-slate-800 border border-slate-700 hover:border-[#b68a71] transition-all duration-300 cursor-pointer group">
+    <Card className="bg-slate-800 border border-slate-700 hover:border-[#b68a71] transition-all duration-300 cursor-pointer group min-w-0">
       <div className="p-4 md:p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
@@ -108,7 +108,7 @@ export default function ContentItem({ item }: ContentItemProps) {
                 </div>
                 {item.description && (
                   <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 md:h-24 overflow-y-auto mb-3 w-full">
-                    <p className="text-xs text-[#fef5e7] whitespace-pre-wrap w-full max-w-none">
+                    <p className="text-xs text-[#fef5e7] whitespace-pre-wrap break-words w-full max-w-none">
                       {item.description}
                     </p>
                   </div>
