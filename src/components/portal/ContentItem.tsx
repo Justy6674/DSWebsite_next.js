@@ -58,6 +58,49 @@ export default function ContentItem({ item }: ContentItemProps) {
   const IconComponent = CONTENT_TYPE_ICONS[item.content_type] || FileText;
   const typeLabel = CONTENT_TYPE_LABELS[item.content_type] || 'Content';
 
+  const [thumbUrl, setThumbUrl] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const cd = item.content_data || {};
+    // 1) Video via Mux: request signed thumbnail URL
+    if (item.content_type === 'video' && cd.mux_playback_id) {
+      const load = async () => {
+        try {
+          const res = await fetch(`/api/mux/sign-playback?playbackId=${cd.mux_playback_id}&aud=${encodeURIComponent('https://image.mux.com')}&image=1`);
+          const json = await res.json();
+          if (json?.url) setThumbUrl(json.url);
+        } catch (e) {
+          // ignore, fallback to icon
+        }
+      };
+      load();
+      return;
+    }
+
+    // 2) Direct image files
+    if ((item.content_type === 'downscale_doc' || item.content_type === 'external_doc') && typeof cd.file_url === 'string') {
+      const lower = cd.file_url.toLowerCase();
+      if (lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.png') || lower.endsWith('.webp')) {
+        setThumbUrl(cd.file_url);
+        return;
+      }
+    }
+
+    // 3) Link favicon
+    if ((item.content_type === 'link' || item.content_type === 'external_doc') && typeof cd.url === 'string') {
+      try {
+        const host = new URL(cd.url).hostname;
+        setThumbUrl(`https://www.google.com/s2/favicons?domain=${host}&sz=64`);
+        return;
+      } catch {}
+    }
+
+    // 4) Optional provided thumbnail_url
+    if (typeof cd.thumbnail_url === 'string') {
+      setThumbUrl(cd.thumbnail_url);
+    }
+  }, [item]);
+
   const trackContentView = async () => {
     if (user?.id) {
       try {
@@ -94,9 +137,20 @@ export default function ContentItem({ item }: ContentItemProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3 mb-2">
-              <div className="bg-slate-900 rounded-lg p-2 border border-slate-700 flex-shrink-0 group-hover:border-[#b68a71] transition-colors">
-                <IconComponent className="h-5 w-5 text-[#b68a71]" />
-              </div>
+              {thumbUrl ? (
+                <div className="flex-shrink-0">
+                  <img
+                    src={thumbUrl}
+                    alt="thumbnail"
+                    loading="lazy"
+                    className="w-20 h-14 md:w-28 md:h-20 object-cover rounded-lg border border-slate-700"
+                  />
+                </div>
+              ) : (
+                <div className="bg-slate-900 rounded-lg p-2 border border-slate-700 flex-shrink-0 group-hover:border-[#b68a71] transition-colors">
+                  <IconComponent className="h-5 w-5 text-[#b68a71]" />
+                </div>
+              )}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <h3 className="text-base md:text-lg font-bold text-[#f8fafc] group-hover:text-[#b68a71] transition-colors line-clamp-2">
