@@ -225,7 +225,7 @@ export default function DynamicPortalSection({
                   <h3 className="font-semibold text-lg leading-tight">{item.title}</h3>
                   {/* Fixed-height, scrollable description to keep tiles uniform */}
                   <div className="mt-1 bg-slate-900 border border-slate-700 rounded-md p-2 h-20 overflow-y-auto">
-                    <p className="text-xs text-[#fef5e7] whitespace-pre-wrap">{item.description}</p>
+                    <p className="text-xs text-[#fef5e7] whitespace-pre-wrap w-full max-w-none">{item.description}</p>
                   </div>
                 </div>
                 <Badge className={config.colour} variant="secondary">
