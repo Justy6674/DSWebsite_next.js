@@ -12,6 +12,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
+  // Protect portal routes: require Supabase auth cookie in production
+  if (pathname.startsWith('/portal') && pathname !== '/portal/login') {
+    const hasAccessToken = Boolean(request.cookies.get('sb-access-token')?.value);
+    if (!hasAccessToken) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/portal/login';
+      url.search = search;
+      return NextResponse.redirect(url);
+    }
+  }
+
   return NextResponse.next();
 }
 

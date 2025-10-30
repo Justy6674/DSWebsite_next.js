@@ -24,8 +24,8 @@ export default function PortalLoginClient() {
     setError('');
 
     try {
-      // Admin bypass for testing - you can remove this in production
-      if (email === 'downscale@icloud.com' && password === 'IloveBB0307$$') {
+      // Admin bypass for testing - disabled in production
+      if (process.env.NODE_ENV !== 'production' && email === 'downscale@icloud.com' && password === 'IloveBB0307$$') {
         // Create a mock user session for testing
         localStorage.setItem('portal_user', JSON.stringify({
           email: 'downscale@icloud.com',

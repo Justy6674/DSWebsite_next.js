@@ -16,8 +16,11 @@ export async function GET(req: Request) {
     if (!playbackId) return NextResponse.json({ error: 'playbackId required' }, { status: 400 })
 
     if (!MUX_SIGNING_KEY_ID || !MUX_SIGNING_PRIVATE_KEY) {
-      // Fallback: unsigned public URL
-      return NextResponse.json({ url: `https://stream.mux.com/${playbackId}.m3u8`, token: null })
+      // Enforce signed playback in production; allow fallback only in development
+      if (process.env.NODE_ENV !== 'production') {
+        return NextResponse.json({ url: `https://stream.mux.com/${playbackId}.m3u8`, token: null })
+      }
+      return NextResponse.json({ error: 'Mux signing keys not configured' }, { status: 500 })
     }
 
     const header = { alg: 'RS256', typ: 'JWT', kid: MUX_SIGNING_KEY_ID }
