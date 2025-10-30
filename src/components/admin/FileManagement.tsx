@@ -1801,6 +1801,16 @@ export default function FileManagement() {
                           <div className="mt-2 text-xs text-slate-400">
                             {muxUploading ? `Uploading to Mux… ${muxProgress.toFixed(0)}%` : portalAssignment.content_data?.mux_playback_id ? 'Ready: secured playback configured' : 'Select a video file to upload. Large files supported.'}
                           </div>
+                          {/* Mac/iPhone friendly tips for quickest success */}
+                          <div className="mt-3 text-xs bg-slate-800 border border-slate-700 rounded-lg p-3 text-slate-300">
+                            <div className="font-semibold text-[#fef5e7] mb-1">Upload tips (Mac/iPhone):</div>
+                            <ul className="list-disc ml-5 space-y-1">
+                              <li>Best results: MP4 or MOV encoded with H.264 video and AAC audio.</li>
+                              <li>From Photos on Mac: File → Export → Export Video(s) → “Most Compatible (H.264)”, then upload the exported file.</li>
+                              <li>iPhone HEVC/MOV files also work; Mux will transcode automatically, processing may take longer.</li>
+                              <li>Keep the browser tab open during upload; it’s resumable if your connection drops.</li>
+                            </ul>
+                          </div>
                         </div>
                       )}
                       {/* Title */}
