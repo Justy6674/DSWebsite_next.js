@@ -130,8 +130,10 @@ export default function HealthMetricsDashboard() {
 
   // Save calculated metrics to database - renamed function to avoid conflict
   const handleSubmitMetrics = async () => {
-    if (!currentUser?.id) return;
-
+    if (!user?.id) {
+      alert('Please sign in to save your metrics.');
+      return;
+    }
     try {
       const age = parseInt(ageInput);
       const height = parseInt(heightInput);
