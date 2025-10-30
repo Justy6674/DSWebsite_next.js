@@ -16,6 +16,7 @@ import {
   Bookmark,
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import PDFThumbnail from '@/components/admin/PDFThumbnail';
 import { useAuth } from '@/contexts/AuthContext';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -101,6 +102,38 @@ export default function ContentItem({ item }: ContentItemProps) {
     }
   }, [item]);
 
+  const renderThumb = () => {
+    const cd = item.content_data || {};
+    const w = 112; // md width; CSS will scale down on mobile
+    // Use full preview component for common document types
+    const url = cd.file_url || cd.url || cd.external_url || '';
+    const lower = typeof url === 'string' ? url.toLowerCase() : '';
+    const isDoc = lower.endsWith('.pdf') || lower.endsWith('.doc') || lower.endsWith('.docx') || lower.endsWith('.xlsx') || lower.endsWith('.xls');
+    if (isDoc && url) {
+      const name = cd.originalFileName || item.title || 'document';
+      return (
+        <PDFThumbnail fileUrl={url} fileName={name} width={w} className="rounded-lg overflow-hidden" />
+      );
+    }
+    // Otherwise use image/fallback
+    return (
+      <>
+        {thumbUrl ? (
+          <img
+            src={thumbUrl}
+            alt="thumbnail"
+            loading="lazy"
+            className="w-20 h-14 md:w-28 md:h-20 object-cover rounded-lg border border-slate-700"
+          />
+        ) : (
+          <div className="w-20 h-14 md:w-28 md:h-20 rounded-lg border border-slate-700 bg-slate-900 grid place-items-center group-hover:border-[#b68a71]">
+            <IconComponent className="h-6 w-6 md:h-7 md:w-7 text-[#b68a71]" />
+          </div>
+        )}
+      </>
+    );
+  };
+
   const trackContentView = async () => {
     if (user?.id) {
       try {
@@ -137,20 +170,7 @@ export default function ContentItem({ item }: ContentItemProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3 mb-2">
-              <div className="flex-shrink-0">
-                {thumbUrl ? (
-                  <img
-                    src={thumbUrl}
-                    alt="thumbnail"
-                    loading="lazy"
-                    className="w-20 h-14 md:w-28 md:h-20 object-cover rounded-lg border border-slate-700"
-                  />
-                ) : (
-                  <div className="w-20 h-14 md:w-28 md:h-20 rounded-lg border border-slate-700 bg-slate-900 grid place-items-center group-hover:border-[#b68a71]">
-                    <IconComponent className="h-6 w-6 md:h-7 md:w-7 text-[#b68a71]" />
-                  </div>
-                )}
-              </div>
+              <div className="flex-shrink-0">{renderThumb()}</div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <h3 className="text-base md:text-lg font-bold text-[#f8fafc] group-hover:text-[#b68a71] transition-colors line-clamp-2">
