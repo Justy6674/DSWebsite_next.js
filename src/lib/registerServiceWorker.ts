@@ -11,6 +11,16 @@ export async function registerServiceWorker(): Promise<ServiceWorkerRegistration
         location.reload();
       }
     }
+    // Unregister any legacy service workers that might conflict
+    try {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      const ourUrl = new URL('/sw.js', location.origin).href;
+      await Promise.all(
+        regs
+          .filter((r) => (r as any).active && (r as any).active.scriptURL && (r as any).active.scriptURL !== ourUrl)
+          .map((r) => r.unregister())
+      );
+    } catch {}
     return registration;
   } catch (err) {
     console.error('Service worker registration failed', err);
