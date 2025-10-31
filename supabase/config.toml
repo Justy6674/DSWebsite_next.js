@@ -89,3 +89,11 @@ verify_jwt = false
 
 [functions.halaxy-api]
 verify_jwt = true
+
+[functions.water-reminder-sender]
+verify_jwt = false
+
+# Attempt to schedule the water reminder sender every 5 minutes
+[functions.schedules.water-reminder-sender]
+schedule = "*/5 * * * *"
+endpoint = "water-reminder-sender"
