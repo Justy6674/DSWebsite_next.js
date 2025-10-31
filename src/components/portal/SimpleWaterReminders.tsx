@@ -181,6 +181,7 @@ export default function SimpleWaterReminders() {
   const [subscriptionError, setSubscriptionError] = useState<string>('');
   const [subscriptionSummary, setSubscriptionSummary] = useState<string>('');
   const [lastTestAt, setLastTestAt] = useState<string>('');
+  const [serverTestStatus, setServerTestStatus] = useState<string>('');
 
   const urlBase64ToUint8Array = (base64String: string) => {
     const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -260,6 +261,34 @@ export default function SimpleWaterReminders() {
       setSubscriptionSummary('Not subscribed on this device');
     } catch (e: any) {
       setSubscriptionError(e?.message || 'Failed to unsubscribe');
+    }
+  };
+
+  // Detect iOS PWA requirement
+  const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isStandalone = typeof window !== 'undefined' && ((window.navigator as any).standalone === true);
+
+  const sendBackgroundPushTest = async () => {
+    try {
+      setServerTestStatus('');
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData?.session?.access_token;
+      if (!token) {
+        setServerTestStatus('Not signed in');
+        return;
+      }
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pooebqhsshfafkhvccrl.supabase.co'}/functions/v1/water-reminder-sender?test=1`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        setServerTestStatus(`Error: ${json?.error || res.status}`);
+        return;
+      }
+      setServerTestStatus(`Server push sent (checked=${json.checked}, sent=${json.sent ?? 1})`);
+    } catch (e: any) {
+      setServerTestStatus(e?.message || 'Failed to send');
     }
   };
 
@@ -583,6 +612,18 @@ export default function SimpleWaterReminders() {
                   Disable Push
                 </Button>
               </div>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <Button
+                  onClick={sendBackgroundPushTest}
+                  variant="outline"
+                  className="border-slate-600 text-[#fef5e7] hover:bg-slate-700"
+                >
+                  Send Background Push Test
+                </Button>
+                {isIOS && !isStandalone && (
+                  <span className="text-xs text-[#fef5e7] self-center opacity-80">Install to Home Screen to enable iPhone push</span>
+                )}
+              </div>
               {subscriptionError && (
                 <p className="text-xs text-orange-300">{subscriptionError}</p>
               )}
@@ -593,6 +634,9 @@ export default function SimpleWaterReminders() {
                 <p className="text-xs text-[#fef5e7] opacity-80">Test sent at {lastTestAt}</p>
               )}
               <p className="text-xs text-[#fef5e7] opacity-80">Notifications permission: {notificationPermission}</p>
+              {serverTestStatus && (
+                <p className="text-xs text-[#fef5e7] opacity-80">{serverTestStatus}</p>
+              )}
             </div>
           </CardContent>
         </Card>
