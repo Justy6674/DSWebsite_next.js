@@ -555,7 +555,7 @@ export default function SimpleWaterReminders() {
                     alert('Notifications are not supported on this browser/device.');
                     return;
                   }
-                  const permission = Notification.permission;
+                  let permission = Notification.permission;
                   if (permission !== 'granted') {
                     const result = await requestNotificationPermission();
                     if (result !== 'granted') {
@@ -563,41 +563,16 @@ export default function SimpleWaterReminders() {
                       alert('Notifications are blocked. Please allow notifications for downscale.com.au in your browser settings, then reload.');
                       return;
                     }
+                    permission = 'granted';
                   }
+                  // Best practice foreground test: window Notification (no SW dependency)
                   try {
-                    if (!('serviceWorker' in navigator)) {
-                      setTestError('Service worker not supported in this browser.');
-                      alert('Service worker not supported in this browser.');
-                      return;
-                    }
-                    const reg = await (navigator.serviceWorker.ready ?? navigator.serviceWorker.register('/sw.js'));
                     const tone = getToneStyleData(settings.toneStyle);
-                    const payload = { type: 'test-notification', title: 'Water Reminder', body: tone.example, vibrate: settings.vibrate ? [200, 100, 200] : undefined };
-
-                    if (navigator.serviceWorker?.controller) {
-                      navigator.serviceWorker.controller.postMessage(payload);
-                    } else if (reg?.active) {
-                      reg.active.postMessage(payload);
-                    } else if (reg && 'showNotification' in reg) {
-                      await (reg as any).showNotification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' } as NotificationOptions);
-                    } else if ('Notification' in window && Notification.permission === 'granted') {
-                      new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
-                    } else {
-                      setTestError('Could not display a notification. Please enable notifications and refresh.');
-                      alert('Notifications are not enabled on this browser/device. Please enable and refresh.');
-                    }
-                    if (settings.vibrate && 'vibrate' in navigator) {
-                      navigator.vibrate([200, 100, 200]);
-                    }
-                  } catch {
-                    // Fallback to window Notification if available
-                    if ('Notification' in window && Notification.permission === 'granted') {
-                      const tone = getToneStyleData(settings.toneStyle);
-                      new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
-                      if (settings.vibrate && 'vibrate' in navigator) navigator.vibrate([200, 100, 200]);
-                    } else {
-                      setTestError('Notification failed. Check browser settings and try again.');
-                    }
+                    new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
+                    if (settings.vibrate && 'vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+                  } catch (err) {
+                    setTestError('Notification failed. Check browser settings and try again.');
+                    alert('Notification failed. Please check browser/site notification settings and try again.');
                   }
                   setLastTestAt(new Date().toLocaleTimeString());
                 }}
