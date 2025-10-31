@@ -62,9 +62,9 @@ Rationale: Per repo rules, all user data/preferences live in `user_profiles.meta
 - `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (Base64 URL‑safe). Required for actual push subscription.
 - Icons: `/favicon-32x32.png` used for push badge/icon.
 
-### Edge Functions (Phase 2 proposal)
-- `water-reminder-sender` (scheduled): fetch users due for reminders and send web push using VAPID private key.
-- `water-reminders-ai` (on‑demand): generate tone‑appropriate copy with Australian spelling (template‑based or model‑backed).
+### Edge Functions
+- `water-reminder-sender` (scheduled): fetch users due for reminders and send web push using VAPID private key. Runs every 5 minutes; respects `enabled`, `wakeTime`/`sleepTime`, `customTimes`, and `reminderInterval` with `water_reminders_last_sent` debounce. Prunes invalid subscriptions (410/404).
+- `water-reminders-ai` (optional, future): generate tone‑appropriate copy with Australian spelling (template‑based or model‑backed).
 
 ### Compliance & Content
 - Non‑clinical nudges only; no emergency advice.
@@ -85,8 +85,8 @@ Rationale: Per repo rules, all user data/preferences live in `user_profiles.meta
 
 ### Rollout Plan
 1) Deploy code to main.
-2) Add `NEXT_PUBLIC_VAPID_PUBLIC_KEY` in Vercel env when ready for push.
-3) Phase‑2: Add sender (Edge function + schedule) and VAPID private secret.
+2) Set env: `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (client), `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, and optional `VAPID_SUBJECT` (Supabase Edge).
+3) Confirm schedule: `water-reminder-sender` every 5 minutes (Supabase config.toml). Validate in Supabase dashboard if needed.
 
 ### Known Limitations
 - Background delivery requires VAPID keys and PWA install on iOS.
