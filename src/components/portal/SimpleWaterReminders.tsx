@@ -532,7 +532,7 @@ export default function SimpleWaterReminders() {
                     }
                   }
                 }}
-                disabled={!settings.enabled || notificationPermission !== 'granted'}
+                disabled={!settings.enabled}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
               >
                 Test Reminder
