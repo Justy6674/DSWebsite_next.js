@@ -9,7 +9,7 @@ import { FileText, Video, Link, Settings, BookOpen, ExternalLink, Calendar, Tren
 import FilePreviewClient from './FilePreviewClient';
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide';
-type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication';
+type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'medication';
 
 interface VideoContent {
   url: string;
@@ -71,13 +71,12 @@ interface PortalContentPreviewProps {
 }
 
 const PILLARS: { value: Pillar; label: string; colour: string }[] = [
+  { value: 'medication', label: '💊 Medication', colour: 'bg-red-100 text-red-800' },
   { value: 'nutrition', label: '🥗 Nutrition', colour: 'bg-green-100 text-green-800' },
   { value: 'activity', label: '💪 Activity', colour: 'bg-blue-100 text-blue-800' },
-  { value: 'mental-health', label: '🧠 Mental Health', colour: 'bg-purple-100 text-purple-800' },
-  { value: 'sleep-recovery', label: '😴 Sleep & Recovery', colour: 'bg-indigo-100 text-indigo-800' },
-  { value: 'water', label: '💧 Hydration', colour: 'bg-cyan-100 text-cyan-800' },
-  { value: 'shop', label: '🛒 Shop', colour: 'bg-orange-100 text-orange-800' },
-  { value: 'medication', label: '💊 Medication', colour: 'bg-red-100 text-red-800' }
+  { value: 'mental-health', label: '🧠 Mental Health & Goals', colour: 'bg-purple-100 text-purple-800' },
+  { value: 'sleep-recovery', label: '😴 Sleep + Recovery', colour: 'bg-indigo-100 text-indigo-800' },
+  { value: 'water', label: '💧 Water', colour: 'bg-cyan-100 text-cyan-800' }
 ];
 
 const CONTENT_TYPES: { value: ContentType; label: string; icon: any }[] = [

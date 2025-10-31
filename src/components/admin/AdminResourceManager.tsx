@@ -37,12 +37,12 @@ interface PortalResource {
 }
 
 const PILLARS = [
-  { value: 'nutrition', label: 'Nutrition' },
-  { value: 'activity', label: 'Activity & Exercise' },
-  { value: 'mental-health', label: 'Mental Health' },
-  { value: 'sleep-recovery', label: 'Sleep & Recovery' },
   { value: 'medication', label: 'Medication' },
-  { value: 'shop', label: 'Shop & Products' }
+  { value: 'nutrition', label: 'Nutrition' },
+  { value: 'activity', label: 'Activity' },
+  { value: 'mental-health', label: 'Mental Health & Goals' },
+  { value: 'sleep-recovery', label: 'Sleep + Recovery' },
+  { value: 'water', label: 'Water' }
 ];
 
 const CONTENT_TYPES = [
