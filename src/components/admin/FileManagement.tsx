@@ -264,6 +264,7 @@ export default function FileManagement() {
   const [showPortalModal, setShowPortalModal] = useState(false);
   const [selectedFileForPortal, setSelectedFileForPortal] = useState<FileItem | null>(null);
   const [existingPortalEntries, setExistingPortalEntries] = useState<any[]>([]);
+  const [fileIdToPortal, setFileIdToPortal] = useState<Record<string, any[]>>({});
   const [portalAssignment, setPortalAssignment] = useState<PortalCategoryAssignment>({
     pillar: 'medication',
     content_type: 'external_doc',
@@ -626,6 +627,22 @@ export default function FileManagement() {
       }
 
       setFiles(filteredFiles);
+
+      // Build quick map of file_id -> portal entries for glance view
+      try {
+        const { data: portalRows } = await (supabase as any)
+          .from('portal_content')
+          .select('id,title,pillar,content_data');
+        const map: Record<string, any[]> = {};
+        (portalRows || []).forEach((row: any) => {
+          const fid = row?.content_data?.file_id;
+          if (fid) {
+            if (!map[fid]) map[fid] = [];
+            map[fid].push(row);
+          }
+        });
+        setFileIdToPortal(map);
+      } catch {}
 
       // Generate missing thumbnails for PDFs in background
       setTimeout(async () => {
@@ -1496,6 +1513,10 @@ export default function FileManagement() {
                           </span>
                           <span className="bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
                             {file.type}
+                          </span>
+                          {/* Inline portal badge if already assigned */}
+                          <span className="bg-emerald-900/30 px-3 py-1 rounded-full border border-emerald-700 text-emerald-200">
+                            {fileIdToPortal[file.id]?.length > 0 ? `In Portal (${fileIdToPortal[file.id].length})` : 'Not in Portal'}
                           </span>
                         </div>
                         <p className="text-sm text-slate-400 mt-2">
