@@ -57,6 +57,27 @@ self.addEventListener('notificationclick', (event) => {
   );
 });
 
+// Message-based test notification fallback
+self.addEventListener('message', (event) => {
+  try {
+    const data = event.data || {};
+    if (data.type === 'test-notification') {
+      const title = data.title || 'Water Reminder';
+      const options = {
+        body: data.body || 'Time to hydrate – your body will thank you.',
+        icon: '/favicon-32x32.png',
+        badge: '/favicon-32x32.png',
+        vibrate: data.vibrate || [200, 100, 200],
+        data: { url: '/portal/water' },
+        tag: 'water-reminder-test'
+      };
+      event.waitUntil(self.registration.showNotification(title, options));
+    }
+  } catch (e) {
+    // no-op
+  }
+});
+
 // Service Worker for Performance Optimization
 const CACHE_NAME = 'downscale-v1';
 const STATIC_CACHE = [

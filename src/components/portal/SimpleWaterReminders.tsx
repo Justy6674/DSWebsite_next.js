@@ -510,10 +510,16 @@ export default function SimpleWaterReminders() {
                   try {
                     const reg = await (navigator.serviceWorker?.ready ?? navigator.serviceWorker?.register('/sw.js'));
                     const tone = getToneStyleData(settings.toneStyle);
-                    await reg?.showNotification?.('Water Reminder', {
-                      body: tone.example,
-                      icon: '/favicon.ico'
-                    } as NotificationOptions);
+                    if (reg?.showNotification) {
+                      await reg.showNotification('Water Reminder', { body: tone.example, icon: '/favicon.ico' } as NotificationOptions);
+                    } else if (reg?.active) {
+                      reg.active.postMessage({
+                        type: 'test-notification',
+                        title: 'Water Reminder',
+                        body: tone.example,
+                        vibrate: settings.vibrate ? [200, 100, 200] : undefined
+                      });
+                    }
                     if (settings.vibrate && 'vibrate' in navigator) {
                       navigator.vibrate([200, 100, 200]);
                     }
