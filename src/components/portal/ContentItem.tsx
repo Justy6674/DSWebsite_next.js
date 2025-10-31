@@ -16,6 +16,7 @@ import {
   Bookmark,
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { usePortalResources } from '@/hooks/usePortalResources';
 import PDFThumbnail from '@/components/admin/PDFThumbnail';
 import { useAuth } from '@/contexts/AuthContext';
 import ReactMarkdown from 'react-markdown';
@@ -55,6 +56,8 @@ const CONTENT_TYPE_LABELS = {
 
 export default function ContentItem({ item }: ContentItemProps) {
   const { user } = useAuth();
+  const { isResourceSaved, saveResource, unsaveResource, refreshSavedResources } = usePortalResources();
+  const [saving, setSaving] = React.useState(false);
 
   const IconComponent = CONTENT_TYPE_ICONS[item.content_type] || FileText;
   const typeLabel = CONTENT_TYPE_LABELS[item.content_type] || 'Content';
@@ -185,6 +188,26 @@ export default function ContentItem({ item }: ContentItemProps) {
     }
   };
 
+  const handleSaveToggle = async () => {
+    if (!user?.id) {
+      alert('Please sign in to save resources.');
+      return;
+    }
+    try {
+      setSaving(true);
+      if (isResourceSaved(item.id)) {
+        await unsaveResource(item.id);
+      } else {
+        await saveResource(item.id);
+      }
+      await refreshSavedResources?.();
+    } catch (e) {
+      console.error('Save resource error', e);
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <Card className="bg-slate-800 border border-slate-700 hover:border-[#b68a71] transition-all duration-300 cursor-pointer group min-w-0">
       <div className="p-4 md:p-6">
@@ -257,10 +280,11 @@ export default function ContentItem({ item }: ContentItemProps) {
             )}
 
             {/* Action Button */}
-            <Button
-              onClick={handleClick}
-              className="bg-[#b68a71] hover:bg-[#8B6F47] text-white w-full sm:w-auto"
-            >
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                onClick={handleClick}
+                className="bg-[#b68a71] hover:bg-[#8B6F47] text-white w-full sm:w-auto"
+              >
               {item.content_type === 'video' && (
                 <>
                   <Play className="h-4 w-4 mr-2" />
@@ -297,7 +321,17 @@ export default function ContentItem({ item }: ContentItemProps) {
                   View Content
                 </>
               )}
-            </Button>
+              </Button>
+              <Button
+                onClick={handleSaveToggle}
+                variant="outline"
+                className={`border-slate-600 text-[#fef5e7] hover:bg-slate-700 ${saving ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={saving}
+              >
+                <Bookmark className="h-4 w-4 mr-2" />
+                {isResourceSaved(item.id) ? 'Saved' : 'Save'}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
