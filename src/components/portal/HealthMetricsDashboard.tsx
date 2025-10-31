@@ -580,7 +580,7 @@ export default function HealthMetricsDashboard() {
           {/* Patient-first guidance */}
           <Card className="bg-slate-800 border-slate-700">
             <CardHeader>
-              <CardTitle className="text-white">Patient‑first insights</CardTitle>
+              <CardTitle className="text-white">Downscale Insights</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-slate-300 text-sm">
               <p>
@@ -591,7 +591,27 @@ export default function HealthMetricsDashboard() {
                 <li><span className="text-slate-400">BMI</span>: a screening tool only; we pair it with waist and clinical context.</li>
                 <li><span className="text-slate-400">Goals</span>: energy targets and macros are personalised to preserve muscle and support daily life.</li>
               </ul>
-              <p className="text-slate-400">Language aligns with patient‑first guidance from recognised obesity organisations, adapted for Australian care.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div className="p-4 bg-slate-900 rounded-lg border border-slate-700">
+                  <div className="font-semibold text-slate-200 mb-2">BMI guide (adults)</div>
+                  <ul className="list-disc ml-5 space-y-1 text-slate-300">
+                    <li>Underweight: <span className="text-slate-200">&lt; 18.5</span></li>
+                    <li>Healthy range: <span className="text-slate-200">18.5–24.9</span></li>
+                    <li>Overweight: <span className="text-slate-200">25.0–29.9</span></li>
+                    <li>Obesity: <span className="text-slate-200">≥ 30.0</span> (classes used for clinical planning)</li>
+                  </ul>
+                  <p className="text-xs text-slate-500 mt-2">BMI is a population tool; individual assessment considers age, ethnicity, muscle mass and health conditions.</p>
+                </div>
+                <div className="p-4 bg-slate-900 rounded-lg border border-slate-700">
+                  <div className="font-semibold text-slate-2 00 mb-2">Waist guide (health risk)</div>
+                  <ul className="list-disc ml-5 space-y-1 text-slate-300">
+                    <li>Women: increased risk <span className="text-slate-200">&gt; 80 cm</span>; high risk <span className="text-slate-200">&gt; 88 cm</span></li>
+                    <li>Men: increased risk <span className="text-slate-200">&gt; 94 cm</span>; high risk <span className="text-slate-200">&gt; 102 cm</span></li>
+                  </ul>
+                  <p className="text-xs text-slate-500 mt-2">Measure midway between the lowest rib and the top of the hip bone, after a normal breath out.</p>
+                </div>
+              </div>
+              <p className="text-slate-400 mt-2">Language aligns with patient‑first guidance from recognised obesity organisations and Australian clinical practice.</p>
             </CardContent>
           </Card>
         </TabsContent>
