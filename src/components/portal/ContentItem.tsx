@@ -90,7 +90,13 @@ export default function ContentItem({ item }: ContentItemProps) {
       }
     }
 
-    // 3) Prefer OG image for links/external docs
+    // 3) For links/external docs: prefer explicit thumbnail_url override first
+    if ((item.content_type === 'link' || item.content_type === 'external_doc') && typeof cd.thumbnail_url === 'string' && cd.thumbnail_url) {
+      setThumbUrl(cd.thumbnail_url);
+      return;
+    }
+
+    // 3.2) Prefer OG image
     if ((item.content_type === 'link' || item.content_type === 'external_doc') && typeof cd.og_image === 'string' && cd.og_image) {
       setThumbUrl(cd.og_image);
       return;

@@ -214,7 +214,8 @@ export default function PortalContentManager() {
           url: data.url || '',
           file_type: data.file_type || 'PDF',
           file_size: data.file_size || '',
-          source: data.source || ''
+          source: data.source || '',
+          thumbnail_url: data.thumbnail_url || ''
         }
         break
       case 'downscale_doc':
@@ -447,18 +448,32 @@ export default function PortalContentManager() {
         )}
 
         {(formData.content_type === 'external_doc' || formData.content_type === 'link') && (
-          <div>
-            <Label htmlFor="url">URL</Label>
-            <Input
-              id="url"
-              value={(formData.content_data as ExternalDocContent | LinkContent).url || ''}
-              onChange={(e) => setFormData({
-                ...formData,
-                content_data: { ...formData.content_data, url: e.target.value }
-              })}
-              placeholder="External URL"
-            />
-          </div>
+          <>
+            <div>
+              <Label htmlFor="url">URL</Label>
+              <Input
+                id="url"
+                value={(formData.content_data as ExternalDocContent | LinkContent).url || ''}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  content_data: { ...formData.content_data, url: e.target.value }
+                })}
+                placeholder="External URL"
+              />
+            </div>
+            <div>
+              <Label htmlFor="thumb_url">Thumbnail URL (optional)</Label>
+              <Input
+                id="thumb_url"
+                value={(formData.content_data as any).thumbnail_url || ''}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  content_data: { ...formData.content_data, thumbnail_url: e.target.value }
+                })}
+                placeholder="https://.../image.jpg (used when OG image is poor)"
+              />
+            </div>
+          </>
         )}
 
         {formData.content_type === 'downscale_doc' && (
