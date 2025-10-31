@@ -66,6 +66,7 @@ export default function HealthMetricsDashboard() {
 
   // Progress charts state
   const [range, setRange] = useState<'7d' | '30d' | '90d' | 'all'>('30d');
+  const [selectedMetricsId, setSelectedMetricsId] = useState<string | null>(null);
 
   // Lightweight SVG sparkline renderer (no external deps)
   const Sparkline = ({ data, width = 180, height = 46, stroke = '#22c55e' }: { data: number[]; width?: number; height?: number; stroke?: string }) => {
@@ -500,12 +501,16 @@ export default function HealthMetricsDashboard() {
               {metrics && metrics.length > 0 ? (
                 <div className="space-y-4">
                   {metrics.slice(0, 10).map((m) => (
-                    <div key={m.id} className="p-4 bg-slate-900 rounded-lg grid grid-cols-2 md:grid-cols-4 gap-2 items-center">
+                    <button
+                      key={m.id}
+                      onClick={() => setSelectedMetricsId(m.id!)}
+                      className={`text-left p-4 bg-slate-900 rounded-lg grid grid-cols-2 md:grid-cols-4 gap-2 items-center w-full border ${selectedMetricsId === m.id ? 'border-[#b68a71]' : 'border-slate-700'} hover:border-[#b68a71]/60`}
+                    >
                       <div className="text-white font-medium">{new Date(m.created_at).toLocaleDateString('en-AU')}</div>
                       <div className="text-slate-400 text-sm">Weight: {m.weight_kg}kg{m.waist_cm ? ` • Waist: ${m.waist_cm}cm` : ''}</div>
                       <div className="text-slate-400 text-sm">TDEE: {m.tdee}</div>
                       <div className="text-slate-400 text-sm">Goal cals: {m.goal_calories}</div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               ) : (
@@ -514,6 +519,79 @@ export default function HealthMetricsDashboard() {
                   <p className="text-slate-500 text-sm">Calculate your metrics and save them to see progress here.</p>
                 </div>
               )}
+            </CardContent>
+          </Card>
+
+          {/* Selected saved analysis */}
+          {selectedMetricsId && (() => {
+            const s = metrics.find(m => m.id === selectedMetricsId);
+            if (!s) return null;
+            return (
+              <Card className="bg-slate-800 border-slate-700">
+                <CardHeader>
+                  <CardTitle className="text-white">Saved Analysis — {new Date(s.created_at).toLocaleDateString('en-AU')}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="p-4 bg-slate-900 rounded-lg">
+                      <div className="text-slate-400 text-sm">BMR (Basal Metabolic Rate)</div>
+                      <div className="text-2xl font-bold text-white">{s.bmr} cal/day</div>
+                    </div>
+                    <div className="p-4 bg-slate-900 rounded-lg">
+                      <div className="text-slate-400 text-sm">TDEE (Total Daily Energy)</div>
+                      <div className="text-2xl font-bold text-white">{s.tdee} cal/day</div>
+                    </div>
+                    <div className="p-4 bg-slate-900 rounded-lg md:col-span-2">
+                      <div className="text-slate-400 text-sm">Goal Calories</div>
+                      <div className="text-2xl font-bold text-emerald-400">{s.goal_calories} cal/day</div>
+                    </div>
+                    <div className="p-4 bg-slate-900 rounded-lg">
+                      <div className="text-slate-400 text-sm">BMI</div>
+                      <div className="text-xl font-semibold text-white">{s.bmi}</div>
+                      <div className="mt-1 inline-flex px-2 py-1 rounded text-xs border border-slate-700 text-slate-300">{s.bmi_category}</div>
+                    </div>
+                    <div className="p-4 bg-slate-900 rounded-lg">
+                      <div className="text-slate-400 text-sm">Waist Risk</div>
+                      <div className="mt-1 inline-flex px-2 py-1 rounded text-xs border border-slate-700 text-slate-300">{s.waist_risk || '—'}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-slate-400 text-sm mb-2">Daily Macro Targets</div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="p-3 bg-slate-900 rounded-lg text-center">
+                        <div className="text-xs text-slate-400">Protein</div>
+                        <div className="text-lg font-semibold text-red-400">{s.protein_g}g</div>
+                      </div>
+                      <div className="p-3 bg-slate-900 rounded-lg text-center">
+                        <div className="text-xs text-slate-400">Fat</div>
+                        <div className="text-lg font-semibold text-yellow-400">{s.fat_g}g</div>
+                      </div>
+                      <div className="p-3 bg-slate-900 rounded-lg text-center">
+                        <div className="text-xs text-slate-400">Carbs</div>
+                        <div className="text-lg font-semibold text-blue-400">{s.carbs_g}g</div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })()}
+
+          {/* Patient-first guidance */}
+          <Card className="bg-slate-800 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white">Patient‑first insights</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-slate-300 text-sm">
+              <p>
+                Your numbers are tools, not labels. BMI and waist circumference help us estimate health risk, but they don’t capture muscle, fluid shifts, or your lived experience. We focus on trends over time and how you feel.
+              </p>
+              <ul className="list-disc ml-5 space-y-1">
+                <li><span className="text-slate-400">Weight & waist</span>: small, steady changes (even 0.2–0.5 kg/week or 1–2 cm/month) are meaningful.</li>
+                <li><span className="text-slate-400">BMI</span>: a screening tool only; we pair it with waist and clinical context.</li>
+                <li><span className="text-slate-400">Goals</span>: energy targets and macros are personalised to preserve muscle and support daily life.</li>
+              </ul>
+              <p className="text-slate-400">Language aligns with patient‑first guidance from recognised obesity organisations, adapted for Australian care.</p>
             </CardContent>
           </Card>
         </TabsContent>
