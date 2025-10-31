@@ -6,10 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { FileText, Video, Link, Settings, BookOpen, ExternalLink, Calendar, TrendingUp, X } from 'lucide-react';
+import type { Database } from '@/integrations/supabase/types';
 import FilePreviewClient from './FilePreviewClient';
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide';
-type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'medication';
+type Pillar = Database['public']['Tables']['portal_content']['Row']['pillar'];
 
 interface VideoContent {
   url: string;

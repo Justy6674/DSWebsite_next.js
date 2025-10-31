@@ -14,9 +14,10 @@ import { supabase } from '@/integrations/supabase/client'
 import { Plus, FileText, Video, Link, Settings, BookOpen, ExternalLink, Upload, Search, Eye, Edit, Trash2, Calendar, TrendingUp } from 'lucide-react'
 import PortalContentPreview from './PortalContentPreview'
 import TagsInput from '@/components/admin/TagsInput'
+import type { Database } from '@/integrations/supabase/types'
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
-type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'medication'
+type Pillar = Database['public']['Tables']['portal_content']['Row']['pillar']
 
 interface VideoContent {
   url: string
