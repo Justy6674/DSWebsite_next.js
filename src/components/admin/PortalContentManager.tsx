@@ -330,7 +330,7 @@ export default function PortalContentManager() {
 
   const resetForm = () => {
     setFormData({
-      pillar: '' as Pillar,
+      pillars: [] as Pillar[],
       content_type: '' as ContentType,
       title: '',
       description: '',
@@ -344,7 +344,7 @@ export default function PortalContentManager() {
 
   const startEdit = (content: PortalContent) => {
     setFormData({
-      pillar: content.pillar,
+      pillars: [content.pillar as Pillar],
       content_type: content.content_type,
       title: content.title,
       description: content.description,
