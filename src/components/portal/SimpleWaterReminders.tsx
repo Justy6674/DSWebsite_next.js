@@ -183,6 +183,7 @@ export default function SimpleWaterReminders() {
   const [lastTestAt, setLastTestAt] = useState<string>('');
   const [serverTestStatus, setServerTestStatus] = useState<string>('');
   const [testError, setTestError] = useState<string>('');
+  const [localBanner, setLocalBanner] = useState<{ show: boolean; message: string } | null>(null);
 
   const urlBase64ToUint8Array = (base64String: string) => {
     const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -570,6 +571,9 @@ export default function SimpleWaterReminders() {
                     const tone = getToneStyleData(settings.toneStyle);
                     new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
                     if (settings.vibrate && 'vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+                    // Always show an in‑app banner so the action is visibly confirmed even if the OS suppresses the toast
+                    setLocalBanner({ show: true, message: tone.example });
+                    setTimeout(() => setLocalBanner((b) => (b ? { ...b, show: false } : b)), 4000);
                   } catch (err) {
                     setTestError('Notification failed. Check browser settings and try again.');
                     alert('Notification failed. Please check browser/site notification settings and try again.');
@@ -810,5 +814,16 @@ export default function SimpleWaterReminders() {
         </CardContent>
       </Card>
     </div>
+
+    {/* In‑app confirmation banner */}
+    {localBanner?.show && (
+      <div
+        role="status"
+        className="fixed top-4 right-4 z-50 max-w-sm bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg shadow px-4 py-3"
+      >
+        <div className="font-semibold mb-1">Water Reminder (preview)</div>
+        <div className="text-sm opacity-90">{localBanner.message}</div>
+      </div>
+    )}
   );
 }
