@@ -501,16 +501,28 @@ export default function SimpleWaterReminders() {
 
             <div className="space-y-2">
               <Button
-                onClick={() => {
-                  if (settings.enabled) {
-                    // Trigger test notification
+                onClick={async () => {
+                  if (!settings.enabled) return;
+                  const permission = 'Notification' in window ? Notification.permission : 'denied';
+                  if (permission !== 'granted') {
+                    await requestNotificationPermission();
+                  }
+                  try {
+                    const reg = await (navigator.serviceWorker?.ready ?? navigator.serviceWorker?.register('/sw.js'));
                     const tone = getToneStyleData(settings.toneStyle);
-                    const n = new Notification("Water Reminder", {
+                    await reg?.showNotification?.('Water Reminder', {
                       body: tone.example,
-                      icon: "/favicon.ico"
-                    });
+                      icon: '/favicon.ico'
+                    } as NotificationOptions);
                     if (settings.vibrate && 'vibrate' in navigator) {
                       navigator.vibrate([200, 100, 200]);
+                    }
+                  } catch {
+                    // Fallback to window Notification if available
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                      const tone = getToneStyleData(settings.toneStyle);
+                      new Notification('Water Reminder', { body: tone.example, icon: '/favicon.ico' });
+                      if (settings.vibrate && 'vibrate' in navigator) navigator.vibrate([200, 100, 200]);
                     }
                   }
                 }}
