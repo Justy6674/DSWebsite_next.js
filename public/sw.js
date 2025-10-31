@@ -1,3 +1,62 @@
+// Basic Service Worker for Push Notifications
+// Note: Requires valid VAPID keys and a Push Subscription created on the client
+
+self.addEventListener('install', () => {
+  // Activate immediately after install
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener('push', (event) => {
+  try {
+    const data = event.data ? event.data.json() : {};
+    const title = data.title || 'Water Reminder';
+    const options = {
+      body: data.body || 'Time to hydrate – your body will thank you.',
+      icon: data.icon || '/favicon-32x32.png',
+      badge: data.badge || '/favicon-32x32.png',
+      tag: data.tag || 'water-reminder',
+      renotify: true,
+      vibrate: data.vibrate || [200, 100, 200],
+      data: {
+        url: data.url || '/portal/water'
+      }
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+  } catch (e) {
+    // Fallback minimal notification if payload isn't JSON
+    event.waitUntil(
+      self.registration.showNotification('Water Reminder', {
+        body: 'Time to drink water',
+        icon: '/favicon-32x32.png',
+        vibrate: [200, 100, 200]
+      })
+    );
+  }
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const targetUrl = (event.notification && event.notification.data && event.notification.data.url) || '/portal/water';
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if ('focus' in client) {
+          client.navigate(targetUrl);
+          return client.focus();
+        }
+      }
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(targetUrl);
+      }
+    })
+  );
+});
+
 // Service Worker for Performance Optimization
 const CACHE_NAME = 'downscale-v1';
 const STATIC_CACHE = [

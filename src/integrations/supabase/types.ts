@@ -14,6 +14,21 @@ export interface UserMetadata {
     saved_at: string
     notes?: string
   }>
+  water_reminders?: {
+    enabled: boolean
+    reminderInterval: number
+    toneStyle: string
+    customTimes: string[]
+    wakeTime: string
+    sleepTime: string
+    vibrate?: boolean
+  }
+  push_subscriptions?: Array<{
+    endpoint: string
+    keys: { p256dh: string; auth: string }
+    created_at: string
+    device?: string
+  }>
   subscription?: {
     id: string
     tier: 'freemium' | 'basic' | 'premium' | 'vip'

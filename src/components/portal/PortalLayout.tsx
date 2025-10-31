@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { useAuth } from '@/contexts/AuthContext';
 import PortalSidebar from './PortalSidebar';
 import MobileBottomNav from './MobileBottomNav';
@@ -26,6 +27,11 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
         setPortalUser(JSON.parse(storedUser));
       }
     }
+  }, []);
+
+  // Register service worker for push notifications
+  React.useEffect(() => {
+    registerServiceWorker();
   }, []);
 
   // Fetch user profile data from Supabase

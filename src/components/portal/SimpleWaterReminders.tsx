@@ -23,6 +23,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 
 interface ReminderSettings {
   enabled: boolean;
@@ -31,6 +32,7 @@ interface ReminderSettings {
   customTimes: string[];
   wakeTime: string;
   sleepTime: string;
+  vibrate?: boolean;
 }
 
 const toneStyles = {
@@ -92,7 +94,8 @@ export default function SimpleWaterReminders() {
     toneStyle: 'encouraging',
     customTimes: [],
     wakeTime: '07:00',
-    sleepTime: '22:00'
+    sleepTime: '22:00',
+    vibrate: true
   });
 
   const [newReminderTime, setNewReminderTime] = useState('');
@@ -112,13 +115,30 @@ export default function SimpleWaterReminders() {
 
   const currentUser = user || portalUser;
 
-  // Load settings - NO FAKE DATA
+  // Load settings from Supabase metadata; fallback to localStorage
   useEffect(() => {
     if (currentUser?.email) {
-      const savedSettings = localStorage.getItem(`water_reminder_settings_${currentUser.email}`);
-      if (savedSettings) {
-        setSettings(JSON.parse(savedSettings));
-      }
+      (async () => {
+        try {
+          if (currentUser?.id) {
+            const { data: profile } = await supabase
+              .from('user_profiles')
+              .select('metadata')
+              .eq('id', currentUser.id)
+              .single();
+            const meta = (profile as any)?.metadata || {};
+            if (meta?.water_reminders) {
+              setSettings((prev) => ({ ...prev, ...meta.water_reminders }));
+            } else {
+              const saved = localStorage.getItem(`water_reminder_settings_${currentUser.email}`);
+              if (saved) setSettings((prev) => ({ ...prev, ...(JSON.parse(saved) || {}) }));
+            }
+          }
+        } catch (e) {
+          const saved = localStorage.getItem(`water_reminder_settings_${currentUser.email}`);
+          if (saved) setSettings((prev) => ({ ...prev, ...(JSON.parse(saved) || {}) }));
+        }
+      })();
     }
 
     if ('Notification' in window) {
@@ -126,9 +146,115 @@ export default function SimpleWaterReminders() {
     }
   }, [currentUser]);
 
-  const saveSettings = () => {
-    if (currentUser?.email) {
-      localStorage.setItem(`water_reminder_settings_${currentUser.email}`, JSON.stringify(settings));
+  const saveSettings = async () => {
+    if (!currentUser?.id) return;
+    try {
+      // Merge into user metadata
+      const { data: profile } = await supabase
+        .from('user_profiles')
+        .select('metadata')
+        .eq('id', currentUser.id)
+        .single();
+
+      const meta = (profile as any)?.metadata || {};
+      const nextMeta = { ...meta, water_reminders: settings };
+
+      const { error } = await supabase
+        .from('user_profiles')
+        .update({ metadata: nextMeta as any })
+        .eq('id', currentUser.id);
+
+      if (error) throw error;
+      if (currentUser?.email) {
+        localStorage.setItem(`water_reminder_settings_${currentUser.email}`, JSON.stringify(settings));
+      }
+    } catch {
+      if (currentUser?.email) {
+        localStorage.setItem(`water_reminder_settings_${currentUser.email}`, JSON.stringify(settings));
+      }
+    }
+  };
+
+  // Push subscription handling (graceful if VAPID not configured)
+  const publicVapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string | undefined;
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [subscriptionError, setSubscriptionError] = useState<string>('');
+
+  const urlBase64ToUint8Array = (base64String: string) => {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = typeof window !== 'undefined' ? window.atob(base64) : '';
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) outputArray[i] = rawData.charCodeAt(i);
+    return outputArray;
+  };
+
+  const subscribeToPush = async () => {
+    setSubscriptionError('');
+    try {
+      if (!publicVapidKey) {
+        setSubscriptionError('Push not configured (missing VAPID key)');
+        return;
+      }
+      const reg = await (navigator.serviceWorker?.ready ?? navigator.serviceWorker?.register('/sw.js'));
+      if (!reg?.pushManager) {
+        setSubscriptionError('Push not supported on this device');
+        return;
+      }
+      let sub = await reg.pushManager.getSubscription();
+      if (!sub) {
+        sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+        });
+      }
+      const subJson = sub.toJSON();
+      // Save into metadata
+      if (currentUser?.id) {
+        const { data: profile } = await supabase
+          .from('user_profiles')
+          .select('metadata')
+          .eq('id', currentUser.id)
+          .single();
+        const meta = (profile as any)?.metadata || {};
+        const list = Array.isArray(meta.push_subscriptions) ? meta.push_subscriptions : [];
+        const exists = list.some((s: any) => s.endpoint === subJson.endpoint);
+        const updated = exists
+          ? list
+          : [...list, { endpoint: subJson.endpoint, keys: subJson.keys, created_at: new Date().toISOString() }];
+        const nextMeta = { ...meta, push_subscriptions: updated };
+        await supabase.from('user_profiles').update({ metadata: nextMeta as any }).eq('id', currentUser.id);
+      }
+      setIsSubscribed(true);
+    } catch (e: any) {
+      setSubscriptionError(e?.message || 'Failed to subscribe');
+    }
+  };
+
+  const unsubscribeFromPush = async () => {
+    setSubscriptionError('');
+    try {
+      const reg = await navigator.serviceWorker?.ready;
+      const sub = await reg?.pushManager.getSubscription();
+      if (sub) {
+        const endpoint = sub.endpoint;
+        await sub.unsubscribe();
+        if (currentUser?.id) {
+          const { data: profile } = await supabase
+            .from('user_profiles')
+            .select('metadata')
+            .eq('id', currentUser.id)
+            .single();
+          const meta = (profile as any)?.metadata || {};
+          const list = Array.isArray(meta.push_subscriptions) ? meta.push_subscriptions : [];
+          const updated = list.filter((s: any) => s.endpoint !== endpoint);
+          const nextMeta = { ...meta, push_subscriptions: updated };
+          await supabase.from('user_profiles').update({ metadata: nextMeta as any }).eq('id', currentUser.id);
+        }
+      }
+      setIsSubscribed(false);
+    } catch (e: any) {
+      setSubscriptionError(e?.message || 'Failed to unsubscribe');
     }
   };
 
@@ -321,6 +447,13 @@ export default function SimpleWaterReminders() {
                   className="bg-slate-900 border-slate-700 text-[#f8fafc]"
                 />
               </div>
+              <div className="col-span-2 flex items-center justify-between pt-2">
+                <Label className="text-[#fef5e7]">Vibrate on reminders</Label>
+                <Switch
+                  checked={!!settings.vibrate}
+                  onCheckedChange={(checked) => setSettings(prev => ({ ...prev, vibrate: checked }))}
+                />
+              </div>
             </div>
 
             <Button
@@ -353,10 +486,14 @@ export default function SimpleWaterReminders() {
                   if (settings.enabled) {
                     // Trigger test notification
                     const tone = getToneStyleData(settings.toneStyle);
-                    new Notification("Water Reminder", {
+                    const n = new Notification("Water Reminder", {
                       body: tone.example,
-                      icon: "/favicon.ico"
+                      icon: "/favicon.ico",
+                      vibrate: settings.vibrate ? [200, 100, 200] : undefined
                     });
+                    if (settings.vibrate && 'vibrate' in navigator) {
+                      navigator.vibrate([200, 100, 200]);
+                    }
                   }
                 }}
                 disabled={!settings.enabled || notificationPermission !== 'granted'}
@@ -377,6 +514,28 @@ export default function SimpleWaterReminders() {
               >
                 {settings.enabled ? 'Pause Reminders' : 'Start Reminders'}
               </Button>
+
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  onClick={subscribeToPush}
+                  disabled={!publicVapidKey || isSubscribed}
+                  variant="outline"
+                  className="border-slate-600 text-[#fef5e7] hover:bg-slate-700"
+                >
+                  {isSubscribed ? 'Subscribed' : 'Enable Push'}
+                </Button>
+                <Button
+                  onClick={unsubscribeFromPush}
+                  disabled={!isSubscribed}
+                  variant="outline"
+                  className="border-slate-600 text-[#fef5e7] hover:bg-slate-700"
+                >
+                  Disable Push
+                </Button>
+              </div>
+              {subscriptionError && (
+                <p className="text-xs text-orange-300">{subscriptionError}</p>
+              )}
             </div>
           </CardContent>
         </Card>
