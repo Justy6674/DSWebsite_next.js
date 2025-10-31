@@ -64,6 +64,39 @@ export default function HealthMetricsDashboard() {
   const [activeTab, setActiveTab] = useState('calculator');
   // Daily tracking removed
 
+  // Progress charts state
+  const [range, setRange] = useState<'7d' | '30d' | '90d' | 'all'>('30d');
+
+  // Lightweight SVG sparkline renderer (no external deps)
+  const Sparkline = ({ data, width = 180, height = 46, stroke = '#22c55e' }: { data: number[]; width?: number; height?: number; stroke?: string }) => {
+    if (!data || data.length === 0) {
+      return <svg width={width} height={height} />;
+    }
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const span = Math.max(1e-6, max - min);
+    const step = width / Math.max(1, data.length - 1);
+    const points = data.map((v, i) => {
+      const x = i * step;
+      const y = height - ((v - min) / span) * (height - 4) - 2; // padding 2px
+      return `${x},${y}`;
+    });
+    const path = `M ${points.join(' L ')}`;
+    return (
+      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+        <path d={path} fill="none" stroke={stroke} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+      </svg>
+    );
+  };
+
+  const formatDelta = (current: number, prev?: number) => {
+    if (prev === undefined) return '—';
+    const d = Math.round((current - prev) * 10) / 10;
+    if (d === 0) return '0';
+    const sign = d > 0 ? '+' : '';
+    return `${sign}${d}`;
+  };
+
   // Check for admin testing session
   const [portalUser, setPortalUser] = useState<any>(null);
 
@@ -376,6 +409,86 @@ export default function HealthMetricsDashboard() {
 
         {/* Progress History Tab */}
         <TabsContent value="history" className="space-y-6">
+          {/* New compact progress visuals */}
+          <Card className="bg-slate-800 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center justify-between">
+                <span>Progress Overview</span>
+                <div className="flex items-center gap-2 text-sm">
+                  <label className="text-slate-400">Range</label>
+                  <select
+                    value={range}
+                    onChange={(e) => setRange(e.target.value as any)}
+                    className="bg-slate-900 border border-slate-700 text-slate-200 rounded px-2 py-1"
+                  >
+                    <option value="7d">7d</option>
+                    <option value="30d">30d</option>
+                    <option value="90d">90d</option>
+                    <option value="all">All</option>
+                  </select>
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {(() => {
+                const cutoff = (() => {
+                  if (range === 'all') return 0;
+                  const now = Date.now();
+                  const days = range === '7d' ? 7 : range === '30d' ? 30 : 90;
+                  return now - days * 24 * 60 * 60 * 1000;
+                })();
+                const timeFiltered = metrics
+                  .filter((m) => new Date(m.created_at).getTime() >= cutoff)
+                  .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+                const w = timeFiltered.map((m) => m.weight_kg);
+                const wc = timeFiltered.map((m) => m.waist_cm || 0).filter((n) => n > 0);
+                const bmi = timeFiltered.map((m) => m.bmi);
+                const last = timeFiltered[timeFiltered.length - 1];
+                const prev = timeFiltered[timeFiltered.length - 2];
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 bg-slate-900 rounded-lg border border-slate-700">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-slate-400 text-sm">Weight (kg)</div>
+                        <div className={`text-sm ${last && prev && last.weight_kg - prev.weight_kg <= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                          {last ? formatDelta(last.weight_kg, prev?.weight_kg) : '—'}
+                        </div>
+                      </div>
+                      <div className="flex items-end justify-between">
+                        <div className="text-2xl font-semibold text-white">{last ? Math.round(last.weight_kg * 10) / 10 : '—'}</div>
+                        <Sparkline data={w} stroke="#38bdf8" />
+                      </div>
+                    </div>
+                    <div className="p-4 bg-slate-900 rounded-lg border border-slate-700">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-slate-400 text-sm">Waist (cm)</div>
+                        <div className={`text-sm ${last && prev && (last.waist_cm||0) - (prev?.waist_cm||0) <= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                          {last ? formatDelta(last.waist_cm || 0, prev?.waist_cm || undefined) : '—'}
+                        </div>
+                      </div>
+                      <div className="flex items-end justify-between">
+                        <div className="text-2xl font-semibold text-white">{last?.waist_cm ? Math.round((last.waist_cm) * 10) / 10 : '—'}</div>
+                        <Sparkline data={wc} stroke="#f59e0b" />
+                      </div>
+                    </div>
+                    <div className="p-4 bg-slate-900 rounded-lg border border-slate-700">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-slate-400 text-sm">BMI</div>
+                        <div className={`text-sm ${last && prev && last.bmi - prev.bmi <= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                          {last ? formatDelta(last.bmi, prev?.bmi) : '—'}
+                        </div>
+                      </div>
+                      <div className="flex items-end justify-between">
+                        <div className="text-2xl font-semibold text-white">{last ? Math.round(last.bmi * 10) / 10 : '—'}</div>
+                        <Sparkline data={bmi} stroke="#a78bfa" />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </CardContent>
+          </Card>
+
           <Card className="bg-slate-800 border-slate-700">
             <CardHeader>
               <CardTitle className="text-white flex items-center">
