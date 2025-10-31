@@ -100,6 +100,7 @@ export default function PortalContentManager() {
   const [editingContent, setEditingContent] = useState<PortalContent | null>(null)
   const [previewContent, setPreviewContent] = useState<PortalContent | null>(null)
   const { toast } = useToast()
+  const [urlDupes, setUrlDupes] = useState<any[]>([])
 
   // Form state
   const [formData, setFormData] = useState({
@@ -140,6 +141,24 @@ export default function PortalContentManager() {
       setLoading(false)
     }
   }
+
+  // Duplicate check for URL-based content
+  useEffect(() => {
+    const data = (formData.content_data as any) || {}
+    const url = data.url as string
+    if (!(formData.content_type === 'link' || formData.content_type === 'external_doc') || !url) {
+      setUrlDupes([])
+      return
+    }
+    const t = setTimeout(async () => {
+      const { data } = await supabase
+        .from('portal_content')
+        .select('id,title,pillar,content_data')
+        .contains('content_data', { url })
+      setUrlDupes(data || [])
+    }, 400)
+    return () => clearTimeout(t)
+  }, [formData.content_type, (formData.content_data as any)?.url])
 
   const handleSaveContent = async () => {
     try {
@@ -460,6 +479,16 @@ export default function PortalContentManager() {
                 })}
                 placeholder="External URL"
               />
+              {urlDupes.length > 0 && (
+                <div className="mt-2 text-sm bg-yellow-900/20 border border-yellow-700 rounded p-2 text-yellow-100">
+                  Possible duplicates found:
+                  <ul className="list-disc ml-5">
+                    {urlDupes.map((d) => (
+                      <li key={d.id}>{d.title} — {d.pillar} → {(d.content_data?.subsection || 'Uncategorised')}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div>
               <Label htmlFor="thumb_url">Thumbnail URL (optional)</Label>

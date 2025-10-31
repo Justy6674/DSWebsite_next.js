@@ -263,6 +263,7 @@ export default function FileManagement() {
   // Portal categorization state
   const [showPortalModal, setShowPortalModal] = useState(false);
   const [selectedFileForPortal, setSelectedFileForPortal] = useState<FileItem | null>(null);
+  const [existingPortalEntries, setExistingPortalEntries] = useState<any[]>([]);
   const [portalAssignment, setPortalAssignment] = useState<PortalCategoryAssignment>({
     pillar: 'medication',
     content_type: 'external_doc',
@@ -758,7 +759,7 @@ export default function FileManagement() {
   };
 
   // Open portal assignment modal
-  const openPortalModal = (file: FileItem) => {
+  const openPortalModal = async (file: FileItem) => {
     setSelectedFileForPortal(file);
     setPortalAssignment({
       pillar: 'medication',
@@ -775,6 +776,17 @@ export default function FileManagement() {
     });
     setTagsDraft('');
     setShowPortalModal(true);
+
+    // Check if this file is already added to the portal (by file_id)
+    try {
+      const { data } = await (supabase as any)
+        .from('portal_content')
+        .select('id, title, pillar, content_data')
+        .contains('content_data', { file_id: file.id });
+      setExistingPortalEntries(data || []);
+    } catch (e) {
+      setExistingPortalEntries([]);
+    }
   };
 
   // Close portal modal
@@ -794,6 +806,7 @@ export default function FileManagement() {
     setMuxUploading(false);
     setMuxProgress(0);
     setMuxUploadId(null);
+    setExistingPortalEntries([]);
   };
 
   // Start Mux direct upload for video files
@@ -1780,6 +1793,18 @@ export default function FileManagement() {
                       {/* Display Priority removed - order inherits from section layout */}
                     </div>
                   </div>
+
+                  {/* Duplicate guard for existing placements */}
+                  {existingPortalEntries.length > 0 && (
+                    <div className="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4 mb-6">
+                      <div className="text-yellow-200 font-semibold mb-1">Already in portal</div>
+                      <div className="text-yellow-100 text-sm space-y-1">
+                        {existingPortalEntries.map((e) => (
+                          <div key={e.id}>• {e.title} — {e.pillar} → {(e.content_data?.subsection || 'Uncategorised')}</div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Content Details */}
                   <div>
