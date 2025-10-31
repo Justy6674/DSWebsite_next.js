@@ -182,6 +182,7 @@ export default function SimpleWaterReminders() {
   const [subscriptionSummary, setSubscriptionSummary] = useState<string>('');
   const [lastTestAt, setLastTestAt] = useState<string>('');
   const [serverTestStatus, setServerTestStatus] = useState<string>('');
+  const [testError, setTestError] = useState<string>('');
 
   const urlBase64ToUint8Array = (base64String: string) => {
     const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -537,17 +538,29 @@ export default function SimpleWaterReminders() {
                   e.stopPropagation();
                   // Debug: confirm click binding in console and UI
                   try { console.log('[Water] Test Reminder clicked'); } catch {}
+                  setTestError('');
                   if (!settings.enabled) return;
-                  const permission = 'Notification' in window ? Notification.permission : 'denied';
+                  if (!('Notification' in window)) {
+                    setTestError('Notifications are not supported on this browser/device.');
+                    alert('Notifications are not supported on this browser/device.');
+                    return;
+                  }
+                  const permission = Notification.permission;
                   if (permission !== 'granted') {
                     const result = await requestNotificationPermission();
                     if (result !== 'granted') {
+                      setTestError('Notifications blocked. Allow notifications for downscale.com.au, then reload.');
                       alert('Notifications are blocked. Please allow notifications for downscale.com.au in your browser settings, then reload.');
                       return;
                     }
                   }
                   try {
-                    const reg = await (navigator.serviceWorker?.ready ?? navigator.serviceWorker?.register('/sw.js'));
+                    if (!('serviceWorker' in navigator)) {
+                      setTestError('Service worker not supported in this browser.');
+                      alert('Service worker not supported in this browser.');
+                      return;
+                    }
+                    const reg = await (navigator.serviceWorker.ready ?? navigator.serviceWorker.register('/sw.js'));
                     const tone = getToneStyleData(settings.toneStyle);
                     const payload = { type: 'test-notification', title: 'Water Reminder', body: tone.example, vibrate: settings.vibrate ? [200, 100, 200] : undefined };
 
@@ -560,6 +573,7 @@ export default function SimpleWaterReminders() {
                     } else if ('Notification' in window && Notification.permission === 'granted') {
                       new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
                     } else {
+                      setTestError('Could not display a notification. Please enable notifications and refresh.');
                       alert('Notifications are not enabled on this browser/device. Please enable and refresh.');
                     }
                     if (settings.vibrate && 'vibrate' in navigator) {
@@ -571,6 +585,8 @@ export default function SimpleWaterReminders() {
                       const tone = getToneStyleData(settings.toneStyle);
                       new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
                       if (settings.vibrate && 'vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+                    } else {
+                      setTestError('Notification failed. Check browser settings and try again.');
                     }
                   }
                   setLastTestAt(new Date().toLocaleTimeString());
@@ -636,6 +652,9 @@ export default function SimpleWaterReminders() {
               <p className="text-xs text-[#fef5e7] opacity-80">Notifications permission: {notificationPermission}</p>
               {serverTestStatus && (
                 <p className="text-xs text-[#fef5e7] opacity-80">{serverTestStatus}</p>
+              )}
+              {testError && (
+                <p className="text-xs text-red-300" aria-live="polite">{testError}</p>
               )}
             </div>
           </CardContent>
