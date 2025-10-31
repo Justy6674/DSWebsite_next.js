@@ -16,7 +16,7 @@ import PortalContentPreview from './PortalContentPreview'
 import TagsInput from '@/components/admin/TagsInput'
 
 type ContentType = 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide'
-type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication'
+type Pillar = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'medication'
 
 interface VideoContent {
   url: string
