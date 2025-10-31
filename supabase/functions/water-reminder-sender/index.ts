@@ -1,3 +1,4 @@
+/* eslint-disable */
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.50.5';
@@ -55,14 +56,14 @@ function minutesSince(timestampIso?: string): number {
 
 function pickToneMessage(tone: string): string {
   const map: Record<string, string> = {
-    encouraging: "💪 You're crushing it! Time for hydration support!",
-    funny: "🐫 Even camels drink water... just saying mate!",
-    kind: "💙 Gentle reminder to nourish yourself with water",
-    crass: "🔥 Oi! Drink some bloody water for fat burning!",
-    clinical: "⚕️ Hydration checkpoint: Optimise lipolysis process",
-    australian: "🇦🇺 Fair dinkum mate, time for a drink!",
-    motivational: "🏆 Champions hydrate - fuel your fat burning!",
-    gentle: "🌸 Your body deserves this hydration care",
+    encouraging: "You're doing well — take a moment to have some water.",
+    funny: "Quick water break — your future self will thank you.",
+    kind: "A gentle nudge to sip some water and look after yourself.",
+    crass: "Time for water — keep it simple and get it done.",
+    clinical: "Hydration reminder: regular intake supports lipolysis and tolerability.",
+    australian: "Top up your water now to stay on track today.",
+    motivational: "Small actions add up — have some water and keep your momentum.",
+    gentle: "A considerate reminder to take a sip when you’re ready.",
   };
   return map[tone] || map.encouraging;
 }

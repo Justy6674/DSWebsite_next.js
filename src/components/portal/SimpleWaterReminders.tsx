@@ -39,49 +39,49 @@ const toneStyles = {
   encouraging: {
     icon: Heart,
     name: 'Encouraging',
-    example: "💪 You're crushing it! Time for hydration support!",
+    example: "You're doing well — take a moment to have some water.",
     color: 'text-pink-400'
   },
   funny: {
     icon: Smile,
     name: 'Funny',
-    example: "🐫 Even camels drink water... just saying mate!",
+    example: "Quick water break — your future self will thank you.",
     color: 'text-yellow-400'
   },
   kind: {
     icon: Heart,
     name: 'Kind',
-    example: "💙 Gentle reminder to nourish yourself with water",
+    example: "A gentle nudge to sip some water and look after yourself.",
     color: 'text-blue-400'
   },
   crass: {
     icon: Zap,
-    name: 'Crass',
-    example: "🔥 Oi! Drink some bloody water for fat burning!",
+    name: 'Direct',
+    example: "Time for water — keep it simple and get it done.",
     color: 'text-red-400'
   },
   clinical: {
     icon: Stethoscope,
     name: 'Clinical',
-    example: "⚕️ Hydration checkpoint: Optimise lipolysis process",
+    example: "Hydration reminder: regular intake supports lipolysis and tolerability.",
     color: 'text-green-400'
   },
   australian: {
     icon: MessageSquare,
     name: 'Australian',
-    example: "🇦🇺 Fair dinkum mate, time for a drink!",
+    example: "Top up your water now to stay on track today.",
     color: 'text-orange-400'
   },
   motivational: {
     icon: Zap,
     name: 'Motivational',
-    example: "🏆 Champions hydrate - fuel your fat burning!",
+    example: "Small actions add up — have some water and keep your momentum.",
     color: 'text-purple-400'
   },
   gentle: {
     icon: Heart,
     name: 'Gentle',
-    example: "🌸 Your body deserves this hydration care",
+    example: "A considerate reminder to take a sip when you’re ready.",
     color: 'text-green-300'
   }
 };
