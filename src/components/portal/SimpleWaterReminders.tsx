@@ -506,6 +506,8 @@ export default function SimpleWaterReminders() {
                 onClick={async (e) => {
                   e.preventDefault();
                   e.stopPropagation();
+                  // Debug: confirm click binding in console and UI
+                  try { console.log('[Water] Test Reminder clicked'); } catch {}
                   if (!settings.enabled) return;
                   const permission = 'Notification' in window ? Notification.permission : 'denied';
                   if (permission !== 'granted') {
@@ -541,7 +543,7 @@ export default function SimpleWaterReminders() {
                   setLastTestAt(new Date().toLocaleTimeString());
                 }}
                 disabled={!settings.enabled}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white relative z-20 pointer-events-auto"
               >
                 Test Reminder
               </Button>
