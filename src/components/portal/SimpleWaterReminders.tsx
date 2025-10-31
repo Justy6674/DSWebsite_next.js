@@ -180,6 +180,7 @@ export default function SimpleWaterReminders() {
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [subscriptionError, setSubscriptionError] = useState<string>('');
   const [subscriptionSummary, setSubscriptionSummary] = useState<string>('');
+  const [lastTestAt, setLastTestAt] = useState<string>('');
 
   const urlBase64ToUint8Array = (base64String: string) => {
     const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -537,6 +538,7 @@ export default function SimpleWaterReminders() {
                       if (settings.vibrate && 'vibrate' in navigator) navigator.vibrate([200, 100, 200]);
                     }
                   }
+                  setLastTestAt(new Date().toLocaleTimeString());
                 }}
                 disabled={!settings.enabled}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white"
@@ -580,6 +582,9 @@ export default function SimpleWaterReminders() {
               )}
               {!subscriptionError && (
                 <p className="text-xs text-[#fef5e7] opacity-80">Push status: {subscriptionSummary}</p>
+              )}
+              {lastTestAt && (
+                <p className="text-xs text-[#fef5e7] opacity-80">Test sent at {lastTestAt}</p>
               )}
             </div>
           </CardContent>
