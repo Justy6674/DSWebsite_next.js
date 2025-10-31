@@ -488,8 +488,7 @@ export default function SimpleWaterReminders() {
                     const tone = getToneStyleData(settings.toneStyle);
                     const n = new Notification("Water Reminder", {
                       body: tone.example,
-                      icon: "/favicon.ico",
-                      vibrate: settings.vibrate ? [200, 100, 200] : undefined
+                      icon: "/favicon.ico"
                     });
                     if (settings.vibrate && 'vibrate' in navigator) {
                       navigator.vibrate([200, 100, 200]);
