@@ -12,10 +12,10 @@ export default function MentalHealthGoalSettingToolsClient() {
       <div className="space-y-6">
         <SectionHeader
           icon={Settings}
-          title="Tools"
-          description="Interactive calculators and assessments"
+          title="Tools & Programs"
+          description="Interactive tools and structured programs"
         />
-        <ContentList pillar="mental-health" subsection="Tools" />
+        <ContentList pillar="mental-health" subsection="Tools & Programs" />
       </div>
     </PortalLayout>
   );

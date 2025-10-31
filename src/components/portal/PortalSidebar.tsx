@@ -47,7 +47,7 @@ const pillars = [
       { name: 'Videos and Video Links', href: '/portal/medication/videos' },
       { name: 'Podcast Links', href: '/portal/medication/podcasts' },
       { name: 'Other', href: '/portal/medication/other' },
-      { name: 'Tools', href: '/portal/medication/tools' }
+      { name: 'Tools & Programs', href: '/portal/medication/tools' }
     ]
   },
   {
@@ -62,7 +62,7 @@ const pillars = [
       { name: 'Videos and Video Links', href: '/portal/nutrition/videos' },
       { name: 'Podcast Links', href: '/portal/nutrition/podcasts' },
       { name: 'Other', href: '/portal/nutrition/other' },
-      { name: 'Tools', href: '/portal/nutrition/tools' }
+      { name: 'Tools & Programs', href: '/portal/nutrition/tools' }
     ]
   },
   {
@@ -77,7 +77,7 @@ const pillars = [
       { name: 'Videos and Video Links', href: '/portal/activity/videos' },
       { name: 'Podcast Links', href: '/portal/activity/podcasts' },
       { name: 'Other', href: '/portal/activity/other' },
-      { name: 'Tools', href: '/portal/activity/tools' }
+      { name: 'Tools & Programs', href: '/portal/activity/tools' }
     ]
   },
   {
@@ -92,7 +92,7 @@ const pillars = [
       { name: 'Videos and Video Links', href: '/portal/mental-health/videos' },
       { name: 'Podcast Links', href: '/portal/mental-health/podcasts' },
       { name: 'Other', href: '/portal/mental-health/other' },
-      { name: 'Tools', href: '/portal/mental-health/tools' }
+      { name: 'Tools & Programs', href: '/portal/mental-health/tools' }
     ]
   },
   {
@@ -107,7 +107,7 @@ const pillars = [
       { name: 'Videos and Video Links', href: '/portal/sleep-recovery/videos' },
       { name: 'Podcast Links', href: '/portal/sleep-recovery/podcasts' },
       { name: 'Other', href: '/portal/sleep-recovery/other' },
-      { name: 'Tools', href: '/portal/sleep-recovery/tools' }
+      { name: 'Tools & Programs', href: '/portal/sleep-recovery/tools' }
     ]
   }
 ];

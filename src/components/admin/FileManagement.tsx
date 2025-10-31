@@ -56,7 +56,7 @@ const STANDARD_SUBSECTIONS = [
   'Videos and Video Links',
   'Podcast Links',
   'Other',
-  'Tools'
+  'Tools & Programs'
 ];
 
 interface PortalContentData {

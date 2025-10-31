@@ -405,7 +405,7 @@ export default function PortalContentManager() {
             <SelectItem value="Videos and Video Links">Videos and Video Links</SelectItem>
             <SelectItem value="Podcast Links">Podcast Links</SelectItem>
             <SelectItem value="Other">Other</SelectItem>
-            <SelectItem value="Tools">Tools</SelectItem>
+            <SelectItem value="Tools & Programs">Tools & Programs</SelectItem>
           </SelectContent>
         </Select>
       </div>

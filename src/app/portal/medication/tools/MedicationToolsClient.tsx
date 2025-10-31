@@ -12,10 +12,10 @@ export default function MedicationToolsClient() {
       <div className="space-y-6">
         <SectionHeader
           icon={Settings}
-          title="Tools"
-          description="Interactive calculators, assessments, and trackers for medication management"
+          title="Tools & Programs"
+          description="Interactive tools and structured programs for medication management"
         />
-        <ContentList pillar="medication" subsection="Tools" />
+        <ContentList pillar="medication" subsection="Tools & Programs" />
       </div>
     </PortalLayout>
   );

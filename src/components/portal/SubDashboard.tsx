@@ -67,11 +67,11 @@ const SUB_SECTIONS: SubSection[] = [
   },
   {
     id: 'tools',
-    name: 'Tools',
+    name: 'Tools & Programs',
     icon: Settings,
     href: '/tools',
-    description: 'Interactive calculators and assessments',
-    subsectionKey: 'Tools',
+    description: 'Interactive tools and structured programs',
+    subsectionKey: 'Tools & Programs',
   },
   {
     id: 'other',

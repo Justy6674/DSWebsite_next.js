@@ -12,10 +12,10 @@ export default function NutritionToolsClient() {
       <div className="space-y-6">
         <SectionHeader
           icon={Settings}
-          title="Tools"
-          description="Interactive calculators, meal planners, and nutrition tracking tools"
+          title="Tools & Programs"
+          description="Interactive tools and structured programs (meal planners, trackers, courses)"
         />
-        <ContentList pillar="nutrition" subsection="Tools" />
+        <ContentList pillar="nutrition" subsection="Tools & Programs" />
       </div>
     </PortalLayout>
   );
