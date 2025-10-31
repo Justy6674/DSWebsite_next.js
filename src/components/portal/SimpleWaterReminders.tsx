@@ -511,7 +511,11 @@ export default function SimpleWaterReminders() {
                   if (!settings.enabled) return;
                   const permission = 'Notification' in window ? Notification.permission : 'denied';
                   if (permission !== 'granted') {
-                    await requestNotificationPermission();
+                    const result = await requestNotificationPermission();
+                    if (result !== 'granted') {
+                      alert('Notifications are blocked. Please allow notifications for downscale.com.au in your browser settings, then reload.');
+                      return;
+                    }
                   }
                   try {
                     const reg = await (navigator.serviceWorker?.ready ?? navigator.serviceWorker?.register('/sw.js'));
@@ -588,6 +592,7 @@ export default function SimpleWaterReminders() {
               {lastTestAt && (
                 <p className="text-xs text-[#fef5e7] opacity-80">Test sent at {lastTestAt}</p>
               )}
+              <p className="text-xs text-[#fef5e7] opacity-80">Notifications permission: {notificationPermission}</p>
             </div>
           </CardContent>
         </Card>
