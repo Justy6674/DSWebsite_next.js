@@ -611,7 +611,7 @@ export default function HealthMetricsDashboard() {
                   <p className="text-xs text-slate-500 mt-2">Measure midway between the lowest rib and the top of the hip bone, after a normal breath out.</p>
                 </div>
               </div>
-              <p className="text-slate-400 mt-2">Language aligns with patient‑first guidance from recognised obesity organisations and Australian clinical practice.</p>
+              
             </CardContent>
           </Card>
         </TabsContent>
