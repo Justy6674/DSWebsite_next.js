@@ -179,6 +179,7 @@ export default function SimpleWaterReminders() {
   const publicVapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY as string | undefined;
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const [subscriptionError, setSubscriptionError] = useState<string>('');
+  const [subscriptionSummary, setSubscriptionSummary] = useState<string>('');
 
   const urlBase64ToUint8Array = (base64String: string) => {
     const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -209,6 +210,7 @@ export default function SimpleWaterReminders() {
         });
       }
       const subJson = sub.toJSON();
+      const device = typeof navigator !== 'undefined' ? (navigator.userAgent || 'unknown') : 'unknown';
       // Save into metadata
       if (currentUser?.id) {
         const { data: profile } = await supabase
@@ -221,11 +223,12 @@ export default function SimpleWaterReminders() {
         const exists = list.some((s: any) => s.endpoint === subJson.endpoint);
         const updated = exists
           ? list
-          : [...list, { endpoint: subJson.endpoint, keys: subJson.keys, created_at: new Date().toISOString() }];
+          : [...list, { endpoint: subJson.endpoint, keys: subJson.keys, created_at: new Date().toISOString(), device }];
         const nextMeta = { ...meta, push_subscriptions: updated };
         await supabase.from('user_profiles').update({ metadata: nextMeta as any }).eq('id', currentUser.id);
       }
       setIsSubscribed(true);
+      setSubscriptionSummary('Subscribed on this device');
     } catch (e: any) {
       setSubscriptionError(e?.message || 'Failed to subscribe');
     }
@@ -253,10 +256,24 @@ export default function SimpleWaterReminders() {
         }
       }
       setIsSubscribed(false);
+      setSubscriptionSummary('Not subscribed on this device');
     } catch (e: any) {
       setSubscriptionError(e?.message || 'Failed to unsubscribe');
     }
   };
+
+  // Detect current subscription status on mount for status line
+  useEffect(() => {
+    (async () => {
+      try {
+        const reg = await navigator.serviceWorker?.ready;
+        const sub = await reg?.pushManager.getSubscription();
+        const subscribed = !!sub;
+        setIsSubscribed(subscribed);
+        setSubscriptionSummary(subscribed ? 'Subscribed on this device' : 'Not subscribed on this device');
+      } catch {}
+    })();
+  }, []);
 
   const requestNotificationPermission = async () => {
     if ('Notification' in window) {
@@ -521,7 +538,7 @@ export default function SimpleWaterReminders() {
                   variant="outline"
                   className="border-slate-600 text-[#fef5e7] hover:bg-slate-700"
                 >
-                  {isSubscribed ? 'Subscribed' : 'Enable Push'}
+                  {isSubscribed ? 'Subscribed' : 'Enable Push on This Device'}
                 </Button>
                 <Button
                   onClick={unsubscribeFromPush}
@@ -534,6 +551,9 @@ export default function SimpleWaterReminders() {
               </div>
               {subscriptionError && (
                 <p className="text-xs text-orange-300">{subscriptionError}</p>
+              )}
+              {!subscriptionError && (
+                <p className="text-xs text-[#fef5e7] opacity-80">Push status: {subscriptionSummary}</p>
               )}
             </div>
           </CardContent>
@@ -651,6 +671,46 @@ export default function SimpleWaterReminders() {
           </CardContent>
         </Card>
       )}
+
+      {/* How Reminders Work - User Explainer */}
+      <Card className="bg-slate-800 border-slate-700">
+        <CardContent className="p-4 space-y-3">
+          <h3 className="text-sm font-medium text-[#f8fafc]">How reminders work</h3>
+          <p className="text-sm text-[#fef5e7]">
+            Push reminders are set per device. Turn on notifications and tap "Enable Push on This Device" on each phone/tablet/computer you want to receive reminders on.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
+              <p className="text-[#f8fafc] font-medium mb-2">Android (Chrome)</p>
+              <ol className="list-decimal list-inside text-sm text-[#fef5e7] space-y-1">
+                <li>Open this page in Chrome.</li>
+                <li>Tap Enable → Enable Push.</li>
+                <li>Start Reminders → Save Settings.</li>
+                <li>Lock the phone; reminders arrive in the background.</li>
+              </ol>
+            </div>
+            <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
+              <p className="text-[#f8fafc] font-medium mb-2">iPhone (iOS 16.4+)</p>
+              <ol className="list-decimal list-inside text-sm text-[#fef5e7] space-y-1">
+                <li>Safari → Share → Add to Home Screen.</li>
+                <li>Open from Home Screen (app view).</li>
+                <li>Enable → Enable Push → Start Reminders → Save.</li>
+              </ol>
+            </div>
+            <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
+              <p className="text-[#f8fafc] font-medium mb-2">Desktop</p>
+              <ol className="list-decimal list-inside text-sm text-[#fef5e7] space-y-1">
+                <li>Open this page in your browser.</li>
+                <li>Enable → Enable Push.</li>
+                <li>Start Reminders → Save Settings.</li>
+              </ol>
+            </div>
+          </div>
+          <p className="text-xs text-[#fef5e7] opacity-80">
+            Tip: "Test Reminder" previews on the current device only. Background/lock‑screen notifications require Enable Push and will be sent on your schedule.
+          </p>
+        </CardContent>
+      </Card>
 
       {/* References */}
       <Card className="bg-slate-800 border-slate-700">
