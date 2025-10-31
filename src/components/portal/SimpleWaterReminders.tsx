@@ -510,15 +510,18 @@ export default function SimpleWaterReminders() {
                   try {
                     const reg = await (navigator.serviceWorker?.ready ?? navigator.serviceWorker?.register('/sw.js'));
                     const tone = getToneStyleData(settings.toneStyle);
-                    if (reg?.showNotification) {
-                      await reg.showNotification('Water Reminder', { body: tone.example, icon: '/favicon.ico' } as NotificationOptions);
+                    const payload = { type: 'test-notification', title: 'Water Reminder', body: tone.example, vibrate: settings.vibrate ? [200, 100, 200] : undefined };
+
+                    if (navigator.serviceWorker?.controller) {
+                      navigator.serviceWorker.controller.postMessage(payload);
                     } else if (reg?.active) {
-                      reg.active.postMessage({
-                        type: 'test-notification',
-                        title: 'Water Reminder',
-                        body: tone.example,
-                        vibrate: settings.vibrate ? [200, 100, 200] : undefined
-                      });
+                      reg.active.postMessage(payload);
+                    } else if (reg && 'showNotification' in reg) {
+                      await (reg as any).showNotification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' } as NotificationOptions);
+                    } else if ('Notification' in window && Notification.permission === 'granted') {
+                      new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
+                    } else {
+                      alert('Notifications are not enabled on this browser/device. Please enable and refresh.');
                     }
                     if (settings.vibrate && 'vibrate' in navigator) {
                       navigator.vibrate([200, 100, 200]);
@@ -527,7 +530,7 @@ export default function SimpleWaterReminders() {
                     // Fallback to window Notification if available
                     if ('Notification' in window && Notification.permission === 'granted') {
                       const tone = getToneStyleData(settings.toneStyle);
-                      new Notification('Water Reminder', { body: tone.example, icon: '/favicon.ico' });
+                      new Notification('Water Reminder', { body: tone.example, icon: '/favicon-32x32.png' });
                       if (settings.vibrate && 'vibrate' in navigator) navigator.vibrate([200, 100, 200]);
                     }
                   }
