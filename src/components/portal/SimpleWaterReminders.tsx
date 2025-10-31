@@ -66,10 +66,10 @@ const toneStyles = {
     example: "Hydration reminder: regular intake supports lipolysis and tolerability.",
     color: 'text-green-400'
   },
-  australian: {
+  mixed: {
     icon: MessageSquare,
-    name: 'Australian',
-    example: "Top up your water now to stay on track today.",
+    name: 'Mixed',
+    example: "Balanced reminder: have some water to support your day.",
     color: 'text-orange-400'
   },
   motivational: {
@@ -317,7 +317,9 @@ export default function SimpleWaterReminders() {
   };
 
   const getToneStyleData = (style: string) => {
-    return toneStyles[style as keyof typeof toneStyles] || toneStyles.encouraging;
+    // Backward compatibility: map legacy 'australian' to 'mixed'
+    const key = style === 'australian' ? 'mixed' : style;
+    return toneStyles[key as keyof typeof toneStyles] || toneStyles.encouraging;
   };
 
   if (!currentUser) {

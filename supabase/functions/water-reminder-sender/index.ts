@@ -61,7 +61,8 @@ function pickToneMessage(tone: string): string {
     kind: "A gentle nudge to sip some water and look after yourself.",
     crass: "Time for water — keep it simple and get it done.",
     clinical: "Hydration reminder: regular intake supports lipolysis and tolerability.",
-    australian: "Top up your water now to stay on track today.",
+    australian: "Balanced reminder: have some water to support your day.",
+    mixed: "Balanced reminder: have some water to support your day.",
     motivational: "Small actions add up — have some water and keep your momentum.",
     gentle: "A considerate reminder to take a sip when you’re ready.",
   };
