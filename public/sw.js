@@ -71,7 +71,20 @@ self.addEventListener('message', (event) => {
         data: { url: '/portal/water' },
         tag: 'water-reminder-test'
       };
-      event.waitUntil(self.registration.showNotification(title, options));
+      event.waitUntil((async () => {
+        try {
+          await self.registration.showNotification(title, options);
+          const allClients = await self.clients.matchAll({ includeUncontrolled: true, type: 'window' });
+          for (const client of allClients) {
+            client.postMessage({ type: 'test-notification-result', ok: true });
+          }
+        } catch (err) {
+          const allClients = await self.clients.matchAll({ includeUncontrolled: true, type: 'window' });
+          for (const client of allClients) {
+            client.postMessage({ type: 'test-notification-result', ok: false, error: String(err) });
+          }
+        }
+      })());
     }
   } catch (e) {
     // no-op

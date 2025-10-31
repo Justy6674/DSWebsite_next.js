@@ -302,6 +302,16 @@ export default function SimpleWaterReminders() {
         const subscribed = !!sub;
         setIsSubscribed(subscribed);
         setSubscriptionSummary(subscribed ? 'Subscribed on this device' : 'Not subscribed on this device');
+        navigator.serviceWorker?.addEventListener('message', (evt: MessageEvent) => {
+          const msg: any = evt.data;
+          if (msg?.type === 'test-notification-result') {
+            if (msg.ok) {
+              setServerTestStatus('Foreground test displayed');
+            } else {
+              setTestError(`Notification error: ${msg.error || 'unknown'}`);
+            }
+          }
+        });
       } catch {}
     })();
   }, []);
