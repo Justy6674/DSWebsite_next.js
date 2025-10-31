@@ -69,8 +69,10 @@ interface PortalContentData {
   [key: string]: any;
 }
 
+type PillarKey = 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication';
+
 interface PortalCategoryAssignment {
-  pillar: 'nutrition' | 'activity' | 'mental-health' | 'sleep-recovery' | 'water' | 'shop' | 'medication';
+  pillars: PillarKey[];
   content_type: 'video' | 'external_doc' | 'downscale_doc' | 'link' | 'tool' | 'program_guide';
   title: string;
   description: string;
@@ -264,9 +266,9 @@ export default function FileManagement() {
   const [showPortalModal, setShowPortalModal] = useState(false);
   const [selectedFileForPortal, setSelectedFileForPortal] = useState<FileItem | null>(null);
   const [existingPortalEntries, setExistingPortalEntries] = useState<any[]>([]);
-  const [fileIdToPortal, setFileIdToPortal] = useState<Record<string, any[]>>({});
+  const [fileIdToPortal, setFileIdToPortal] = useState<Record<string, Array<{ id: string; title: string; pillar: string }>>>({});
   const [portalAssignment, setPortalAssignment] = useState<PortalCategoryAssignment>({
-    pillar: 'medication',
+    pillars: ['medication'],
     content_type: 'external_doc',
     title: '',
     description: '',
@@ -633,16 +635,18 @@ export default function FileManagement() {
         const { data: portalRows } = await (supabase as any)
           .from('portal_content')
           .select('id,title,pillar,content_data');
-        const map: Record<string, any[]> = {};
+        const map: Record<string, Array<{ id: string; title: string; pillar: string }>> = {};
         (portalRows || []).forEach((row: any) => {
-          const fid = row?.content_data?.file_id;
+          const fid = row?.content_data?.file_id as string | undefined;
           if (fid) {
             if (!map[fid]) map[fid] = [];
-            map[fid].push(row);
+            map[fid].push({ id: row.id, title: row.title, pillar: row.pillar });
           }
         });
         setFileIdToPortal(map);
-      } catch {}
+      } catch (err) {
+        console.error('Failed to build file->portal map', err);
+      }
 
       // Generate missing thumbnails for PDFs in background
       setTimeout(async () => {
@@ -779,7 +783,7 @@ export default function FileManagement() {
   const openPortalModal = async (file: FileItem) => {
     setSelectedFileForPortal(file);
     setPortalAssignment({
-      pillar: 'medication',
+      pillars: ['medication'],
       // Default uploaded files to Downscale Document; admin can change if needed
       content_type: 'downscale_doc',
       title: file.name.replace(/\.[^/.]+$/, ""), // Remove file extension
@@ -811,7 +815,7 @@ export default function FileManagement() {
     setShowPortalModal(false);
     setSelectedFileForPortal(null);
     setPortalAssignment({
-      pillar: 'medication',
+      pillars: ['medication'],
       content_type: 'external_doc',
       title: '',
       description: '',
@@ -918,31 +922,38 @@ export default function FileManagement() {
         return (map[pillar]?.[label]) || genericMap[label] || label;
       };
 
-      // Ensure each selected subsection exists in validation table
-      const uniqueSubs = Array.from(new Set(selectedSubs.map(s => normalize(portalAssignment.pillar, s))));
-      const upsertRows = uniqueSubs.map((s) => ({ pillar: portalAssignment.pillar, name: s }));
-      const { error: upsertError } = await (supabase as any)
-        .from('portal_subsections')
-        .upsert(upsertRows);
-      if (upsertError) throw upsertError;
+      // Ensure each selected subsection exists in validation table for each chosen pillar
+      const uniqueSubsRaw = Array.from(new Set(selectedSubs.map(s => s)));
+      for (const pillar of (portalAssignment.pillars || [])) {
+        const upsertRows = uniqueSubsRaw.map((s) => ({ pillar, name: normalize(pillar, s) }));
+        const { error: upsertError } = await (supabase as any)
+          .from('portal_subsections')
+          .upsert(upsertRows);
+        if (upsertError) throw upsertError;
+      }
 
-      const rows = uniqueSubs.map((sub) => ({
-        pillar: portalAssignment.pillar,
-        content_type: portalAssignment.content_type,
-        title: portalAssignment.title.trim(),
-        description: portalAssignment.description.trim() || null,
-        content_data: {
-          ...portalAssignment.content_data,
-          subsection: sub,
-          originalFileName: selectedFileForPortal.name,
-          fileType: selectedFileForPortal.type,
-          fileSize: selectedFileForPortal.size,
-          uploadedAt: selectedFileForPortal.created_at
-        },
-        tags: portalAssignment.tags,
-        is_published: true,
-        created_by: user.id
-      }));
+      const rows: any[] = [];
+      for (const pillar of (portalAssignment.pillars || [])) {
+        for (const sub of uniqueSubsRaw.map(s => normalize(pillar, s))) {
+          rows.push({
+            pillar,
+            content_type: portalAssignment.content_type,
+            title: portalAssignment.title.trim(),
+            description: portalAssignment.description.trim() || null,
+            content_data: {
+              ...portalAssignment.content_data,
+              subsection: sub,
+              originalFileName: selectedFileForPortal.name,
+              fileType: selectedFileForPortal.type,
+              fileSize: selectedFileForPortal.size,
+              uploadedAt: selectedFileForPortal.created_at
+            },
+            tags: portalAssignment.tags,
+            is_published: true,
+            created_by: user.id
+          });
+        }
+      }
 
       const { data, error } = await supabase
         .from('portal_content')
@@ -951,7 +962,7 @@ export default function FileManagement() {
 
       if (error) throw error;
 
-      toast.success(`File added to ${uniqueSubs.length} sub-section(s) in ${PORTAL_PILLARS[portalAssignment.pillar].name}`);
+      toast.success(`File added to ${rows.length} placement(s) across ${(portalAssignment.pillars || []).length} section(s)`);
       closePortalModal();
     } catch (error) {
       console.error('Portal assignment error:', error);
@@ -1689,9 +1700,9 @@ export default function FileManagement() {
                 {/* Placement Preview */}
                 <div className="bg-slate-800 rounded-xl p-6">
                   <h4 className="font-bold text-[#f8fafc] mb-4">Will appear in:</h4>
-                  <div className="space-y-3">
+                    <div className="space-y-3">
                     <div className="text-[#b68a71] text-lg font-semibold">
-                      {PORTAL_PILLARS[portalAssignment.pillar].name}
+                      {(portalAssignment.pillars || []).map(p => PORTAL_PILLARS[p].name).join(', ')}
                     </div>
                     {((portalAssignment.multiSubsections && portalAssignment.multiSubsections.length > 0) || portalAssignment.customSubsection) && (
                       <div className="text-[#fef5e7] text-base space-y-1">
@@ -1719,28 +1730,30 @@ export default function FileManagement() {
                     <h3 className="text-xl font-bold text-[#f8fafc] mb-6">Placement Configuration</h3>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                      {/* Pillar Selection */}
+                      {/* Pillar Selection (multi) */}
                       <div>
-                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
-                          Portal Section *
-                        </Label>
-                        <select
-                          value={portalAssignment.pillar}
-                          onChange={(e) => setPortalAssignment(prev => ({
-                            ...prev,
-                            pillar: e.target.value as any,
-                            subsection: '',
-                            customSubsection: '',
-                            multiSubsections: []
-                          }))}
-                          className="w-full bg-slate-900 border border-slate-700 text-[#f8fafc] rounded-lg px-4 py-3 text-base"
-                        >
-                          {Object.entries(PORTAL_PILLARS).map(([key, pillar]) => (
-                            <option key={key} value={key}>
-                              {pillar.name}
-                            </option>
-                          ))}
-                        </select>
+                        <Label className="text-[#fef5e7] mb-3 block text-base font-medium">Portal Sections * (choose one or more)</Label>
+                        <div className="bg-slate-900 border border-slate-700 rounded-lg p-3 max-h-60 overflow-y-auto space-y-2">
+                          {Object.entries(PORTAL_PILLARS).map(([key, pillar]) => {
+                            const checked = (portalAssignment.pillars || []).includes(key as PillarKey)
+                            return (
+                              <label key={key} className="flex items-center gap-3 text-[#fef5e7] text-sm">
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={(e) => {
+                                    setPortalAssignment(prev => {
+                                      const set = new Set(prev.pillars || [])
+                                      if (e.target.checked) set.add(key as PillarKey); else set.delete(key as PillarKey)
+                                      return { ...prev, pillars: Array.from(set) as PillarKey[] }
+                                    })
+                                  }}
+                                />
+                                <span>{pillar.name}</span>
+                              </label>
+                            )
+                          })}
+                        </div>
                       </div>
 
                       {/* Sub-section Selection (multi-select) */}
@@ -1749,7 +1762,7 @@ export default function FileManagement() {
                           Sub-sections * (select one or more)
                         </Label>
                         <div className="bg-slate-900 border border-slate-700 rounded-lg p-3 max-h-60 overflow-y-auto space-y-2">
-                          {PORTAL_PILLARS[portalAssignment.pillar].subsections.map((subsection) => {
+                          {PORTAL_PILLARS[(portalAssignment.pillars[0] || 'medication') as PillarKey].subsections.map((subsection) => {
                             const checked = (portalAssignment.multiSubsections || []).includes(subsection);
                             return (
                               <label key={subsection} className="flex items-center gap-3 text-[#fef5e7] text-sm">
@@ -1773,8 +1786,7 @@ export default function FileManagement() {
                       </div>
 
                       {/* Custom Sub-section Input */}
-                      {true && (
-                        <div className="lg:col-span-2">
+                      <div className="lg:col-span-2">
                           <Label className="text-[#fef5e7] mb-3 block text-base font-medium">
                             Add a custom sub-section (optional)
                           </Label>
@@ -1788,7 +1800,6 @@ export default function FileManagement() {
                             className="bg-slate-900 border-slate-700 text-[#f8fafc] text-base py-3"
                           />
                         </div>
-                      )}
 
                       {/* Content Type Selection */}
                       <div>

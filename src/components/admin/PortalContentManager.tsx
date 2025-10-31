@@ -104,7 +104,7 @@ export default function PortalContentManager() {
 
   // Form state
   const [formData, setFormData] = useState({
-    pillar: '' as Pillar,
+    pillars: [] as Pillar[],
     content_type: '' as ContentType,
     title: '',
     description: '',
@@ -162,7 +162,7 @@ export default function PortalContentManager() {
 
   const handleSaveContent = async () => {
     try {
-      if (!formData.title || !formData.pillar || !formData.content_type) {
+      if (!formData.title || !(formData.pillars && formData.pillars.length) || !formData.content_type) {
         toast({
           title: 'Validation Error',
           description: 'Please fill in all required fields',
@@ -182,26 +182,30 @@ export default function PortalContentManager() {
         return
       }
 
-      const contentPayload = {
+      const basePayload = {
         ...formData,
         content_data: buildContentData(formData.content_type, formData.content_data)
-      }
+      } as any
 
       if (editingContent) {
         const { error } = await supabase
           .from('portal_content')
-          .update(contentPayload)
+          .update(basePayload)
           .eq('id', editingContent.id)
 
         if (error) throw error
         toast({ title: 'Success', description: 'Content updated successfully' })
       } else {
+        // Insert one row per selected pillar
+        const rows = (formData.pillars || []).map((pillar) => ({
+          ...basePayload,
+          pillar
+        }))
         const { error } = await supabase
           .from('portal_content')
-          .insert([contentPayload])
-
+          .insert(rows)
         if (error) throw error
-        toast({ title: 'Success', description: 'Content created successfully' })
+        toast({ title: 'Success', description: `Content created in ${rows.length} section(s)` })
       }
 
       resetForm()
@@ -375,19 +379,28 @@ export default function PortalContentManager() {
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="pillar">Pillar Section</Label>
-            <Select value={formData.pillar} onValueChange={(value: Pillar) => setFormData({ ...formData, pillar: value })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select pillar section" />
-              </SelectTrigger>
-              <SelectContent>
-                {PILLARS.map(pillar => (
-                  <SelectItem key={pillar.value} value={pillar.value}>
-                    {pillar.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Label htmlFor="pillar">Pillar Sections</Label>
+            <div className="bg-slate-900 border border-slate-700 rounded-lg p-3 max-h-48 overflow-y-auto space-y-2">
+              {PILLARS.map(p => {
+                const checked = (formData.pillars || []).includes(p.value)
+                return (
+                  <label key={p.value} className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={(e) => {
+                        setFormData(prev => {
+                          const set = new Set(prev.pillars || [])
+                          if (e.target.checked) set.add(p.value); else set.delete(p.value)
+                          return { ...prev, pillars: Array.from(set) as Pillar[] }
+                        })
+                      }}
+                    />
+                    <span>{p.label}</span>
+                  </label>
+                )
+              })}
+            </div>
           </div>
 
           <div>
