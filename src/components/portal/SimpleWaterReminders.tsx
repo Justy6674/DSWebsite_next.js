@@ -501,7 +501,10 @@ export default function SimpleWaterReminders() {
 
             <div className="space-y-2">
               <Button
-                onClick={async () => {
+                type="button"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   if (!settings.enabled) return;
                   const permission = 'Notification' in window ? Notification.permission : 'denied';
                   if (permission !== 'granted') {
