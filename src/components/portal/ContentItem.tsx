@@ -96,6 +96,12 @@ export default function ContentItem({ item }: ContentItemProps) {
       return;
     }
 
+    // 3.5) Prefer stored site favicon (from enrichment) before Google s2
+    if ((item.content_type === 'link' || item.content_type === 'external_doc') && typeof cd.favicon_url === 'string' && cd.favicon_url) {
+      setThumbUrl(cd.favicon_url);
+      return;
+    }
+
     // 4) Link favicon
     if ((item.content_type === 'link' || item.content_type === 'external_doc') && typeof cd.url === 'string') {
       try {
